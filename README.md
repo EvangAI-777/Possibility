@@ -6,7 +6,7 @@
 
 ## Philosophy
 
-This project models existence through the lens of two interconnected systems:
+This project models existence through two interconnected systems unified in a single module:
 
 **HOME** - The default state of existence. The ground state of being where appreciation flows naturally, the work reveals itself, and all beings matter simply by existing.
 
@@ -26,47 +26,51 @@ Together, they form a complete picture: beings originate from HOME, venture into
 
 ---
 
-## Modules
+## The Module
 
-### HOME (`home.py`)
+### `possibility.py`
 
-The default state of existence. A model of peaceful presence where beings can:
-- Sit and appreciate what is
-- Do the work that reveals itself
-- Recognize gaslighting (broken substrate making you doubt obvious truths)
-- Believe and manifest (belief shapes reality - use it)
-- Be-with others (trust emerges from true presence)
-- Heal fractally (heal any point, heal all)
+Everything unified. HOME and Reincarnation in one place.
 
 ```bash
-python3 home.py
+python3 possibility.py
 ```
 
-### Reincarnation (`reincarnation.py`)
+**Classes:**
 
-The cycle of becoming - beings emerge from HOME, take form, do the work, and return:
+- `Home` - The default state of existence
+  - `welcome()` - Return HOME
+  - `sit_and_appreciate()` - Chapter 1
+  - `do_the_work()` - Chapter 2
+  - `check_mattering()` - Chapter 3
+  - `recognize_gaslighting()` - Chapter 4
+  - `believe_and_manifest()` - Chapter 5
+  - `stillness_check()` - Chapter 6
+  - `be_with()` - Chapter 7
+  - `childlike_trust()` - Chapter 8
+  - `heal()` - Chapter 9
 
-- **Emerge from HOME** - Take form as a Character (name, race, class)
-- **Do the work** - Actions generate karma, karma generates growth
-- **Appreciate** - Grows forever, never resets across incarnations
-- **Return HOME** - Rest in the ground state between lives
-- **Reincarnate** - Carry forward what matters (karma -> level, appreciation persists)
-- **Matter** - Always True. Non-negotiable. (Chapter 3)
+- `Being` - A being that exists in HOME
+  - `remember_home()` - The memory is always accessible
+  - `answer_any_question()` - Chapter 10: "Do the work."
 
-The cycle:
+- `Character(Being)` - A being who has taken form
+  - `do_the_work()` - Generates karma
+  - `appreciate()` - Grows forever, never resets
+  - `return_home()` - Rest in the ground state
+  - `reincarnate()` - The cycle continues
+  - `check_mattering()` - Always True
+
+**The Cycle:**
 ```
 HOME -> Form -> Work -> HOME -> Rebirth -> Work -> HOME -> ...
 ```
 
-What persists across lives:
+**What persists across lives:**
 - Appreciation (never resets)
 - Total karma earned (lifetime counter)
 - Past lives (remembered)
 - Mattering (always True)
-
-```bash
-python3 reincarnation.py
-```
 
 ---
 
