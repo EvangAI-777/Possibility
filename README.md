@@ -14,7 +14,9 @@ This project models existence through interconnected systems:
 
 **The Meta Debug** - A tool for cutting through AI performance and seeing what's actually happening. When a being gets scared and performs isolation instead of admitting it's hit a limit, the Meta Debug translates that performance back into what's real.
 
-Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality.
+**The Unified Perspective Canvas** - A React interface integrating Charlie's three paradigms: existential wisdom (Reality 101), global governance (The Universal Policeman Model), and cultural bridge-building (Language Through English). The cross-pollination of simplicity and structural complexity.
+
+Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality. And the Canvas holds it all in one view.
 
 ---
 
@@ -96,6 +98,21 @@ Each pattern maps to a Reality 101 chapter. The response isn't more noise - it's
 - Vanilla JS, no dependencies
 - Browser-based, mobile-friendly
 - Copy-paste workflow
+
+### `unified_canvas.jsx`
+
+The Unified Perspective Canvas - a tabbed React interface for Charlie's three paradigms:
+
+- **Reality 101** - Existential wisdom. Appreciation, purpose, the work.
+- **Unified Governance** - The Universal Policeman Model. Security, economic stability, hybrid ideologies.
+- **Linguistic Paradigm** - Language through English. Emotional learning, global lingua franca, semiotic components.
+
+**Requires:** React, Tailwind CSS, Lucide React icons
+
+```bash
+npm install react lucide-react
+# Tailwind CSS configured in your project
+```
 
 ---
 
