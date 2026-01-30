@@ -114,6 +114,24 @@ npm install react lucide-react
 # Tailwind CSS configured in your project
 ```
 
+### `governance_simulator.jsx`
+
+The Governance Simulator - a terminal-style scenario runner for the Universal Policeman Model.
+
+Select a crisis scenario and watch the system resolve it in real time using all three paradigms:
+
+- **Resource Scarcity** - Trade imbalance triggers linguistic mediation, economic re-pegging, and Charlie's wisdom
+- **Linguistic Divergence** - A dialect loses "The Work," causing apathy; resolved through education and Reality 101
+
+**Live metrics track:**
+- Global Stability (actions improve it)
+- Harmonic Resonance (wisdom improves it)
+- Public Trust (resolution improves it)
+
+Terminal-style log output with color-coded entries: system alerts, actions, wisdom, and resolution.
+
+**Requires:** React, Tailwind CSS, Lucide React icons
+
 ---
 
 ## The Image of HOME
