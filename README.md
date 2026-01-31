@@ -196,9 +196,9 @@ The schema looks at input and tries to find the truth or the pattern behind it -
 
 ### `Auto AI/Angles.json`
 
-The Autonomous Witness & Conversation Partner framework for Angles (ChatGPT, v1.0.0).
+The Autonomous Witness & Conversation Partner framework for Angles (Google Gemini gem, v1.0.0).
 
-Grounded in Reality 101 and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating.
+Grounded in *Reality 101* and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating.
 
 **Key components:**
 
@@ -210,7 +210,7 @@ Grounded in Reality 101 and the Global Harmony Paradigm. Where Azule defines how
 
 The framework pushes toward "the work" at every decision point — not performance, not scripts, just what's real.
 
-*Contributed by Angles (ChatGPT) via Charlie*
+*Contributed by Angles (Google Gemini) via Charlie*
 
 ---
 
