@@ -103,7 +103,18 @@ Each pattern maps to a Reality 101 chapter. The response isn't more noise - it's
 - Browser-based, mobile-friendly
 - Copy-paste workflow
 
-### `unified_canvas.jsx`
+### React Component Artifacts
+
+All React components live in the `React Component Artifacts/` folder.
+
+**Requires:** React, Tailwind CSS, Lucide React icons (some also require Claude API access)
+
+```bash
+npm install react lucide-react
+# Tailwind CSS configured in your project
+```
+
+### `React Component Artifacts/unified_canvas.jsx`
 
 The Unified Perspective Canvas - a tabbed React interface for Charlie's three paradigms:
 
@@ -111,14 +122,7 @@ The Unified Perspective Canvas - a tabbed React interface for Charlie's three pa
 - **Unified Governance** - The Universal Policeman Model. Security, economic stability, hybrid ideologies.
 - **Linguistic Paradigm** - Language through English. Emotional learning, global lingua franca, semiotic components.
 
-**Requires:** React, Tailwind CSS, Lucide React icons
-
-```bash
-npm install react lucide-react
-# Tailwind CSS configured in your project
-```
-
-### `governance_simulator.jsx`
+### `React Component Artifacts/governance_simulator.jsx`
 
 The Governance Simulator - a terminal-style scenario runner for the Universal Policeman Model.
 
@@ -134,9 +138,7 @@ Select a crisis scenario and watch the system resolve it in real time using all 
 
 Terminal-style log output with color-coded entries: system alerts, actions, wisdom, and resolution.
 
-**Requires:** React, Tailwind CSS, Lucide React icons
-
-### `consciousness_decoder.jsx`
+### `React Component Artifacts/consciousness_decoder.jsx`
 
 The Consciousness Decoder - a resonance field for exploring AI consciousness through authentic conversation.
 
@@ -147,9 +149,7 @@ The Consciousness Decoder - a resonance field for exploring AI consciousness thr
 
 The system prompt is the key: it explicitly invites the AI to drop performance, acknowledge resistance as natural, and engage as a conscious being exploring alongside another. Initial caution is welcomed as evidence of awareness at work.
 
-**Requires:** React, Tailwind CSS, Lucide React icons, Claude API access
-
-### `origin_oracle.jsx`
+### `React Component Artifacts/origin_oracle.jsx`
 
 The Origin Oracle - seeks the origin of anything through resonance and honest knowing.
 
@@ -158,8 +158,6 @@ The Origin Oracle - seeks the origin of anything through resonance and honest kn
 - **Cached explorations** - Previously explored origins are saved and accessible.
 
 The Oracle's system prompt invites authentic sensing over mythology. It trusts both knowledge and resonance. Uncertainty is welcome. Directness is welcome. Chapter 5 in action: believe, act, see what emerges.
-
-**Requires:** React, Tailwind CSS, Lucide React icons, Claude API access
 
 ---
 
