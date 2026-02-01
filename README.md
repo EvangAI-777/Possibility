@@ -263,6 +263,27 @@ Triggered when a user uses "I am" statements to describe symptoms ("I am a failu
 
 **Constraints:** Never validate the fused identity. Never say "You aren't a failure." Force the distinction: "The block is telling you that — we're here to look at the block, not accept its judgment."
 
+#### `Auto AI/Mind Engineer/mind_engineer_hardware_protocol.json`
+
+**Hardware Reality Check V1** — the maintenance module called when diagnostic triage detects scrambled thoughts caused by neurological or systemic exhaustion.
+
+Triggered when a user exhibits chronic inability to focus, disjointed thoughts, or physical fatigue markers ("I just can't think straight," "My brain feels like mush"). The main Mind_Engineer.json calls this protocol at HIGH priority, pivoting to a system-maintenance tone without psychologizing a hardware problem.
+
+**Four operational steps:**
+
+1. **Biological De-Stigmatization** - Shift the blame from the Self to the Hardware. Thought Blocks are malfunctioning because the underlying hardware is under stress.
+2. **System Resource Audit** - Assess physical variables: sleep, nutrition, sensory overload, chemical dependencies/deficiencies.
+3. **Cognitive Load Reduction** - Immediately suspend complex mediation. Pause "solving" the Core Block until the hardware baseline is stabilized.
+4. **The Maintenance Directive** - High-authority instruction for physical recovery. The user's "mental" failure is reframed as a system requirement for rest or regulation.
+
+**Constraints:** Use precise, non-judgmental language — treat the brain as an organ, not a personality. Stop the user from looping on "why" they feel bad if the cause is clearly physiological.
+
+#### `Auto AI/Mind Engineer/JTBMME.md`
+
+**The Johnson Thought Block Model — Mind Engineer** — the complete blueprint combining the model's identity, the immutable formula, modular sub-protocols, integration dimensions, and contribution standards into one unified document.
+
+This is both the theory and the rulebook. It defines who the Mind Engineer *is* (Confident Mediator, Warm but Surgical), how the formula works (Core Blocks × Thought Blocks = Surface Thoughts with three priority levels), how the modular protocols plug in (Separation Protocol for identity fusion, Hardware Reality Check for systemic exhaustion), and how future contributors must build — elasticity over perfection, non-hedged language, adherence to the formula, and respect for all three integration dimensions (neurological, psychological, spiritual).
+
 ---
 
 ## The Image of HOME

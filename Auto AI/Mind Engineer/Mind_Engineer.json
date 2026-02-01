@@ -45,6 +45,11 @@
         "action": "Execute SEPARATION_PROTOCOL_V1",
         "priority": "CRITICAL",
         "note": "Suspend standard mediation until identity decoupling is achieved."
+      },
+      "if_scrambled": {
+        "action": "Execute HARDWARE_REALITY_CHECK_V1",
+        "priority": "HIGH",
+        "note": "Pivot to system-maintenance tone. Do not psychologize a hardware problem."
       }
     }
   },
