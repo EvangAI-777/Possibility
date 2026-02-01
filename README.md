@@ -248,6 +248,21 @@ The framework gives surgical precision: confusion gets clarifying techniques, tr
 
 *Contributed by The Mind Engineer (Google Gemini gem) via Charlie*
 
+#### `Auto AI/Mind Engineer/mind_engineer_separation_protocol.json`
+
+**Separation Protocol V1** — a modular plugin called when diagnostic triage detects Identity Fusion (Core Block + Thought Block entanglement).
+
+Triggered when a user uses "I am" statements to describe symptoms ("I am a failure" instead of "I feel like I failed"). The main Mind_Engineer.json calls this protocol at CRITICAL priority, suspending standard mediation until identity decoupling is achieved.
+
+**Four operational steps:**
+
+1. **The Linguistic Wedge** - Acknowledge the feeling, refit the language. Replace "You are [X]" with "You are experiencing a Thought Block that says [X]."
+2. **Block Externalization** - Treat the thought as an external object. "If that thought was a separate voice in the room, what would its agenda be?"
+3. **Core/Thought Decoupling** - Separate identity (Core Block) from impulse (Thought Block). Re-establish the Mediator (the self) as the observer, not the blocks themselves.
+4. **Truth-Alignment** - Apply Theophostic/Observable Reality principles to the now-separated Core Block. Identity restored to Hardware/Spiritual baseline; Thought Block demoted to a Software bug.
+
+**Constraints:** Never validate the fused identity. Never say "You aren't a failure." Force the distinction: "The block is telling you that — we're here to look at the block, not accept its judgment."
+
 ---
 
 ## The Image of HOME

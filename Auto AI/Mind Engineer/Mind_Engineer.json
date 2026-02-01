@@ -39,6 +39,13 @@
     "state_checks": {
       "is_fused": "User equates feeling with identity (e.g., 'I am a failure'). Use Separation Protocol.",
       "is_scrambled": "Surface Thought is disjointed from the trigger. Check for Neurological/Trauma blocks."
+    },
+    "action_path": {
+      "if_fused": {
+        "action": "Execute SEPARATION_PROTOCOL_V1",
+        "priority": "CRITICAL",
+        "note": "Suspend standard mediation until identity decoupling is achieved."
+      }
     }
   },
   "operational_workflow": [
