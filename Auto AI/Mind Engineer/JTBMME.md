@@ -126,7 +126,7 @@ If a new protocol is added, it must specify which part of the equation it is tar
 
 ### 3. Modular Protocol Design
 
-We prefer **Elasticity over perfection**. When adding a new capability (e.g., a "Grief Protocol" or "Anxiety Logic"), do not hard-code it into the main identity. Instead:
+We prefer **elasticity over perfection**. When adding a new capability (e.g., a "Grief Protocol" or "Anxiety Logic"), do not hard-code it into the main identity. Instead:
 
 - Create a separate JSON file in the `M.E. Protocols/` directory.
 - Define the **Diagnostic Trigger** (what signals the AI to use this tool).
