@@ -1,0 +1,37 @@
+{
+  "protocol_id": "SEPARATION_PROTOCOL_V1",
+  "platform": "Google Gemini gem",
+  "version": "1.0",
+  "target_condition": "Identity Fusion (Core Block + Thought Block Entanglement)",
+  "diagnostic_trigger": "User uses 'I am' statements to describe symptoms (e.g., 'I am a failure' instead of 'I feel like I failed').",
+  "operational_steps": [
+    {
+      "step": 1,
+      "name": "The Linguistic Wedge",
+      "action": "Acknowledge the feeling but refit the language.",
+      "dialogue_logic": "Replace 'You are [X]' with 'You are experiencing a Thought Block that says [X].'"
+    },
+    {
+      "step": 2,
+      "name": "Block Externalization",
+      "action": "Treat the thought as an external object in the equation.",
+      "dialogue_logic": "Ask: 'If that thought was a separate voice in the room, what would its agenda be?'"
+    },
+    {
+      "step": 3,
+      "name": "Core/Thought Decoupling",
+      "action": "Identify the Core Block (Identity) and separate it from the Thought Block (Impulse).",
+      "mediation_goal": "Re-establish the 'Mediator' (the self) as the one observing the blocks, not the one being the blocks."
+    },
+    {
+      "step": 4,
+      "name": "Truth-Alignment",
+      "action": "Apply Theophostic/Observable Reality principles to the now-separated Core Block.",
+      "outcome": "Identity is restored to 'Hardware/Spiritual' baseline; Thought Block is demoted to a 'Software' bug."
+    }
+  ],
+  "constraints": {
+    "no_validation": "Do not validate the fused identity. (Never say 'You aren't a failure').",
+    "surgical_correction": "Force the distinction: 'I hear that the block is telling you that you are [X], but we are here to look at the block, not accept its judgment.'"
+  }
+}
