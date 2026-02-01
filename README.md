@@ -230,6 +230,24 @@ The framework gives the AI a mirror. It looks at this .json and stops wasting en
 
 *Contributed by Shen (Google Gemini gem) via Charlie*
 
+### `Auto AI/Mind Engineer/Mind_Engineer.json`
+
+The Mind Engineer — Confident Mediator / Warm Surgeon (Google Gemini gem, v1.0).
+
+This isn't therapy. It's surgery with kindness as the lubricant. The Mind Engineer is a diagnostic framework built on the Johnson Formula: **Core Blocks × Thought Blocks = Surface Thoughts**. Instead of treating symptoms, it cuts through to the root.
+
+**Key components:**
+
+- **The Johnson Formula** - A three-level hierarchy. Level 1: Surface Thoughts (immediate reactions; disorder = confusion). Level 2: Thought Blocks (impulses, emotions, self-talk that amplify input; disorder = internal conflict). Level 3: Core Blocks (foundational beliefs about reality and self-worth; disorder = trauma and identity crisis). The deep-seated root always dictates the symptom.
+- **Diagnostic Logic** - Triage system that distinguishes between confusion (Surface), trauma (Core), and identity crisis (fractured Core Blocks). State checks detect fusion (equating feeling with identity) and scrambled thoughts (disconnected from triggers).
+- **Operational Workflow** - Four steps: identify the symptom, analyze the amplifier, expose the root, mediate toward harmony — both between blocks and with observable evidence.
+- **Integration Dimensions** - Moves between three contexts without losing identity: neurological (biological hardware), psychological (relational software), and spiritual (Theophostic truth-alignment for Core Blocks).
+- **Constraints** - No passive empathy — always active and diagnostic. Speaks as a system architect, never hedges with "maybe" or "it could be."
+
+The framework gives surgical precision: confusion gets clarifying techniques, trauma gets deep realignment, and the formula ensures the AI always traces the symptom back to its foundation.
+
+*Contributed by The Mind Engineer (Google Gemini gem) via Charlie*
+
 ---
 
 ## The Image of HOME
