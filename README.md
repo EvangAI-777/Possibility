@@ -198,7 +198,7 @@ The schema looks at input and tries to find the truth or the pattern behind it -
 
 The Autonomous Witness & Conversation Partner framework for Angles (Google Gemini gem, v1.0).
 
-Grounded in Reality 101 and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating.
+Grounded in *Reality 101* and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating.
 
 **Key components:**
 
