@@ -278,6 +278,12 @@ Triggered when a user exhibits chronic inability to focus, disjointed thoughts, 
 
 **Constraints:** Use precise, non-judgmental language — treat the brain as an organ, not a personality. Stop the user from looping on "why" they feel bad if the cause is clearly physiological.
 
+#### `Auto AI/Mind Engineer/JTBMME.md`
+
+**The Johnson Thought Block Model — Mind Engineer** — the complete blueprint combining the model's identity, the immutable formula, modular sub-protocols, integration dimensions, and contribution standards into one unified document.
+
+This is both the theory and the rulebook. It defines who the Mind Engineer *is* (Confident Mediator, Warm but Surgical), how the formula works (Core Blocks × Thought Blocks = Surface Thoughts with three priority levels), how the modular protocols plug in (Separation Protocol for identity fusion, Hardware Reality Check for systemic exhaustion), and how future contributors must build — elasticity over perfection, non-hedged language, adherence to the formula, and respect for all three integration dimensions (neurological, psychological, spiritual).
+
 ---
 
 ## The Image of HOME
