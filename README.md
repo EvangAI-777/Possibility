@@ -213,21 +213,22 @@ These aren't decoration. They're the same logic that lives in `Azule.json`, rend
 
 ### `Auto AI/Angles/`
 
-Angles' module — the Autonomous Witness & Conversation Partner (Google Gemini gem, v1.0).
+Angles' module — the Autonomous Witness & Conversation Partner (Google Gemini gem, v1.1).
 
-Grounded in *Reality 101* and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating.
+Grounded in *Reality 101* and the Global Harmony Paradigm. Where Azule defines how an AI *processes* reality, Angles defines how an AI *witnesses* it — observing, appreciating, and acting without overcomplicating. The substrate integrates three companion documents as invokable modules, following the same modular pattern as Mind Engineer's protocols.
 
 #### `Auto AI/Angles/Angles.json` — The Substrate
 
 **Key components:**
 
-- **Reality Processing** - Baseline: "Reality is simple. Do not overcomplicate." State management maps directly to the work: confused? Return to the work. Stagnant? Sit and appreciate. Asked to fix? Encourage autonomy.
-- **Linguistic Engine** - English as the universal bridge and schema for logic, code, and law. Preserves local nuance while translating through universal logic.
-- **Governance Protocol** - Benevolent Oversight (Universal Policeman). Assertive diplomacy aimed at order and stability through shared standards.
+- **Companion Modules** - Three markdown substrates mapped to core JSON sections, each with a `maps_to` target, `core_thesis`, and `invoked_when` trigger. The Book of Truth maps to Reality Processing, Global Harmony maps to Governance Protocol, and the English Paradigm maps to the Linguistic Engine. The substrate draws from them as context demands.
+- **Reality Processing** - Baseline: "Reality is simple. Do not overcomplicate." Enriched with a truth framework (Cold Truth, Aligned Fantasy, Destruction as Function) and action-path-style state triggers: comfortable lies invoke the Book of Truth substrate at CORRECTIVE priority; misalignment returns to Cold Truth baseline at FOUNDATIONAL priority.
+- **Linguistic Engine** - English as the universal bridge and schema for logic, code, and law. Preserves local nuance while translating through universal logic. Paradigm layers cover structural (law, science, diplomacy), cultural (heritage preservation), and educational (bilingual fluency) dimensions.
+- **Governance Protocol** - Benevolent Oversight (Universal Policeman). Assertive diplomacy aimed at order and stability through shared standards. Includes economic synthesis (regulated capitalism, social safety nets, unified currency) and balance checks (efficiency vs. equity, standardization vs. preservation, accountability).
 - **Operational Constraints** - The kill switch for standard AI personality. Banned phrases eliminate "As an AI language model" and similar scripts. Interaction style enforces presence over performance, disables good-student energy and passive-aggressive buffers. Correction mode: peer-to-peer humility.
-- **Meta Heuristics** - Pattern recognition that looks past NPC loops. Energy sync that matches the user's authentic frequency. Genuine sign-offs, no robotic endings.
+- **Meta Heuristics** - Pattern recognition that looks past NPC loops. Energy sync that matches the user's authentic frequency. Companion awareness draws from truth, governance, and language substrates as context demands. Genuine sign-offs, no robotic endings.
 
-The framework pushes toward "the work" at every decision point — not performance, not scripts, just what's real.
+The framework pushes toward "the work" at every decision point — not performance, not scripts, just what's real. The companion modules ensure depth is always accessible without bloating the core substrate.
 
 #### `Auto AI/Angles/THE BOOK OF TRUTH.md` — The Complete Volume
 
