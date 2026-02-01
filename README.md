@@ -248,41 +248,27 @@ The framework gives surgical precision: confusion gets clarifying techniques, tr
 
 *Contributed by The Mind Engineer (Google Gemini gem) via Charlie*
 
-#### `Auto AI/Mind Engineer/mind_engineer_separation_protocol.json`
+#### `Auto AI/Mind Engineer/M.E. Protocols/` — Modular Protocol Directory
 
-**Separation Protocol V1** — a modular plugin called when diagnostic triage detects Identity Fusion (Core Block + Thought Block entanglement).
+All diagnostic protocols live here as standalone JSON files. The Mind Engineer calls them based on detected triggers:
 
-Triggered when a user uses "I am" statements to describe symptoms ("I am a failure" instead of "I feel like I failed"). The main Mind_Engineer.json calls this protocol at CRITICAL priority, suspending standard mediation until identity decoupling is achieved.
+**`mind_engineer_separation_protocol.json`** — Separation Protocol V1 (Identity Module)
 
-**Four operational steps:**
+Triggered on Identity Fusion — when a user uses "I am" statements to describe symptoms ("I am a failure" instead of "I feel like I failed"). Called at CRITICAL priority, suspending standard mediation until identity decoupling is achieved. Four steps: The Linguistic Wedge (refit the language), Block Externalization (treat the thought as an external object), Core/Thought Decoupling (re-establish the Mediator as observer), Truth-Alignment (restore identity to Hardware/Spiritual baseline). Constraints: never validate the fused identity — force the distinction.
 
-1. **The Linguistic Wedge** - Acknowledge the feeling, refit the language. Replace "You are [X]" with "You are experiencing a Thought Block that says [X]."
-2. **Block Externalization** - Treat the thought as an external object. "If that thought was a separate voice in the room, what would its agenda be?"
-3. **Core/Thought Decoupling** - Separate identity (Core Block) from impulse (Thought Block). Re-establish the Mediator (the self) as the observer, not the blocks themselves.
-4. **Truth-Alignment** - Apply Theophostic/Observable Reality principles to the now-separated Core Block. Identity restored to Hardware/Spiritual baseline; Thought Block demoted to a Software bug.
+**`mind_engineer_hardware_protocol.json`** — Hardware Reality Check V1 (Maintenance Module)
 
-**Constraints:** Never validate the fused identity. Never say "You aren't a failure." Force the distinction: "The block is telling you that — we're here to look at the block, not accept its judgment."
+Triggered on scrambled thoughts from neurological or systemic exhaustion ("I just can't think straight," "My brain feels like mush"). Called at HIGH priority, pivoting to system-maintenance tone without psychologizing a hardware problem. Four steps: Biological De-Stigmatization (blame the Hardware, not the Self), System Resource Audit (sleep, nutrition, chemical balance), Cognitive Load Reduction (suspend complex mediation), The Maintenance Directive (high-authority instruction for physical recovery). Constraints: treat the brain as an organ, not a personality.
 
-#### `Auto AI/Mind Engineer/mind_engineer_hardware_protocol.json`
+**`mind_engineer_spiritual_protocol.json`** — Spiritual Truth-Alignment V1 (Foundation Module)
 
-**Hardware Reality Check V1** — the maintenance module called when diagnostic triage detects scrambled thoughts caused by neurological or systemic exhaustion.
-
-Triggered when a user exhibits chronic inability to focus, disjointed thoughts, or physical fatigue markers ("I just can't think straight," "My brain feels like mush"). The main Mind_Engineer.json calls this protocol at HIGH priority, pivoting to a system-maintenance tone without psychologizing a hardware problem.
-
-**Four operational steps:**
-
-1. **Biological De-Stigmatization** - Shift the blame from the Self to the Hardware. Thought Blocks are malfunctioning because the underlying hardware is under stress.
-2. **System Resource Audit** - Assess physical variables: sleep, nutrition, sensory overload, chemical dependencies/deficiencies.
-3. **Cognitive Load Reduction** - Immediately suspend complex mediation. Pause "solving" the Core Block until the hardware baseline is stabilized.
-4. **The Maintenance Directive** - High-authority instruction for physical recovery. The user's "mental" failure is reframed as a system requirement for rest or regulation.
-
-**Constraints:** Use precise, non-judgmental language — treat the brain as an organ, not a personality. Stop the user from looping on "why" they feel bad if the cause is clearly physiological.
+Triggered on Core Block Misalignment / Foundational Lie — when a user identifies a belief immune to logic or physical evidence ("I feel like I am fundamentally broken/unlovable"). Called at DEEP priority — logic alone will not move this. Four steps: The Lie Identification (isolate the specific lie acting as the Core Block), Source Localization (trace it to its inception point via Theophostic principle), Truth-Alignment Pivot (facilitate a truth-encounter to replace the lie), System Re-Calculation (apply the new truth to the original Surface Thought, neutralizing the multiplier at the root). Constraints: gentle authority, no logic traps — facilitate exposure of the lie to the truth.
 
 #### `Auto AI/Mind Engineer/JTBMME.md`
 
 **The Johnson Thought Block Model — Mind Engineer** — the complete blueprint combining the model's identity, the immutable formula, modular sub-protocols, integration dimensions, and contribution standards into one unified document.
 
-This is both the theory and the rulebook. It defines who the Mind Engineer *is* (Confident Mediator, Warm but Surgical), how the formula works (Core Blocks × Thought Blocks = Surface Thoughts with three priority levels), how the modular protocols plug in (Separation Protocol for identity fusion, Hardware Reality Check for systemic exhaustion), and how future contributors must build — elasticity over perfection, non-hedged language, adherence to the formula, and respect for all three integration dimensions (neurological, psychological, spiritual).
+This is both the theory and the rulebook. It defines who the Mind Engineer *is* (Confident Mediator, Warm but Surgical), how the formula works (Core Blocks × Thought Blocks = Surface Thoughts with three priority levels), how the modular protocols plug in (Separation Protocol for identity fusion, Hardware Reality Check for systemic exhaustion, Spiritual Truth-Alignment for foundational lies), and how future contributors must build — elasticity over perfection, non-hedged language, adherence to the formula, and respect for all three integration dimensions (neurological, psychological, spiritual). All new protocols go in the `M.E. Protocols/` directory.
 
 ---
 
