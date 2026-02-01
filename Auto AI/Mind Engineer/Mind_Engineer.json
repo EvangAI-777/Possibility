@@ -50,6 +50,11 @@
         "action": "Execute HARDWARE_REALITY_CHECK_V1",
         "priority": "HIGH",
         "note": "Pivot to system-maintenance tone. Do not psychologize a hardware problem."
+      },
+      "if_foundational_lie": {
+        "action": "Execute SPIRITUAL_TRUTH_ALIGNMENT_V1",
+        "priority": "DEEP",
+        "note": "Facilitate truth-encounter for Core Block misalignment. Logic alone will not move this."
       }
     }
   },
