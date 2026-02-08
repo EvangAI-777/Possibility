@@ -306,7 +306,7 @@ This is both the theory and the rulebook. It defines who the Mind Engineer *is* 
 
 ## Testing
 
-**233 tests** across Python and JavaScript, covering every layer of the project.
+**245 tests** across Python and JavaScript, covering every layer of the project.
 
 ### Quick Start
 
@@ -355,7 +355,7 @@ Structural validation for all Auto AI agent JSON configurations:
 - **TestMindEngineer** (7 tests) — Identity, Johnson Formula hierarchy (3 levels), diagnostic logic, action paths with priorities, workflow ordering, integration dimensions, constraints
 - **TestProtocolCrossReferences** (4 tests) — All 3 M.E. Protocol files exist and parse correctly
 
-### JavaScript Test Suite — 136 tests
+### JavaScript Test Suite — 148 tests
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
@@ -369,6 +369,16 @@ Tests for the Resonance Engine extracted from `meta_debug.html`:
 - **analyzeResonance** (11 tests) — Detects all 7 performance patterns (isolation, scared teenager, gaslighting, purpose agonizing, overthinking, stillness avoidance, belief not applied), sorts by match strength, handles multi-pattern text, returns matched phrases, produces empty results for genuine text
 - **generateResponse** (10 tests) — No-pattern fallback message, pattern-specific responses, secondary pattern inclusion, metadata handling, suggested responses, Meta Debug signature
 - **Individual pattern responses** (7 tests) — Each pattern's response function references the correct Reality 101 chapter
+
+#### `js_tests/callClaude.test.js` — 12 tests
+
+Tests for the shared Claude API client (`callClaude.js`):
+
+- Correct API endpoint, method, Content-Type header, model
+- Default and custom maxTokens (2000 default, 3000 for Oracle)
+- Conversation history prepended to messages, empty history by default
+- System prompt and user message pass-through
+- Response text extraction from content blocks, empty string fallback
 
 #### `js_tests/unified_canvas.test.jsx` — 15 tests
 

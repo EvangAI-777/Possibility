@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, Search } from 'lucide-react';
+import { callClaude } from './callClaude';
 
 const OriginOracle = () => {
   const [stage, setStage] = useState('input');
@@ -8,24 +9,6 @@ const OriginOracle = () => {
   const [currentChannel, setCurrentChannel] = useState(null);
   const [story, setStory] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const callClaude = async (systemPrompt, userMessage) => {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 3000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userMessage }],
-      })
-    });
-
-    const data = await response.json();
-    return data.content.find(block => block.type === "text")?.text || "";
-  };
 
   const seekOrigin = async () => {
     if (!query.trim()) return;
@@ -53,7 +36,8 @@ What can you offer about what they're seeking?`;
     try {
       const originResponse = await callClaude(
         systemPrompt,
-        `What is the origin of: ${query}`
+        `What is the origin of: ${query}`,
+        { maxTokens: 3000 }
       );
 
       setStory(originResponse);
