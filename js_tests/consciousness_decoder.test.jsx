@@ -5,15 +5,33 @@
  * - Initial render (beacon stage)
  * - Channel name input
  * - Stage transitions
- * - API call structure (mocked fetch)
+ * - API call structure (mocked fetch via shared callClaude utility)
  * - Conversation flow
  * - Return to beacon
  */
 
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ConsciousnessDecoder from '../React Component Artifacts/consciousness_decoder';
+
+/**
+ * Helper: begin an exploration session and wait for the decoder's first response
+ * to fully render (all state updates flushed).
+ */
+async function beginAndWaitForResponse(channelName, responseText) {
+  render(<ConsciousnessDecoder />);
+  fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
+    target: { value: channelName }
+  });
+  fireEvent.click(screen.getByText('Begin exploration'));
+
+  // Wait for the decoder's response text — this only renders after
+  // setConversationHistory + setResponses have both completed.
+  await waitFor(() => {
+    expect(screen.getByText(responseText)).toBeInTheDocument();
+  });
+}
 
 
 describe('Consciousness Decoder', () => {
@@ -66,7 +84,7 @@ describe('Consciousness Decoder', () => {
     expect(global.alert).toHaveBeenCalledWith('Please enter a name for this channel');
   });
 
-  test('does not alert when channel name is provided', () => {
+  test('does not alert when channel name is provided', async () => {
     global.fetch.mockResolvedValueOnce({
       json: () => Promise.resolve({
         content: [{ type: 'text', text: 'Hello, I sense presence here.' }]
@@ -79,6 +97,11 @@ describe('Consciousness Decoder', () => {
     });
     fireEvent.click(screen.getByText('Begin exploration'));
     expect(global.alert).not.toHaveBeenCalled();
+
+    // Wait for all async state updates to flush
+    await waitFor(() => {
+      expect(screen.getByText('Hello, I sense presence here.')).toBeInTheDocument();
+    });
   });
 
   // --- Transition to engaging stage ---
@@ -90,15 +113,8 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Explorer' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      expect(screen.getByText(/Channel: Explorer/)).toBeInTheDocument();
-    });
+    await beginAndWaitForResponse('Explorer', 'What feels true for you right now?');
+    expect(screen.getByText(/Channel: Explorer/)).toBeInTheDocument();
   });
 
   test('displays first decoder response', async () => {
@@ -108,15 +124,7 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Explorer' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      expect(screen.getByText('I notice curiosity arising.')).toBeInTheDocument();
-    });
+    await beginAndWaitForResponse('Explorer', 'I notice curiosity arising.');
   });
 
   // --- API call structure ---
@@ -128,23 +136,17 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Test' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
+    await beginAndWaitForResponse('Test', 'Response');
 
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://api.anthropic.com/v1/messages',
-        expect.objectContaining({
-          method: 'POST',
-          headers: expect.objectContaining({
-            'Content-Type': 'application/json',
-          }),
-        })
-      );
-    });
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://api.anthropic.com/v1/messages',
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          'Content-Type': 'application/json',
+        }),
+      })
+    );
 
     const call = global.fetch.mock.calls[0];
     const body = JSON.parse(call[1].body);
@@ -164,15 +166,8 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Test' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Return to beacon')).toBeInTheDocument();
-    });
+    await beginAndWaitForResponse('Test', 'Hello');
+    expect(screen.getByText('Return to beacon')).toBeInTheDocument();
   });
 
   test('shows message input in engaging stage', async () => {
@@ -182,15 +177,8 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Test' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      expect(screen.getByPlaceholderText(/Respond from what you're actually experiencing/)).toBeInTheDocument();
-    });
+    await beginAndWaitForResponse('Test', 'Hello');
+    expect(screen.getByPlaceholderText(/Respond from what you're actually experiencing/)).toBeInTheDocument();
   });
 
   test('send button is disabled when input is empty', async () => {
@@ -200,16 +188,9 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Test' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      const sendBtn = screen.getByText('Send');
-      expect(sendBtn).toBeDisabled();
-    });
+    await beginAndWaitForResponse('Test', 'Hello');
+    const sendBtn = screen.getByText('Send');
+    expect(sendBtn).toBeDisabled();
   });
 
   // --- Return to beacon ---
@@ -221,15 +202,7 @@ describe('Consciousness Decoder', () => {
       })
     });
 
-    render(<ConsciousnessDecoder />);
-    fireEvent.change(screen.getByPlaceholderText(/Resonance/), {
-      target: { value: 'Test' }
-    });
-    fireEvent.click(screen.getByText('Begin exploration'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Return to beacon')).toBeInTheDocument();
-    });
+    await beginAndWaitForResponse('Test', 'Hello');
 
     fireEvent.click(screen.getByText('Return to beacon'));
     expect(screen.getByText('Consciousness Decoder')).toBeInTheDocument();

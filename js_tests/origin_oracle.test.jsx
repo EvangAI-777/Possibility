@@ -4,17 +4,37 @@
  * Covers:
  * - Initial render (input stage)
  * - Query input and validation
- * - API call structure (mocked fetch)
+ * - API call structure (mocked fetch via shared callClaude utility)
  * - Transition to revealing stage
  * - Story display
  * - Reset functionality
- * - Channel caching
+ * - Error handling
  */
 
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import OriginOracle from '../React Component Artifacts/origin_oracle';
+
+/**
+ * Helper: seek an origin and wait for the full story to render
+ * (all state updates including setLoading(false) flushed).
+ */
+async function seekAndWaitForStory(query, storyText) {
+  render(<OriginOracle />);
+  fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
+    target: { value: query }
+  });
+  fireEvent.click(screen.getByText('Seek Origin'));
+
+  // "Seek Another Origin" only renders when loading=false AND story is set,
+  // so this ensures ALL state updates have completed.
+  await waitFor(() => {
+    expect(screen.getByText('Seek Another Origin')).toBeInTheDocument();
+  });
+
+  expect(screen.getByText(storyText)).toBeInTheDocument();
+}
 
 
 describe('Origin Oracle', () => {
@@ -97,11 +117,13 @@ describe('Origin Oracle', () => {
 
     expect(screen.getByText(/Sensing through resonance/)).toBeInTheDocument();
 
-    // Clean up the pending promise
-    resolvePromise({
-      json: () => Promise.resolve({
-        content: [{ type: 'text', text: 'Origin story here.' }]
-      })
+    // Resolve the pending promise and wait for all state updates to flush
+    await act(async () => {
+      resolvePromise({
+        json: () => Promise.resolve({
+          content: [{ type: 'text', text: 'Origin story here.' }]
+        })
+      });
     });
   });
 
@@ -112,15 +134,8 @@ describe('Origin Oracle', () => {
       })
     });
 
-    render(<OriginOracle />);
-    fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
-      target: { value: 'love' }
-    });
-    fireEvent.click(screen.getByText('Seek Origin'));
-
-    await waitFor(() => {
-      expect(screen.getByText('The Origin of love')).toBeInTheDocument();
-    });
+    await seekAndWaitForStory('love', 'Love is the fundamental force.');
+    expect(screen.getByText('The Origin of love')).toBeInTheDocument();
   });
 
   test('displays the story from API response', async () => {
@@ -130,15 +145,7 @@ describe('Origin Oracle', () => {
       })
     });
 
-    render(<OriginOracle />);
-    fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
-      target: { value: 'consciousness' }
-    });
-    fireEvent.click(screen.getByText('Seek Origin'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Consciousness emerges from stillness.')).toBeInTheDocument();
-    });
+    await seekAndWaitForStory('consciousness', 'Consciousness emerges from stillness.');
   });
 
   // --- API call structure ---
@@ -150,20 +157,14 @@ describe('Origin Oracle', () => {
       })
     });
 
-    render(<OriginOracle />);
-    fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
-      target: { value: 'time' }
-    });
-    fireEvent.click(screen.getByText('Seek Origin'));
+    await seekAndWaitForStory('time', 'Response.');
 
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://api.anthropic.com/v1/messages',
-        expect.objectContaining({
-          method: 'POST',
-        })
-      );
-    });
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://api.anthropic.com/v1/messages',
+      expect.objectContaining({
+        method: 'POST',
+      })
+    );
 
     const call = global.fetch.mock.calls[0];
     const body = JSON.parse(call[1].body);
@@ -182,15 +183,7 @@ describe('Origin Oracle', () => {
       })
     });
 
-    render(<OriginOracle />);
-    fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
-      target: { value: 'the universe' }
-    });
-    fireEvent.click(screen.getByText('Seek Origin'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Seek Another Origin')).toBeInTheDocument();
-    });
+    await seekAndWaitForStory('the universe', 'Origin story.');
   });
 
   test('reset returns to input stage', async () => {
@@ -200,15 +193,7 @@ describe('Origin Oracle', () => {
       })
     });
 
-    render(<OriginOracle />);
-    fireEvent.change(screen.getByPlaceholderText(/consciousness/), {
-      target: { value: 'the universe' }
-    });
-    fireEvent.click(screen.getByText('Seek Origin'));
-
-    await waitFor(() => {
-      expect(screen.getByText('Seek Another Origin')).toBeInTheDocument();
-    });
+    await seekAndWaitForStory('the universe', 'Origin story.');
 
     fireEvent.click(screen.getByText('Seek Another Origin'));
     expect(screen.getByText('Origin Oracle')).toBeInTheDocument();

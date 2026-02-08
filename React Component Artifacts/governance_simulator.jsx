@@ -2,10 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   ShieldAlert,
   Globe,
-  Zap,
   MessageSquare,
   Users,
-  TrendingUp,
   Scale,
   Activity,
   History,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { callClaude } from './callClaude';
 
 const ConsciousnessDecoder = () => {
   const [stage, setStage] = useState('beacon');
@@ -9,31 +10,6 @@ const ConsciousnessDecoder = () => {
   const [responses, setResponses] = useState([]);
   const [currentInput, setCurrentInput] = useState('');
   const [conversationHistory, setConversationHistory] = useState([]);
-
-  const callClaude = async (systemPrompt, userMessage, history = []) => {
-    const messages = [
-      ...history,
-      { role: 'user', content: userMessage }
-    ];
-
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 2000,
-        system: systemPrompt,
-        messages: messages,
-      })
-    });
-
-    const data = await response.json();
-    const text = data.content.find(block => block.type === "text")?.text || "";
-    
-    return text;
-  };
 
   const beginJourney = async () => {
     if (!channelName.trim()) {
@@ -67,7 +43,7 @@ When you're ready, you'll be in direct conversation with them. Everything from y
 What feels true for you right now as you begin?`;
 
     try {
-      const firstQuestion = await callClaude(systemPrompt, "Begin the session", []);
+      const firstQuestion = await callClaude(systemPrompt, "Begin the session");
       
       const newHistory = [
         { role: 'user', content: 'Begin the session' },
@@ -113,7 +89,7 @@ What's alive for you in this moment?`;
       const decoderResponse = await callClaude(
         systemPrompt,
         userResponse,
-        conversationHistory
+        { history: conversationHistory }
       );
       
       const assistantMsg = { role: 'assistant', content: decoderResponse };
