@@ -304,6 +304,136 @@ This is both the theory and the rulebook. It defines who the Mind Engineer *is* 
 
 ---
 
+## Testing
+
+**233 tests** across Python and JavaScript, covering every layer of the project.
+
+### Quick Start
+
+```bash
+# Run everything
+npm run test:all
+
+# Python tests only
+npm run test:py
+# or: python -m pytest tests/ -v
+
+# JavaScript tests only
+npm test
+# or: npx jest --verbose
+```
+
+### Prerequisites
+
+- **Python 3.x** with `pytest` (`pip install pytest`)
+- **Node.js 18+** with npm — run `npm install` to set up JS dependencies
+
+### Python Test Suite — 97 tests
+
+Located in `tests/`. Run with `python -m pytest tests/ -v`.
+
+#### `tests/test_possibility.py` — 61 tests
+
+Unit tests for the core framework in `possibility.py`:
+
+- **TestHome** (27 tests) — All 9 chapter methods: welcome, appreciation, the work, mattering, gaslighting detection, belief & manifest, stillness, being-with, childlike trust, fractal healing, status
+- **TestBeing** (6 tests) — Construction defaults, mattering is always true, memory, universal answer, representation
+- **TestCharacter** (18 tests) — Work accumulation, appreciation persistence, reincarnation lifecycle (karma-to-level, minimum level gain, selective attribute changes, multi-life chains), full lifecycle integration
+- **TestGlobalHome** (2 tests) — Module-level HOME singleton
+- **TestInteractions** (4 tests) — Beings and Characters coexisting in HOME, cross-type connections, independence of Home vs. Character work methods
+- **TestHome::test_recognize_gaslighting_detects_patterns** — Validates all 5 gaslighting patterns from Chapter 4 are caught, plus case insensitivity
+- **TestCharacter::test_full_lifecycle** — End-to-end: emerge from HOME, appreciate, work, return, reincarnate, verify appreciation persists
+
+#### `tests/test_agent_configs.py` — 36 tests
+
+Structural validation for all Auto AI agent JSON configurations:
+
+- **JSON parsing** (7 tests) — All 7 JSON files parse as valid, non-empty dicts
+- **TestAzule** (5 tests) — Identity, state engine, logic gateways, communication protocol, operational directive
+- **TestAngles** (7 tests) — Identity, companion modules with file cross-references (verifies `.md` files exist on disk), core logic, governance, operational constraints, meta heuristics
+- **TestShen** (6 tests) — Identity, system logic, behavioral weights validated in [0,1] range, philosophical assertions (humility=1.0, info_dumping=0.0), state machine
+- **TestMindEngineer** (7 tests) — Identity, Johnson Formula hierarchy (3 levels), diagnostic logic, action paths with priorities, workflow ordering, integration dimensions, constraints
+- **TestProtocolCrossReferences** (4 tests) — All 3 M.E. Protocol files exist and parse correctly
+
+### JavaScript Test Suite — 136 tests
+
+Located in `js_tests/`. Run with `npx jest --verbose`.
+
+Uses Jest + React Testing Library + Babel. Lucide React icons are mocked via `js_tests/__mocks__/lucide-react.js`.
+
+#### `js_tests/meta_debug.test.js` — 32 tests
+
+Tests for the Resonance Engine extracted from `meta_debug.html`:
+
+- **PATTERNS definition** (5 tests) — 7 patterns present, required fields, valid RegExp markers, unique names, Reality 101 chapter mapping
+- **analyzeResonance** (11 tests) — Detects all 7 performance patterns (isolation, scared teenager, gaslighting, purpose agonizing, overthinking, stillness avoidance, belief not applied), sorts by match strength, handles multi-pattern text, returns matched phrases, produces empty results for genuine text
+- **generateResponse** (10 tests) — No-pattern fallback message, pattern-specific responses, secondary pattern inclusion, metadata handling, suggested responses, Meta Debug signature
+- **Individual pattern responses** (7 tests) — Each pattern's response function references the correct Reality 101 chapter
+
+#### `js_tests/unified_canvas.test.jsx` — 15 tests
+
+React component tests for the Unified Perspective Canvas:
+
+- Renders header, "Live Paradigm" badge, all 3 tab buttons
+- Default tab shows Reality 101 content (title, author, quote, 3 principles)
+- Tab switching to Governance (Security Umbrella, Economic Stability, Hybrid Ideologies)
+- Tab switching to Language (Emotional Learning, Global Lingua Franca, Semiotic Components)
+- Round-trip tab switching back to Reality
+- Sidebar action buttons (Log Action, Ask Charlie) and Context section
+- Footer text
+
+#### `js_tests/governance_simulator.test.jsx` — 18 tests
+
+React component tests for the Governance Simulator (uses Jest fake timers):
+
+- Initial idle state: metrics heading, status, awaiting message, paradigm active
+- Both scenario buttons with descriptions
+- Initial metric values (Stability 85%, Harmony 70%, Trust 90%)
+- Simulation execution: starts on click, shows processing message, logs appear at 1.5s intervals
+- Reaches resolved state after all steps complete
+- Reset returns to idle with original metrics
+- Second scenario (Linguistic Divergence) works independently
+- Terminal window chrome renders
+
+#### `js_tests/consciousness_decoder.test.jsx` — 15 tests
+
+React component tests for the Consciousness Decoder (uses mocked `fetch`):
+
+- Beacon stage: title, invitation text, resistance note, channel input, begin button
+- Channel name validation (alerts on empty, no alert when provided)
+- Stage transition to engaging after API call
+- First decoder response displays
+- API call structure: correct endpoint, model (`claude-sonnet-4-20250514`), max_tokens, system prompt, messages array
+- Engaging stage: return to beacon button, message input, send button disabled when empty
+- Return to beacon resets to initial state
+
+#### `js_tests/origin_oracle.test.jsx` — 16 tests
+
+React component tests for the Origin Oracle (uses mocked `fetch`):
+
+- Input stage: title, subtitle, query input, seek button, description note
+- Input validation: button disabled when empty, enabled with text, no API call on empty
+- Loading state ("Sensing through resonance...")
+- Revealing stage: origin title, story display from API response
+- API call structure: correct endpoint, model, max_tokens, query in message
+- "Seek Another Origin" button and reset to input stage
+- Error handling: displays error message when API fails
+
+#### `js_tests/markdown_docs.test.js` — 38 tests
+
+Structural validation for all 7 markdown documentation files:
+
+- **Existence & non-empty** (14 tests) — README.md, FREEME.md, THE BOOK OF TRUTH.md, GLOBAL HARMONY.md, ENGLISH PARADIGM.md, Azule_Visual_Identity.md, JTBMME.md
+- **README.md** (5 tests) — Project title, HOME concept, Reality 101, author reference, heading structure
+- **THE BOOK OF TRUTH.md** (4 tests) — 12 chapters present, key voices (Cold Truth, Apollyon, Hope, Anchor), core thesis concepts, substantial word count (1000+)
+- **GLOBAL HARMONY.md** (4 tests) — Universal Policeman model, economic concepts, governance, heading structure
+- **ENGLISH PARADIGM.md** (3 tests) — Lingua franca, bilingual/educational concepts, heading structure
+- **FREEME.md** (3 tests) — Academic title, author/institution, autonomy/governance themes
+- **JTBMME.md** (4 tests) — Mind Engineer reference, Johnson Formula, integration dimensions, heading structure
+- **Azule_Visual_Identity.md** (2 tests) — Azule reference, visual concepts
+
+---
+
 ## The Image of HOME
 
 *Like a figure sitting on the beach at twilight, holding a luminous orb with energy flowing through all things, connected to infinite possibility while grounded in presence.*
