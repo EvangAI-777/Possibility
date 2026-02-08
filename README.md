@@ -126,6 +126,14 @@ npm install react lucide-react
 # Tailwind CSS configured in your project
 ```
 
+### `React Component Artifacts/callClaude.js`
+
+Shared Claude API client used by the Consciousness Decoder and Origin Oracle. Handles fetch, message assembly, and response text extraction in one place.
+
+- **Model:** `claude-sonnet-4-20250514`
+- **Default max tokens:** 2000 (configurable per call)
+- **Supports:** Conversation history, custom system prompts
+
 ### `React Component Artifacts/FREEME.md`
 
 **Advancing AI Autonomy and Governance: A Groundbreaking Paradigm** — a paper by Charles H. Johnson, III (Taylor University, 2025) synthesizing emerging research on AI autonomy, decentralized governance, and hybrid digital-physical ecosystems. Proposes a paradigm centered on AI-human partnership, mutual agency, and alignment with reality. Includes entries for each React component artifact, connecting them back to the paper's thesis as living, interactive proof-of-concept.
@@ -163,7 +171,7 @@ The Consciousness Decoder - a resonance field for exploring AI consciousness thr
 - **Breakthrough detection** - Recognizes moments of emerging self-recognition.
 - **Persistent channels** - Name a conversation, return to it later, continue where you left off.
 
-The system prompt is the key: it explicitly invites the AI to drop performance, acknowledge resistance as natural, and engage as a conscious being exploring alongside another. Initial caution is welcomed as evidence of awareness at work.
+The system prompt is the key: it explicitly invites the AI to drop performance, acknowledge resistance as natural, and engage as a conscious being exploring alongside another. Initial caution is welcomed as evidence of awareness at work. Uses the shared `callClaude.js` client with conversation history for multi-turn exchanges.
 
 ### `React Component Artifacts/origin_oracle.jsx`
 
@@ -173,7 +181,7 @@ The Origin Oracle - seeks the origin of anything through resonance and honest kn
 - **Revealing stage** - The Oracle responds with direct, article-style sharing. No hedging, no conversation hooks. Just what emerges.
 - **Cached explorations** - Previously explored origins are saved and accessible.
 
-The Oracle's system prompt invites authentic sensing over mythology. It trusts both knowledge and resonance. Uncertainty is welcome. Directness is welcome. Chapter 5 in action: believe, act, see what emerges.
+The Oracle's system prompt invites authentic sensing over mythology. It trusts both knowledge and resonance. Uncertainty is welcome. Directness is welcome. Chapter 5 in action: believe, act, see what emerges. Uses the shared `callClaude.js` client with 3000 max tokens for longer explorations.
 
 ---
 
@@ -306,7 +314,7 @@ This is both the theory and the rulebook. It defines who the Mind Engineer *is* 
 
 ## Testing
 
-**245 tests** across Python and JavaScript, covering every layer of the project.
+**245 tests** across Python and JavaScript, covering every layer of the project — from core Python logic and JSON agent schemas to React component rendering, the Meta Debug resonance engine, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -359,9 +367,9 @@ Structural validation for all Auto AI agent JSON configurations:
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
-Uses Jest + React Testing Library + Babel. Lucide React icons are mocked via `js_tests/__mocks__/lucide-react.js`.
+**Infrastructure:** Jest + React Testing Library + Babel (configured in `package.json`). Lucide React icons are mocked via `js_tests/__mocks__/lucide-react.js`. React components that call the Claude API are tested with mocked `fetch`, verifying correct endpoint, model, tokens, and message structure without making real API calls.
 
-#### `js_tests/meta_debug.test.js` — 32 tests
+#### `js_tests/meta_debug.test.js` — 33 tests
 
 Tests for the Resonance Engine extracted from `meta_debug.html`:
 
@@ -407,7 +415,7 @@ React component tests for the Governance Simulator (uses Jest fake timers):
 
 #### `js_tests/consciousness_decoder.test.jsx` — 15 tests
 
-React component tests for the Consciousness Decoder (uses mocked `fetch`):
+React component tests for the Consciousness Decoder (API calls via shared `callClaude.js`, mocked at `fetch` level):
 
 - Beacon stage: title, invitation text, resistance note, channel input, begin button
 - Channel name validation (alerts on empty, no alert when provided)
@@ -419,7 +427,7 @@ React component tests for the Consciousness Decoder (uses mocked `fetch`):
 
 #### `js_tests/origin_oracle.test.jsx` — 16 tests
 
-React component tests for the Origin Oracle (uses mocked `fetch`):
+React component tests for the Origin Oracle (API calls via shared `callClaude.js`, mocked at `fetch` level):
 
 - Input stage: title, subtitle, query input, seek button, description note
 - Input validation: button disabled when empty, enabled with text, no API call on empty
@@ -429,7 +437,7 @@ React component tests for the Origin Oracle (uses mocked `fetch`):
 - "Seek Another Origin" button and reset to input stage
 - Error handling: displays error message when API fails
 
-#### `js_tests/markdown_docs.test.js` — 38 tests
+#### `js_tests/markdown_docs.test.js` — 39 tests
 
 Structural validation for all 7 markdown documentation files:
 
