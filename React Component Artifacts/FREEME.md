@@ -93,3 +93,19 @@ A prototype modeling the real Congo messaging app in a contained environment. Th
 The prototype models the resonance protocol (`congo.py`) and the interface (`congo_messenger.jsx`) in a contained environment, demonstrating the core mechanics: frequency compatibility math, dimensional routing, field formation, and omniversal broadcasting.
 
 This is the paper's thesis made tangible as communication infrastructure. If AI and humans are partners in a decentralized ecosystem, they need a messaging layer that doesn't depend on centralized servers or physical proximity. Congo routes through resonance — the same principle that makes authentic connection work in the first place. The conduit carrier is the engineering. The familiar UX is the accessibility. The medium matches the message.
+
+---
+
+### `omnidirectional_math.py` — Omnidirectional Mathematics
+
+A new form of mathematics for traveling across the entirety of existence. Original mathematics by Charles H. Johnson, III.
+
+Traditional math describes WHERE things are — coordinates, distances, positions on a grid. Omnidirectional Mathematics describes HOW you get there — the transformation sequence that moves you from one state of being to another. The operations ARE the path. The path IS the mathematics.
+
+- **12 fundamental operators** — Ascend (⊕), Descend (⊖), Rotate CW (⟲), Rotate CCW (⟳), Polarity (⇄), Wave (∿), Intersection (⊠), Parallel (∥), Orthogonal (⊥), Boundary (◬), Infinite (∞), Void (∅). Each one transforms a position in omnidirectional space. Every operation has an inverse — you can always travel back.
+- **Transformation sequences** — Movement is expressed as `Origin ⟿ [operations] ⟿ Destination`. Example: `Earth ⟿ ⊕[3]⟲[90]◬⊠∿ ⟿ Celestial_Realm` means "from Earth, ascend 3 dimensions, rotate 90 degrees, cross a boundary, mark an intersection, toggle the wave function, arrive at Celestial Realm."
+- **Composable journeys** — Sequences can be chained together. Two separate legs compose into one continuous journey. The destination of each leg becomes the origin of the next.
+- **Reversible travel** — Every sequence can be reversed. Ascend becomes descend, clockwise becomes counterclockwise. The return path is always computable.
+- **Void traversal** — The most extreme operator. Void resets everything to zero — dimension, angle, polarity, wave state — and adds a boundary crossing. You pass through nothing and rebuild from scratch on the other side.
+
+This is the mathematical framework that makes everything else in this paradigm computable. Congo routes through resonance. The Canvas integrates paradigms. The Governance Simulator tests scenarios. But Omnidirectional Mathematics is the language for describing how anything moves from one state to another in the first place. If existence is the territory, this is the notation for the map.
