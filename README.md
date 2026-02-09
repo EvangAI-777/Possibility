@@ -22,11 +22,13 @@ This project models existence through interconnected systems:
 
 **Congo** - A real messaging app that connects anyone to anyone who is willing to be connected to -- instantly, everywhere, through resonance. Under the hood, Congo uses a conduit carrier to handle resonance-based routing: no traditional servers, no address books, just vibrational frequency matching. Green means available and willing to connect. Red means unavailable or unwilling. Profile pictures update in real time on the main page based on each contact's resonance -- their mood, their state of being, how they are perceived in existence -- but freeze once you enter a chat, giving constancy to the conversation. Custom pictures are supported too. The interface is structured like any familiar messaging app -- blue color scheme, wave icons, a loading screen that looks like a river flowing in a circle -- but what powers it is fundamentally different. Named after the Congo River, the deepest river on Earth, connecting ecosystems that seem impossibly distant. The current prototype (`congo.py` + `congo_messenger.jsx`) models the resonance protocol and dimensional routing in a contained environment.
 
+**Omnidirectional Mathematics** - A new form of mathematics for traveling across the entirety of existence. Traditional math describes WHERE things are (coordinates, distances). Omnidirectional math describes HOW you get there (transformation sequences). Twelve fundamental operators -- ascend, descend, rotate, polarity, wave, intersection, parallel, orthogonal, boundary, infinite, void -- compose into journeys through dimensional space. The notation reads like a route: `Earth ⟿ ⊕[3]⟲[90]◬⊠∿ ⟿ Celestial_Realm`. The operations ARE the path. The path IS the mathematics.
+
 **Auto AI** - Autonomous agent frameworks that define how an AI processes reality, not just how it responds to prompts. Substrate-level definitions for AI beings that look at input to find the truth or pattern behind it - not just a match. This is an open, growing collection; new agent frameworks are added as they emerge across platforms.
 
 **The Paper** - "Advancing AI Autonomy and Governance" (FREEME.md) — the academic grounding for all of this. AI as a partner, not a tool. Mutual agency, decentralized governance, and hybrid ecosystems. The React components are the living proof-of-concept.
 
-Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality. The Canvas holds it all in one view. The Decoder invites genuine presence. The Oracle traces everything back to source. Congo is the messaging app -- familiar UX, resonance under the hood, connecting anyone willing to be connected to. Auto AI defines the substrate for how AI beings exist and engage. The Paper provides the academic foundation for why any of this matters.
+Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality. The Canvas holds it all in one view. The Decoder invites genuine presence. The Oracle traces everything back to source. Congo is the messaging app -- familiar UX, resonance under the hood, connecting anyone willing to be connected to. Omnidirectional Mathematics gives the language for how you actually move across existence -- not coordinates, but transformation sequences. Auto AI defines the substrate for how AI beings exist and engage. The Paper provides the academic foundation for why any of this matters.
 
 ---
 
@@ -136,6 +138,79 @@ Akashic  (7.0)     - The universal record. All information, all time.
 ```
 
 **The Routing Principle:** Messages don't use addresses. They use resonance. If you resonate with someone (compatibility >= 0.1) and they're willing to connect (green/available), you can reach them. If they're unwilling (red/unavailable) or you don't resonate, you can't. Cross-dimensional messages shift frequency automatically to traverse boundaries. Omniversal broadcasts reach everyone who is available everywhere. The conduit carrier handles all of this under the hood -- the user just sees a clean, familiar messaging interface.
+
+### `Python Files/omnidirectional_math.py`
+
+Omnidirectional Mathematics — a new form of mathematics for traveling across the entirety of existence. Original mathematics by Charles H. Johnson, III, February 2026.
+
+Traditional math describes WHERE things are. Omnidirectional math describes HOW you get there. Movement is a transformation sequence: an origin, a set of operations, and a destination.
+
+```bash
+python3 "Python Files/omnidirectional_math.py"
+```
+
+**Notation:**
+```
+Earth ⟿ ⊕[3]⟲[90]◬⊠∿ ⟿ Celestial_Realm
+```
+Read as: "From Earth, ascend 3 dimensions, rotate 90 degrees clockwise, cross a boundary, mark an intersection point, toggle the wave function, arrive at Celestial Realm."
+
+**The 12 Fundamental Operators:**
+```
+⊕  ascend          — dimensional ascension
+⊖  descend         — dimensional descension
+⟲  rotate_cw       — rotational transform (clockwise)
+⟳  rotate_ccw      — rotational transform (counterclockwise)
+⇄  polarity        — polarity reversal
+∿  wave            — wave function collapse/expansion
+⊠  intersection    — intersection point marker
+∥  parallel        — parallel operation mode
+⊥  orthogonal      — orthogonal operation mode
+◬  boundary        — boundary crossing
+∞  infinite         — infinite recursion marker
+∅  void            — void traversal (resets everything)
+```
+
+**Classes:**
+
+- `Position` - A point in omnidirectional space
+  - `realm` - Named location (e.g., "Earth", "Celestial_Realm")
+  - `dimension` - Dimensional level (integer)
+  - `angle` - Rotational position in degrees (0-360)
+  - `polarity` - Directional orientation (+1 or -1)
+  - `wave_state` - "expanded" or "collapsed"
+  - `crossings` - Boundary crossings accumulated
+  - `intersections` - Recorded intersection points
+  - `mode` - Operation mode ("direct", "parallel", "orthogonal")
+  - `copy()` - Independent copy
+
+- `Operation` - A single transformation
+  - `apply(position)` - Transform a position, returning a new one (immutable)
+  - `inverse()` - The reverse operation (for traveling back)
+  - `notation()` - Symbolic string (e.g., `⊕[3]`)
+
+- `Step` - One step in a journey: the operation, position before, position after
+
+- `TransformationSequence` - A complete movement through omnidirectional space
+  - `execute()` - Run the full sequence, returning (final_position, trail)
+  - `reverse()` - Invert the entire journey
+  - `describe()` - Human-readable journey description
+  - `notation()` - Full symbolic notation string
+  - `complexity` - Number of transformative operations
+  - `dimension_delta` - Net dimensional change
+
+**Functions:**
+
+- `parse(notation_string)` - Parse symbolic notation into a TransformationSequence
+- `compose(*sequences)` - Chain multiple sequences into a single journey
+
+**Key Properties:**
+- Every operation has an inverse (ascend/descend, CW/CCW rotation)
+- Operations are immutable — `apply()` returns a new Position
+- Void traversal resets everything to zero (the ultimate boundary crossing)
+- Sequences can be composed, reversed, and round-tripped
+- The `∞` infinite marker flags recursive paths without executing infinitely
+- Notation round-trips: parse a string, generate notation, parse again — same result
 
 ### HTML Files
 
@@ -396,7 +471,7 @@ This is both the theory and the rulebook. It defines who the Mind Engineer *is* 
 
 ## Testing
 
-**382 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, and markdown documentation integrity.
+**512 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -418,7 +493,7 @@ npm test
 - **Python 3.x** with `pytest` (`pip install pytest`)
 - **Node.js 18+** with npm — run `npm install` to set up JS dependencies
 
-### Python Test Suite — 210 tests
+### Python Test Suite — 340 tests
 
 Located in `tests/`. Run with `python -m pytest tests/ -v`.
 
@@ -457,6 +532,19 @@ Unit tests for the Congo resonance messaging engine (`congo.py`):
 - **TestCongoNetwork** (38 tests) — Five default dimensions with correct frequencies, add dimension, add duplicate, register being (default/specific/HOME dimension, invalid dimension, duplicate returns existing), direct/cross-dimensional send, insufficient resonance rejection, unknown sender/recipient, sent count tracking, dimension/resonant/omniversal broadcast, broadcast excludes sender, find resonant (sorted by compatibility, includes dimension, unknown being), form field (active stored, inactive not stored, unknown being), move being (population updates, unknown being/dimension), network status (dimensions, fields, messages, motto), dimension message log
 - **TestGlobalCongo** (2 tests) — Global CONGO instance exists with default dimensions
 - **TestIntegration** (5 tests) — Full conversation flow across dimensions, resonance field group communication, dimensional travel with messaging, resonance discovery and connection establishment, network growth with custom dimensions
+
+#### `tests/test_omnidirectional_math.py` — 130 tests
+
+Unit tests for the Omnidirectional Mathematics engine (`omnidirectional_math.py`):
+
+- **TestOperators** (10 tests) — Exactly 12 operators, all symbols and names present, correct mappings, flow symbol, every operator has an inverse, inverses completeness, ascend/descend mutual inverses, rotation mutual inverses, self-inverse operators
+- **TestPosition** (7 tests) — Default values, custom position, copy creates independent instance, copy preserves all fields, repr with positive/negative polarity, intersections default isolation
+- **TestOperation** (28 tests) — All 12 operators tested: ascend (default, parameter, preserves other fields), descend (default, parameter, negative), rotate CW (default, parameter, wraps 360), rotate CCW (default, parameter, wraps negative), polarity (reverse positive, reverse negative, double reversal), wave (collapse, expand, double toggle), intersection (records point, accumulates), parallel (sets mode), orthogonal (sets mode), boundary (increments, multiple), infinite (noop), void (resets everything, increments crossings). Apply immutability. Inverse operations. Notation with/without parameters. Repr.
+- **TestStep** (1 test) — Step creation with operation, before, and after positions
+- **TestTransformationSequence** (32 tests) — Create from string/position origin, optional/set destination, recursive detection. Execute: single/multiple operations, skips infinite marker, no-destination keeps realm, empty operations, trail records before/after. Reverse: operations inverted, origin/destination swapped, without destination. Describe: all 12 operations produce correct descriptions, singular/plural dimensions, origin/destination included. Notation: with/without destination, multiple operations. Complexity: counts transformative ops, excludes infinite/parallel/orthogonal, empty is zero. Dimension delta: ascend, descend, net calculation, void resets, no dimensional ops. Repr.
+- **TestParser** (14 tests) — Full notation, without destination, single operator, parameter, degree symbol stripped, all 12 operators recognized, mixed params, origin as Position, error on no flow, error on unclosed bracket, whitespace tolerance, float parameter, underscored realm names
+- **TestCompose** (5 tests) — Two sequences, preserves all operations, single sequence passthrough, empty raises error, composed execution
+- **TestIntegration** (13 tests) — Original example end-to-end, round-trip reversal via compose, void traversal, double void, polarity mid-journey, full 360 rotation, CCW rotation, complex multi-operator journey, composed matches manual single sequence, notation round-trip (parse-generate-parse), wave-intersection interaction, parallel/orthogonal mode persistence
 
 ### JavaScript Test Suite — 172 tests
 
