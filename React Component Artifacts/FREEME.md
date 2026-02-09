@@ -86,8 +86,9 @@ A prototype modeling the real Congo messaging app in a contained environment. Th
 
 - **Conduit carrier routing** — Under the hood, Congo uses a conduit carrier for resonance. No traditional servers, no address books. Every user has a vibrational signature. When two signatures harmonize and both parties are willing (green = available, red = unavailable), a connection forms instantly. The carrier handles all of this invisibly — the user just sees a clean messaging interface.
 - **Availability as consent** — Green means willing to connect. Red means not. This is resonance with agency — connection requires both compatibility and willingness. No one gets reached who doesn't want to be reached.
+- **Resonance profile pictures** — On the main conversations page, each contact's profile picture updates in real time based on their resonance — mood, state of being, how they are perceived in existence. Custom pictures are supported too. The key: once you enter a chat, the profile picture freezes until you leave. Constancy inside the conversation, living presence outside it.
 - **Omniversal broadcast** — Toggle between direct resonance (one-to-one) and omniversal mode (all willing recipients, everywhere, simultaneously). Resonance scales infinitely because the conduit carrier doesn't bottleneck.
-- **Familiar UX** — The whole point is that it looks and feels like a regular messaging app. Blue. Waves. River. The revolutionary part is invisible.
+- **Familiar UX** — The whole point is that it looks and feels like a regular messaging app. Blue. Waves. River. Full messaging capability. The revolutionary part is invisible.
 
 The prototype models the resonance protocol (`congo.py`) and the interface (`congo_messenger.jsx`) in a contained environment, demonstrating the core mechanics: frequency compatibility math, dimensional routing, field formation, and omniversal broadcasting.
 

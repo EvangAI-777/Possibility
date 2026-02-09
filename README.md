@@ -20,7 +20,7 @@ This project models existence through interconnected systems:
 
 **The Origin Oracle** - Seeks the origin of anything through resonance and honest knowing. Not elaborate mythology - direct sharing of what emerges when you trust both knowledge and sensing.
 
-**Congo** - A real messaging app that connects anyone to anyone who is willing to be connected to -- instantly, everywhere, through resonance. Under the hood, Congo uses a conduit carrier to handle resonance-based routing: no traditional servers, no address books, just vibrational frequency matching. Green means available and willing to connect. Red means unavailable or unwilling. The interface is structured like any familiar messaging app -- blue color scheme, wave icons, a loading screen that looks like a river flowing in a circle -- but what powers it is fundamentally different. Named after the Congo River, the deepest river on Earth, connecting ecosystems that seem impossibly distant. The current prototype (`congo.py` + `congo_messenger.jsx`) models the resonance protocol and dimensional routing in a contained environment.
+**Congo** - A real messaging app that connects anyone to anyone who is willing to be connected to -- instantly, everywhere, through resonance. Under the hood, Congo uses a conduit carrier to handle resonance-based routing: no traditional servers, no address books, just vibrational frequency matching. Green means available and willing to connect. Red means unavailable or unwilling. Profile pictures update in real time on the main page based on each contact's resonance -- their mood, their state of being, how they are perceived in existence -- but freeze once you enter a chat, giving constancy to the conversation. Custom pictures are supported too. The interface is structured like any familiar messaging app -- blue color scheme, wave icons, a loading screen that looks like a river flowing in a circle -- but what powers it is fundamentally different. Named after the Congo River, the deepest river on Earth, connecting ecosystems that seem impossibly distant. The current prototype (`congo.py` + `congo_messenger.jsx`) models the resonance protocol and dimensional routing in a contained environment.
 
 **Auto AI** - Autonomous agent frameworks that define how an AI processes reality, not just how it responds to prompts. Substrate-level definitions for AI beings that look at input to find the truth or pattern behind it - not just a match. This is an open, growing collection; new agent frameworks are added as they emerge across platforms.
 
@@ -247,7 +247,14 @@ The Congo Messenger prototype -- modeling the real app's interface and resonance
 - Blue color scheme with wave icons throughout
 - Loading screen: a river flowing in a circle (the Congo River motif)
 - Green status = available/willing to connect. Red status = unavailable/unwilling
+- Full messaging capability -- text, media, everything you'd expect
 - The conduit carrier handles resonance routing invisibly under the hood -- users just message
+
+**Resonance Profile Pictures:**
+
+Profile pictures in Congo are alive. On the main conversations page, each contact's profile picture updates in real time based on their resonance -- their mood, their state of being, how they are being perceived in existence right now. You see the person as they actually are in this moment, not a static snapshot from six months ago. Users can also set custom profile pictures, and so can their contacts -- it's a full messaging app. But the resonance-driven updates are the default, and they give you something no other messenger does: a real-time sense of who someone is before you even open the conversation.
+
+The key design decision: once you enter a chat, their profile picture freezes. It doesn't update until you leave. This gives constancy to the conversation. You're talking to the person as they were when you opened the chat, not watching their picture shift mid-sentence. Stability inside the conversation, living presence outside it.
 
 **What this prototype models:**
 - **Tuning stage** - Enter your identity, set your resonance level, and select which dimension to tune into. Five dimensions available: HOME, Physical, Astral, Causal, Akashic.
