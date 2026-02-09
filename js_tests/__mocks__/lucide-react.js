@@ -34,4 +34,8 @@ module.exports = {
   Play: createMockIcon('Play'),
   RotateCcw: createMockIcon('RotateCcw'),
   CheckCircle2: createMockIcon('CheckCircle2'),
+  Radio: createMockIcon('Radio'),
+  Send: createMockIcon('Send'),
+  ArrowLeft: createMockIcon('ArrowLeft'),
+  Waves: createMockIcon('Waves'),
 };
