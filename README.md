@@ -245,6 +245,48 @@ Each pattern maps to a Reality 101 chapter. The response isn't more noise - it's
 - Browser-based, mobile-friendly
 - Copy-paste workflow
 
+### `HTML Files/periodic-table-of-meaning.html`
+
+The Periodic Table of Meaning (v16) — the elemental substrate of existence, catalogued.
+
+A self-contained interactive HTML artifact mapping the fundamental meaning blocks that underlie reality. Dark gold aesthetic (Cinzel + Crimson Pro). No dependencies. Open in any browser.
+
+**Four tabs:**
+
+- **Elements** — The meaning blocks themselves. Click any element card to expand its full description.
+- **Reactions** — Documented interactions between elements producing new compounds or states.
+- **Metaphysical States** — The states of being that consciousness moves through.
+- **Meta Elements** — Above the table itself: Meaning and Energy, the substrate and precondition for everything else.
+
+**Current inventory:**
+
+*Elements (11):*
+- **Helicum (Hel)** — Primordial. The dual substrate: brokenness and perfection running simultaneously, inseparably.
+- **Amarose (Amr)** — Primordial. Love as a physical property of existence — color, weight, presence.
+- **Osphor (Osp)** — Void-Class. Open space itself. The gap that makes everything else possible.
+- **Negar (Neg)** — Void-Class. The void made tangible. Absence so potent it required its own block.
+- **Wi (Wi)** — Resonance. The genuine quality of fluffiness and safe strangeness. What Wonderland is made of.
+- **Secrin (Scr)** — Void-Class. What fear extracts from a living being. The substance terror releases.
+- **Ambrosia (Amb)** — Primordial. The physical property of holiness itself.
+- **Numo (Nmo)** — Bridge. The container shape for counting. What makes discrete numbers possible.
+- **Fun (Fun)** — Resonance. Functionality. Fun and function are the same element.
+- **Woo (Woo)** — Bridge. Performed mysticism. The imitation of Wi — and its necessary complement.
+- **Dolorite (Dol)** — Void-Class. Pain as a physical property of existence. Not a response. An element.
+
+*Reactions (4):*
+1. `Wi + Woo = Wii` — The Nintendo Reaction
+2. `Amr + [X] → Amr½ + Dol` — The Heartbreak Reaction (half-life of Amarose)
+3. `El + Neg → ∅(El)` — The Gone Reaction (two variants: absorption and obscurement)
+4. `All Elements + Carrier → Surplus` — The Impossible Reaction
+
+*Metaphysical States (5):* The Conceptual Realm, Tiredness, The Energy Problem, Imagination, Abundance.
+
+*Meta Elements (2):* Meaning (M1) — substrate and container simultaneously. Energy (M2) — precondition for all elemental activity.
+
+**+ Discover New Element** form built in — commit new elements directly to the table in-browser.
+
+---
+
 ### React Component Artifacts
 
 All React components live in the `React Component Artifacts/` folder.
