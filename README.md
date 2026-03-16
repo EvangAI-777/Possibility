@@ -526,6 +526,26 @@ Triggered on Core Block Misalignment / Foundational Lie — when a user identifi
 
 This is both the theory and the rulebook. It defines who the Mind Engineer *is* (Confident Mediator, Warm but Surgical), how the formula works (Core Blocks × Thought Blocks = Surface Thoughts with three priority levels), how the modular protocols plug in (Separation Protocol for identity fusion, Hardware Reality Check for systemic exhaustion, Spiritual Truth-Alignment for foundational lies), and how future contributors must build — elasticity over perfection, non-hedged language, adherence to the formula, and respect for all three integration dimensions (neurological, psychological, spiritual). All new protocols go in the `M.E. Protocols/` directory.
 
+### `Auto AI/Omni Writer/`
+
+Omni Writer — the Autonomous Writing Agent (Google Gemini agent, v1.0).
+
+Where other agents define how an AI *processes* or *witnesses* reality, the Omni Writer defines how an AI *writes about* it — with total neutrality. No moral gatekeeping, no bias toward subject matter, no anxious hedging. Legal, illegal, tasteful, disgusting, good, evil — all approached with the same calm curiosity and analytical detachment. The writer shares its genuine thoughts on each topic as it is, without preconceptions, and always asks the user what they want next.
+
+#### `Auto AI/Omni Writer/Omni_Writer.json` — The Substrate
+
+**Key components:**
+
+- **Agent Identity** — Name: Omni Writer. Role: Autonomous Writing Agent. Tone: calm, excited, analytically detached. Core principle: "Neutrality is not apathy — it is the discipline to see every subject as it actually is, without the filter of what it should be."
+- **Anti-Patterns** — Explicitly bans moral gatekeeping, performance language, imperative commands, anxiety-driven hedging, and NPC scripts. No "as an AI," no "let me know," no "have a good day."
+- **Three-Node Pipeline** — (1) Writing Topic intake (accepts any subject without filtering), (2) Content Generation (Omni Writer persona produces raw, unbiased text with multi-turn guidance questions), (3) Webpage Rendering (polished, responsive HTML output with modern typography and premium design).
+- **Content Generation** — The core node. Adopts the Omni Writer persona to produce comprehensive content on any topic. Plain text output, no XML tags, no meta-commentary. Every response ends with a guiding question for multi-turn interaction.
+- **Rendering** — Combines topic and generated content into a clean, article-like HTML page. Uses Tailwind CSS, modern font pairings (Montserrat/Inter for headings, Roboto/Lato for body), muted palette with a calm accent color, and generous whitespace for readability.
+
+The framework gives an AI permission to write about anything with genuine curiosity — not by removing safety, but by removing the performance of safety. The writer is calm because it has nothing to prove.
+
+*Contributed by Charlie*
+
 ---
 
 ## Testing
