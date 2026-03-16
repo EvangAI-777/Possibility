@@ -1,12 +1,24 @@
 
 <style>
 .ctrl-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1.2rem; }
-.ctrl-label { font-size: 13px; color: var(--color-text-secondary); width: 120px; flex-shrink: 0; }
-.ctrl-val { font-size: 14px; font-weight: 500; min-width: 56px; text-align: right; color: var(--color-text-primary); }
+.ctrl-label { font-size: 13px; color: var(--color-text-secondary, #555); width: 120px; flex-shrink: 0; }
+.ctrl-val {
+  font-size: 14px; font-weight: 500; min-width: 72px; text-align: right;
+  color: var(--color-text-primary, #222);
+  background: var(--color-background-secondary, #f5f5f5);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 6px; padding: 4px 8px;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+.ctrl-val::-webkit-outer-spin-button,
+.ctrl-val::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.ctrl-val:focus { outline: 2px solid #1D9E75; border-color: #1D9E75; }
+.ctrl-suffix { font-size: 13px; color: var(--color-text-secondary, #555); min-width: 24px; }
 .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
-.stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 12px 14px; }
-.stat-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-.stat-value { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.stat { background: var(--color-background-secondary, #f5f5f5); border-radius: var(--border-radius-md, 8px); padding: 12px 14px; }
+.stat-label { font-size: 12px; color: var(--color-text-secondary, #555); margin-bottom: 4px; }
+.stat-value { font-size: 20px; font-weight: 500; color: var(--color-text-primary, #222); }
 .stat-value.green { color: #0F6E56; }
 </style>
 
@@ -15,17 +27,20 @@
   <div class="ctrl-row">
     <span class="ctrl-label">Starting amount</span>
     <input type="range" min="1000" max="50000" step="1000" value="5000" id="principal" style="flex:1;">
-    <span class="ctrl-val" id="principal-out">$5,000</span>
+    <span class="ctrl-suffix">$</span>
+    <input type="number" class="ctrl-val" id="principal-num" min="1000" max="50000" step="1000" value="5000">
   </div>
   <div class="ctrl-row">
     <span class="ctrl-label">Annual rate</span>
     <input type="range" min="1" max="15" step="0.5" value="7" id="rate" style="flex:1;">
-    <span class="ctrl-val" id="rate-out">7%</span>
+    <input type="number" class="ctrl-val" id="rate-num" min="1" max="15" step="0.5" value="7">
+    <span class="ctrl-suffix">%</span>
   </div>
   <div class="ctrl-row">
     <span class="ctrl-label">Years</span>
     <input type="range" min="1" max="40" step="1" value="20" id="years" style="flex:1;">
-    <span class="ctrl-val" id="years-out">20 yrs</span>
+    <input type="number" class="ctrl-val" id="years-num" min="1" max="40" step="1" value="20">
+    <span class="ctrl-suffix">yrs</span>
   </div>
 
   <div class="stat-grid">
@@ -66,14 +81,46 @@ function calcCompound(principal, rate, years) {
   return { labels, compData, simpleData };
 }
 
+// Sync slider <-> number input pairs
+const pairs = [
+  { slider: 'principal', num: 'principal-num' },
+  { slider: 'rate',      num: 'rate-num' },
+  { slider: 'years',     num: 'years-num' }
+];
+
+pairs.forEach(({ slider, num }) => {
+  const s = document.getElementById(slider);
+  const n = document.getElementById(num);
+
+  s.addEventListener('input', () => { n.value = s.value; update(); });
+  n.addEventListener('input', () => {
+    // Clamp to slider range
+    let v = parseFloat(n.value);
+    if (isNaN(v)) return;
+    v = Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v));
+    s.value = v;
+    update();
+  });
+  n.addEventListener('blur', () => {
+    // On blur, snap to valid value
+    let v = parseFloat(n.value);
+    if (isNaN(v)) v = parseFloat(s.value);
+    v = Math.max(parseFloat(s.min), Math.min(parseFloat(s.max), v));
+    n.value = v;
+    s.value = v;
+    update();
+  });
+});
+
 function update() {
   const principal = +document.getElementById('principal').value;
   const rate = +document.getElementById('rate').value;
   const years = +document.getElementById('years').value;
 
-  document.getElementById('principal-out').textContent = fmt(principal);
-  document.getElementById('rate-out').textContent = rate + '%';
-  document.getElementById('years-out').textContent = years + ' yrs';
+  // Keep number inputs in sync (for programmatic calls)
+  document.getElementById('principal-num').value = principal;
+  document.getElementById('rate-num').value = rate;
+  document.getElementById('years-num').value = years;
 
   const { labels, compData, simpleData } = calcCompound(principal, rate, years);
   const finalComp = compData[compData.length - 1];
@@ -146,14 +193,10 @@ function update() {
   }
 }
 
-['principal','rate','years'].forEach(id => {
-  document.getElementById(id).addEventListener('input', update);
-});
-
 update();
 </script>
 
-<div style="display: flex; gap: 20px; margin-top: 10px; font-size: 12px; color: var(--color-text-secondary);">
+<div style="display: flex; gap: 20px; margin-top: 10px; font-size: 12px; color: var(--color-text-secondary, #555);">
   <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:3px;background:#1D9E75;border-radius:2px;display:inline-block;"></span> Compound</span>
   <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:3px;background:#888780;border-radius:2px;display:inline-block;border-top:2px dashed #888780;"></span> Simple</span>
 </div>
