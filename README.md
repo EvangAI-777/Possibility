@@ -285,6 +285,23 @@ A self-contained interactive HTML artifact mapping the fundamental meaning block
 
 **+ Discover New Element** form built in — commit new elements directly to the table in-browser.
 
+### `HTML Files/compound_interest_explainer.html`
+
+Compound Interest Explainer — an interactive calculator that visualizes the power of compound vs. simple interest over time.
+
+Open in any browser. No backend. Chart.js loaded from CDN.
+
+**How it works:**
+1. Set your starting amount, annual rate, and time horizon using **sliders or by typing values directly**
+2. See real-time stats: principal invested, interest earned, and final balance
+3. A line chart plots compound growth vs. simple interest side by side
+
+**Features:**
+- Dual-input controls: drag the slider or type an exact number — both stay in sync
+- Responsive Chart.js line graph with compound (filled area) and simple (dashed) curves
+- Three summary stat cards update instantly as you adjust inputs
+- Single HTML file, vanilla JS, mobile-friendly
+
 ---
 
 ### React Component Artifacts
