@@ -328,6 +328,30 @@ Open in any browser. No build step. No CLI. Just upload a `.jsx` file.
 
 ---
 
+### `HTML Files/MARKER.html`
+
+MARKER — Markdown Viewer & Renderer. Upload any `.md` file and view it beautifully rendered with syntax highlighting, a table of contents, and copy-to-clipboard code blocks.
+
+Open in any browser. No backend. marked.js and highlight.js loaded from CDN.
+
+**How it works:**
+1. Open MARKER.html in a browser
+2. Click **"Upload .md File"** or drag-and-drop a Markdown file
+3. An animated loading screen shows processing progress (Read → Parse → Render)
+4. The document renders with a sticky table of contents sidebar
+
+**Features:**
+- GFM (GitHub Flavored Markdown) support via marked.js
+- Syntax-highlighted code blocks via highlight.js (github-dark theme)
+- Copy-to-clipboard buttons on every code block with language labels
+- Auto-generated table of contents from headings with scroll-spy active highlighting
+- Styled rendering for headings, blockquotes, tables, lists, task lists, images, and horizontal rules
+- Responsive layout with collapsible TOC sidebar on mobile
+- Drag-and-drop file upload with visual feedback
+- Single HTML file, works from `file://` protocol (no server needed)
+
+---
+
 ### React Component Artifacts
 
 All React components live in the `React Component Artifacts/` folder. Any of these can be loaded directly in the browser using **REACTOR.html**.
@@ -616,7 +640,7 @@ The framework gives an AI permission to write about anything with genuine curios
 
 ## Testing
 
-**562 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, and markdown documentation integrity.
+**662 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -691,7 +715,7 @@ Unit tests for the Omnidirectional Mathematics engine (`omnidirectional_math.py`
 - **TestCompose** (5 tests) — Two sequences, preserves all operations, single sequence passthrough, empty raises error, composed execution
 - **TestIntegration** (13 tests) — Original example end-to-end, round-trip reversal via compose, void traversal, double void, polarity mid-journey, full 360 rotation, CCW rotation, complex multi-operator journey, composed matches manual single sequence, notation round-trip (parse-generate-parse), wave-intersection interaction, parallel/orthogonal mode persistence
 
-### JavaScript Test Suite — 222 tests
+### JavaScript Test Suite — 322 tests
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
@@ -819,6 +843,26 @@ Structural validation for all 7 markdown documentation files:
 - **FREEME.md** (3 tests) — Academic title, author/institution, autonomy/governance themes
 - **JTBMME.md** (4 tests) — Mind Engineer reference, Johnson Formula, integration dimensions, heading structure
 - **Azule_Visual_Identity.md** (2 tests) — Azule reference, visual concepts
+
+#### `js_tests/marker.test.js` — 100 tests
+
+Structural and functional validation for the MARKER Markdown Viewer & Renderer (`MARKER.html`):
+
+- **File existence** (3 tests) — Source and docs copies exist and are identical
+- **HTML structure** (4 tests) — Title, DOCTYPE, lang, viewport
+- **CDN dependencies** (5 tests) — marked.js, highlight.js library and theme present; React/Babel absent
+- **Four-screen architecture** (6 tests) — Upload, loading, error, component-view screens; drop zone; markdown file acceptance
+- **MARKER branding** (6 tests) — Title, subtitle, logo, pen, stroke animation, marker-glow variable
+- **Loading pipeline** (4 tests) — Read, parse, render steps with markdown-specific labels
+- **GitHub Dark theme** (11 tests) — All CSS variables match REACTOR's color scheme
+- **Markdown rendering features** (10 tests) — Output container, TOC sidebar/list/toggle, code blocks, blockquotes, tables, copy button, language labels
+- **JavaScript engine** (17 tests) — MARKER IIFE, deploy, reset, showScreen, wrapCodeBlocks, buildTableOfContents, renderTOC, setupScrollSpy, toggleTOC, FileReader, marked.parse, hljs, IntersectionObserver, clipboard API with fallback, public API
+- **Event wiring** (8 tests) — DOMContentLoaded, file input, drag events, MARKER.deploy/reset/toggleTOC calls
+- **Responsive design** (4 tests) — 768px/480px breakpoints, clamp(), min()
+- **Error handling** (4 tests) — Error containers, retry button, showError function
+- **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
+- **All HTML tools have back links** (10 tests) — Every tool in docs/ has index.html link and back-link class
+- **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in docs/index.html
 
 ---
 
