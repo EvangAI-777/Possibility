@@ -73,13 +73,58 @@ Before writing a single line of porting code. Audit what you are porting.
 - Can any be converted to single-threaded without breaking functionality?
 - SharedArrayBuffer requirement: Yes / No
 
-#### **Section 3: Build System Translation**
+---
 
-* Native build → Emscripten cross-compilation  
-* Build-tool / browser-target separation  
-* CMake/Makefile adaptation patterns  
-* Code snippets for emcmake, build tool flags, SINGLE\_FILE  
-* Global flag safety rules (from WARNINGS.md pitfalls)
+## Section 3: Build System Translation
+
+The build system is where most ports die. Not in the graphics layer. Not in the audio. In the build.
+
+**Native Build → Emscripten Cross-Compilation:**
+
+```bash
+# Basic Emscripten CMake invocation
+emcmake cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/path/to/install
+
+emmake make -j$(nproc)
+```
+
+**Build-Tool / Browser-Target Separation:**
+
+This is THE critical pattern. Build tools (code generators, data processors, asset compilers) must run on the HOST machine. Only the final application targets the BROWSER. Mixing these two targets is the single most common build failure.
+
+```cmake
+# Build tools: native compilation
+set(BUILDTOOL_TARGET "native")
+
+# Application: Emscripten compilation
+set(APP_TARGET "wasm")
+```
+
+Build tools require:
+- `SINGLE_FILE` mode (embed WASM in JS for Node.js execution)
+- A crosscompiling emulator so CMake `try_run()` works
+- Native host compiler, NOT the cross-compiler
+
+**CMake Adaptation Pattern:**
+
+```cmake
+if(EMSCRIPTEN)
+  set(CMAKE_EXECUTABLE_SUFFIX ".html")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -s USE_SDL=2")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2")
+endif()
+```
+
+**Global Flag Safety Rules:**
+
+> NEVER apply flags globally that should only target specific binaries.
+
+- `-pthread` on a build tool will crash it
+- `-s USE_PTHREADS=1` applied globally contaminates everything
+- Linker flags meant for the final binary will break intermediary tools
+- Scope every flag to its specific target
 
 #### **Section 4: GPU / Graphics Translation Layer**
 
