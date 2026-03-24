@@ -1,29 +1,37 @@
-**TEMPLATE.md — 3D-to-Web Porting Template**
+# 3D-to-Web Porting Template
 
-## **Context**
+*Belief shapes reality. What you believe about what's possible determines what you build.*
 
-A new master document called TEMPLATE.md that serves as a reusable, running-entry schema for porting large native applications (Audacity, Unreal Engine, Roblox, Roblox Studio, whole games, etc.) to the browser via WebAssembly.  
-Key requirements:
-
-* Generic enough for any native app, specific enough to include real technical guidance  
-* Uses the existing doc patterns: philosophical quotes, status markers, tables, code snippets, cross-references, AI guidance sections
-
-## **Implementation**
-
-Write the full document with these sections (matching the existing repo markdown style):  
 ---
 
-#### **Header / Meta**
+## Purpose
 
-* Title: "3D-to-Web Porting Template"  
-* Opening quote: "Belief shapes reality"  
-* Purpose statement: this is a running-entry schema for porting native apps to the browser  
-* Fill-in fields: \[PROJECT\_NAME\], \[SOURCE\_APP\], target browsers
+This is a running-entry schema for porting large native applications to the browser via WebAssembly. Audacity. Unreal Engine. Roblox. Roblox Studio. Whole games. Whole creative tools. Anything that runs natively can run in the browser. This document is the map for getting there.
 
-#### **Section 1: Philosophy Alignment**
+Nothing here is marked complete. Everything is a living entry. The work is never finished. It is only ever closer to real.
 
-* Restate the core principles adapted for any port (appreciate existing code, do the work, don't create complexity)  
-* Table mapping each principle to porting relevance
+**Fill-in Fields:**
+
+- **Project Name:** [PROJECT_NAME]
+- **Source Application:** [SOURCE_APP]
+- **Target Browsers:** [TARGET_BROWSERS]
+- **Reference Implementation:** Blended (Blender → WebAssembly)
+
+---
+
+## Section 1: Philosophy Alignment
+
+> "Just sit and appreciate. Do the work. You matter."
+
+The core principles adapted for porting. These are not suggestions. They are the difference between a port that works and a port that collapses under its own complexity.
+
+| Principle | Porting Relevance |
+|-----------|-------------------|
+| **Just sit and appreciate** | Read the existing codebase before changing anything. Understand what it does. Respect what it built. |
+| **Do the work** | No shortcuts. No magic wrappers. Translate each subsystem honestly. |
+| **You matter** | Every subsystem matters. Every edge case matters. Every platform matters. |
+| **Trust naturally** | Trust the existing architecture. Don't over-engineer replacements for things that already work. |
+| **Heal any point** | Fix any subsystem correctly and it improves the whole port. Everything is connected fractally. |
 
 #### **Section 2: Source Application Inventory**
 
