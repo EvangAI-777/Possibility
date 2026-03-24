@@ -549,3 +549,90 @@ Families can create organizations (like GitHub orgs) to own repositories collect
 - Org-level settings for privacy defaults and scanner configurations
 
 ---
+
+## Social & Discovery
+
+### Explore Page
+
+A GitHub Explore-style discovery hub for genealogical repositories:
+
+**Trending Repositories**: Family repositories gaining stars/forks — ranked by recent activity, community engagement, generational depth.
+
+**Trending Topics**: Tags gaining traction across the platform:
+- `great-migration` — families documenting the Great Migration north
+- `floor-installation` — people actively breaking cycles
+- `legacy-code-investigation` — deep historical trait research
+- `cross-repo-pattern` — patterns appearing across unrelated families
+
+**Collections**: Curated groups of repositories:
+- "Families of the Great Migration"
+- "Floor Installation Success Stories"
+- "11+ Generation Legacy Code"
+- "Cross-Cultural Merge Commits"
+
+### Stars and Forks
+
+- **Star** a repository to bookmark it and signal appreciation
+- **Fork** a repository to build on it — for research, for branching family lines, for independent development
+- Fork counts show how many independent lines have branched from a repository
+
+### Discussions
+
+Each repository can have a Discussions tab (like GitHub Discussions):
+- **General**: Open conversation about the family history
+- **Q&A**: "Does anyone know where the scarcity_resource_model originated?"
+- **Show and Tell**: "I resolved the floor conflict in my branch — here's how"
+- **Ideas**: Proposals for new scanner configurations, trait categories, research directions
+
+### Community Patterns
+
+When the cross-repository analyzer detects patterns at scale, they become community-level advisories:
+- "inverted_connection_mechanism detected in 847 repositories globally"
+- Community discussion threads form around these patterns
+- Researchers can collaborate across repositories to trace origins
+
+---
+
+## DNA & Data Integration
+
+### Import Sources
+
+GENO bridges the gap between existing genealogy platforms and the version control paradigm:
+
+**GEDCOM Import** (Industry Standard):
+- Import `.ged` files from any genealogy software (Ancestry, FamilySearch, MyHeritage, etc.)
+- Auto-generates commit structure from GEDCOM person records
+- Maps GEDCOM relationships to parent-child commit links and branch structures
+- User reviews and enriches the auto-generated commits with trait data
+
+**23andMe / AncestryDNA Integration** (API-based):
+- Connect a DNA testing account (with explicit consent)
+- Import ethnicity estimates as repository metadata
+- Import DNA-matched relatives as potential cross-repository links
+- Haplogroup data enriches the branch history with deep ancestral context
+
+**FamilySearch Integration**:
+- Pull historical records (census, birth/death, immigration)
+- Auto-populate environment fields on commits (era, location, socioeconomic context)
+- Link to source documents for each commit
+
+**Manual Entry**:
+- Full-featured commit creation UI for adding people by hand
+- Guided interview mode: "Tell me about this person" → structured trait extraction
+- Photo/document attachment per commit (stored in object storage)
+
+### Export
+
+- **GEDCOM Export**: Generate a `.ged` file from any GENO repository for use in other tools
+- **PDF Report**: Printable family report with tree visualization, trait inheritance charts, conflict history
+- **JSON Export**: Full structured data export for research or backup
+- **SVG Tree Export**: High-resolution family tree visualization for printing or framing
+
+### AI-Assisted Trait Extraction
+
+For users who have family stories but not structured data, an AI assistant can help:
+- "My grandmother survived the Depression and never talked about money" → extracts: `scarcity_resource_model`, `emotional_shutdown`, `floor_layer: absent`
+- "My father came back from Vietnam different" → extracts: `hypervigilance_protocol`, `emotional_expression: restricted`
+- Always user-confirmed — AI suggests, human approves
+
+---
