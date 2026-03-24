@@ -33,12 +33,45 @@ The core principles adapted for porting. These are not suggestions. They are the
 | **Trust naturally** | Trust the existing architecture. Don't over-engineer replacements for things that already work. |
 | **Heal any point** | Fix any subsystem correctly and it improves the whole port. Everything is connected fractally. |
 
-#### **Section 2: Source Application Inventory**
+---
 
-* Subsystem audit checklist (GPU, audio, file I/O, networking, scripting, threading, input)  
-* Dependency audit table (extern libs, system calls, platform APIs)  
-* GPU API identification (OpenGL, DirectX, Vulkan, Metal → WebGL2/WebGPU)  
-* Threading model assessment
+## Section 2: Source Application Inventory
+
+Before writing a single line of porting code. Audit what you are porting.
+
+**Subsystem Audit Checklist:**
+
+| Subsystem | Present | Native API | Web Target | Notes |
+|-----------|---------|------------|------------|-------|
+| GPU / Rendering | [ ] | | WebGL2 / WebGPU | |
+| Audio | [ ] | | Web Audio API | |
+| File I/O | [ ] | | Emscripten VFS | |
+| Networking | [ ] | | WebSocket / Fetch | |
+| Scripting | [ ] | | Pyodide / QuickJS | |
+| Threading | [ ] | | Web Workers | |
+| Input | [ ] | | Browser Events | |
+| Clipboard | [ ] | | Clipboard API | |
+| Drag-and-Drop | [ ] | | HTML5 DnD API | |
+
+**Dependency Audit Table:**
+
+| Library | Version | Purpose | Emscripten Port Available | Alternative |
+|---------|---------|---------|---------------------------|-------------|
+| | | | [ ] Yes / [ ] No | |
+
+**GPU API Identification:**
+
+- OpenGL → WebGL2 (ES 3.0 subset)
+- DirectX → Requires translation layer (e.g., ANGLE) → WebGL2
+- Vulkan → WebGPU (when available)
+- Metal → WebGPU (when available)
+
+**Threading Model Assessment:**
+
+- How many threads does the application spawn?
+- Which threads are real-time critical?
+- Can any be converted to single-threaded without breaking functionality?
+- SharedArrayBuffer requirement: Yes / No
 
 #### **Section 3: Build System Translation**
 
