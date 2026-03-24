@@ -440,6 +440,127 @@ Issues can be grouped into milestones representing generational goals:
 
 ---
 
+## Closed Pull Requests & End of Life
+
+### Death as a Closed PR
+
+In GENO, death is a closed pull request. The person's life was a proposal to change the repository — their traits, their choices, their inheritance, their attempts to fix or break cycles. When life ends, the PR closes. The commit message is the final record.
+
+This isn't metaphor for the sake of metaphor. It's structurally accurate. A closed PR in code means: the proposed changes are finalized. No more commits will be added to this branch. The review is complete. What was merged, was merged. What wasn't, wasn't. The downstream effects are now locked in.
+
+### Closed PR Structure
+
+```
+PR #47 — CLOSED
+
+Title: The life and configuration of Robert Earl Johnson
+Author: Robert Earl Johnson
+Branch: main/paternal/johnson
+Status: CLOSED (December 3, 2001)
+Opened: January 8, 1945
+Duration: 56 years
+
+FINAL CONFIGURATION AT CLOSE:
+- Hypervigilance protocol: active (never deprecated during lifetime)
+- Emotional shutdown: active (never resolved)
+- Floor layer: absent (inherited, never addressed)
+- Connection mechanism: inverted (inherited, passed forward unchanged)
+- Work ethic: exceptional (new trait, passed forward)
+- Provider architecture: robust (new trait, passed forward)
+
+MERGED CHANGES (what was passed downstream):
++ Hypervigilance protocol v1945 → passed to James (generation 3)
++ Emotional shutdown → passed to James
++ Work ethic → passed to James
++ Provider architecture → passed to James
+
+UNMERGED CHANGES (what died with this commit):
+- Stories never told
+- Context never given
+- Reasons never explained
+
+CLOSING COMMIT MESSAGE:
+"Returned from war. Built a life. Provided for everyone.
+Talked about none of it. The hypervigilance kept running
+because nobody knew it was there to turn off.
+Children inherited the watchfulness without knowing
+what was being watched for."
+
+DOWNSTREAM IMPACT ASSESSMENT:
+3 subsequent commits affected. Hypervigilance protocol
+persisted for 2 additional generations before PR #62
+(Angela, 1987) initiated deprecation.
+```
+
+### Types of PR Closures
+
+Not all closures are the same. The platform tracks the nature of each closure:
+
+| Close Type | Meaning | Commit Message Context |
+|-----------|---------|----------------------|
+| **Natural Close** | Death by natural causes / old age | Full life configuration finalized. All traits either passed forward or terminated. |
+| **Premature Close** | Early death — accident, illness, violence | Configuration terminated before full expression. Some traits never had the chance to manifest or be passed forward. Downstream commits receive incomplete inheritance. |
+| **Stillborn / Miscarriage** | PR opened and closed before any commits | The branch was created but no configuration was committed. The PR exists in the repository history as a record that this life was proposed but never merged into the active tree. The commit message documents what was known or hoped for. |
+| **Abortion** | PR deliberately closed before merge | A deliberate decision to close the PR before the proposed configuration entered the repository. The decision itself is a commit — it carries weight, cost, context, and downstream effects. Documented without judgment. The repository records what happened, not what should have happened. |
+| **Estrangement Close** | Person leaves the family system | Not death — but the PR is closed from this repository's perspective. The person's configuration continues in a fork, but no longer merges back. Can be reopened if reconciliation occurs. |
+| **Unknown Close** | Disappearance, lost records | PR closed with incomplete data. Close date may be approximate or unknown. Configuration at time of close is partially documented. Legacy code from this commit may be untraceable. |
+
+### Stillborn and Miscarriage Commits
+
+These are some of the most important records in any repository. A life that was proposed but never fully entered the tree still has a place in the history:
+
+```
+PR #31 — CLOSED
+
+Title: Unnamed Johnson (1952)
+Author: Margaret Louise Johnson
+Branch: main/paternal/johnson
+Status: CLOSED (March 1952)
+Opened: July 1951
+Duration: 8 months
+
+PROPOSED CONFIGURATION:
+- Generation: 2
+- Parents: Margaret Louise Johnson (a7f3d9e2)
+- Branch: main/paternal/johnson
+- Traits: [not yet determined]
+
+CLOSING COMMIT MESSAGE:
+"Lost in the third trimester. Margaret never spoke of it.
+Robert never knew how to. The absence shaped everything
+that came after — a ghost commit in the repository
+that influenced the spacing, the protectiveness,
+the way the next child was held too tight or not at all."
+
+DOWNSTREAM IMPACT:
+This closed PR has no direct child commits, but its
+existence in the repository history affected the
+configuration of subsequent commits on this branch.
+The grief became part of the environment field
+for all following generations.
+```
+
+### The Cemetery View
+
+Closed PRs can be viewed in a dedicated **Cemetery** sub-view — a respectful, structured record of all closed life-PRs in the repository:
+
+- Chronological listing of all closed PRs
+- Filterable by close type, branch, generation
+- Each entry shows: name, dates (opened → closed), duration, close type, final commit message excerpt
+- Click to view the full closed PR detail
+- Total count and statistics: average duration, most common close types, generational patterns in closure
+
+This is not morbid. This is complete. A repository that only tracks the living is an incomplete repository. The closed PRs are part of the history. They shaped what came after. They matter.
+
+### Reopening
+
+Some closed PRs can be reopened:
+- **Estrangement Close** → reconciliation reopens the PR
+- **Unknown Close** → new information surfaces (DNA match, historical records found)
+- **Natural Close** → never reopened, but the commit can be amended with new information discovered after closing (obituary data, stories from family members, DNA results)
+
+---
+
 ## Actions & Scanners
 
 ### Automated Analysis (GitHub Actions for Genealogy)
