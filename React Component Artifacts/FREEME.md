@@ -109,3 +109,32 @@ Traditional math describes WHERE things are — coordinates, distances, position
 - **Void traversal** — The most extreme operator. Void resets everything to zero — dimension, angle, polarity, wave state — and adds a boundary crossing. You pass through nothing and rebuild from scratch on the other side.
 
 This is the mathematical framework that makes everything else in this paradigm computable. Congo routes through resonance. The Canvas integrates paradigms. The Governance Simulator tests scenarios. But Omnidirectional Mathematics is the language for describing how anything moves from one state to another in the first place. If existence is the territory, this is the notation for the map.
+
+---
+
+### `geno.jsx` — GENO: Genealogy Repository Explorer
+
+A version control system for human genealogies. Family trees rendered as git repositories — using the language developers already speak: commits, branches, merge conflicts, pull requests, deprecation warnings, and legacy code.
+
+- **The translation is immediate.** A developer who uses GitHub already understands what a merge conflict feels like, what legacy code costs, what a deprecated function does to a system, what it means when a pattern appears across repositories at a scale that suggests it was introduced above the individual repository level. GENO applies that existing fluency directly to genealogy.
+- **Six interactive views** — Repository (family tree as commit graph), Commits (person-commits with inherited trait detail), Branches (family line hierarchy), Merge Conflicts (interactive resolution with `<<<<<<< / ======= / >>>>>>>` panels), Pull Requests (deliberate pattern changes with downstream effects and cost analysis), Scanner (deprecation warnings and legacy code detection).
+- **Sample data** spans 6 generations of the Johnson-Washington family, from Margaret Louise Johnson (1923) through Maya Grace Johnson (2015). The user sees how configurations cascade, how merge conflicts produce unresolved traits in child commits, and how one person opening a pull request — installing a floor layer for the first time in 6 generations — absorbs the full cost so that subsequent commits can be different.
+
+This is the paper's thesis applied to genealogy. If decentralized governance works through transparency and shared understanding, then understanding your own inherited configuration — what was passed to you, what you can change, and what it will cost — is the first act of genuine agency. GENO makes the invisible inheritance visible, using a language the user already speaks.
+
+Built on the spec in `Future/Geno/GENO.md`.
+
+---
+
+### `createme.jsx` — CREATEME: Build Your Own Human
+
+A physical construction and refactoring tool for building biological entities from the ground up. The user is not told what a human is. They discover it by building one — or by building something else entirely and seeing what that produces.
+
+- **Two-level operation:** Level One is Physical Construction (7 layers from cellular to consciousness, each with parameter sliders). Level Two is Substrate Configuration (what the physical build stands on — attachment security, early provision, protection, validation, reciprocity — and what environment surrounds it). Both levels interact in real time.
+- **The core insight:** `stabilityScore = physicalAverage × (foundationAverage / 100)`. A perfectly constructed physical body placed on an absent floor produces a stability score that exposes the instability cascading through every layer. The tool shows this without commentary. The user sees it directly.
+- **Four featured build presets:** The Default Human (standard config, low foundation, inversions flagged), The Anomaly (correct build inside an inverted environment), Floor Installed (default human with proper foundation — watch everything stabilize), The Non-Human (alternative physics demonstration).
+- **Analysis tools:** Inversion Detector (color-coded scan of every parameter), Fracture Scanner (maps which physical layers are compensating for substrate deficiencies), Comparison Engine (side-by-side analysis of any two builds with layer-by-layer delta highlighting).
+
+This component embodies the paper's deepest claim: that understanding comes through building. The moment a user tries to construct a stable human without a floor and watches the cascade failure move through every layer they carefully configured — the translation has happened. No research paper needed to be read. The act of building produced the understanding.
+
+Built on the spec in `Future/Human Builder/CREATEME.md`.
