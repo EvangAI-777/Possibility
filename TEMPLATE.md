@@ -914,210 +914,239 @@ After CI pipeline completes, before merging or deploying:
 
 CI systems report "build succeeded" but can produce truncated or incomplete artifacts silently.
 
-#### **Section 20: When It Goes Silent — Diagnostic Flowchart**
+---
 
-\*\*Scenario:\*\* Build reports success, deployment completes, but the app produces a blank screen or hangs indefinitely with no error messages visible.
+## Section 20: When It Goes Silent — Diagnostic Flowchart
 
-\*\*20.1: Binary Is Corrupted\*\*
+**Scenario:** Build reports success, deployment completes, but the app produces a blank screen or hangs indefinitely with no error messages visible.
 
-\*Observable symptoms:\*  
-\- Blank screen immediately after page load  
-\- No output in browser console  
-\- Timeout fires reliably if you have one implemented
+### 20.1: Binary Is Corrupted
 
-\*Diagnostic step:\*  
-\`\`\`bash  
-wasm-validate your-app.wasm  
-\`\`\`
+*Observable symptoms:*
+
+- Blank screen immediately after page load
+- No output in browser console
+- Timeout fires reliably if you have one implemented
+
+*Diagnostic step:*
+
+```bash
+wasm-validate your-app.wasm
+```
 
 If this fails, the binary is corrupted and cannot run.
 
-\*Possible root causes:\*  
-\- Build system ran out of memory during linking  
-\- Post-processing tool was killed mid-operation  
-\- Disk full or I/O error during artifact write  
-\- CI runner crashed after build but before artifact saved
+*Possible root causes:*
 
-\*What to do:\*  
-\- Rebuild with reduced resource usage  
-\- Check build logs for out-of-memory or crash messages  
-\- Do not deploy until binary validates successfully
+- Build system ran out of memory during linking
+- Post-processing tool was killed mid-operation
+- Disk full or I/O error during artifact write
+- CI runner crashed after build but before artifact saved
 
-\*\*20.2: Initialization Sequence Hangs\*\*
+*What to do:*
 
-\*Observable symptoms:\*  
-\- Console shows some output from startup, then stops  
-\- Timeout fires after your defined duration  
-\- App is partially initialized but blocked on something specific
+- Rebuild with reduced resource usage
+- Check build logs for out-of-memory or crash messages
+- Do not deploy until binary validates successfully
 
-\*Diagnostic steps:\*  
-\- Examine console output: at what point does it stop?  
-\- Add logging at each step of initialization  
-\- Test in all target browsers to see if this is consistent  
-\- Watch CPU and memory usage during startup (infinite loop would show high CPU; memory exhaustion would show heap growth)
+### 20.2: Initialization Sequence Hangs
 
-\*Possible root causes:\*  
-\- Initialization code contains an infinite loop or blocking call  
-\- Deadlock in synchronization or threading code  
-\- Memory allocation fails and error is not handled  
-\- Filesystem setup tries to load or populate large amounts of data synchronously  
-\- Graphics context creation is blocking
+*Observable symptoms:*
 
-\*What to do:\*  
-\- Break initialization into smaller steps, log after each one  
-\- Move non-critical startup work to happen after app is interactive  
-\- Reduce initial memory allocation and test  
-\- Simplify filesystem initialization  
-\- Test with threading disabled to rule out synchronization issues
+- Console shows some output from startup, then stops
+- Timeout fires after your defined duration
+- App is partially initialized but blocked on something specific
 
-\*\*20.3: Silent Failure — No Output, No Errors\*\*
+*Diagnostic steps:*
 
-\*Observable symptoms:\*  
-\- Page is completely blank  
-\- Browser console is empty  
-\- No network errors or security warnings visible  
-\- Page appears to be frozen
+- Examine console output: at what point does it stop?
+- Add logging at each step of initialization
+- Test in all target browsers to see if this is consistent
+- Watch CPU and memory usage during startup (infinite loop would show high CPU; memory exhaustion would show heap growth)
 
-\*Diagnostic steps:\*  
-\- Open DevTools and check Console tab explicitly  
-\- Check Network tab for failed requests (404 errors on .wasm, .js, or .css files)  
-\- Try the same URL in a different browser  
-\- Inspect the page source to verify HTML is rendering at all
+*Possible root causes:*
 
-\*Possible root causes:\*  
-\- Network policy (CORS) preventing asset load  
-\- Content security policy (CSP) blocking script execution  
-\- Missing HTTP headers required for certain WASM features  
-\- Asset file not deployed or served with wrong file type declaration  
-\- JavaScript error in your web shell code before the app prints its first message  
-\- GPU or graphics API not supported on this machine
+- Initialization code contains an infinite loop or blocking call
+- Deadlock in synchronization or threading code
+- Memory allocation fails and error is not handled
+- Filesystem setup tries to load or populate large amounts of data synchronously
+- Graphics context creation is blocking
 
-\*What to do:\*  
-\- Verify all required asset files are present in deployment  
-\- Check HTTP response headers are correct  
-\- Test in browser with full diagnostics enabled  
-\- Check GPU support on target machine  
-\- Wrap initialization code in try/catch to surface errors
+*What to do:*
 
-\*\*20.4: Works on Your Machine, Fails When Deployed\*\*
+- Break initialization into smaller steps, log after each one
+- Move non-critical startup work to happen after app is interactive
+- Reduce initial memory allocation and test
+- Simplify filesystem initialization
+- Test with threading disabled to rule out synchronization issues
 
-\*Observable symptoms:\*  
-\- App works correctly when run from localhost  
-\- Same binary deployed to hosting fails  
-\- No code was changed between local and deployed versions
+### 20.3: Silent Failure — No Output, No Errors
 
-\*Diagnostic steps:\*  
-\- Compare HTTP response headers between localhost and deployed version  
-\- Check Network tab in deployed version to verify all assets downloaded  
-\- Verify .wasm file is being served with correct file type  
-\- Compare file sizes: deployed .wasm should match local .wasm
+*Observable symptoms:*
 
-\*Possible root causes:\*  
-\- Asset paths are hardcoded as absolute paths (work on localhost, break on hosting)  
-\- Hosting is missing HTTP headers required for your app  
-\- .wasm or .js files are not included in deployment  
-\- Hosting is serving cached old version  
-\- Hosting platform is not configured to serve WASM files
+- Page is completely blank
+- Browser console is empty
+- No network errors or security warnings visible
+- Page appears to be frozen
 
-\*What to do:\*  
-\- Change asset paths to relative paths (use \`./app.wasm\` instead of \`/app.wasm\`)  
-\- Add required HTTP headers to your hosting configuration  
-\- Verify deployment process includes all asset files  
-\- Clear browser cache on hosted URL  
-\- Verify hosting platform supports serving WASM
+*Diagnostic steps:*
 
-\*\*20.5: Works in One Browser, Not Others\*\*
+- Open DevTools and check Console tab explicitly
+- Check Network tab for failed requests (404 errors on .wasm, .js, or .css files)
+- Try the same URL in a different browser
+- Inspect the page source to verify HTML is rendering at all
 
-\*Observable symptoms:\*  
-\- App runs in Chrome but fails in Firefox or Safari  
-\- Console output differs between browsers  
-\- Same URL, same machine, different result
+*Possible root causes:*
 
-\*Diagnostic steps:\*  
-\- Check what graphics APIs are available in failing browser  
-\- Compare console output line-by-line between working and failing browser  
-\- Verify failing browser supports required features (threading, WASM features, graphics APIs)  
-\- Test rendering features individually if applicable
+- Network policy (CORS) preventing asset load
+- Content security policy (CSP) blocking script execution
+- Missing HTTP headers required for certain WASM features
+- Asset file not deployed or served with wrong file type declaration
+- JavaScript error in your web shell code before the app prints its first message
+- GPU or graphics API not supported on this machine
 
-\*Possible root causes:\*  
-\- GPU driver differences between browsers  
-\- Graphics API support varies by browser and operating system  
-\- Shader syntax compatibility issues  
-\- Browser security policy blocking threading or other features  
-\- Missing feature detection code
+*What to do:*
 
-\*What to do:\*  
-\- Implement feature detection at startup to check what's available  
-\- Provide fallback code paths for optional features  
-\- Test on target browser's hardware  
-\- Document which browsers are supported and why
+- Verify all required asset files are present in deployment
+- Check HTTP response headers are correct
+- Test in browser with full diagnostics enabled
+- Check GPU support on target machine
+- Wrap initialization code in try/catch to surface errors
 
-\*\*20.6: Memory Exhaustion During Startup\*\*
+### 20.4: Works on Your Machine, Fails When Deployed
 
-\*Observable symptoms:\*  
-\- App prints startup messages  
-\- Browser tab becomes unresponsive after a few seconds  
-\- System memory usage grows continuously  
-\- App eventually crashes
+*Observable symptoms:*
 
-\*Diagnostic steps:\*  
-\- Open DevTools Memory tab  
-\- Take heap snapshot at start  
-\- Wait 5 seconds, take another snapshot  
-\- Compare the two: is heap growing linearly, exponentially, or unbounded?  
-\- Check console for allocation failure messages
+- App works correctly when run from localhost
+- Same binary deployed to hosting fails
+- No code was changed between local and deployed versions
 
-\*Possible root causes:\*  
-\- Initial memory allocation is too large for target machines  
-\- Startup code allocates memory in a loop without freeing it (memory leak)  
-\- Large files or data structures are being loaded entirely into memory  
-\- Startup initialization performs expensive computations repeatedly
+*Diagnostic steps:*
 
-\*What to do:\*  
-\- Start with smaller initial memory allocation, increase if needed  
-\- Stream large files instead of loading them all at once  
-\- Add memory usage logging to find where growth happens  
-\- Profile startup to identify expensive operations
+- Compare HTTP response headers between localhost and deployed version
+- Check Network tab in deployed version to verify all assets downloaded
+- Verify .wasm file is being served with correct file type
+- Compare file sizes: deployed .wasm should match local .wasm
 
-\*\*20.7: Diagnostic Decision Tree\*\*
+*Possible root causes:*
 
-\`\`\`  
-App is blank or hung after deployment  
-│  
-├─ Does wasm-validate pass?  
-│  ├─ NO → Section 20.1 (Binary Corrupted)  
-│  └─ YES → Continue  
-│  
-├─ Does browser console show any output?  
-│  ├─ YES, but stops partway through → Section 20.2 (Initialization Hangs)  
-│  ├─ NO, console is empty → Section 20.3 (Silent Failure)  
-│  └─ YES, complete output but page blank → Check page HTML/CSS  
-│  
-├─ Does it work on localhost but not on deployed host?  
-│  └─ YES → Section 20.4 (Local vs Deployed)  
-│  
-├─ Does it work in some browsers but not others?  
-│  └─ YES → Section 20.5 (Browser Specific)  
-│  
-├─ Is system memory growing without stopping?  
-│  └─ YES → Section 20.6 (Memory Exhaustion)  
-│  
-└─ None of the above → Review your build logs, compiler output, and CI pipeline for warnings you may have missed  
-\`\`\`
+- Asset paths are hardcoded as absolute paths (work on localhost, break on hosting)
+- Hosting is missing HTTP headers required for your app
+- .wasm or .js files are not included in deployment
+- Hosting is serving cached old version
+- Hosting platform is not configured to serve WASM files
 
-\*\*20.8: When to Escalate\*\*
+*What to do:*
+
+- Change asset paths to relative paths (use `./app.wasm` instead of `/app.wasm`)
+- Add required HTTP headers to your hosting configuration
+- Verify deployment process includes all asset files
+- Clear browser cache on hosted URL
+- Verify hosting platform supports serving WASM
+
+### 20.5: Works in One Browser, Not Others
+
+*Observable symptoms:*
+
+- App runs in Chrome but fails in Firefox or Safari
+- Console output differs between browsers
+- Same URL, same machine, different result
+
+*Diagnostic steps:*
+
+- Check what graphics APIs are available in failing browser
+- Compare console output line-by-line between working and failing browser
+- Verify failing browser supports required features (threading, WASM features, graphics APIs)
+- Test rendering features individually if applicable
+
+*Possible root causes:*
+
+- GPU driver differences between browsers
+- Graphics API support varies by browser and operating system
+- Shader syntax compatibility issues
+- Browser security policy blocking threading or other features
+- Missing feature detection code
+
+*What to do:*
+
+- Implement feature detection at startup to check what's available
+- Provide fallback code paths for optional features
+- Test on target browser's hardware
+- Document which browsers are supported and why
+
+### 20.5: Memory Exhaustion During Startup
+
+*Observable symptoms:*
+
+- App prints startup messages
+- Browser tab becomes unresponsive after a few seconds
+- System memory usage grows continuously
+- App eventually crashes
+
+*Diagnostic steps:*
+
+- Open DevTools Memory tab
+- Take heap snapshot at start
+- Wait 5 seconds, take another snapshot
+- Compare the two: is heap growing linearly, exponentially, or unbounded?
+- Check console for allocation failure messages
+
+*Possible root causes:*
+
+- Initial memory allocation is too large for target machines
+- Startup code allocates memory in a loop without freeing it (memory leak)
+- Large files or data structures are being loaded entirely into memory
+- Startup initialization performs expensive computations repeatedly
+
+*What to do:*
+
+- Start with smaller initial memory allocation, increase if needed
+- Stream large files instead of loading them all at once
+- Add memory usage logging to find where growth happens
+- Profile startup to identify expensive operations
+
+### 20.7: Diagnostic Decision Tree
+
+```
+App is blank or hung after deployment
+│
+├─ Does wasm-validate pass?
+│  ├─ NO → Section 20.1 (Binary Corrupted)
+│  └─ YES → Continue
+│
+├─ Does browser console show any output?
+│  ├─ YES, but stops partway through → Section 20.2 (Initialization Hangs)
+│  ├─ NO, console is empty → Section 20.3 (Silent Failure)
+│  └─ YES, complete output but page blank → Check page HTML/CSS
+│
+├─ Does it work on localhost but not on deployed host?
+│  └─ YES → Section 20.4 (Local vs Deployed)
+│
+├─ Does it work in some browsers but not others?
+│  └─ YES → Section 20.5 (Browser Specific)
+│
+├─ Is system memory growing without stopping?
+│  └─ YES → Section 20.6 (Memory Exhaustion)
+│
+└─ None of the above → Review your build logs, compiler output,
+   and CI pipeline for warnings you may have missed
+```
+
+### 20.8: When to Escalate
 
 If you have worked through 20.1–20.7 and still cannot identify the problem:
 
-\*Gather:\*  
-1\. Complete build log from CI (not just final line)  
-2\. Full browser console output from startup to failure  
-3\. Network tab showing all requests and responses  
-4\. Memory profiler graph showing heap over time  
-5\. The exact steps to reproduce (URL, browser, operating system)
+*Gather:*
 
-\*Next steps:\*  
-\- Search for similar issues in your build tool's issue tracker  
-\- Search for similar issues in the WebAssembly community resources  
-\- Post in your project's issue tracker with all the information above  
-\- Consider if a simpler version (fewer features, less complex) would help identify where the problem is
+1. Complete build log from CI (not just final line)
+2. Full browser console output from startup to failure
+3. Network tab showing all requests and responses
+4. Memory profiler graph showing heap over time
+5. The exact steps to reproduce (URL, browser, operating system)
+
+*Next steps:*
+
+- Search for similar issues in your build tool's issue tracker
+- Search for similar issues in the WebAssembly community resources
+- Post in your project's issue tracker with all the information above
+- Consider if a simpler version (fewer features, less complex) would help identify where the problem is
