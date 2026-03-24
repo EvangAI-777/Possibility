@@ -68,3 +68,68 @@ POST   /api/repos/:owner/:name/fork        Fork a repository
 ```
 
 ---
+
+## The Repository System
+
+### Creating a Repository
+
+When a user creates a family repository, they're starting a genealogical record. The creation flow:
+
+1. **Name the repository**: `johnson-washington-family`, `garcia-lineage`, `chen-family-tree`
+2. **Set visibility**: Public (anyone can view), Private (invite-only), or Protected (viewable but edits restricted)
+3. **Initialize**: Optionally start with a template that includes common trait categories, or start blank
+4. **Add description**: "Multi-generational family repository — Johnson & Washington lines, 1920s Alabama through present-day Chicago"
+5. **Set topics/tags**: `genealogy`, `african-american`, `great-migration`, `alabama`, `chicago`
+
+The repository page looks like GitHub's repository page: header with owner/name, star/fork/watch counts, tab navigation, file browser, README, sidebar with About section and stats.
+
+### Repository Structure
+
+Every repository has a default `main` branch representing the primary lineage. The "file system" is organized by generation:
+
+```
+johnson-washington-family/
+├── README.md                          # Family narrative and overview
+├── generation-1/
+│   └── margaret-louise-johnson.json   # Commit a7f3d9e2 (1923)
+├── generation-2/
+│   ├── robert-earl-johnson.json       # Commit b8e4c1f3 (1945)
+│   └── dorothy-mae-washington.json    # Commit c9d5a2e4 (1948)
+├── generation-3/
+│   └── james-arthur-johnson.json      # Commit d1e6b3f5 (1968) — merge commit
+├── generation-4/
+│   └── angela-marie-johnson.json      # Commit e2f7c4a6 (1987)
+├── generation-5/
+│   └── maya-grace-johnson.json        # Commit f3a8d5b7 (2015)
+├── .geno/
+│   ├── config.json                    # Repository settings
+│   ├── branches.json                  # Branch definitions
+│   └── scanners/                      # Scanner configurations
+│       ├── deprecation.json
+│       └── legacy.json
+└── CHANGELOG.md                       # Generational change log
+```
+
+### Cloning and Forking
+
+- **Clone**: Download a complete copy of a family repository for offline work or local analysis
+- **Fork**: Create your own copy of someone else's repository — useful for:
+  - A family member who emigrated and wants to track their independent line
+  - A researcher studying generational patterns across multiple families
+  - A therapist building a clinical case study (with consent)
+- **Fork back**: Forked repositories can submit PRs back to the original — "I discovered this trait origin in my branch that explains something in yours"
+
+### Collaboration
+
+Repositories support multiple collaborators with role-based access:
+
+| Role | Can View | Can Commit | Can Merge | Can Admin |
+|------|----------|-----------|-----------|-----------|
+| **Viewer** | Yes | No | No | No |
+| **Contributor** | Yes | Yes (via PR) | No | No |
+| **Maintainer** | Yes | Yes | Yes | No |
+| **Owner** | Yes | Yes | Yes | Yes |
+
+Family members can be invited as contributors. Therapists or researchers can be given viewer or contributor access. The owner controls who sees what.
+
+---
