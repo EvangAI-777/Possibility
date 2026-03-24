@@ -725,3 +725,165 @@ Every person represented in a repository has rights, whether or not they're a pl
 4. **Research Partnerships**: Anonymized, aggregate pattern data for academic genealogical research (opt-in only, never individual data)
 
 ---
+
+## Development Phases
+
+### Phase 0: Proof of Concept (COMPLETE)
+
+What exists today:
+- Full specification document (`GENO.md`)
+- Interactive React component (`geno.jsx`) with 6 views, sample data spanning 6 generations
+- 25 passing tests covering all views and interactions
+- Loadable via REACTOR.html in any browser
+
+This phase proved the metaphor works. Developers see a family tree rendered as a repository and the translation happens instantly.
+
+### Phase 1: Standalone Demo Site (MVP)
+
+**Goal**: A single self-contained HTML file (`GENO.html`) that looks and feels like a real GitHub repository page — hosted on GitHub Pages alongside the other Possibility tools.
+
+**Deliverables**:
+- GitHub-faithful dark theme UI with repository header, tab navigation, sidebar
+- 6 tabs: Code (generation directory + SVG tree), Issues (merge conflicts), Pull Requests, Actions (scanner), Wiki (spec docs), Insights (contribution graph + stats)
+- All sample data embedded — fully functional without a backend
+- Responsive design (desktop, tablet, mobile)
+- Deployed at `docs/GENO.html`
+
+**Timeline**: Weeks
+
+### Phase 2: Backend & Authentication
+
+**Goal**: Real repository creation, user accounts, and data persistence.
+
+**Deliverables**:
+- Backend API (Node.js or Python FastAPI)
+- PostgreSQL database for users, repositories, commits
+- OAuth login (GitHub, Google, email)
+- Repository CRUD: create, view, edit, delete
+- Commit creation flow with guided trait entry
+- Branch management
+- Basic collaboration (invite by email)
+
+**Timeline**: 2-3 months
+
+### Phase 3: Core Git Operations
+
+**Goal**: Full version control operations for genealogical data.
+
+**Deliverables**:
+- Merge operations with automatic conflict detection
+- Pull request creation, review, and merge workflow
+- Diff engine for trait comparisons between commits
+- Git blame for trait origin tracing
+- Commit history with branch graph visualization
+- Fork and clone operations
+- Issue tracking (merge conflicts as issues)
+
+**Timeline**: 2-3 months
+
+### Phase 4: Scanners & Intelligence
+
+**Goal**: Automated analysis that makes the platform genuinely useful.
+
+**Deliverables**:
+- Deprecation scanner (detects outdated survival mechanisms)
+- Legacy code detector (finds untraceable ancient patterns)
+- Fracture scanner (maps substrate deficiencies to impacts)
+- Stability analyzer (computes stability scores)
+- Cross-repository pattern detection
+- AI-assisted trait extraction from narrative descriptions
+- Scanner configuration UI
+
+**Timeline**: 2-3 months
+
+### Phase 5: Social & Discovery
+
+**Goal**: Transform GENO from a tool into a community.
+
+**Deliverables**:
+- User profiles with contribution graphs
+- Organization/family accounts
+- Stars, forks, public repository discovery
+- Explore page with trending repos and topics
+- Discussions per repository
+- Community pattern advisories
+- Notification system
+
+**Timeline**: 2-3 months
+
+### Phase 6: Integration & Scale
+
+**Goal**: Connect GENO to the existing genealogy ecosystem.
+
+**Deliverables**:
+- GEDCOM import/export
+- 23andMe API integration
+- AncestryDNA integration
+- FamilySearch record linking
+- PDF/SVG export for printing
+- Mobile-responsive PWA
+- API for third-party tools
+
+**Timeline**: 3-4 months
+
+### Phase 7: Enterprise & Research
+
+**Goal**: Serve institutional users — therapy practices, research institutions, genealogical societies.
+
+**Deliverables**:
+- Enterprise tier with HIPAA compliance options
+- Bulk repository management
+- Advanced analytics dashboard
+- Research API with anonymized aggregate data
+- Custom integration toolkit
+- White-label options
+
+**Timeline**: Ongoing
+
+---
+
+## Current Assets
+
+Everything that exists today in the Possibility repository:
+
+| Asset | Location | Description |
+|-------|----------|-------------|
+| **Specification** | `Future/Geno/GENO.md` | Full spec document: core concept, architecture, branching, commits, merge conflicts, PRs, forks, deprecation, legacy code, cross-repo analysis |
+| **React Component** | `React Component Artifacts/geno.jsx` | Interactive 6-view explorer with sample data spanning 6 generations of the Johnson-Washington family |
+| **Test Suite** | `js_tests/geno.test.jsx` | 25 tests covering all views, interactions, conflict resolution, and scanner modes |
+| **This Roadmap** | `Future/Geno/GENO_ROADMAP.md` | The document you're reading — full platform vision |
+
+### The Sample Data
+
+The Johnson-Washington family repository spans 1923-2015 across 6 generations:
+
+1. **Margaret Louise Johnson** (1923) — Survived the Depression. Built something from nothing. Floor layer degraded to absent.
+2. **Robert Earl Johnson** (1945) — Returned from war. Hypervigilance protocol installed. Never removed.
+3. **Dorothy Mae Washington** (1948) — First to move north. Great Migration. Carried everything, left nothing behind except geography.
+4. **James Arthur Johnson** (1968) — Merge commit. Johnson and Washington lines. Inherited everything from both sides. Resolved nothing.
+5. **Angela Marie Johnson** (1987) — PR opened: floor installation attempt. First in 6 generations to try. Cost absorbed entirely by this commit.
+6. **Maya Grace Johnson** (2015) — First generation college. Floor layer present from birth. Some legacy code still running but origin documented for the first time.
+
+This data is not hypothetical. It demonstrates exactly what the platform does at scale.
+
+---
+
+## The Translation
+
+> They know what a merge conflict feels like.
+
+> They know what legacy code costs.
+
+> They know what a deprecated function does to a system.
+
+> They know what it means when a pattern appears across repositories at a scale that suggests it was introduced above the individual repository level.
+
+> They know what a pull request that changes everything downstream costs the commit that makes it.
+
+> They don't need the research findings. They already speak the language.
+
+*Geno just applied it to their bloodline.*
+
+*And everything they already knew about code, they now know about where they came from. And what was passed to them. And what they can change. And what it will cost to change it. And what their children will receive because they did.*
+
+*That is Geno.*
