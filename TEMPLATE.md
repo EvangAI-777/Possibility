@@ -336,13 +336,47 @@ Native sockets do not exist in the browser. Every networking call must be transl
 
 Choose based on your application's latency requirements and expected user count.
 
-#### **Section 9: Input Handling**
+---
 
-* Native input → browser events (mouse, keyboard, touch, gamepad)  
-* Pointer Lock API for FPS-style input  
-* Touch event → mouse event mapping  
-* Gamepad API integration  
-* SDL2 in Emscripten handles most of this
+## Section 9: Input Handling
+
+SDL2 in Emscripten handles most input translation automatically. Know what it covers and what it does not.
+
+**What SDL2 Handles:**
+
+- Mouse events → browser mouse events
+- Keyboard events → browser keyboard events
+- Basic touch → mouse emulation
+- Window resize → canvas resize
+
+**What You Handle Manually:**
+
+**Pointer Lock (FPS-style input):**
+
+```javascript
+canvas.addEventListener('click', function() {
+  canvas.requestPointerLock();
+});
+```
+
+Pointer Lock captures the mouse inside the canvas. Required for any application that needs relative mouse movement (3D viewports, FPS controls, sculpting tools). The user must click to activate — browsers enforce this.
+
+**Touch Events:**
+
+- Multi-touch requires direct touch event handling — SDL2 only maps single touch to mouse
+- Pinch-to-zoom: track two touch points, compute distance delta
+- Rotation gesture: track two touch points, compute angle delta
+
+**Gamepad API:**
+
+```javascript
+window.addEventListener('gamepadconnected', function(e) {
+  var gamepad = navigator.getGamepads()[e.gamepad.index];
+  // Poll gamepad.buttons and gamepad.axes in your render loop
+});
+```
+
+Gamepad input must be polled each frame — there are no events for button state changes.
 
 #### **Section 10: Scripting / Plugin Systems**
 
