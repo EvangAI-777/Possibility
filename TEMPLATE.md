@@ -527,19 +527,65 @@ async function loadModule(url) {
 
 Offload non-rendering work (file parsing, data processing, physics simulation) to Web Workers. This keeps the main thread responsive and the UI smooth.
 
-#### **Section 13: Known Pitfalls (Generalized)**
+---
 
-* Generalized versions of pitfalls:  
-  * Global flag contamination  
-  * OOM on CI (use \--parallel 2)  
-  * wasm-opt OOM on large binaries  
-  * 32-bit pointer/size\_t assumptions  
-  * UNIX=true false matches  
-  * Build tools need SINGLE\_FILE and crosscompiling emulator  
-  * Don't shadow real WebGL2 functions in shims  
-  * Library version mismatches in Emscripten ports  
-  * Type system differences (libjpeg boolean, etc.)  
-* Each pitfall: What happened → Rule → Correct approach
+## Section 13: Known Pitfalls (Generalized)
+
+Every pitfall below was discovered the hard way. Each one cost hours or days. Learn from them.
+
+**Pitfall 1: Global Flag Contamination**
+
+- **What happens:** A compiler or linker flag is applied globally via `CMAKE_C_FLAGS` or similar. It reaches build tools that should never receive it. Build tools crash, hang, or produce corrupted output.
+- **Rule:** Scope every flag to its specific target. Use `target_compile_options()` and `target_link_options()` in CMake.
+- **Correct approach:** Never modify global flag variables. Always use per-target properties.
+
+**Pitfall 2: OOM on CI**
+
+- **What happens:** CI runner has limited RAM. Parallel compilation (`make -j$(nproc)`) exhausts memory. Build is killed by the OOM killer mid-link.
+- **Rule:** Use `--parallel 2` or `make -j2` on CI.
+- **Correct approach:** Fewer parallel jobs on constrained machines. A slower build that completes beats a fast build that crashes.
+
+**Pitfall 3: wasm-opt OOM on Large Binaries**
+
+- **What happens:** `wasm-opt -O3` loads the entire binary into memory for optimization. On binaries over 100MB, this exceeds available RAM.
+- **Rule:** Test `wasm-opt` locally before adding it to CI. Know your binary size.
+- **Correct approach:** Use `-O2`, skip `wasm-opt`, or run on a machine with sufficient RAM.
+
+**Pitfall 4: 32-bit Pointer/size_t Assumptions**
+
+- **What happens:** WASM is 32-bit. Code that assumes 64-bit pointers or `size_t` will overflow, truncate, or produce wrong results.
+- **Rule:** Audit all pointer arithmetic and size calculations for 32-bit safety.
+- **Correct approach:** Use `uintptr_t` and `size_t` correctly. Test on 32-bit targets during development.
+
+**Pitfall 5: UNIX=true False Matches**
+
+- **What happens:** Emscripten sets `UNIX=true` in CMake. Platform checks like `if(UNIX)` match, pulling in POSIX-specific code that does not exist in the browser.
+- **Rule:** Always check `if(EMSCRIPTEN)` BEFORE `if(UNIX)`.
+- **Correct approach:** Add Emscripten-specific branches to every platform detection block.
+
+**Pitfall 6: Build Tools Need SINGLE_FILE**
+
+- **What happens:** Build tools compiled to WASM try to load a separate `.wasm` file at runtime. Node.js cannot find it because the path is wrong.
+- **Rule:** Compile build tools with `-s SINGLE_FILE=1` to embed WASM in the JS file.
+- **Correct approach:** Also set a crosscompiling emulator (`CMAKE_CROSSCOMPILING_EMULATOR = node`) so CMake `try_run()` works during configuration.
+
+**Pitfall 7: Shadowing Real WebGL2 Functions**
+
+- **What happens:** Your compatibility shim defines a function with the same name as a real WebGL2 function. The shim calls itself instead of the real function. Infinite recursion. Stack overflow.
+- **Rule:** Never name a shim function the same as the function it wraps.
+- **Correct approach:** Use a naming convention like `shim_glTexImage2D()` that calls the real `glTexImage2D()`.
+
+**Pitfall 8: Library Version Mismatches**
+
+- **What happens:** Emscripten ports ship specific library versions. Your code expects a different version. APIs differ. Compilation fails or behavior is wrong.
+- **Rule:** Check Emscripten's port versions before starting. Pin your expectations to what Emscripten provides.
+- **Correct approach:** Use `emcc --show-ports` to list available ports and versions.
+
+**Pitfall 9: Type System Differences**
+
+- **What happens:** A library defines a type (e.g., `boolean` in libjpeg) that conflicts with a type in another library or in Emscripten's headers. Compilation fails with cryptic errors.
+- **Rule:** Audit type definitions across all dependencies before compiling.
+- **Correct approach:** Use preprocessor guards or patching to resolve conflicts. Document every patch.
 
 #### **Section 14: Web Shell / UI Chrome**
 
