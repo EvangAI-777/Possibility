@@ -404,12 +404,58 @@ Native plugins (`.dll`, `.so`, `.dylib`) cannot load in the browser. Options:
 
 The honest assessment: plugin systems are the hardest subsystem to port. Scope them to a late stage.
 
-#### **Section 11: Staged Deployment Plan**
+---
 
-* Template for phased porting  
-* Stage template with: Status, Features, What's Disabled, Technical Challenges, Effort  
-* Priority ordering rationale (quick wins first, dependencies second)  
-* Tier/feature-gate alignment
+## Section 11: Staged Deployment Plan
+
+Do not port everything at once. Stage the work. Quick wins first. Dependencies second. Complexity last.
+
+**Stage Template:**
+
+Copy this template for each stage of your port:
+
+```
+### Stage [N]: [Name]
+
+**Status:** NOT STARTED / IN PROGRESS / FUNCTIONAL / COMPLETE
+
+**Features Enabled:**
+- [List what works in this stage]
+
+**Features Disabled:**
+- [List what is intentionally turned off]
+
+**Technical Challenges:**
+- [List the hard problems this stage must solve]
+
+**Dependencies:**
+- [List what must be complete before this stage can begin]
+
+**Effort Estimate:**
+- [T-shirt size: S / M / L / XL]
+```
+
+**Priority Ordering Rationale:**
+
+1. **Stage 1** — Build system compiles and links. App launches in browser. Even if it shows nothing useful. This proves the toolchain works.
+2. **Stage 2** — Core rendering. Get pixels on screen. Viewport navigation works.
+3. **Stage 3** — Primary workflow. The single most important user action works end-to-end.
+4. **Stage 4** — Secondary systems. Audio, file I/O, scripting.
+5. **Stage 5** — Polish. Performance optimization, UI refinement, mobile support.
+6. **Stage 6** — Advanced. Networking, collaboration, plugin systems.
+
+**Tier / Feature-Gate Alignment:**
+
+Each stage maps to a feature tier. Users on earlier tiers get a functional but limited experience. Feature gates control what is exposed:
+
+```javascript
+var FEATURE_TIER = 3; // Current deployment tier
+
+if (FEATURE_TIER >= 2) enableRendering();
+if (FEATURE_TIER >= 3) enableFileIO();
+if (FEATURE_TIER >= 4) enableScripting();
+if (FEATURE_TIER >= 5) enableNetworking();
+```
 
 #### **Section 12: Performance & Optimization**
 
