@@ -640,7 +640,7 @@ The framework gives an AI permission to write about anything with genuine curios
 
 ## Testing
 
-**647 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, and markdown documentation integrity.
+**662 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -715,7 +715,7 @@ Unit tests for the Omnidirectional Mathematics engine (`omnidirectional_math.py`
 - **TestCompose** (5 tests) — Two sequences, preserves all operations, single sequence passthrough, empty raises error, composed execution
 - **TestIntegration** (13 tests) — Original example end-to-end, round-trip reversal via compose, void traversal, double void, polarity mid-journey, full 360 rotation, CCW rotation, complex multi-operator journey, composed matches manual single sequence, notation round-trip (parse-generate-parse), wave-intersection interaction, parallel/orthogonal mode persistence
 
-### JavaScript Test Suite — 290 tests
+### JavaScript Test Suite — 322 tests
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
@@ -844,7 +844,7 @@ Structural validation for all 7 markdown documentation files:
 - **JTBMME.md** (4 tests) — Mind Engineer reference, Johnson Formula, integration dimensions, heading structure
 - **Azule_Visual_Identity.md** (2 tests) — Azule reference, visual concepts
 
-#### `js_tests/marker.test.js` — 68 tests
+#### `js_tests/marker.test.js` — 100 tests
 
 Structural and functional validation for the MARKER Markdown Viewer & Renderer (`MARKER.html`):
 
@@ -860,6 +860,8 @@ Structural and functional validation for the MARKER Markdown Viewer & Renderer (
 - **Event wiring** (8 tests) — DOMContentLoaded, file input, drag events, MARKER.deploy/reset/toggleTOC calls
 - **Responsive design** (4 tests) — 768px/480px breakpoints, clamp(), min()
 - **Error handling** (4 tests) — Error containers, retry button, showError function
+- **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
+- **All HTML tools have back links** (10 tests) — Every tool in docs/ has index.html link and back-link class
 - **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in docs/index.html
 
 ---

@@ -421,6 +421,59 @@ describe('error handling', () => {
 });
 
 // ===========================================================================
+//                    BACK-TO-HOME NAVIGATION
+// ===========================================================================
+
+describe('back-to-home navigation', () => {
+  let html;
+  beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
+
+  test('has back-link element', () => {
+    expect(html).toMatch(/class="back-link"/);
+  });
+
+  test('links to index.html', () => {
+    expect(html).toMatch(/href="index\.html".*class="back-link"/);
+  });
+
+  test('has left arrow and Possibility text', () => {
+    expect(html).toMatch(/&larr;.*Possibility/);
+  });
+
+  test('back-link is position fixed', () => {
+    expect(html).toMatch(/\.back-link\s*\{[^}]*position:\s*fixed/);
+  });
+
+  test('back-link has high z-index', () => {
+    expect(html).toMatch(/\.back-link\s*\{[^}]*z-index:\s*9999/);
+  });
+});
+
+// ===========================================================================
+//          ALL HTML TOOLS HAVE BACK-TO-HOME LINKS
+// ===========================================================================
+
+describe('all HTML tools in docs/ have back-to-home links', () => {
+  const toolFiles = [
+    'meta_debug.html',
+    'periodic-table-of-meaning.html',
+    'compound_interest_explainer.html',
+    'REACTOR.html',
+    'MARKER.html',
+  ];
+
+  test.each(toolFiles)('%s has a link to index.html', (file) => {
+    const content = fs.readFileSync(path.join(__dirname, '..', 'docs', file), 'utf-8');
+    expect(content).toMatch(/href="index\.html"/);
+  });
+
+  test.each(toolFiles)('%s has back-link class', (file) => {
+    const content = fs.readFileSync(path.join(__dirname, '..', 'docs', file), 'utf-8');
+    expect(content).toMatch(/class="back-link"/);
+  });
+});
+
+// ===========================================================================
 //               INDEX.HTML REFERENCES MARKER
 // ===========================================================================
 
