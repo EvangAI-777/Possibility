@@ -636,3 +636,92 @@ For users who have family stories but not structured data, an AI assistant can h
 - Always user-confirmed — AI suggests, human approves
 
 ---
+
+## Privacy & Ethics
+
+### The Core Principle
+
+Family data is the most sensitive data that exists. GENO treats it accordingly.
+
+### Consent Model
+
+Every person represented in a repository has rights, whether or not they're a platform user:
+
+- **Living people**: Must give explicit consent to be included in any repository (public or private). Consent can be withdrawn at any time — the commit remains but is anonymized.
+- **Deceased people**: Can be committed by any family member with maintainer access. Other family members can request review or correction.
+- **Minors**: Require parent/guardian consent. Trait data is restricted until the minor reaches 18 and can review their own commit.
+
+### Access Control
+
+| Repository Type | Who Can View | Who Can Edit | Search Indexed |
+|----------------|-------------|-------------|----------------|
+| **Private** | Invited collaborators only | Owner + maintainers | No |
+| **Protected** | Anyone with link | Owner + maintainers | Metadata only |
+| **Public** | Anyone | Contributors via PR | Yes |
+
+### Data Protection
+
+- **Encryption at rest**: All commit data encrypted in storage
+- **Encryption in transit**: HTTPS everywhere, WebSocket over TLS
+- **Right to deletion**: Any user can request full deletion of their data
+- **Data portability**: Full export in GEDCOM, JSON, or PDF at any time
+- **No selling of data**: Platform revenue comes from subscriptions, never data sales
+- **GDPR/CCPA compliant**: Full compliance with privacy regulations
+- **Audit logging**: All access to sensitive data is logged and auditable
+
+### Ethical Guidelines
+
+- **No eugenics framing**: The platform documents what is, not what "should be." Trait values are descriptive, never prescriptive.
+- **No ranking**: Families are not ranked, scored, or compared competitively
+- **Trauma-informed language**: All platform copy, tooltips, and documentation uses trauma-informed language
+- **Professional integration**: Therapists and counselors can be given access as reviewers, with appropriate consent and credentialing
+- **Community moderation**: Cross-repository patterns are shared anonymously — no individual family is identifiable in community-level data
+
+---
+
+## Monetization
+
+### Pricing Model (GitHub-style Tiers)
+
+**Free Tier**:
+- Unlimited public repositories
+- 3 private repositories
+- Basic scanner (deprecation + legacy detection)
+- 5 collaborators per repository
+- Community support
+
+**Pro ($9/month)**:
+- Unlimited private repositories
+- Advanced scanners (cross-repository analysis, fracture scanner, stability analyzer)
+- Unlimited collaborators
+- Priority support
+- GEDCOM import/export
+- PDF report generation
+- AI-assisted trait extraction (50 assists/month)
+
+**Family ($25/month)**:
+- Everything in Pro
+- Organization creation (family org)
+- Role-based access management
+- Custom scanner configurations
+- Unlimited AI-assisted trait extraction
+- DNA platform integrations (23andMe, AncestryDNA)
+- Priority cross-repository analysis
+
+**Enterprise (Custom)**:
+- For research institutions, therapy practices, genealogical societies
+- Bulk repository management
+- Advanced analytics and reporting
+- API access for research tools
+- Dedicated support
+- Custom integrations
+- HIPAA compliance options (for clinical use)
+
+### Revenue Streams
+
+1. **Subscriptions**: Primary revenue — Pro, Family, Enterprise tiers
+2. **DNA Integration Fees**: Processing fee for DNA data import/analysis
+3. **Print Products**: High-quality printed family trees, bound reports, framed SVG visualizations
+4. **Research Partnerships**: Anonymized, aggregate pattern data for academic genealogical research (opt-in only, never individual data)
+
+---
