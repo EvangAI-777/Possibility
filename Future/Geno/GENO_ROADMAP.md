@@ -239,3 +239,89 @@ Current status: deprecated but still running in some downstream commits
 ```
 
 ---
+
+## Branching & Merging
+
+### Branch Types
+
+Every family line split creates a branch. The platform uses naming conventions that mirror both git and genealogy:
+
+```
+main/paternal/johnson/1800s-alabama          Primary patrilineal line
+main/maternal/washington/1900s-chicago        Primary matrilineal line
+feature/first-generation-college              Generational milestone
+feature/great-migration-north                 Geographic/cultural shift
+hotfix/floor-installation-attempt-1987        Deliberate repair attempt
+hotfix/therapy-initiated-2003                 Another repair attempt
+deprecated/generational-trauma-unresolved     Inactive pattern line
+fork/johnson-west-coast-branch                Independent family fork
+```
+
+### Branch Creation
+
+Branches are created when:
+
+- **Marriage/partnership**: Two people from different lines create a child → merge branch
+- **Geographic split**: A family member moves to a new region → feature branch
+- **Deliberate change**: Someone attempts to break a cycle → hotfix branch
+- **Estrangement/emigration**: Complete break from family → fork
+
+### Merge Operations
+
+When two family lines merge (marriage, partnership, having children together), the platform runs a full merge analysis:
+
+1. **Compatibility scan**: Compare all traits between both branches
+2. **Auto-merge**: Traits that don't conflict merge automatically (both parents have `appreciation_capacity: high` → child inherits `appreciation_capacity: high`)
+3. **Conflict detection**: Traits with incompatible values are flagged as merge conflicts
+4. **Merge commit**: The child commit records both parents and documents which traits came from where
+
+A merge commit always has two parents. The platform draws both lineage lines converging at that point in the visual tree.
+
+### Merge Conflicts
+
+When two parent commits carry incompatible configurations for the same trait, a merge conflict is created. The conflict uses the exact same visual language developers know:
+
+```
+MERGE CONFLICT DETECTED
+
+Branch: main/paternal/johnson
+Branch: main/maternal/washington
+
+CONFLICT: Floor layer configuration
+
+<<<<<<< johnson/main
+Floor layer: absent
+=======
+Floor layer: partial
+>>>>>>> washington/main
+
+RESOLUTION OPTIONS:
+1. Accept johnson/main (absent floor passes forward)
+2. Accept washington/main (partial floor passes forward)
+3. Manual merge (user configures combined floor layer)
+4. Flag for review (mark as unresolved in child commit)
+```
+
+Unresolved conflicts cascade through all subsequent commits in the merged branch. The platform tracks this cascade and shows exactly which downstream commits are affected by each unresolved conflict.
+
+### Visual Branch Graph
+
+The platform renders a visual branch graph — like `git log --graph` but for family lines:
+
+```
+* f3a8d5b7 (HEAD -> feature/first-gen-college) Maya Grace Johnson (2015)
+|
+* e2f7c4a6 (hotfix/floor-installation) Angela Marie Johnson (1987)
+|
+*   d1e6b3f5 (main) James Arthur Johnson (1968) — MERGE
+|\
+| * c9d5a2e4 (main/maternal/washington) Dorothy Mae Washington (1948)
+|
+* b8e4c1f3 (main/paternal/johnson) Robert Earl Johnson (1945)
+|
+* a7f3d9e2 Margaret Louise Johnson (1923)
+```
+
+This renders as an interactive SVG on the platform, with colored branch lines, clickable nodes, hover tooltips, and merge point indicators.
+
+---
