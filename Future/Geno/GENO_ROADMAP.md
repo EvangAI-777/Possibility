@@ -439,3 +439,113 @@ Issues can be grouped into milestones representing generational goals:
 - "Connection Mechanism Repair" — 11+ generation legacy code investigation
 
 ---
+
+## Actions & Scanners
+
+### Automated Analysis (GitHub Actions for Genealogy)
+
+The Actions tab provides automated scanning workflows that analyze a repository for patterns, risks, and opportunities. These run automatically on new commits and can be triggered manually.
+
+### Built-In Workflows
+
+**Deprecation Scanner**
+Identifies inherited configurations that were adaptive in their original environment but are no longer functional:
+
+```
+DEPRECATION WARNING: hypervigilance_protocol_v1923
+
+Introduced in: commit a7f3d9e2 (1923)
+Reason: Adaptive response to environmental threat conditions
+Current environmental threat: significantly reduced
+
+Effects:
+- Nervous system stress threshold: artificially elevated
+- False positive threat detection: 847% above baseline
+- Energy cost: significant
+
+Recommendation: Review for refactoring or removal
+NOTE: Removal may trigger temporary instability as compensatory
+architecture adjusts. This is expected.
+```
+
+**Legacy Code Detector**
+Identifies inherited configurations so old their original purpose is untraceable:
+
+```
+LEGACY CODE DETECTED: inverted_connection_mechanism
+
+Age: 11+ generations (origin commit not found)
+Downstream effects: documented across all subsequent commits
+Original purpose: unknown
+Current function: anti-gravity in social field
+
+Recommendation: Flag for investigation. Do not remove without
+full impact analysis. Legacy code of this age has significant
+compensatory architecture built around it.
+```
+
+**Cross-Repository Pattern Analyzer**
+Scans for patterns appearing across multiple family repositories globally:
+
+```
+PATTERN DETECTED ACROSS 847 REPOSITORIES:
+
+inverted_connection_mechanism present in all flagged repositories.
+Geographic spread: global.
+Time span: all available repository history.
+Origin: not traceable to any single repository.
+
+NOTE: Pattern of this scale and age suggests configuration
+introduced at level above individual repository.
+```
+
+**Fracture Scanner**
+Maps substrate deficiencies to physical layer impacts. Shows which layers of a person's configuration are compensating for absent infrastructure.
+
+**Stability Analyzer**
+Computes a stability score for any commit based on: `physicalAverage × (foundationAverage / 100)`. A perfect physical build with zero foundation = stability of 0.
+
+### Custom Workflows
+
+Users can define custom scanner configurations that look for specific patterns in their repository — trait thresholds, generational recurrence, resolution effectiveness tracking.
+
+---
+
+## User Profiles
+
+### Your GENO Profile
+
+Every user has a profile page modeled on GitHub's user profile:
+
+**Profile Header**:
+- Display name, avatar, bio
+- Location, link, join date
+- Follower/following counts
+- "Repositories" count, "Stars" count
+
+**Contribution Graph** (the green squares):
+Instead of code commits, the heatmap shows genealogical activity:
+- Adding person-commits to repositories
+- Resolving merge conflicts
+- Creating or merging pull requests
+- Running scanner analyses
+- Documenting traits and writing commit messages
+
+The intensity of each square reflects how much genealogical work was done that day/week.
+
+**Pinned Repositories**: Users can pin their most important family repositories to their profile.
+
+**Repository List**: All repositories the user owns or contributes to, sortable by:
+- Recently updated
+- Most stars
+- Most forks
+- Generational depth (number of generations documented)
+
+### Organizations
+
+Families can create organizations (like GitHub orgs) to own repositories collectively:
+- **Johnson Family Org** owns `johnson-paternal`, `johnson-maternal`, `johnson-washington-merged`
+- Members have role-based access
+- Org-level settings for privacy defaults and scanner configurations
+
+---
