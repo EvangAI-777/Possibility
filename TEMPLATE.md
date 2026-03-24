@@ -457,15 +457,75 @@ if (FEATURE_TIER >= 4) enableScripting();
 if (FEATURE_TIER >= 5) enableNetworking();
 ```
 
-#### **Section 12: Performance & Optimization**
+---
 
-* WASM SIMD (\-msimd128)  
-* Streaming compilation (Content-Type: application/wasm)  
-* Module splitting / lazy loading  
-* wasm-opt passes (and OOM avoidance)  
-* Brotli/gzip compression  
-* IndexedDB caching for repeat visits  
-* Web Workers for background computation
+## Section 12: Performance & Optimization
+
+A port that works but runs at 5 FPS is not a port. Performance is not optional. These are the levers.
+
+**WASM SIMD:**
+
+```bash
+# Enable SIMD in Emscripten
+emcc -msimd128 -O3 app.c -o app.wasm
+```
+
+SIMD provides 2-4x speedup on math-heavy code (matrix operations, image processing, physics). Check browser support — it is widely available as of 2024.
+
+**Streaming Compilation:**
+
+Serve `.wasm` files with the correct Content-Type header:
+
+```
+Content-Type: application/wasm
+```
+
+This allows the browser to compile the WASM module while it downloads. Without this header, the browser must download the entire file before compilation begins.
+
+**Module Splitting / Lazy Loading:**
+
+- Split your application into a core module and feature modules
+- Load feature modules on demand using `WebAssembly.instantiateStreaming()`
+- Keep initial download under 10MB for acceptable load times on average connections
+
+**wasm-opt Passes:**
+
+```bash
+wasm-opt -O3 -o output-opt.wasm output.wasm
+```
+
+WARNING: `wasm-opt` can OOM on large binaries (100MB+). If it crashes:
+- Run on a machine with more RAM
+- Use `-O2` instead of `-O3` (less aggressive, less memory)
+- Skip `wasm-opt` entirely — Emscripten's `-O3` already does significant optimization
+
+**Compression:**
+
+| Method | Typical Ratio | Browser Support |
+|--------|--------------|-----------------|
+| Brotli | 60-70% reduction | All modern browsers |
+| gzip | 50-60% reduction | Universal |
+
+Serve `.wasm` with Brotli (`.wasm.br`) or gzip (`.wasm.gz`). Configure your server or CDN to handle this transparently.
+
+**IndexedDB Caching for Repeat Visits:**
+
+Cache the compiled WASM module in IndexedDB so returning users skip the download:
+
+```javascript
+async function loadModule(url) {
+  var cache = await caches.open('wasm-cache');
+  var cached = await cache.match(url);
+  if (cached) return WebAssembly.instantiateStreaming(cached);
+  var response = await fetch(url);
+  cache.put(url, response.clone());
+  return WebAssembly.instantiateStreaming(response);
+}
+```
+
+**Web Workers for Background Computation:**
+
+Offload non-rendering work (file parsing, data processing, physics simulation) to Web Workers. This keeps the main thread responsive and the UI smooth.
 
 #### **Section 13: Known Pitfalls (Generalized)**
 
