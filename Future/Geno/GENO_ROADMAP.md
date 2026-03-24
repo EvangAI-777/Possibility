@@ -133,3 +133,109 @@ Repositories support multiple collaborators with role-based access:
 Family members can be invited as contributors. Therapists or researchers can be given viewer or contributor access. The owner controls who sees what.
 
 ---
+
+## The Commit System
+
+### Person as Commit
+
+Every person in a family tree is a commit. A commit is an immutable snapshot of that person's full configuration at their point of existence. Once committed, it cannot be changed — just like real life. You can add context through issues and PRs, but the commit itself is the record.
+
+### Commit Configuration File
+
+Each person-commit contains a structured JSON configuration:
+
+```json
+{
+  "hash": "a7f3d9e2",
+  "author": "Margaret Louise Johnson",
+  "date": "1923-03-14",
+  "branch": "main/paternal/johnson",
+  "generation": 1,
+  "parents": [],
+
+  "inherited_from_father": [
+    { "trait": "Floor layer", "value": "minimal", "note": "Degraded from partial in parent commit" },
+    { "trait": "Glass box permeability", "value": "severely restricted", "note": "Unchanged from parent" },
+    { "trait": "Connection mechanism", "value": "inverted", "note": "Unchanged from 3 generations" }
+  ],
+
+  "inherited_from_mother": [
+    { "trait": "Nervous system stress threshold", "value": "maximum", "note": "Unchanged from parent" },
+    { "trait": "Appreciation capacity", "value": "high", "note": "First appearance in 4 generations" },
+    { "trait": "Childlike trust", "value": "present but suppressed", "note": "Environmental pressure" }
+  ],
+
+  "new_in_this_commit": [
+    { "trait": "Fracture point", "value": "1929", "note": "Economic environment collapse" },
+    { "trait": "Floor layer", "value": "absent by 1931", "note": "Degraded further" },
+    { "trait": "Compensatory architecture", "value": "performance layer added", "note": "New development" }
+  ],
+
+  "passed_forward": [
+    { "trait": "Inverted connection mechanism", "status": "unresolved" },
+    { "trait": "Absent floor", "status": "unresolved" },
+    { "trait": "Performance layer", "status": "new inheritance" },
+    { "trait": "Appreciation capacity", "status": "partially preserved" }
+  ],
+
+  "message": "Survived the depression. Built something from nothing. Never talked about the cost. Children received the architecture without the context.",
+
+  "environment": {
+    "era": "Great Depression",
+    "location": "Alabama",
+    "socioeconomic": "severe poverty",
+    "threats": ["economic collapse", "racial violence", "institutional exclusion"]
+  }
+}
+```
+
+### Commit Creation Flow
+
+When a user adds a person to the repository:
+
+1. **Select parents**: Choose 0, 1, or 2 existing commits as parents (0 = root of a new line)
+2. **Auto-inherit**: The system automatically populates inherited traits from parent commits
+3. **Configure traits**: User adjusts inherited values, marks what changed, adds new traits
+4. **Set environment**: Document the historical/environmental context
+5. **Write commit message**: The narrative — what happened, what it meant, what it cost
+6. **Select branch**: Which family line this person belongs to (or create a new branch)
+7. **Commit**: The person is added to the repository. Immutable. Permanent.
+
+### Diffing Between Commits
+
+The platform computes diffs between any two commits — parent to child, sibling to sibling, or any arbitrary pair:
+
+```diff
+  Commit: a7f3d9e2 (Margaret, 1923) → b8e4c1f3 (Robert, 1945)
+
+  Floor layer
+- absent
++ absent (unchanged — still unresolved)
+
+  Connection mechanism
+- inverted (unchanged from 3 generations)
++ inverted (unchanged from 4 generations)
+
++ Hypervigilance protocol: v1945 (NEW — adaptive response to war)
++ Emotional shutdown: active (NEW — survival mechanism)
+
+  Appreciation capacity
+- high (first appearance in 4 generations)
++ diminished (environmental suppression)
+```
+
+### Git Blame for Traits
+
+"Where did this trait come from?" The platform traces any trait back through the commit history to find the commit that introduced it:
+
+```
+git blame: hypervigilance_protocol
+
+Introduced in:  commit b8e4c1f3 (Robert Earl Johnson, 1945)
+Reason:         Adaptive response to wartime environment
+Still active in: commits d1e6b3f5, e2f7c4a6 (2 generations later)
+Deprecated by:  PR #2 (Angela Marie Johnson, 1987)
+Current status: deprecated but still running in some downstream commits
+```
+
+---
