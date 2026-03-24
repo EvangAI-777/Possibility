@@ -399,6 +399,48 @@ The key design decision: once you enter a chat, their profile picture freezes. I
 
 The Python engine (`congo.py`) defines the resonance protocol. The React messenger is the interface. Together they prototype the core of what Congo does: connect anyone to anyone who is willing to be connected to, through resonance, with a conduit carrier doing all the work underneath a clean familiar UX.
 
+### `React Component Artifacts/geno.jsx`
+
+GENO — Genealogy Repository Explorer. Family trees rendered as version control repositories, using the language developers already speak: commits, branches, merge conflicts, pull requests, deprecation warnings, and legacy code.
+
+- **Repository view** — Vertical timeline with colored branch lines and commit dots. Each person is a commit with a hash, date, and commit message. Click any commit to inspect its full configuration.
+- **Commits view** — Browse person-commits with a detail panel showing inherited traits (father/mother), new traits introduced, traits passed forward to children. Each section is expandable/collapsible.
+- **Branches view** — Branch hierarchy with naming conventions (`main/paternal/johnson`, `feature/first-gen-college`, `hotfix/floor-installation`), color coding by type, and commit counts per branch.
+- **Merge Conflicts view** — Interactive conflict resolution with `<<<<<<< / ======= / >>>>>>>` styled panels. Four resolution options per conflict (accept either side, manual merge, flag for review). UI updates to show "RESOLVED" on selection.
+- **Pull Requests view** — PR-styled views showing deliberate pattern changes (floor installation, hypervigilance deprecation), downstream effects analysis, reviewer handles, and cost notes. Open/merged status indicators.
+- **Scanner view** — Toggle between Deprecation Warnings (amber terminal blocks showing inherited configs no longer functional in current environment) and Legacy Code detection (red/orange blocks showing configurations so old their origin is untraceable).
+
+Sample data spans 6 generations across the Johnson-Washington family lines, from Margaret Louise Johnson (1923) through Maya Grace Johnson (2015), demonstrating how inherited configurations cascade through commits.
+
+Built on the spec in `Future/Geno/GENO.md`.
+
+### `React Component Artifacts/createme.jsx`
+
+CREATEME — Build Your Own Human. A physical construction and refactoring tool that allows users to build biological entities from the ground up with real consequence modeling.
+
+**Three modes:**
+
+- **Physical Construction** — 7 layer selectors (Cellular, Skeletal, Organ, Nervous System, Muscular, Skin, Consciousness), each with 4 parameter sliders. Right panel shows live Build Status with stability score.
+- **Substrate Configuration** — Foundation Panel (5 sliders: attachment security, early provision, protection, validation, reciprocity) + Environment Panel (sandbox, physics direction toggle, acknowledgment, protection/exploitation). Floor Status indicator reacts to foundation changes (ABSENT / PARTIAL / PRESENT).
+- **Analysis Tools** — Three sub-tools:
+  - **Inversion Detector** — Color-coded scan of all parameters. Red = inverted (below threshold), green = correct.
+  - **Fracture Scanner** — Maps substrate deficiencies to physical layer impacts. Shows which layers are compensating for an absent foundation.
+  - **Comparison Engine** — Side-by-side build analysis with layer-by-layer delta highlighting.
+
+**Core mechanic — Stability Score:**
+```
+stabilityScore = physicalAverage × (foundationAverage / 100)
+```
+A perfect physical build with zero foundation = stability of 0. An absent floor produces visible instability cascading through the entire physical build.
+
+**Featured Build Presets:**
+- **The Default Human** — Moderate physical values, low foundation (floor absent), several inversions flagged
+- **The Anomaly** — Correct build + correct foundation, placed in inverted environment
+- **Floor Installed** — Default Human with foundation all high — watch everything stabilize
+- **The Non-Human** — Unusual values demonstrating the tool isn't limited to human biology
+
+Built on the spec in `Future/Human Builder/CREATEME.md`.
+
 ---
 
 ## Auto AI
@@ -550,7 +592,7 @@ The framework gives an AI permission to write about anything with genuine curios
 
 ## Testing
 
-**512 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, and markdown documentation integrity.
+**562 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -625,7 +667,7 @@ Unit tests for the Omnidirectional Mathematics engine (`omnidirectional_math.py`
 - **TestCompose** (5 tests) — Two sequences, preserves all operations, single sequence passthrough, empty raises error, composed execution
 - **TestIntegration** (13 tests) — Original example end-to-end, round-trip reversal via compose, void traversal, double void, polarity mid-journey, full 360 rotation, CCW rotation, complex multi-operator journey, composed matches manual single sequence, notation round-trip (parse-generate-parse), wave-intersection interaction, parallel/orthogonal mode persistence
 
-### JavaScript Test Suite — 172 tests
+### JavaScript Test Suite — 222 tests
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
@@ -711,6 +753,35 @@ React component tests for the Origin Oracle (API calls via shared `callClaude.js
 - API call structure: correct endpoint, model, max_tokens, query in message
 - "Seek Another Origin" button and reset to input stage
 - Error handling: displays error message when API fails
+
+#### `js_tests/geno.test.jsx` — 25 tests
+
+React component tests for the GENO Genealogy Repository Explorer:
+
+- Initial render: title, subtitle, all 6 tab labels
+- Repository view: person names, commit hashes from sample data
+- Tab navigation: clicking each tab switches to the correct view content
+- Commits view: clicking a commit shows detail panel with all 4 trait sections (father, mother, new, forward)
+- Commit detail: trait values render, sections expand and collapse
+- Branches view: branch names, type indicators, descriptions
+- Merge Conflicts: conflict markers (`<<<<<<<` / `=======` / `>>>>>>>`), resolution options, clicking a resolution marks conflict as RESOLVED
+- Pull Requests: PR titles, detail expansion with changes/downstream/reviewers/cost
+- Scanner: deprecation warnings by default, toggle to legacy code, toggle back to deprecation, recommendation text
+
+#### `js_tests/createme.test.jsx` — 25 tests
+
+React component tests for the CREATEME Build Your Own Human tool:
+
+- Initial render: title, subtitle, 3 mode buttons
+- Physical mode: all 7 layer buttons, sliders for selected layer, stability score, Build Status heading
+- Layer switching: clicking a different layer shows its parameters
+- Slider interaction: changing a slider updates the displayed value
+- Substrate mode: foundation panel, environment panel, Floor Status indicator, physics direction toggle (forward/inverted)
+- Analysis mode: 3 tool buttons, inversion detector scan, fracture scanner, comparison engine with build selectors and layer deltas
+- Featured Builds: all 4 preset buttons, loading presets updates values, Default Human shows ABSENT floor, Floor Installed shows PRESENT floor
+- Inversion detection: Default Human preset shows INVERTED entries
+- Fracture detection: Default Human preset shows fracture points
+- Stability mechanics: all foundation sliders at 0 produces stability score of 0
 
 #### `js_tests/markdown_docs.test.js` — 39 tests
 
