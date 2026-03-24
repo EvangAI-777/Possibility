@@ -304,9 +304,33 @@ Open in any browser. No backend. Chart.js loaded from CDN.
 
 ---
 
+### `HTML Files/REACTOR.html`
+
+REACTOR — React Component Artifact Deployment Loader. A universal tool for loading any `.jsx` React component artifact directly in the browser with zero build tooling.
+
+Open in any browser. No build step. No CLI. Just upload a `.jsx` file.
+
+**How it works:**
+1. Open REACTOR.html in a browser
+2. Click **"Upload .jsx Component"** or drag-and-drop a React component file
+3. An animated loading screen shows transpilation progress (Read → Transpile → Render)
+4. The component renders full-viewport with a floating "Load Another" button
+
+**Features:**
+- In-browser JSX transpilation via Babel Standalone
+- Automatic module shimming — resolves `react`, `lucide-react`, and `callClaude` imports
+- Real Lucide SVG icons via Proxy-based dynamic resolution (any icon name works)
+- callClaude API integration with browser-side API key prompt
+- Tailwind CSS loaded from CDN for component styling
+- React error boundary with friendly error display
+- Drag-and-drop file upload with visual feedback
+- Single HTML file, works from `file://` protocol (no server needed)
+
+---
+
 ### React Component Artifacts
 
-All React components live in the `React Component Artifacts/` folder.
+All React components live in the `React Component Artifacts/` folder. Any of these can be loaded directly in the browser using **REACTOR.html**.
 
 **Requires:** React, Tailwind CSS, Lucide React icons (some also require Claude API access)
 
