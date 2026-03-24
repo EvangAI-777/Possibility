@@ -126,15 +126,55 @@ endif()
 - Linker flags meant for the final binary will break intermediary tools
 - Scope every flag to its specific target
 
-#### **Section 4: GPU / Graphics Translation Layer**
+---
 
-* Desktop API → WebGL2 mapping table (GL 4.3 features vs ES 3.0)  
-* Shader language translation (GLSL version rewriting, sampler emulation)  
-* Feature gap strategies: CPU fallbacks, no-op stubs, emulation layers  
-* Compute shader → CPU fallback pattern (from Blended's 6 dispatch sites)  
-* SSBO → UBO rewriting pattern  
-* Compatibility shim architecture (epoxy pattern)  
-* WebGPU as future path
+## Section 4: GPU / Graphics Translation Layer
+
+The GPU layer is the deepest translation. Desktop OpenGL is not WebGL. Features you rely on do not exist. The gap is real. Plan for it.
+
+**Desktop API → WebGL2 Mapping:**
+
+| Desktop Feature | WebGL2 Equivalent | Gap Strategy |
+|----------------|-------------------|--------------|
+| OpenGL 4.3+ | ES 3.0 (WebGL2) | Downgrade or emulate |
+| Compute Shaders | Not available | CPU fallback |
+| SSBOs | UBOs (limited size) | Rewrite to UBO layout |
+| Geometry Shaders | Not available | Vertex shader workaround or no-op |
+| Tessellation | Not available | Pre-tessellate on CPU |
+| Bindless Textures | Not available | Traditional binding |
+| Multi-draw Indirect | Not available | Individual draw calls |
+| 64-bit integers in shaders | Not available | Pack into vec2 or use float |
+
+**Shader Language Translation:**
+
+- GLSL 330+ → GLSL ES 300
+- `#version 330 core` → `#version 300 es`
+- Add `precision mediump float;` declarations
+- Replace `sampler2DShadow` patterns with manual comparison
+- Replace `textureGather` with manual sampling
+
+**Compute Shader → CPU Fallback Pattern:**
+
+When the source application uses compute shaders, identify every dispatch site. For each one:
+
+1. Extract the compute logic
+2. Write an equivalent C/C++ function
+3. Call it on the main thread or offload to a Web Worker
+4. Feed results back to the rendering pipeline
+
+**SSBO → UBO Rewriting:**
+
+- SSBOs have no size limit. UBOs are capped at 16KB (minimum guaranteed).
+- Split large SSBOs into multiple UBO binding points
+- Restructure data layouts to fit within UBO alignment rules (`std140`)
+
+**Compatibility Shim Architecture (Epoxy Pattern):**
+
+Create a shim layer that wraps GL calls. The shim intercepts desktop-only calls and routes them to WebGL2 equivalents or CPU fallbacks. Do NOT shadow real WebGL2 function names — this causes infinite recursion.
+
+**WebGPU as Future Path:**
+
+WebGPU is the successor to WebGL2. It maps closer to Vulkan/Metal/DX12. When browser support matures, it unlocks compute shaders, better threading, and modern GPU features natively. Design your shim layer so it can be swapped.
 
 #### **Section 5: Audio Translation**
 
