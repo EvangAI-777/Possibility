@@ -724,23 +724,78 @@ jobs:
 - Tag releases with the Emscripten version used
 - Store binary size in CI output for regression tracking
 
-#### **Section 16: Browser Compatibility Matrix**
+---
 
-* Template table: Browser × Feature (WebGL2, SharedArrayBuffer, WASM, WebGPU)  
-* COOP/COEP header requirements  
-* Mobile considerations
+## Section 16: Browser Compatibility Matrix
 
-#### **Section 17: For AI Assistants**
+Not all browsers support all features. Know the matrix before you promise anything.
 
-* Read existing docs before proposing changes  
-* Trust documented pitfalls  
-* Don't re-add known-bad flags  
-* One subsystem per PR  
-* Believe user observations over theories
+| Feature | Chrome | Firefox | Safari | Edge | Mobile Chrome | Mobile Safari |
+|---------|--------|---------|--------|------|---------------|---------------|
+| WebAssembly | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| WebGL2 | ✓ | ✓ | ✓ (15.2+) | ✓ | ✓ | ✓ (15.2+) |
+| SharedArrayBuffer | ✓* | ✓* | ✓* | ✓* | ✓* | ✓* |
+| WASM SIMD | ✓ | ✓ | ✓ (16.4+) | ✓ | ✓ | ✓ (16.4+) |
+| WASM Threads | ✓* | ✓* | ✓* | ✓* | ✓* | Limited |
+| WebGPU | ✓ | In Progress | In Progress | ✓ | Limited | No |
 
-#### **Section 18: Document Map**
+*\* Requires COOP/COEP headers*
 
-* Cross-reference pattern for derivative projects
+**COOP/COEP Header Requirements:**
+
+SharedArrayBuffer (and therefore threading) requires these headers on EVERY response:
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+All subresources must also be served with `Cross-Origin-Resource-Policy: cross-origin` or be same-origin.
+
+**Mobile Considerations:**
+
+- Mobile has less RAM — reduce initial memory allocation
+- Touch input replaces mouse — test all interactions
+- GPU capabilities vary wildly — feature-detect, do not assume
+- Thermal throttling will reduce performance over time
+- Battery impact is real — optimize aggressively
+
+---
+
+## Section 17: For AI Assistants
+
+> Believe user observations over theories.
+
+If you are an AI assistant working on a project that uses this template:
+
+- **Read existing docs before proposing changes.** The answers to most questions are already documented. Do not guess when the documentation exists.
+- **Trust documented pitfalls.** If a pitfall says "NEVER do X," do not do X. Do not propose doing X. Do not suggest that X might work this time.
+- **Do not re-add known-bad flags.** If a flag was removed because it caused problems, it will cause the same problems again.
+- **One subsystem per PR.** Do not bundle unrelated changes. Each pull request should touch one subsystem and be reviewable in isolation.
+- **Believe user observations over theories.** If the user says "this crashes on Safari," do not respond with "it should work." Investigate what actually happens.
+
+---
+
+## Section 18: Document Map
+
+Reference documents for derivative projects. Add your project-specific docs as they are created.
+
+| Document | Purpose |
+|----------|---------|
+| `TEMPLATE.md` | This document. The master porting schema. |
+| `PHILOSOPHY.md` | Core principles. Why we build this way. |
+| `WARNINGS.md` | Pitfalls specific to the reference implementation. |
+| `WEBASSEMBLY_ROADMAP.md` | Staged roadmap for the reference implementation. |
+| `README.md` | Project overview and entry point. |
+
+**Cross-Reference Pattern:**
+
+When creating project-specific documentation, reference this template:
+
+```
+See: TEMPLATE.md Section [N] for the general pattern.
+See: [PROJECT_NAME]/WARNINGS.md for project-specific pitfalls.
+```
 
 #### **Section 19: Validation & Early Detection**
 
