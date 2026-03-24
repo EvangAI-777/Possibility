@@ -378,11 +378,31 @@ window.addEventListener('gamepadconnected', function(e) {
 
 Gamepad input must be polled each frame — there are no events for button state changes.
 
-#### **Section 10: Scripting / Plugin Systems**
+---
 
-* Native scripting (Python, Lua, C\#) → WASM alternatives  
-* Pyodide (Python), QuickJS (JavaScript), Lua-WASM  
-* Plugin architecture adaptation
+## Section 10: Scripting / Plugin Systems
+
+If your source application has a scripting engine, it needs a browser-compatible replacement. The native interpreter will not compile to WASM without significant work — or you use one that already has.
+
+**Native Scripting → WASM Alternatives:**
+
+| Native Language | WASM Alternative | Maturity | Notes |
+|----------------|-----------------|----------|-------|
+| Python (CPython) | Pyodide | Production | Full CPython compiled to WASM. Supports pip install for pure-Python packages. |
+| Lua | Lua-WASM / Fengari | Stable | Lightweight. Good for game scripting. |
+| JavaScript | QuickJS (WASM) | Stable | Embeddable JS engine. Useful if your app needs sandboxed JS execution. |
+| C# (Mono/.NET) | Blazor / .NET WASM | Production | Full .NET runtime in the browser. Heavy initial download. |
+| GDScript (Godot) | Godot WASM export | Production | Godot's own WASM pipeline handles this natively. |
+
+**Plugin Architecture Adaptation:**
+
+Native plugins (`.dll`, `.so`, `.dylib`) cannot load in the browser. Options:
+
+- **Compile plugins to WASM** — if you have source code, compile each plugin as a separate WASM module and dynamically link
+- **JavaScript plugin API** — expose a JS-based plugin interface that communicates with the WASM core via `Module.ccall` / `Module.cwrap`
+- **Remove plugin support** — for initial port, disable plugins entirely and add them back in a later stage
+
+The honest assessment: plugin systems are the hardest subsystem to port. Scope them to a late stage.
 
 #### **Section 11: Staged Deployment Plan**
 
