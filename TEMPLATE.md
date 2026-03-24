@@ -587,21 +587,142 @@ Every pitfall below was discovered the hard way. Each one cost hours or days. Le
 - **Rule:** Audit type definitions across all dependencies before compiling.
 - **Correct approach:** Use preprocessor guards or patching to resolve conflicts. Document every patch.
 
-#### **Section 14: Web Shell / UI Chrome**
+---
 
-* HTML/CSS/JS loading overlay pattern  
-* Progress reporting via Module.setStatus  
-* Feature detection checkmarks  
-* Drag-and-drop zone  
-* Responsive layout considerations
+## Section 14: Web Shell / UI Chrome
 
-#### **Section 15: CI/CD Pipeline**
+The web shell is what the user sees while your WASM binary loads. It is the first impression. Make it functional.
 
-* GitHub Actions workflow template for WASM builds  
-* Emscripten SDK setup  
-* Build parallelism (OOM avoidance)  
-* GitHub Pages deployment  
-* Artifact management
+**Loading Overlay Pattern:**
+
+```html
+<div id="loading-overlay">
+  <div id="loading-status">Initializing...</div>
+  <div id="loading-progress">
+    <div id="loading-bar" style="width: 0%"></div>
+  </div>
+  <div id="feature-checks"></div>
+</div>
+<canvas id="app-canvas"></canvas>
+```
+
+**Progress Reporting via Module.setStatus:**
+
+```javascript
+var Module = {
+  setStatus: function(text) {
+    var statusEl = document.getElementById('loading-status');
+    if (statusEl) statusEl.textContent = text;
+
+    // Parse progress from Emscripten's format: "Downloading... (X/Y)"
+    var match = text.match(/(\d+)\/(\d+)/);
+    if (match) {
+      var pct = (parseInt(match[1]) / parseInt(match[2])) * 100;
+      document.getElementById('loading-bar').style.width = pct + '%';
+    }
+
+    if (text === '') {
+      // Loading complete — hide overlay
+      document.getElementById('loading-overlay').style.display = 'none';
+    }
+  }
+};
+```
+
+**Feature Detection Checkmarks:**
+
+```javascript
+var checks = [
+  { name: 'WebGL2', test: function() { return !!document.createElement('canvas').getContext('webgl2'); } },
+  { name: 'WebAssembly', test: function() { return typeof WebAssembly === 'object'; } },
+  { name: 'SharedArrayBuffer', test: function() { return typeof SharedArrayBuffer === 'function'; } },
+  { name: 'SIMD', test: function() { return typeof WebAssembly.validate === 'function'; } }
+];
+
+checks.forEach(function(check) {
+  var passed = check.test();
+  var el = document.getElementById('feature-checks');
+  el.innerHTML += (passed ? '✓' : '✗') + ' ' + check.name + '<br>';
+});
+```
+
+**Drag-and-Drop Zone:**
+
+Style the canvas or a dedicated zone as a drop target. Show visual feedback on dragover. Handle the drop event to ingest files into the virtual filesystem.
+
+**Responsive Layout:**
+
+- Use CSS `width: 100vw; height: 100vh;` for fullscreen canvas
+- Handle `window.resize` events to update canvas dimensions
+- Call `Module.setCanvasSize()` or equivalent when dimensions change
+
+---
+
+## Section 15: CI/CD Pipeline
+
+Automate the build. Automate the deployment. Never deploy a hand-built binary to production.
+
+**GitHub Actions Workflow Template:**
+
+```yaml
+name: Build WASM
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.51
+
+      - name: Configure
+        run: |
+          mkdir build && cd build
+          emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cd build
+          emmake make -j2  # Keep -j2 to avoid OOM
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-build
+          path: build/output/
+```
+
+**Build Parallelism — OOM Avoidance:**
+
+- GitHub Actions runners have 7GB RAM
+- Use `-j2` for compilation, never `-j$(nproc)` (which gives you 2-4 cores but not enough RAM per core for large projects)
+- If linking OOMs, ensure only one link job runs at a time
+
+**GitHub Pages Deployment:**
+
+```yaml
+      - name: Deploy to Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/output/
+```
+
+**Artifact Management:**
+
+- Keep the last 5 successful build artifacts
+- Tag releases with the Emscripten version used
+- Store binary size in CI output for regression tracking
 
 #### **Section 16: Browser Compatibility Matrix**
 
