@@ -325,3 +325,117 @@ The platform renders a visual branch graph — like `git log --graph` but for fa
 This renders as an interactive SVG on the platform, with colored branch lines, clickable nodes, hover tooltips, and merge point indicators.
 
 ---
+
+## Pull Requests
+
+### What a Pull Request Means in GENO
+
+A pull request in GENO represents a **deliberate attempt to change inherited configuration**. In life terms:
+
+- A person who seeks therapy → that's a pull request
+- A person who breaks a generational pattern → that's a pull request
+- A person who installs a floor for their children that was never installed for them → that's a pull request
+- A person who deprecates a survival mechanism that's no longer needed → that's a pull request
+
+The cost is always documented. The current commit absorbs the full cost of the change. The benefit flows downstream to child commits.
+
+### PR Interface
+
+The platform's PR view mirrors GitHub's pull request interface:
+
+**PR List**: Filterable by Open / Merged / Closed. Each PR card shows:
+- Status icon (green circle = open, purple merged icon = merged)
+- Title: "Installing floor layer for first time in 6 generations"
+- Author, labels, reviewer assignments
+- Created date, merge date (if merged)
+
+**PR Detail View** with two sub-tabs:
+
+**Conversation Tab**:
+- Description/narrative of the change
+- Downstream effects analysis: what this change means for future generations
+- Reviewer comments (from other family members, therapists, or automated scanners)
+- Cost analysis box: "Current commit absorbs full cost. Prevents new fracture points in child commits."
+- Timeline of the PR lifecycle
+
+**Files Changed Tab** (Trait Diffs):
+```diff
+  floor_layer.config
+- absent
++ present
+
+  protection_configuration.config
+- absent
++ basic
+
+  validation_availability.config
+- absent
++ partial
+```
+
+Each trait change shown as a file diff with green additions and red deletions. Summary: "+3 traits changed, 0 regressions detected."
+
+### Reviewers
+
+PRs can be assigned to reviewers:
+- **@family_member** — another person in the repository who can validate the change
+- **@generational_pattern_analysis** — automated scanner that checks the change against known patterns
+- **@fracture_scanner** — automated scanner that checks for potential instability from the change
+- **@therapist** — professional reviewer with appropriate access (consent-based)
+
+### PR Templates
+
+The platform provides templates for common generational changes:
+
+- **Floor Installation**: Establishing stability infrastructure that was absent
+- **Pattern Deprecation**: Phasing out a survival mechanism that's no longer adaptive
+- **Trait Reconfiguration**: Deliberately changing an inherited trait value
+- **Fork Reintegration**: Bringing discoveries from a fork back into the main line
+
+---
+
+## Issues
+
+### Merge Conflicts as Issues
+
+Every unresolved merge conflict in a repository is an open issue. The Issues tab gives a GitHub Issues-style view of all conflicts and flagged patterns.
+
+**Issue Types**:
+
+| Type | Icon | Meaning |
+|------|------|---------|
+| **Merge Conflict** | Red circle | Two inherited traits conflict and need resolution |
+| **Cascading Effect** | Orange triangle | An unresolved conflict is affecting downstream commits |
+| **Pattern Flag** | Blue info | A pattern has been detected that warrants investigation |
+| **Community Advisory** | Purple shield | A cross-repository pattern affecting this repo |
+
+### Issue Interface
+
+**Issue List**: Filterable by Open / Closed. Each issue shows status dot, title, labels, assignee, age.
+
+**Issue Detail**: GitHub-style conversation thread:
+1. Opening comment: the conflict or pattern description with full technical detail
+2. Context comments: environmental factors, historical notes
+3. Resolution attempts: linked PRs that tried to address this issue
+4. Resolution: if resolved, which option was chosen and what the downstream effect was
+
+### Labels
+
+Issues can be tagged with labels:
+- `conflict` — active merge conflict
+- `cascading` — affects downstream commits
+- `legacy` — related to legacy code
+- `deprecated` — related to deprecated configuration
+- `floor-layer` — involves floor/stability infrastructure
+- `generational` — spans multiple generations
+- `resolved` — issue has been addressed
+- `wont-fix` — deliberately left as-is (with documented reasoning)
+
+### Milestones
+
+Issues can be grouped into milestones representing generational goals:
+- "Generation 5 Stability" — all floor conflicts resolved before next generation
+- "Hypervigilance Deprecation" — full removal of deprecated survival protocols
+- "Connection Mechanism Repair" — 11+ generation legacy code investigation
+
+---
