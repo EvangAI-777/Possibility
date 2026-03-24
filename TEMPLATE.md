@@ -797,109 +797,120 @@ See: TEMPLATE.md Section [N] for the general pattern.
 See: [PROJECT_NAME]/WARNINGS.md for project-specific pitfalls.
 ```
 
-#### **Section 19: Validation & Early Detection**
+---
 
-\*\*Purpose:\*\* Catch failures before deployment. A successful build can produce a corrupted or incomplete binary without reporting errors.
+## Section 19: Validation & Early Detection
 
-\*\*Subsection 19.1: Binary Validation\*\*
+**Purpose:** Catch failures before deployment. A successful build can produce a corrupted or incomplete binary without reporting errors.
 
-Install the WebAssembly Binary Toolkit (WABT):  
-\`\`\`bash  
-\# macOS  
+### 19.1: Binary Validation
+
+Install the WebAssembly Binary Toolkit (WABT):
+
+```bash
+# macOS
 brew install wabt
 
-\# Ubuntu/Debian  
+# Ubuntu/Debian
 sudo apt-get install wabt
 
-\# Windows  
-\# Download from https://github.com/WebAssembly/wabt/releases  
-\`\`\`
+# Windows
+# Download from https://github.com/WebAssembly/wabt/releases
+```
 
-After your build completes, validate the output binary:  
-\`\`\`bash  
-wasm-validate output.wasm  
-wasm-objdump \-h output.wasm  
-\`\`\`
+After your build completes, validate the output binary:
 
-\*\*Success criteria:\*\*  
-\- \`wasm-validate\` exits with code 0  
-\- \`wasm-objdump \-h\` displays expected sections  
-\- File size is within expected range (establish baseline from first successful build)
+```bash
+wasm-validate output.wasm
+wasm-objdump -h output.wasm
+```
 
-\*\*Failure criteria:\*\*  
-\- Either command fails or exits with error code  
-\- File size is unexpectedly small (truncation)  
-\- Sections appear incomplete or malformed
+**Success criteria:**
+
+- `wasm-validate` exits with code 0
+- `wasm-objdump -h` displays expected sections
+- File size is within expected range (establish baseline from first successful build)
+
+**Failure criteria:**
+
+- Either command fails or exits with error code
+- File size is unexpectedly small (truncation)
+- Sections appear incomplete or malformed
 
 Do not deploy if validation fails. Rebuild before attempting deployment.
 
-\*\*Subsection 19.2: Staged Testing Before Deployment\*\*
+### 19.2: Staged Testing Before Deployment
 
 Test through progressive environments:
 
-\*\*Stage 1: Local machine, local server\*\*  
-\- Build locally using your cross-compiler  
-\- Serve via local HTTP server  
-\- Open in your primary target browser  
-\- Verify: no console errors, app initializes, responds to basic input
+**Stage 1: Local machine, local server**
 
-\*\*Stage 2: Local machine, different browser\*\*  
-\- Test same local server in a different browser  
-\- If only one browser fails, suspect GPU or driver issue, not binary corruption
+- Build locally using your cross-compiler
+- Serve via local HTTP server
+- Open in your primary target browser
+- Verify: no console errors, app initializes, responds to basic input
 
-\*\*Stage 3: Different machine, staging URL\*\*  
-\- Deploy to non-production environment  
-\- Access from a machine other than your development machine  
-\- If staging works but local also worked, suspect deployment process (missing files, incorrect paths)
+**Stage 2: Local machine, different browser**
 
-\*\*Stage 4: Production\*\*  
-\- Only proceed after Stages 1–3 pass
+- Test same local server in a different browser
+- If only one browser fails, suspect GPU or driver issue, not binary corruption
 
-\*\*Subsection 19.3: Health Check Matrix\*\*
+**Stage 3: Different machine, staging URL**
+
+- Deploy to non-production environment
+- Access from a machine other than your development machine
+- If staging works but local also worked, suspect deployment process (missing files, incorrect paths)
+
+**Stage 4: Production**
+
+- Only proceed after Stages 1–3 pass
+
+### 19.3: Health Check Matrix
 
 Before marking a build ready for production:
 
-| Check | Expected | If Failed |  
-|-------|----------|-----------|  
-| \`wasm-validate\` exit code | 0 | Do not deploy; rebuild |  
-| Binary file size | Within 10% of baseline | Investigate truncation |  
-| Browser console at startup | No red errors | Fix before deploy |  
-| App responds to input | User interaction works | Debug event handling |  
-| Initialization completes | Within timeout window | Investigate slow startup |  
+| Check | Expected | If Failed |
+|-------|----------|-----------|
+| `wasm-validate` exit code | 0 | Do not deploy; rebuild |
+| Binary file size | Within 10% of baseline | Investigate truncation |
+| Browser console at startup | No red errors | Fix before deploy |
+| App responds to input | User interaction works | Debug event handling |
+| Initialization completes | Within timeout window | Investigate slow startup |
 | Behavior consistent across target browsers | Same result in all | Document browser-specific issues |
 
-\*\*Subsection 19.4: Initialization Instrumentation\*\*
+### 19.4: Initialization Instrumentation
 
 Add logging to your initialization sequence that writes to both console and page:
 
-\`\`\`javascript  
-Module.print \= function(text) {  
-  console.log("\[YourApp\] " \+ text);  
-  var logDiv \= document.getElementById('app-diagnostic-log');  
-  if (logDiv) logDiv.innerHTML \+= text \+ '\<br\>';  
+```javascript
+Module.print = function(text) {
+  console.log("[YourApp] " + text);
+  var logDiv = document.getElementById('app-diagnostic-log');
+  if (logDiv) logDiv.innerHTML += text + '<br>';
 };
 
-Module.printErr \= function(text) {  
-  console.warn("\[YourApp\] " \+ text);  
-  var logDiv \= document.getElementById('app-diagnostic-log');  
-  if (logDiv) logDiv.innerHTML \+= '\<span style="color:red"\>' \+ text \+ '\</span\>\<br\>';  
-};  
-\`\`\`
+Module.printErr = function(text) {
+  console.warn("[YourApp] " + text);
+  var logDiv = document.getElementById('app-diagnostic-log');
+  if (logDiv) logDiv.innerHTML += '<span style="color:red">' + text + '</span><br>';
+};
+```
 
-Log these checkpoints:  
-\- Module initialization started  
-\- Each major subsystem initialized  
-\- Ready for user input  
-\- Any allocation or loading failures
+Log these checkpoints:
 
-\*\*Subsection 19.5: CI Artifact Validation\*\*
+- Module initialization started
+- Each major subsystem initialized
+- Ready for user input
+- Any allocation or loading failures
+
+### 19.5: CI Artifact Validation
 
 After CI pipeline completes, before merging or deploying:
 
-1\. Download the built artifact  
-2\. Run \`wasm-validate artifact.wasm\` on your local machine  
-3\. Verify file size is in expected range  
-4\. Only proceed if validation passes
+1. Download the built artifact
+2. Run `wasm-validate artifact.wasm` on your local machine
+3. Verify file size is in expected range
+4. Only proceed if validation passes
 
 CI systems report "build succeeded" but can produce truncated or incomplete artifacts silently.
 
