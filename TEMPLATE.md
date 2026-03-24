@@ -259,19 +259,82 @@ function downloadFile(path, mimeType) {
 
 Use IDBFS for data that must survive page reloads. Call `FS.syncfs()` after writes to flush to IndexedDB. Call `FS.syncfs(true, callback)` on startup to populate from IndexedDB.
 
-#### **Section 7: Threading Model**
+---
 
-* Native threads → Web Workers \+ SharedArrayBuffer  
-* Atomics constraints and COOP/COEP headers  
-* \-pthread scoping rules (NEVER global — from WARNINGS.md)  
-* coi-serviceworker pattern for GitHub Pages  
-* Single-threaded fallback strategy
+## Section 7: Threading Model
 
-#### **Section 8: Networking**
+Native threading does not translate directly. The browser threading model has hard constraints that cannot be worked around. Know them before you start.
 
-* Native sockets → WebSocket / WebRTC / Fetch API  
-* Real-time multiplayer considerations (WebRTC data channels)  
-* Server-mediated vs peer-to-peer
+**Native Threads → Web Workers + SharedArrayBuffer:**
+
+- Emscripten's `-pthread` flag enables pthreads via Web Workers
+- SharedArrayBuffer is REQUIRED for shared memory between workers
+- SharedArrayBuffer requires specific HTTP headers (COOP/COEP)
+
+**Required HTTP Headers:**
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Without these headers, SharedArrayBuffer is disabled and threading will not work.
+
+**coi-serviceworker for GitHub Pages:**
+
+GitHub Pages does not support custom HTTP headers. Use `coi-serviceworker` to inject COOP/COEP headers client-side:
+
+```html
+<script src="coi-serviceworker.js"></script>
+```
+
+This must load BEFORE any other scripts.
+
+**-pthread Scoping Rules:**
+
+> NEVER apply `-pthread` globally. NEVER.
+
+- Apply `-pthread` ONLY to the final application target
+- Build tools compiled with `-pthread` will crash or hang
+- Intermediate libraries do not need `-pthread` at compile time — only at link time for the final binary
+
+**Single-Threaded Fallback Strategy:**
+
+Design your port so it can run without threading. This means:
+
+- Identify which threads are truly required vs nice-to-have
+- Move background work to requestAnimationFrame / setTimeout chains
+- Accept reduced performance on browsers without SharedArrayBuffer
+- Mobile Safari has historically been the holdout — plan for it
+
+---
+
+## Section 8: Networking
+
+Native sockets do not exist in the browser. Every networking call must be translated to a browser-native API.
+
+**Translation Map:**
+
+| Native API | Browser Equivalent | Use Case |
+|-----------|-------------------|----------|
+| TCP Sockets | WebSocket | Persistent bidirectional connection |
+| UDP Sockets | WebRTC Data Channels | Low-latency, unreliable delivery |
+| HTTP Requests | Fetch API | REST calls, asset loading |
+| Raw Sockets | Not available | Requires server proxy |
+
+**Real-Time Multiplayer — WebRTC Data Channels:**
+
+- Peer-to-peer when possible (lower latency)
+- Requires a signaling server for connection setup
+- Unreliable mode available (UDP-like behavior)
+- STUN/TURN servers needed for NAT traversal
+
+**Server-Mediated vs Peer-to-Peer:**
+
+- **Server-mediated** — simpler, works everywhere, higher latency, server cost scales with users
+- **Peer-to-peer** — lower latency, no server cost per connection, NAT traversal complexity, not all networks allow it
+
+Choose based on your application's latency requirements and expected user count.
 
 #### **Section 9: Input Handling**
 
