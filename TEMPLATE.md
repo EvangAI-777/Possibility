@@ -176,18 +176,88 @@ Create a shim layer that wraps GL calls. The shim intercepts desktop-only calls 
 
 WebGPU is the successor to WebGL2. It maps closer to Vulkan/Metal/DX12. When browser support matures, it unlocks compute shaders, better threading, and modern GPU features natively. Design your shim layer so it can be swapped.
 
-#### **Section 5: Audio Translation**
+---
 
-* Native audio APIs → Web Audio API / Emscripten SDL audio bridge  
-* AudioWorklet for real-time processing  
-* Autoplay policy handling (user gesture requirement)
+## Section 5: Audio Translation
 
-#### **Section 6: File I/O Translation**
+Browsers do not let audio play without permission. Every native audio assumption must be rethought.
 
-* Native filesystem → Emscripten virtual FS (MEMFS, IDBFS, WORKERFS)  
-* Browser download API for export  
-* Drag-and-drop file ingestion  
-* IndexedDB for persistent storage
+**Native Audio APIs → Web Audio API:**
+
+- Emscripten's SDL2 audio bridge handles basic playback
+- For real-time processing, use AudioWorklet (replaces deprecated ScriptProcessorNode)
+- Route all audio through the Web Audio API context
+
+**Autoplay Policy:**
+
+Browsers block audio until the user interacts with the page. This is not optional. This is enforced.
+
+- Register a click or keypress handler that calls `audioContext.resume()`
+- Show a "Click to start" overlay if your app needs audio from the first frame
+- Do NOT try to bypass this — browsers will block it and your app will appear broken
+
+**AudioWorklet Pattern:**
+
+```javascript
+// Register processor
+class AppAudioProcessor extends AudioWorkletProcessor {
+  process(inputs, outputs, parameters) {
+    // Real-time audio processing here
+    return true;
+  }
+}
+registerProcessor('app-audio-processor', AppAudioProcessor);
+```
+
+---
+
+## Section 6: File I/O Translation
+
+Native apps assume a filesystem. Browsers do not have one. Emscripten provides virtual filesystems that bridge this gap.
+
+**Emscripten Virtual Filesystems:**
+
+| VFS Type | Persistence | Use Case |
+|----------|-------------|----------|
+| MEMFS | None (RAM only) | Temporary files, scratch space |
+| IDBFS | IndexedDB | User settings, saved state |
+| WORKERFS | Read-only | Large read-only assets in Workers |
+
+**File Import — Drag-and-Drop:**
+
+```javascript
+var dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('drop', function(e) {
+  e.preventDefault();
+  var file = e.dataTransfer.files[0];
+  var reader = new FileReader();
+  reader.onload = function() {
+    var data = new Uint8Array(reader.result);
+    FS.writeFile('/working/' + file.name, data);
+    // Notify the WASM module that a file is ready
+  };
+  reader.readAsArrayBuffer(file);
+});
+```
+
+**File Export — Browser Download:**
+
+```javascript
+function downloadFile(path, mimeType) {
+  var data = FS.readFile(path);
+  var blob = new Blob([data], { type: mimeType });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = path.split('/').pop();
+  a.click();
+  URL.revokeObjectURL(url);
+}
+```
+
+**Persistent Storage — IndexedDB:**
+
+Use IDBFS for data that must survive page reloads. Call `FS.syncfs()` after writes to flush to IndexedDB. Call `FS.syncfs(true, callback)` on startup to populate from IndexedDB.
 
 #### **Section 7: Threading Model**
 
