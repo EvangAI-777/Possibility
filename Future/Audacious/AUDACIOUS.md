@@ -267,3 +267,152 @@ Browsers do not allow audio output until the user has interacted with the page. 
 The solution is standard: create the AudioContext on the first user interaction, then resume it on subsequent interactions if it gets suspended. This is a one-time initialization pattern, not an ongoing concern. But it must be handled — attempting to play audio before user interaction will silently fail.
 
 ---
+
+## Porting Strategy
+
+AUDACIOUS does not attempt to compile all of Audacity in one pass. That would fail. The codebase is too large, the dependency graph too deep, the platform differences too numerous. Instead, the port proceeds in six stages — each stage producing a deployable artifact, each stage building on the last, each stage proving something that the next stage depends on.
+
+This is not a waterfall plan. It is a progressive proof-of-concept chain. Each stage can be demonstrated, tested, and validated independently. If Stage 3 reveals that the audio pipeline approach is wrong, the rearchitecting does not propagate backward to Stages 1 and 2.
+
+### Stage 1: The Shell (Build System + UI Bootstrap)
+
+**Goal:** Audacity 4 launches in a browser tab and renders a QML UI shell. No audio. No file loading. Just the application frame, menus, toolbars, and empty track view — proof that the build system, MuseScore framework, and Qt WASM integration all work end-to-end.
+
+**What gets built:**
+- Emscripten toolchain integration with Audacity's CMake build system
+- `emcmake cmake` wrapper configuration for the three-layer build (MuseScore framework → Audacity CMake → au3 CMake)
+- Host-vs-target build separation for code generators and asset processors
+- MuseScore framework compiled to WASM with `if(EMSCRIPTEN)` stubs for `QProcess`, native platform code, and POSIX-specific paths
+- Qt 6.9 WASM platform plugin driving the QML UI
+- Application shell rendering: main window, menu bar, toolbar, status bar, empty track area
+- All au3 dependencies stubbed behind `au3wrap` — no legacy code compiles in this stage
+
+**Why this is Stage 1:**
+This is the gating stage. If the MuseScore framework does not compile under Emscripten, the entire port is blocked. If Qt WASM cannot render the QML UI, there is no visual target. Every other stage assumes this works. Stage 1 absorbs the highest technical risk in the entire project.
+
+**Deliverable:** A URL that loads Audacity 4's UI in a browser. Empty. Non-functional. But structurally complete. The build system works. The framework compiles. The UI renders.
+
+**Effort:** XL. The MuseScore framework has never been compiled for WASM. Expect weeks of `#ifdef EMSCRIPTEN` patches, build system debugging, and Qt WASM configuration. This is the stage where the project either proves itself or discovers a hard blocker.
+
+### Stage 2: The Editor (File I/O + Track Display + Editing)
+
+**Goal:** Users can import audio files, see waveforms, and perform non-destructive editing operations. Cut. Copy. Paste. Select. Delete. Zoom. Scroll. No playback — the waveform is visual only. But the core editing workflow works.
+
+**What gets built:**
+- `src/projectscene` waveform rendering connected to real audio data
+- `src/trackedit` operations — selection, cut/copy/paste, split, join, trim
+- File import via HTML5 drag-and-drop and `<input type="file">`
+- Audio file decoding through au3-file-formats (compiled to WASM)
+- Emscripten VFS (MEMFS) for in-memory file storage during a session
+- SQLite-WASM for `.aup3` project file read/write
+- `au3-wave-track` and `au3-wave-track-paint` compiled and connected to the QML waveform view
+- File export via browser download (`<a download>`)
+
+**Why this is Stage 2:**
+Once the shell renders, the next question is: can it display real audio data and let users manipulate it? This stage proves that the audio data model, the waveform renderer, and the editing operations all work in WASM. Playback is deferred — this is the visual and structural proof.
+
+**Deliverable:** Drag a `.wav` file onto the browser tab. See its waveform. Select a region. Cut it. Paste it elsewhere. Export the result. All without hearing a single sample.
+
+**Effort:** L. The waveform renderer and track editor are pure C++/QML. The heavy lifting is file format decoding and SQLite integration, both of which are well-proven WASM compilation targets.
+
+### Stage 3: The Player (Audio Playback)
+
+**Goal:** Press play and hear audio. The Web Audio API backend replaces PortAudio. The audio processing graph runs in an AudioWorklet. Real-time mixing works. Transport controls (play, pause, stop, seek) function correctly.
+
+**What gets built:**
+- Custom Web Audio API backend replacing PortAudio in the `au3wrap` layer
+- AudioWorklet processor hosting the compiled-to-WASM audio graph
+- SharedArrayBuffer bridge between main thread (UI) and AudioWorklet thread (audio)
+- Transport control integration (play/pause/stop/seek) connected to Web Audio API state
+- Autoplay policy handling — AudioContext creation on first user interaction
+- `au3-mixer` compiled and running inside the AudioWorklet
+- COOP/COEP HTTP headers configured on the hosting server
+- Playback cursor synchronized between AudioWorklet timeline and QML waveform view
+
+**Why this is Stage 3:**
+Audio playback is the moment AUDACIOUS becomes Audacity. Without it, Stage 2 is a waveform viewer. With it, the application can play, pause, seek — the fundamental audio editing workflow loop. This stage is where the audio pipeline translation from Section 3 gets implemented.
+
+**Deliverable:** Import a file. Press play. Hear it. Seek to a position. Press play again. Hear it from there. The audio editor works.
+
+**Effort:** XL. The Web Audio API backend is a from-scratch implementation. The AudioWorklet integration requires careful memory management with SharedArrayBuffer. The thread synchronization between UI and audio is the hardest real-time programming challenge in the entire port.
+
+### Stage 4: The Processor (Effects + DSP)
+
+**Goal:** Apply effects to audio. Built-in effects (normalize, amplify, EQ, reverb, noise reduction) run in real time. The spectrogram view renders. The effects UI (QML dialogs with preview) works end-to-end.
+
+**What gets built:**
+- `au3-builtin-effects` compiled to WASM and registered in the effects system
+- `au3-realtime-effects` running in the AudioWorklet alongside the mixer
+- `src/effects` module connected to the QML UI for effect selection and parameter control
+- Effect preview — apply an effect temporarily, hear the result, accept or cancel
+- `src/spectrogram` visualization connected to `au3-wave-track-fft` and `pffft`
+- `au3-dynamic-range-processor` for compression/expansion
+- Time-stretching via `libsbsms` and pitch shifting via `SoundTouch`
+- `libsoxr` sample rate conversion
+
+**Why this is Stage 4:**
+Effects processing is what separates Audacity from a simple audio player. The built-in effects are pure DSP math — they compile to WASM without platform dependencies. But the integration — real-time preview, UI feedback, effect chaining — requires the audio pipeline from Stage 3 to be working first.
+
+**Deliverable:** Import a file. Select a region. Apply noise reduction. Hear the preview. Accept. Apply EQ. Export the processed result. The full audio editing workflow.
+
+**Effort:** L. The effects themselves are pure C++ math. The integration work is connecting QML UI to the effects system. Most of this is already wired in Audacity 4's `src/effects` module — the WASM port inherits the integration.
+
+### Stage 5: The Studio (Recording + Persistence)
+
+**Goal:** Record audio from the microphone. Save projects to persistent browser storage. Resume work across sessions. Export to multiple formats (WAV, MP3, OGG, FLAC).
+
+**What gets built:**
+- Microphone input via `getUserMedia()` feeding into the Web Audio API backend
+- Recording engine (`src/record`) connected to the browser's MediaStream API
+- Input level monitoring and device selection via `navigator.mediaDevices.enumerateDevices()`
+- IDBFS persistent storage — projects survive browser refresh and tab close
+- Export pipeline: WAV (native), MP3 (via LAME compiled to WASM or existing au3 encoder), OGG (libvorbis), FLAC
+- `twolame` for MP2 export if needed
+- Project auto-save to IDBFS on a timer
+- Storage quota management — warn users when IndexedDB is running low
+
+**Why this is Stage 5:**
+Recording requires the audio pipeline from Stage 3 to work bidirectionally. Persistence requires the file I/O from Stage 2 to integrate with IDBFS. Both are extensions of existing infrastructure, not new architectures. That is why they come after the foundations are proved.
+
+**Deliverable:** Open the browser. Record your voice. Edit the recording. Apply effects. Save the project. Close the tab. Open it again. The project is still there. Export to MP3. Done.
+
+**Effort:** L. The `getUserMedia` → Web Audio API → AudioWorklet pipeline is well-documented. IDBFS is a standard Emscripten feature. The export codecs are pure C libraries that compile to WASM.
+
+### Stage 6: The Platform (Advanced Features)
+
+**Goal:** Everything else. Nyquist scripting. Cloud audiocom integration. Keyboard customization. Accessibility. Advanced UI features.
+
+**What gets built:**
+- Nyquist interpreter compiled to WASM — custom Lisp runtime running in the browser
+- Nyquist script editor integrated into the QML UI
+- Cloud audiocom integration for sharing and collaboration
+- Full keyboard shortcut customization
+- Accessibility: screen reader support via ARIA on the Qt WASM canvas
+- Multi-tab project support (multiple projects open simultaneously)
+- Offline support via Service Worker (PWA)
+- Web-native audio analysis plugins (replacing native Vamp plugins with JavaScript or WASM-based analysis modules)
+
+**Why this is Stage 6:**
+These features are individually valuable but none of them are required for the core audio editing workflow. Stages 1-5 deliver a fully functional audio editor. Stage 6 makes it a platform.
+
+**Deliverable:** A complete browser-based Audacity that matches the desktop version's core functionality and adds web-native capabilities that the desktop version cannot offer — instant sharing via URL, zero-install access, cross-platform consistency, and progressive web app installation.
+
+**Effort:** XL. The Nyquist interpreter alone is a major compilation target. But each sub-feature in this stage is independent — they can be developed in parallel and shipped incrementally.
+
+### What Is NOT Ported
+
+Some features are explicitly excluded. Not deferred — excluded. They have no browser equivalent and no value in a browser context:
+
+| Feature | Why It Is Excluded |
+|---------|--------------------|
+| **VST/VST3 plugins** | Native binary loading. Fundamentally incompatible with WASM sandboxing. |
+| **LV2/LADSPA plugins** | Same as VST. Native shared library loading. |
+| **AudioUnit plugins** | macOS-only. Native binary loading. |
+| **CD burning** | portburn requires OS-level CD drive access. Browsers cannot do this. |
+| **System mixer control** | portmixer requires OS-level audio device control. Browsers expose a simpler device model. |
+| **Multiple simultaneous audio devices** | PortAudio can address multiple devices. Web Audio API addresses the system default. |
+| **ASIO driver support** | Windows-specific low-latency audio. Not applicable in browsers. |
+
+These exclusions do not reduce the value of AUDACIOUS. They are desktop-specific features that solve desktop-specific problems. The browser has its own equivalents where equivalents matter, and gracefully omits the rest.
+
+---
