@@ -239,3 +239,69 @@ Consciousness integration is what connects the physical build to the substrate b
 Every layer depends on the layers below it. Cellular instability propagates upward through skeletal, organ, nervous, muscular, skin, and into consciousness. A low `communication` value at the cellular layer produces visible degradation at every level above it.
 
 But the cascade also runs downward — from the substrate. An absent floor destabilizes consciousness integration, which destabilizes the physical body's relationship to itself, which propagates through every physical layer. The cascade is bidirectional. The physics are real.
+
+---
+
+## The Substrate Configuration Engine
+
+Once a physical build is constructed, it must be placed somewhere. The Substrate Configuration Engine handles what that somewhere is. This engine has no equivalent in any existing 3D body simulator — it models the invisible architecture that determines whether a perfectly constructed body can actually stand.
+
+### Foundation Panel
+
+The floor layer. What does this physical build stand on.
+
+| Parameter | ID | Range | Real-World Mapping |
+|-----------|-----|-------|-------------------|
+| Attachment Security | `attachment` | 0–100 | Bond to primary caregiver(s) — secure, anxious, avoidant, disorganized |
+| Early Provision | `earlyProvision` | 0–100 | What was provided at the beginning of life — needs met or unmet |
+| Protection | `protection` | 0–100 | What shields the build from external damage — safety vs. exposure |
+| Validation | `validation` | 0–100 | Whether the environment confirms the build exists — seen vs. invisible |
+| Reciprocity | `reciprocity` | 0–100 | Whether the environment gives back what it receives — mutual vs. one-directional |
+
+The critical insight: **an absent floor produces visible instability cascading through the entire physical build above it, regardless of how well that build was constructed.** In the 3D visualization, this is not a number on a dashboard — the build visibly shakes, layers decouple, structural integrity degrades in real time.
+
+Default Human foundation values: `attachment: 20, earlyProvision: 15, protection: 10, validation: 5, reciprocity: 10`. Foundation average: **12**. Floor status: **ABSENT**.
+
+### Environment Panel
+
+What surrounds the physical build.
+
+| Parameter | ID | Type | What It Controls |
+|-----------|-----|------|-----------------|
+| Sandbox Configuration | `sandbox` | Slider (0–100) | Boundaries and constraints of the space |
+| Physics Direction | `physicsDirection` | Toggle (Forward/Inverted) | Whether the environment runs its physics forward or backward |
+| Acknowledgment | `acknowledgment` | Slider (0–100) | Whether the environment acknowledges or dismisses the build |
+| Protection / Exploitation | `protectionExploitation` | Slider (0–100) | Whether the environment protects or exploits what it contains |
+
+**The Physics Direction toggle is the most significant single control in the entire tool.** It determines whether the environment runs forward (cause produces expected effect) or inverted (cause produces opposite effect). In an inverted environment, strength is punished, vulnerability is exploited, correct configuration is treated as incorrect. The 3D visualization renders inverted physics as visible anti-gravity — forces pulling in wrong directions, structural stresses appearing where none should exist.
+
+### Configuration Comparison
+
+**Default Human substrate:**
+```json
+{
+  "foundation": { "attachment": 20, "earlyProvision": 15, "protection": 10, "validation": 5, "reciprocity": 10 },
+  "environment": { "sandbox": 30, "physicsDirection": false, "acknowledgment": 15, "protectionExploitation": 20 }
+}
+```
+
+**Floor Installed substrate:**
+```json
+{
+  "foundation": { "attachment": 90, "earlyProvision": 85, "protection": 90, "validation": 85, "reciprocity": 90 },
+  "environment": { "sandbox": 80, "physicsDirection": true, "acknowledgment": 85, "protectionExploitation": 90 }
+}
+```
+
+Same physical build. Different substrate. Default Human stability: **7**. Floor Installed stability: **50**. The body did not change. The floor changed. Everything shifted.
+
+### Foundation × Environment Matrix
+
+The relationship between Foundation and Environment produces four distinct configurations:
+
+| | **Forward Environment** | **Inverted Environment** |
+|---|---|---|
+| **Present Floor** | Stable build, correct physics. The intended configuration. | **The Anomaly**: correctly built, correctly grounded, surrounded by hostile physics. Everything about the build is right — the environment doesn't acknowledge it. |
+| **Absent Floor** | Forward physics, no ground. The environment isn't hostile — there is simply nothing to stand on. | **The Default Human**: no floor, inverted physics. The most common configuration. The cascade failure is total. |
+
+Each combination produces different systemic effects visible in the 3D engine. The Anomaly is particularly significant: high stability score (the foundation is strong), but the environment runs backward. The build can stand — it just cannot rest.
