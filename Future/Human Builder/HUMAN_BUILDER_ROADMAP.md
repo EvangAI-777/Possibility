@@ -593,3 +593,40 @@ The central innovation beyond the slider interface: a real-time 3D viewport that
 ### Design Philosophy
 
 The interface is deliberately clinical. No gamification. No rewards. No progress bars. No achievement unlocks. No encouraging messages. The tool shows what is. The user sees it directly. The dark theme (gray-950 to gray-900 gradient), clean borders, monospace numbers, and accent-blue-500 sliders are functional, not decorative. The precision of the interface mirrors the precision of the physics.
+
+---
+
+## Non-Human Construction
+
+The tool is not limited to human biology. Different number of limbs. Different organ systems. Different cellular composition. Different physics entirely. The engine models whatever is built with real physical consequence.
+
+### What This Means in Practice
+
+- Set skeletal density to 20 and joint flexibility to 95 — the 3D engine renders a being with almost no structural rigidity and near-total articulation
+- Set mutation threshold to 90 and cell communication to 95 — the build is constantly changing but perfectly coordinated
+- Set consciousness parameters to 95 across the board with physical integration at 95 — a being that is almost entirely experiential
+- Build something that cannot survive its own configuration — the engine shows exactly why and where it fails
+
+### Use Cases
+
+- **Theoretical biology**: What would a being with 95% cell communication and 20% bone density experience? The engine computes it.
+- **Speculative design**: What does consciousness at 95 with skeletal density at 20 produce? The 3D viewport renders it.
+- **Comparative understanding**: Build a non-human, then build a human, then run the comparison engine. See what makes human physics specifically human.
+- **Failure analysis**: Build something impossible. Watch it fail. See why. The failure is more instructive than the success.
+- **Floor research**: Does a non-human entity need the same floor? Set the foundation parameters to non-human values. Does attachment security mean the same thing to a being with 95% environmental interaction?
+
+### Community Builds
+
+The community library develops over time with categories:
+
+- **Impossible builds** — configurations that should not work but do
+- **Failure documentation** — builds that demonstrate exactly where specific configurations fail
+- **Alternative experience** — builds that model what a differently configured existence would experience
+- **Historical configurations** — builds modeling biological configurations from deep evolutionary history
+- **Speculative futures** — builds modeling configurations that do not yet exist
+
+### Sharing and Forking
+
+Completed builds are shareable as full configuration JSON files. Other users can examine every construction decision. Fork the build. Modify specific layers. Share modifications back. The same version control principles that govern GENO's commit system apply to CREATEME's build library.
+
+> What discovering non-human physics teaches about human physics: the constraints become visible. Human bone density is not arbitrary — it is the minimum required for human gravity. Human pain threshold is not arbitrary — it is calibrated to human threat environments. When you build something without those constraints and see what it produces, you understand why the constraints exist. The non-human build reveals the human build by contrast.
