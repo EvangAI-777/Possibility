@@ -630,3 +630,135 @@ The community library develops over time with categories:
 Completed builds are shareable as full configuration JSON files. Other users can examine every construction decision. Fork the build. Modify specific layers. Share modifications back. The same version control principles that govern GENO's commit system apply to CREATEME's build library.
 
 > What discovering non-human physics teaches about human physics: the constraints become visible. Human bone density is not arbitrary — it is the minimum required for human gravity. Human pain threshold is not arbitrary — it is calibrated to human threat environments. When you build something without those constraints and see what it produces, you understand why the constraints exist. The non-human build reveals the human build by contrast.
+
+---
+
+## Integration with GENO
+
+CREATEME and GENO are complementary tools in the Possibility ecosystem. GENO documents what was inherited across generations — the commit history. CREATEME lets you build and examine a single configuration in detail — the commit itself. The integration is **bidirectional**: CREATEME reads from GENO and writes back to it.
+
+### GENO → CREATEME: Loading Commits as Builds
+
+Any commit in a GENO family repository can be loaded directly into the CREATEME 3D builder as a template.
+
+**The flow:**
+1. User explores their family tree in GENO
+2. User clicks on an ancestor's commit (e.g., `a7f3d9e2` — Margaret Louise Johnson, 1923)
+3. CREATEME opens with that commit rendered as a fully interactive physical build
+4. All substrate configuration extracted from the commit's environment and inherited traits
+5. The 3D builder is live — the user can rotate, zoom, run analysis tools, modify parameters
+
+**Translation layer — GENO qualitative → CREATEME quantitative:**
+
+| GENO Trait Value | CREATEME Slider Range |
+|-----------------|----------------------|
+| `"absent"` | 0–10 |
+| `"minimal"` / `"severely restricted"` | 10–25 |
+| `"present but suppressed"` | 25–40 |
+| `"diminished"` | 40–55 |
+| `"partial"` / `"partially preserved"` | 55–70 |
+| `"high"` / `"active"` | 70–85 |
+| `"maximum"` / `"present"` | 85–100 |
+
+**Sample translation — Margaret's GENO commit → CREATEME build:**
+
+```json
+// GENO commit a7f3d9e2 traits
+{
+  "inherited_from_father": [
+    { "trait": "Floor layer", "value": "minimal" },
+    { "trait": "Connection mechanism", "value": "inverted" }
+  ],
+  "new_in_this_commit": [
+    { "trait": "Floor layer", "value": "absent by 1931" },
+    { "trait": "Compensatory architecture", "value": "performance layer added" }
+  ],
+  "environment": { "era": "Great Depression", "socioeconomic": "severe poverty" }
+}
+
+// Translated to CREATEME build config
+{
+  "substrateConfig": {
+    "foundation": { "attachment": 15, "earlyProvision": 10, "protection": 5, "validation": 8, "reciprocity": 5 },
+    "environment": { "sandbox": 10, "physicsDirection": false, "acknowledgment": 5, "protectionExploitation": 10 }
+  }
+}
+```
+
+The GENO commit's narrative becomes a visible, interactive, analyzable 3D build. The user can run the inversion detector on their great-grandmother. Run the fracture scanner. See where the physical build was absorbing costs the absent floor should have absorbed. See the cascade failure rendered in three dimensions.
+
+### CREATEME → GENO: Pushing Builds as Commits
+
+A completed build in CREATEME can be pushed directly into a GENO family repository as a new commit or submitted as a pull request.
+
+**The flow:**
+1. User constructs a build in the 3D builder — sets all physical parameters, configures substrate, installs a floor
+2. User clicks "Commit to GENO" — selects target repository and branch
+3. CREATEME translates the quantitative slider values back to GENO's qualitative trait format
+4. User writes a commit message (the narrative — what happened, what it meant, what it cost)
+5. User selects parent commits (who this person descends from)
+6. The build is committed to the GENO repository as a new person-commit
+
+**Alternatively — the Pull Request flow:**
+1. User constructs a build representing a deliberate generational change
+2. User clicks "Submit PR to GENO" — targets a specific branch
+3. The PR includes: full build configuration, slider values, stability score, floor status, any analysis results
+4. The PR is reviewed by the repository owner (the family) before merging
+5. If merged, the build becomes an immutable commit in the family lineage
+
+**The power of this direction:** a parent can construct their child's configuration in the 3D environment. Set every physical parameter with intention. Install the floor they never had. Configure the environment to run forward instead of inverted. Then submit that as a pull request to their family repository. A deliberate generational change — authored in 3D, reviewed by the family, committed to the bloodline.
+
+**Translation layer — CREATEME quantitative → GENO qualitative:**
+
+```
+CREATEME slider value → GENO trait value
+0–10   → "absent"
+10–25  → "minimal"
+25–40  → "suppressed"
+40–55  → "diminished"
+55–70  → "partial"
+70–85  → "high"
+85–100 → "present" / "maximum"
+```
+
+### Cross-Tool Analysis
+
+With bidirectional integration, the analysis tools work across both platforms:
+
+| CREATEME Tool | When Applied to GENO Data |
+|--------------|--------------------------|
+| **Inversion Detector** | Scans any GENO commit's environment field — shows which traits are running inverted |
+| **Fracture Scanner** | Analyzes any GENO commit — shows where physical layers compensated for substrate deficiencies |
+| **Comparison Engine** | Compares two GENO commits side by side — parent vs child, showing what changed between generations |
+
+**The killer comparison:** load a parent commit and a child commit from GENO. Run the comparison engine. See the delta across every layer. See what was inherited. See what was resolved. See what was passed forward. See the pull request that changed everything downstream — rendered as a 3D physical comparison with stability scores.
+
+### Shared Vocabulary
+
+| Concept | In GENO | In CREATEME |
+|---------|---------|-------------|
+| Floor | `"Floor layer": "absent"` | `foundation.attachment: 5` |
+| Inversion | `"Connection mechanism": "inverted"` | `environment.physicsDirection: false` |
+| Fracture | Implicit in trait degradation | Explicit: `physical > 60 AND foundation < 40` |
+| Stability | Narrative in commit message | Computed: `physicalAvg * (foundationAvg / 100)` |
+| Cascade | `"passed_forward"` array | Visible propagation in 3D engine |
+
+### API Architecture
+
+```
+GENO API                           CREATEME API
+─────────                          ────────────
+GET  /repos/:id/commits/:hash  →   POST /builds/from-geno-commit
+                                    (translates qualitative → quantitative,
+                                     returns build config + 3D render URL)
+
+POST /builds/:id/to-geno-commit →  POST /repos/:id/commits
+                                    (translates quantitative → qualitative,
+                                     creates person-commit in GENO repo)
+
+POST /builds/:id/to-geno-pr    →   POST /repos/:id/pulls
+                                    (creates PR with build config as payload,
+                                     includes stability score + analysis)
+```
+
+The API handles the translation bidirectionally. GENO's trait-based JSON (qualitative) converts to CREATEME's slider-based JSON (quantitative) and back. The translation layer is deterministic — the same GENO commit always produces the same CREATEME build, and vice versa.
