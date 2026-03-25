@@ -416,3 +416,122 @@ Some features are explicitly excluded. Not deferred — excluded. They have no b
 These exclusions do not reduce the value of AUDACIOUS. They are desktop-specific features that solve desktop-specific problems. The browser has its own equivalents where equivalents matter, and gracefully omits the rest.
 
 ---
+
+## Risk Assessment
+
+Every technical project has risks. The honest ones name them. AUDACIOUS has five categories of risk: architectural, performance, dependency, browser platform, and project management. Each risk is rated by likelihood, impact, and mitigation clarity.
+
+### Risk 1: The MuseScore Framework Does Not Compile
+
+**Likelihood:** High
+**Impact:** Critical — blocks the entire port
+**Stage Affected:** Stage 1
+
+The MuseScore framework (`muse_framework`) has never been compiled for WebAssembly. It is a large Qt-based application framework originally built for MuseScore Studio. It almost certainly contains:
+
+- `QProcess` usage (spawning native processes — impossible in WASM)
+- Platform-specific code paths guarded by `#ifdef Q_OS_WIN` / `Q_OS_MAC` / `Q_OS_LINUX` without an `EMSCRIPTEN` branch
+- Native file dialog calls that bypass Qt's abstraction
+- System tray, dock, and native window management APIs
+- Native crash reporting and diagnostics hooks
+
+**Mitigation:** This is why Stage 1 exists in isolation. The entire first stage is dedicated to getting the framework to compile. The mitigation strategy is `#ifdef __EMSCRIPTEN__` stubs for every platform-specific call, a dedicated Emscripten platform module in the framework, and upstream contribution of these changes if the Audacity/MuseScore team is receptive. The framework is Qt-based, which means the core architecture is WASM-compatible — the risk is in the edges, not the center.
+
+**Worst case:** If the framework proves fundamentally incompatible, AUDACIOUS could bypass it by building a minimal application shell directly on Qt WASM, using only the framework's module interfaces without the framework's lifecycle management. This loses some infrastructure but preserves the port.
+
+### Risk 2: Audio Latency Is Unacceptable
+
+**Likelihood:** Medium
+**Impact:** High — degrades the core user experience
+**Stage Affected:** Stage 3
+
+Web Audio API introduces latency that native PortAudio does not. The AudioWorklet thread scheduling is controlled by the browser, not the application. The round-trip from user action → audio graph processing → output has more hops in the browser than in a native application.
+
+For playback-only workflows, this is manageable. Users press play and hear audio with a few milliseconds of additional latency. Imperceptible.
+
+For real-time monitoring during recording — hearing your microphone input with effects applied in real time — the latency may be perceptible and annoying. Native Audacity with ASIO drivers can achieve <5ms round-trip. Browser audio typically achieves 20-50ms.
+
+**Mitigation:** AudioWorklet was specifically designed to address this. The worklet runs on a dedicated high-priority thread with predictable timing. `AudioContext.baseLatency` and `AudioContext.outputLatency` provide precise measurement. The `latencyHint: "interactive"` option on AudioContext creation requests the lowest latency the browser can provide. For monitoring during recording, a direct pass-through from input to output (bypassing the WASM processing graph) can achieve near-native latency.
+
+**Worst case:** Real-time monitoring with effects has noticeable latency. This is acceptable — most browser audio applications live with this constraint. The core workflow (record → edit → apply effects → export) is unaffected.
+
+### Risk 3: Binary Size Exceeds Browser Tolerance
+
+**Likelihood:** High
+**Impact:** Medium — affects first-load time, not functionality
+**Stage Affected:** All stages
+
+The full Audacity 4 binary compiled to WASM will be large. Qt alone adds 30-50MB to a WASM build. Add the audio engine, effects library, DSP dependencies, SQLite, and the MuseScore framework, and the total uncompressed WASM binary could reach 80-120MB. Even with Brotli compression (typically 60-70% reduction), the download could be 30-50MB.
+
+For comparison:
+- Google Earth (WASM) loads ~30MB
+- AutoCAD Web loads ~40MB
+- Figma loads ~25MB
+
+AUDACIOUS would be in the same class as these applications — large but not unprecedented.
+
+**Mitigation:**
+
+1. **Aggressive dead-code elimination.** Emscripten's `-flto` (link-time optimization) and `wasm-opt` can strip unreachable code. Disabling VST/LV2/LADSPA/AudioUnit/Nyquist in early stages significantly reduces binary size.
+2. **Module splitting.** WASM supports dynamic module loading via `dlopen` emulation. The effects library, spectrogram module, and recording module can be loaded on demand rather than upfront.
+3. **Streaming compilation.** Modern browsers compile WASM while downloading it. A 50MB WASM file does not mean 50MB of download-then-wait — the browser begins compilation during the download.
+4. **Caching.** Service Worker caching means the large download happens once. Subsequent visits load from cache.
+5. **Progressive loading UI.** Show a meaningful loading screen with progress indication. Users tolerate a 10-second load if they can see it progressing.
+
+**Worst case:** First load takes 15-20 seconds on a fast connection. Subsequent loads are instant from cache. This is the same experience as any large web application.
+
+### Risk 4: SharedArrayBuffer / COOP-COEP Requirements
+
+**Likelihood:** Certain (this is a known requirement, not a risk)
+**Impact:** Medium — affects deployment configuration
+**Stage Affected:** Stage 3+
+
+SharedArrayBuffer is required for threading (audio processing, UI responsiveness during heavy computation). SharedArrayBuffer requires Cross-Origin-Opener-Policy (COOP) and Cross-Origin-Embedder-Policy (COEP) HTTP headers on every response.
+
+This means:
+- AUDACIOUS cannot be hosted on a simple static file server without header configuration
+- AUDACIOUS cannot be embedded in an `<iframe>` on a page that does not set these headers
+- All subresources (scripts, WASM modules, workers) must be served with correct CORS headers
+- Third-party CDN resources may not work without `crossorigin` attributes
+
+**Mitigation:** This is a deployment configuration issue, not a code issue. The headers are:
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Every modern hosting platform (Vercel, Netlify, Cloudflare Pages, AWS S3+CloudFront) supports custom headers. This is a one-time configuration task documented in the deployment guide.
+
+**Worst case:** No worst case. This is a solved problem. Every WASM application with threading uses these headers. The only risk is forgetting to configure them.
+
+### Risk 5: Audacity 4 Is a Moving Target
+
+**Likelihood:** Certain
+**Impact:** Medium — affects maintenance, not feasibility
+**Stage Affected:** All stages
+
+Audacity 4 is in active development. The codebase changes daily. The MuseScore framework integration is still being refined. Module boundaries are still shifting. Building AUDACIOUS against `master` means building against a moving target.
+
+**Mitigation:**
+
+1. **Pin to a specific commit or tag.** AUDACIOUS should track a specific Audacity 4 release or commit hash, not `HEAD`. Update deliberately, not continuously.
+2. **The `au3wrap` boundary is stable.** Even as the internals of `src/` and `au3/` evolve, the wrapper interface between them is designed to be stable. AUDACIOUS's modifications live primarily at this boundary.
+3. **Upstream-first approach.** Where possible, contribute Emscripten compatibility changes upstream to the Audacity repository. `#ifdef __EMSCRIPTEN__` branches in the framework and build system benefit both projects. If upstream accepts them, AUDACIOUS stays compatible automatically.
+4. **Track the release cadence.** Audacity 4.0.0 is pre-release. Once it stabilizes (4.0 release), the API surface will be more reliable. AUDACIOUS development should intensify after the first stable release.
+
+**Worst case:** A major architectural change in Audacity 4 breaks AUDACIOUS's assumptions. The six-stage structure limits the blast radius — only the affected stage needs rework, and earlier stages remain valid.
+
+### Risk Summary Matrix
+
+| Risk | Likelihood | Impact | Mitigation Clarity | Overall |
+|------|-----------|--------|-------------------|---------|
+| MuseScore framework compilation | High | Critical | Medium — requires exploration | **High risk** |
+| Audio latency | Medium | High | High — AudioWorklet is designed for this | **Medium risk** |
+| Binary size | High | Medium | High — known techniques, proven precedents | **Medium risk** |
+| COOP/COEP headers | Certain | Medium | High — solved problem | **Low risk** |
+| Moving target codebase | Certain | Medium | Medium — pin versions, upstream changes | **Medium risk** |
+
+The risk profile is front-loaded. The highest-risk item (MuseScore framework compilation) is addressed in Stage 1. If Stage 1 succeeds, the remaining risks are all manageable with known techniques. This is the correct structure — fail fast on the hardest problem, then execute on proven ground.
+
+---
