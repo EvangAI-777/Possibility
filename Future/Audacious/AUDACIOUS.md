@@ -890,3 +890,150 @@ build-wasm/
 The Service Worker (`sw.js`) caches the WASM binary and assets after first load. Subsequent visits load entirely from cache — zero network requests, instant startup.
 
 ---
+
+## Timeline & Milestones
+
+Each stage has a clear milestone — a single deliverable that proves the stage is complete. The milestones are ordered by dependency. Stage 2 cannot begin until Stage 1's milestone is achieved. Stage 3 cannot begin until Stage 2's. The chain is strict because each stage depends on infrastructure that the previous stage builds.
+
+### Milestone Map
+
+```
+Stage 1: THE SHELL
+├── Milestone: "Audacity UI renders in a browser tab"
+├── Proof: Screenshot of QML application shell in Chrome/Firefox
+├── Gating question answered: "Does the MuseScore framework compile to WASM?"
+└── Dependencies resolved: Build system, Qt WASM, framework compilation
+
+        │
+        ▼
+
+Stage 2: THE EDITOR
+├── Milestone: "User drags a WAV file into the browser and sees its waveform"
+├── Proof: Video of drag-drop → waveform render → cut → paste → export
+├── Gating question answered: "Does the audio data model work in WASM?"
+└── Dependencies resolved: File I/O, waveform rendering, track editing, SQLite
+
+        │
+        ▼
+
+Stage 3: THE PLAYER
+├── Milestone: "User presses play and hears audio"
+├── Proof: Video of import → play → seek → play from new position
+├── Gating question answered: "Can the audio pipeline run in an AudioWorklet?"
+└── Dependencies resolved: Web Audio API backend, AudioWorklet, threading
+
+        │
+        ▼
+
+Stage 4: THE PROCESSOR
+├── Milestone: "User applies noise reduction and hears the result in real time"
+├── Proof: Video of select region → apply effect → preview → accept
+├── Gating question answered: "Do the DSP effects run within the audio callback deadline?"
+└── Dependencies resolved: Effects chain, real-time processing, spectrogram
+
+        │
+        ▼
+
+Stage 5: THE STUDIO
+├── Milestone: "User records from microphone, edits, saves, closes tab, reopens, project is there"
+├── Proof: Video of record → edit → save → close → reopen → project restored → export MP3
+├── Gating question answered: "Is IDBFS persistence reliable for audio projects?"
+└── Dependencies resolved: Recording, persistent storage, export formats
+
+        │
+        ▼
+
+Stage 6: THE PLATFORM
+├── Milestone: "User writes a Nyquist script, runs it, shares the project via URL"
+├── Proof: Video of Nyquist editor → run script → cloud save → share link → recipient opens
+├── Gating question answered: "Can AUDACIOUS match Audacity's full feature set?"
+└── Dependencies resolved: Nyquist, cloud integration, PWA, accessibility
+```
+
+### Stage Breakdown
+
+| Stage | Name | Primary Challenge | Gating Risk | Effort |
+|-------|------|-------------------|-------------|--------|
+| **1** | The Shell | MuseScore framework WASM compilation | Framework has never been compiled for WASM | **XL** |
+| **2** | The Editor | Audio data model and waveform rendering | au3 libraries may have hidden platform dependencies | **L** |
+| **3** | The Player | Web Audio API backend and AudioWorklet integration | Real-time thread coordination across WASM/JS boundary | **XL** |
+| **4** | The Processor | Effects chain within AudioWorklet deadline | DSP performance in WASM under real-time constraints | **L** |
+| **5** | The Studio | Recording pipeline and persistent storage | getUserMedia + WASM audio input integration | **L** |
+| **6** | The Platform | Nyquist interpreter, cloud, PWA | Nyquist runtime size and compilation complexity | **XL** |
+
+### Key Checkpoints
+
+Beyond the stage milestones, these intermediate checkpoints validate progress within each stage:
+
+**Stage 1 Checkpoints:**
+- [ ] Emscripten toolchain configured and compiling a minimal Qt WASM "hello world"
+- [ ] MuseScore framework CMakeLists.txt modified with `if(EMSCRIPTEN)` branches
+- [ ] Framework compiles to WASM with all native platform code stubbed
+- [ ] Qt WASM platform plugin loads and renders a blank QML window
+- [ ] Audacity `src/appshell` QML files render in the browser
+- [ ] Menu bar, toolbar, and status bar are visible and responsive to input
+
+**Stage 2 Checkpoints:**
+- [ ] SQLite compiled to WASM and passing self-tests
+- [ ] `.aup3` project file loaded from Emscripten VFS
+- [ ] `au3-wave-track` audio data accessible from the QML layer
+- [ ] Waveform drawn on the canvas via `au3-wave-track-paint`
+- [ ] Cut/copy/paste operations modify the audio data correctly
+- [ ] Drag-and-drop file import working via HTML5 API
+- [ ] Browser download export producing valid audio files
+
+**Stage 3 Checkpoints:**
+- [ ] AudioContext created on first user interaction
+- [ ] AudioWorklet processor registered and running
+- [ ] SharedArrayBuffer bridge between main thread and worklet
+- [ ] WASM audio processing code loaded into the worklet
+- [ ] Playback of a short test tone through the AudioWorklet
+- [ ] Full audio file playback with correct timing
+- [ ] Transport controls (play/pause/stop/seek) functioning
+- [ ] Playback cursor synchronized with audio position
+
+**Stage 4 Checkpoints:**
+- [ ] `au3-builtin-effects` compiled and registered
+- [ ] Effect UI (QML dialogs) rendering for at least one effect
+- [ ] Effect preview playing modified audio in real time
+- [ ] Spectrogram view rendering FFT data
+- [ ] Multiple effects chained on a single track
+- [ ] Effect processing staying within AudioWorklet deadline
+
+**Stage 5 Checkpoints:**
+- [ ] `getUserMedia` microphone access working
+- [ ] Audio input routed through the Web Audio API backend
+- [ ] Recording producing correct waveform display in real time
+- [ ] IDBFS persistence saving project state to IndexedDB
+- [ ] Project restore on page reload
+- [ ] MP3/OGG/FLAC export codecs compiled and functional
+- [ ] Storage quota monitoring and user warnings
+
+**Stage 6 Checkpoints:**
+- [ ] Nyquist interpreter compiled to WASM
+- [ ] Nyquist script editor integrated into QML UI
+- [ ] At least one Nyquist script executing and modifying audio
+- [ ] Cloud audiocom integration for project sharing
+- [ ] Service Worker installed and caching all assets
+- [ ] PWA installable via browser prompt
+- [ ] Accessibility audit passing WCAG 2.1 AA for core workflows
+
+### The Feasibility Verdict
+
+AUDACIOUS is feasible.
+
+The Audacity 4 overhaul is not an obstacle — it is the enabler. Qt 6 replacing wxWidgets is the single most important architectural change for browser portability. The modular `src/` architecture enables staged porting. The `au3wrap` abstraction layer provides the seam where native-to-web translations happen cleanly. The CMake build system is Emscripten-native.
+
+The hardest problem — getting the MuseScore framework to compile under Emscripten — is bounded and discoverable. Stage 1 exists specifically to prove or disprove this. If Stage 1 succeeds, every subsequent stage builds on proven infrastructure using known WASM patterns.
+
+The audio pipeline translation from PortAudio to Web Audio API is the second hardest problem. It is significant engineering but not novel — the AudioWorklet API was designed for exactly this use case. The pattern is well-documented and well-precedented by other WASM audio applications.
+
+Everything else — file I/O, SQLite, DSP libraries, effects processing, waveform rendering, track editing — follows established WASM compilation patterns. The libraries are pure C/C++ math. They compile. They work. The hard part is the plumbing, not the computation.
+
+The window is open. Audacity 4 is being rebuilt. Qt 6 has a WASM target. The architecture is modular. The build system is CMake. The audio engine is pure C++. The effects are DSP math. Everything that matters compiles.
+
+AUDACIOUS walks through that window.
+
+---
+
+*This feasibility analysis was produced by examining the Audacity 4 source repository at its current development state, cross-referencing the TEMPLATE.md WebAssembly porting guide, and evaluating each subsystem against known Emscripten compilation patterns and browser API capabilities.*
