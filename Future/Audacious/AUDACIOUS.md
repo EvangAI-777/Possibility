@@ -190,3 +190,80 @@ emmake make -j2  # Keep -j2 to avoid OOM
 But the build-tool separation warning is paramount. Audacity's build generates code and processes assets. Those tools must run on the HOST machine, not the WASM target. The `muse_framework` build system likely has code generators that need native compilation.
 
 ---
+
+## Subsystem Translation Map
+
+Every native subsystem in Audacity has a browser equivalent. Some translations are direct. Some require significant rearchitecting. Some have no browser equivalent at all and must be disabled. This section maps every subsystem from its native implementation to its WebAssembly target — what translates, what transforms, and what gets left behind.
+
+### The Translation Table
+
+| Subsystem | Native Implementation | Browser Target | Translation Difficulty | Notes |
+|-----------|----------------------|----------------|----------------------|-------|
+| **UI Rendering** | Qt 6.9 / QML (OpenGL ES) | WebGL2 via Qt WASM platform plugin | **Medium** | Qt's official WASM backend handles the entire rendering pipeline. QML renders to a `<canvas>` element. The UI framework is the one subsystem where the translation is nearly automatic — Qt did the work for us. |
+| **Audio I/O** | PortAudio → au3-audio-devices → au3-audio-io | Web Audio API + AudioWorklet | **Hard** | The core challenge. PortAudio has no browser backend. The entire audio pipeline — from device enumeration to sample delivery — must be replaced. Web Audio API provides the primitives. AudioWorklet provides the real-time thread. But the integration surface is large. |
+| **Audio Processing Graph** | au3-audio-graph (native threads) | AudioWorklet + SharedArrayBuffer | **Hard** | The real-time effects chain runs on dedicated threads in native Audacity. In the browser, this maps to AudioWorklet processors running in their own thread context. SharedArrayBuffer enables the zero-copy shared memory that real-time audio demands. COOP/COEP headers are mandatory. |
+| **File I/O** | Native filesystem (POSIX / Win32) | Emscripten VFS (MEMFS + IDBFS) | **Medium** | Emscripten provides a virtual filesystem that implements POSIX file operations in memory. MEMFS for runtime storage, IDBFS for persistent storage via IndexedDB. File import happens through drag-and-drop or `<input type="file">`. Export happens through browser download. The abstraction is clean. |
+| **Project Storage** | SQLite → `.aup3` files on disk | SQLite-WASM → `.aup3` in Emscripten VFS | **Easy** | SQLite compiles to WASM with zero drama. This is one of the most well-proven WASM compilation targets in existence. The `.aup3` format is just a SQLite database. It works identically in the browser. |
+| **Networking** | Qt Network / libcurl | Fetch API / WebSocket (via Qt WASM) | **Easy** | Qt Network has WASM support. HTTP requests translate to Fetch API calls. WebSocket support is native in all browsers. Cloud audiocom integration translates naturally. |
+| **Threading** | pthreads / Qt Concurrent / au3-concurrency | Web Workers + SharedArrayBuffer | **Hard** | Native Audacity uses pthreads extensively — audio processing, waveform rendering, file I/O, effect computation. Emscripten's pthread support maps these to Web Workers with SharedArrayBuffer. This works, but requires COOP/COEP headers and has performance characteristics that differ from native threading. |
+| **Input Handling** | Qt event system (keyboard, mouse, touch) | Browser events via Qt WASM platform plugin | **Easy** | Qt's WASM backend translates browser input events to Qt events automatically. Keyboard shortcuts, mouse interactions, touch gestures — all handled by the platform plugin. No custom work needed. |
+| **Clipboard** | System clipboard via Qt | Async Clipboard API | **Easy** | Qt's WASM backend implements clipboard operations through the browser's Clipboard API. Copy/paste of audio data works within the application. Cross-application clipboard has browser security restrictions but the core workflow is preserved. |
+| **Drag-and-Drop** | Qt DnD framework | HTML5 Drag and Drop API | **Easy** | Qt WASM supports drag-and-drop natively. File import via drag-and-drop is the primary way users will load audio files in the browser version. |
+| **Scripting (Nyquist)** | libnyquist — custom Lisp dialect interpreter | Compile interpreter to WASM | **Hard** | Nyquist is Audacity's built-in scripting language. It is a custom Lisp dialect with audio DSP primitives. The interpreter is written in C — technically compilable to WASM, but the language runtime is substantial. Recommend deferring to Stage 6. |
+| **Plugin Systems** | VST/VST3/LV2/LADSPA/AudioUnit — native `.dll`/`.so`/`.dylib` | **Not possible** | **Blocker** | Native plugin loading is fundamentally incompatible with WebAssembly. Plugins are compiled native binaries that must be dynamically loaded into the process address space. WASM cannot do this. Must be disabled entirely. |
+| **Audio Device Selection** | portmixer — OS-level mixer control | MediaDevices API | **Medium** | Native Audacity enumerates and controls system audio devices. In the browser, `navigator.mediaDevices.enumerateDevices()` provides device listing. `getUserMedia()` handles device selection for recording. The API surface is smaller but sufficient. |
+| **CD Burning** | portburn — native CD drive access | **Not applicable** | **Disabled** | Browsers cannot access CD drives. This feature is desktop-only and will not be ported. It does not need to be ported. Nobody is burning CDs from a browser tab. |
+| **Sample Rate Conversion** | libsoxr — pure C math | Compiles directly | **Easy** | Pure C library with no platform dependencies. Cross-compiles to WASM cleanly. WASM SIMD can accelerate the math. |
+| **FFT** | pffft — pure C | Compiles directly | **Easy** | Pure C, SIMD-friendly. WASM SIMD support maps well. Spectrogram rendering and frequency analysis work identically. |
+| **Time Stretching** | libsbsms — pure C++ DSP | Compiles directly | **Easy** | No platform dependencies. Pure algorithmic code. Compiles to WASM. |
+| **Pitch/Tempo** | SoundTouch — pure C++ | Compiles directly | **Easy** | Has been compiled to WASM in other projects. Proven path. |
+| **Undo/Redo** | au3-transactions — in-memory + SQLite | Works identically in WASM | **Easy** | Pure application logic backed by SQLite. Both work in WASM. No translation needed. |
+
+### The Three Categories
+
+Looking at the translation table, every subsystem falls into one of three categories:
+
+**Category 1: Direct Translation (60% of subsystems)**
+These subsystems either compile directly to WASM with no changes or are handled automatically by Qt's WASM platform plugin. UI rendering, input handling, clipboard, drag-and-drop, project storage, sample rate conversion, FFT, time stretching, pitch/tempo, undo/redo, networking. The majority of Audacity's functionality falls here. This is the structural argument for feasibility.
+
+**Category 2: Significant Rearchitecting (30% of subsystems)**
+These subsystems have browser equivalents, but the translation requires real engineering. Audio I/O (PortAudio → Web Audio API), the audio processing graph (native threads → AudioWorklet), threading (pthreads → Web Workers), file I/O (native filesystem → Emscripten VFS), Nyquist scripting (compile interpreter to WASM), audio device selection (portmixer → MediaDevices API). Each of these is a well-understood problem with known solutions, but the implementation work is substantial.
+
+**Category 3: Not Portable (10% of subsystems)**
+Native plugin loading (VST/VST3/LV2/LADSPA/AudioUnit) and CD burning. These are desktop-only features with no browser equivalent. They must be disabled, not translated. This is not a loss — it is a scope reduction that simplifies the port without reducing the value of the browser experience. Nobody expects to load a VST plugin in a browser tab. Nobody expects to burn a CD from Firefox.
+
+### The Audio Pipeline: The Critical Translation
+
+The single most important translation is the audio pipeline. In native Audacity, audio flows through this stack:
+
+```
+User action (play/record)
+    → au3-audio-io (PortAudio backend)
+        → au3-audio-graph (processing graph on dedicated thread)
+            → au3-realtime-effects (effects chain)
+                → au3-mixer (mixing engine)
+                    → PortAudio output device
+```
+
+In AUDACIOUS, this becomes:
+
+```
+User action (play/record)
+    → audacious-audio-io (Web Audio API backend)
+        → AudioWorklet processor (processing graph in worklet thread)
+            → au3-realtime-effects (effects chain — compiled to WASM, running in worklet)
+                → au3-mixer (mixing engine — compiled to WASM, running in worklet)
+                    → AudioContext destination (browser audio output)
+```
+
+The key insight: the middle of the pipeline — effects processing, mixing, DSP math — does not change. It is pure C++ computation. It compiles to WASM and runs identically. Only the endpoints change: PortAudio at the bottom becomes Web Audio API. The native audio thread becomes an AudioWorklet thread.
+
+The `au3wrap` boundary in Audacity 4's architecture is exactly where this translation happens. The wrapper isolates the legacy audio subsystem behind an interface. AUDACIOUS replaces the implementation behind that interface with Web Audio API calls. The rest of the audio engine does not know the difference.
+
+### The Autoplay Policy Problem
+
+Browsers do not allow audio output until the user has interacted with the page. This is the autoplay policy. It affects AUDACIOUS directly: the audio context cannot be created or resumed until a user click or keypress.
+
+The solution is standard: create the AudioContext on the first user interaction, then resume it on subsequent interactions if it gets suspended. This is a one-time initialization pattern, not an ongoing concern. But it must be handled — attempting to play audio before user interaction will silently fail.
+
+---
