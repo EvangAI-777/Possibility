@@ -6,6 +6,8 @@
 
 ## Vision
 
+**Working titles:** Build Your Own Human | Human Builder | CREATEME
+
 CREATEME is a full physical construction and refactoring tool that lets users build biological entities from the ground up. Human or otherwise. With real physics. Real biology. Real consequence modeling. Users are not told what a human is — they discover it by building one. Or by building something else entirely and seeing what that produces.
 
 The tool operates on two simultaneous engines — **Physical Construction** and **Substrate Configuration** — both interacting in real time. A perfectly constructed physical body placed on an absent floor produces visible systemic instability. The tool shows this without commentary. The user sees it directly.
