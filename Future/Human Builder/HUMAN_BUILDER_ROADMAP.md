@@ -509,3 +509,87 @@ Unusual values demonstrating that the tool is not limited to human biology.
 **Stability: 54 | Floor: PRESENT | Physics: Forward**
 
 > What it teaches: existence itself can be refactored from the ground up. Skeletal density 20, joint flexibility 95, mutation threshold 90, all consciousness parameters at 95. This is not a human. It is something else. Something with almost no structural rigidity but nearly perfect neural connectivity and consciousness integration. Something that is all sensitivity and no armor. The physics engine models what this would actually experience. The 3D visualization renders it. And in doing so, it reveals what makes human physics specifically human — by showing what happens when you remove them.
+
+---
+
+## The Builder Interface
+
+### Mode System
+
+Three primary modes, accessed via tab navigation:
+
+| Mode | Purpose | What It Shows |
+|------|---------|--------------|
+| **Physical Construction** | Build and configure the body | 7-layer navigation, parameter sliders, real-time 3D preview |
+| **Substrate Configuration** | Configure what the body stands on | Foundation panel, environment panel, floor status |
+| **Analysis Tools** | Diagnose what exists | Inversion detector, fracture scanner, comparison engine |
+
+### The Slider Mechanic
+
+All parameters operate on a 0–100 range. Every slider change:
+- Recalculates the stability score immediately
+- Updates the floor status badge
+- Triggers real-time 3D visualization updates
+- Clears the active featured build indicator (the user has diverged from the preset)
+
+### Layer Navigation
+
+Left panel shows all 7 physical layers with icons and color coding. Click to switch the active layer. The currently active layer's border highlights in its assigned color.
+
+```
+┌──────────────────┐  ┌────────────────────────┐  ┌──────────────────┐
+│  LAYERS           │  │  CELLULAR PARAMETERS    │  │  BUILD STATUS     │
+│                   │  │                          │  │                   │
+│  ● Cellular       │  │  Cell Type Diversity  65 │  │       7           │
+│  □ Skeletal       │  │  ═══════════════░══════  │  │  Stability Score  │
+│  ♥ Organ          │  │                          │  │                   │
+│  ◆ Nervous System │  │  Replication Rate     60 │  │  ┌─────────────┐ │
+│  ≈ Muscular       │  │  ═══════════════░═════   │  │  │ Floor: ABSENT│ │
+│  ◇ Skin           │  │                          │  │  └─────────────┘ │
+│  ○ Consciousness  │  │  Mutation Threshold   40 │  │                   │
+│                   │  │  ══════════░═══════════   │  │  stability =      │
+│                   │  │                          │  │  physical × (f/100)│
+│                   │  │  Cell Communication   55 │  │                   │
+│                   │  │  ══════════════░═══════   │  │                   │
+└──────────────────┘  └────────────────────────┘  └──────────────────┘
+```
+
+### Color System
+
+| Layer | Color | Hex | Icon |
+|-------|-------|-----|------|
+| Cellular | Emerald | `emerald-500` | Circle |
+| Skeletal | Gray | `gray-500` | Box |
+| Organ | Red | `red-500` | Heart |
+| Nervous System | Purple | `purple-500` | Brain |
+| Muscular | Orange | `orange-500` | Activity |
+| Skin | Amber | `amber-500` | Shield |
+| Consciousness | Cyan | `cyan-500` | Eye |
+| Foundation (Present) | Green | `green-300/900` | — |
+| Foundation (Partial) | Amber | `amber-300/900` | — |
+| Foundation (Absent) | Red | `red-300/900` | — |
+
+### Build Status Panel
+
+Always visible in the right column:
+- **Stability score** — large number, updates in real time
+- **Floor status badge** — PRESENT (green), PARTIAL (amber), ABSENT (red)
+- **Formula display** — `stability = physical × (foundation / 100)`
+
+### Featured Build Buttons
+
+Four preset buttons load complete configurations with one click. A visual indicator shows the active preset. The indicator clears the moment any slider is modified — the user has diverged from the preset and is now in custom territory.
+
+### The 3D Viewport
+
+The central innovation beyond the slider interface: a real-time 3D viewport that renders the physical build at anatomical fidelity. The viewport sits alongside (or above, on mobile) the parameter panels.
+
+- Renders at the same fidelity as BioDigital Human and Complete Anatomy for layers 1–6
+- Extends to consciousness integration visualization (layer 7) — rendered as energy patterns, integration fields, experiential overlays
+- Floor visualization: the substrate renders as a visible surface beneath the build. Present floors are solid. Partial floors are translucent. Absent floors are empty space — the build floats, visibly unstable
+- Cascade visualization: when a parameter changes, the cascade propagates visibly through the 3D model — cellular instability ripples upward, substrate absence ripples downward
+- Interactive: rotation, zoom, layer isolation (view one layer at a time), exploded view
+
+### Design Philosophy
+
+The interface is deliberately clinical. No gamification. No rewards. No progress bars. No achievement unlocks. No encouraging messages. The tool shows what is. The user sees it directly. The dark theme (gray-950 to gray-900 gradient), clean borders, monospace numbers, and accent-blue-500 sliders are functional, not decorative. The precision of the interface mirrors the precision of the physics.
