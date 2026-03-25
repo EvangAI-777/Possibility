@@ -43,3 +43,86 @@ Attachment theory. Developmental psychology. Somatic experience. Generational tr
 The moment a user builds a stable physical body on an absent floor and watches the cascade failure propagate through every layer they carefully constructed — the understanding has happened. Without reading a single research paper. Without hearing a single lecture. The physics did the teaching.
 
 > This is not a biology textbook. Not a game. Not a simulation. Not an anatomy viewer. It is a construction environment with real consequence modeling — and the first tool that integrates physical construction, substrate configuration, consciousness, and cross-generational lineage in a single interactive system.
+
+---
+
+## Core Architecture
+
+### The Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React 18 + Tailwind CSS | Dark theme, slider-heavy UI, real-time feedback |
+| **3D Engine** | Custom WebGL/Canvas renderer | Biological visualization at anatomical fidelity — on par with BioDigital Human, Visible Body, Complete Anatomy as baseline, then extending beyond |
+| **Physics Engine** | Custom consequence modeling | Real cellular cascade, structural integrity, nervous system routing — not animation, actual physics |
+| **State Management** | Layered configuration state | Physical + Substrate + Analysis — three-engine state architecture |
+| **GENO Bridge** | Bidirectional REST + WebSocket API | Two-way commit/PR translation between CREATEME builds and GENO repositories |
+| **Backend** | Node.js / Python (FastAPI) | Build sharing, community library, GENO integration endpoints |
+| **Storage** | Structured JSON configs + S3 | Build configuration files, 3D model data, community library |
+
+### The Two-Engine Model
+
+The core architectural decision: two engines operating simultaneously, interacting in real time.
+
+**Engine 1: Physical Construction Engine** — the body itself. Seven layers of biological construction from cellular to consciousness. This engine encompasses everything that existing 3D body simulators model (layers 1-6) and then extends into territory none of them touch (layer 7: consciousness integration). The 3D visualization renders at the same anatomical fidelity as industry-standard tools — skeletal structures, organ systems, muscular architecture, nervous system pathways — because that fidelity is the baseline, not the goal.
+
+**Engine 2: Substrate Configuration Engine** — what the body stands on. Foundation (the floor) and Environment (what surrounds it). This engine has no equivalent in any existing anatomy tool. It models the invisible architecture that determines whether a perfectly constructed physical body can actually stand.
+
+Both engines feed into the **Analysis Layer** — three diagnostic tools that read across both engines without modifying either.
+
+### State Architecture
+
+```json
+{
+  "mode": "physical | substrate | analysis",
+  "activeLayer": "cellular | skeletal | organ | nervous | muscular | skin | consciousness",
+  "activeFeaturedBuild": "default-human | anomaly | floor-installed | non-human | null",
+  "analysisMode": "inversion | fracture | comparison",
+
+  "physicalConfig": {
+    "cellular": { "cellTypes": 65, "replication": 60, "mutation": 40, "communication": 55 },
+    "skeletal": { "boneDensity": 60, "joints": 55, "weightDist": 50, "loadBearing": 55 },
+    "organ": { "organSize": 60, "connectivity": 55, "function": 60, "placement": 65 },
+    "nervous": { "pathways": 70, "signalSpeed": 65, "painThreshold": 30, "stressResponse": 80 },
+    "muscular": { "strength": 50, "endurance": 45, "recovery": 50, "precision": 55 },
+    "skin": { "sensitivity": 70, "permeability": 40, "durability": 50, "envInteraction": 55 },
+    "consciousness": { "selfAwareness": 60, "experientialDepth": 65, "emotionalRange": 70, "integration": 50 }
+  },
+
+  "substrateConfig": {
+    "foundation": {
+      "attachment": 20, "earlyProvision": 15, "protection": 10,
+      "validation": 5, "reciprocity": 10
+    },
+    "environment": {
+      "sandbox": 30, "physicsDirection": false,
+      "acknowledgment": 15, "protectionExploitation": 20
+    }
+  }
+}
+```
+
+The state shown above is the Default Human preset. Note the disparity: physical values moderate (50-70), foundation values devastatingly low (5-20), environment inverted. This is the configuration that existing 3D body simulators model — the physical layer — without seeing that it is standing on nothing.
+
+### The Stability Formula
+
+```
+stability = physicalAverage * (foundationAverage / 100)
+```
+
+This formula is architecturally significant. It means:
+
+- A perfect physical build (avg 100) with zero foundation = **0 stability**
+- A moderate physical build (avg 57) with absent foundation (avg 12) = **stability of 7** (the Default Human)
+- That same physical build (avg 57) with present foundation (avg 88) = **stability of 50** (Floor Installed)
+- The physical build did not change. Only the substrate changed. And every metric shifted.
+
+### Floor Status Logic
+
+| Foundation Average | Status | Color |
+|-------------------|--------|-------|
+| ≥ 60 | **PRESENT** | Green |
+| 30–59 | **PARTIAL** | Amber |
+| < 30 | **ABSENT** | Red |
+
+The floor status determines global system behavior. An absent floor does not just lower a score — it produces visible cascade instability across every physical layer, regardless of how well that layer was individually configured.
