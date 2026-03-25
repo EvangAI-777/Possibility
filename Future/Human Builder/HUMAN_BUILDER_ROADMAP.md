@@ -409,3 +409,103 @@ Every physical layer is identical. The delta is zero across the entire body. Onl
 | **Stability** | **7** | **+70** | **77** |
 
 Everything is different. The physical build is stronger. The foundation is present. The stability is tenfold. But both live in inverted environments. The Anomaly is correctly configured in hostile physics. The Default Human is poorly configured in hostile physics. The comparison makes the difference visible.
+
+---
+
+## Featured Builds
+
+Four pre-built configurations that demonstrate the tool's capabilities and teach through example. Each is a complete physical + substrate configuration loadable with one click.
+
+### The Default Human
+
+Standard configuration. Standard substrate. Standard environment. What "normal" actually looks like when you see the numbers.
+
+```json
+{
+  "physical": {
+    "cellular": { "cellTypes": 65, "replication": 60, "mutation": 40, "communication": 55 },
+    "skeletal": { "boneDensity": 60, "joints": 55, "weightDist": 50, "loadBearing": 55 },
+    "organ": { "organSize": 60, "connectivity": 55, "function": 60, "placement": 65 },
+    "nervous": { "pathways": 70, "signalSpeed": 65, "painThreshold": 30, "stressResponse": 80 },
+    "muscular": { "strength": 50, "endurance": 45, "recovery": 50, "precision": 55 },
+    "skin": { "sensitivity": 70, "permeability": 40, "durability": 50, "envInteraction": 55 },
+    "consciousness": { "selfAwareness": 60, "experientialDepth": 65, "emotionalRange": 70, "integration": 50 }
+  },
+  "substrate": {
+    "foundation": { "attachment": 20, "earlyProvision": 15, "protection": 10, "validation": 5, "reciprocity": 10 },
+    "environment": { "sandbox": 30, "physicsDirection": false, "acknowledgment": 15, "protectionExploitation": 20 }
+  }
+}
+```
+
+**Stability: 7 | Floor: ABSENT | Physics: Inverted**
+
+> What it teaches: this is what "normal" actually looks like when you see the numbers. The physical build is moderate — mostly 50s and 60s. Functional. Unremarkable. But the foundation is devastatingly low. Validation is 5. Protection is 10. The floor is absent. The physics are inverted. Most of the default configuration is running on nothing. Every existing 3D body simulator would render this body as healthy. CREATEME shows what it is standing on.
+
+### The Anomaly
+
+Correctly configured physical build. Correct foundation. But the environment is inverted.
+
+```json
+{
+  "physical": {
+    "cellular": { "cellTypes": 85, "replication": 80, "mutation": 20, "communication": 90 },
+    "skeletal": { "boneDensity": 80, "joints": 75, "weightDist": 80, "loadBearing": 85 },
+    "organ": { "organSize": 80, "connectivity": 85, "function": 85, "placement": 90 },
+    "nervous": { "pathways": 90, "signalSpeed": 85, "painThreshold": 60, "stressResponse": 30 },
+    "muscular": { "strength": 75, "endurance": 80, "recovery": 80, "precision": 85 },
+    "skin": { "sensitivity": 75, "permeability": 70, "durability": 75, "envInteraction": 80 },
+    "consciousness": { "selfAwareness": 90, "experientialDepth": 90, "emotionalRange": 85, "integration": 90 }
+  },
+  "substrate": {
+    "foundation": { "attachment": 90, "earlyProvision": 85, "protection": 90, "validation": 85, "reciprocity": 90 },
+    "environment": { "sandbox": 20, "physicsDirection": false, "acknowledgment": 10, "protectionExploitation": 15 }
+  }
+}
+```
+
+**Stability: 77 | Floor: PRESENT | Physics: Inverted**
+
+> What it teaches: what it feels like to be correctly configured inside an inverted environment. Everything about the build is right. The physical construction is strong. The foundation is solid. The floor is present. But the environment doesn't acknowledge it. Doesn't protect it. Runs its physics backward. The build can stand — the floor is there — but it cannot rest. The anti-gravity effect: everything pulling in the wrong direction against a body that knows which direction is correct.
+
+### Floor Installed
+
+Identical physical build to the Default Human. But foundation all high and environment forward.
+
+**Stability: 50 | Floor: PRESENT | Physics: Forward**
+
+| Metric | Default Human | Floor Installed | Change |
+|--------|--------------|----------------|--------|
+| Physical Avg | 57 | 57 | 0 |
+| Foundation Avg | 12 | 88 | +76 |
+| Floor Status | ABSENT | PRESENT | — |
+| Physics | Inverted | Forward | — |
+| Stability | 7 | 50 | +43 |
+
+> What it teaches: the floor changes everything. The physical build did not change. Not a single slider moved in the body. Only the substrate changed. And every metric shifted. The fracture scanner goes from 11 fracture points to zero. The inversion detector clears the entire foundation panel. The 3D visualization stops shaking. Same body. Different floor. That is the entire point.
+
+### The Non-Human
+
+Unusual values demonstrating that the tool is not limited to human biology.
+
+```json
+{
+  "physical": {
+    "cellular": { "cellTypes": 95, "replication": 30, "mutation": 90, "communication": 95 },
+    "skeletal": { "boneDensity": 20, "joints": 95, "weightDist": 30, "loadBearing": 15 },
+    "organ": { "organSize": 40, "connectivity": 95, "function": 90, "placement": 20 },
+    "nervous": { "pathways": 95, "signalSpeed": 95, "painThreshold": 80, "stressResponse": 10 },
+    "muscular": { "strength": 20, "endurance": 95, "recovery": 95, "precision": 95 },
+    "skin": { "sensitivity": 95, "permeability": 90, "durability": 30, "envInteraction": 95 },
+    "consciousness": { "selfAwareness": 95, "experientialDepth": 95, "emotionalRange": 95, "integration": 95 }
+  },
+  "substrate": {
+    "foundation": { "attachment": 80, "earlyProvision": 80, "protection": 70, "validation": 90, "reciprocity": 95 },
+    "environment": { "sandbox": 90, "physicsDirection": true, "acknowledgment": 90, "protectionExploitation": 85 }
+  }
+}
+```
+
+**Stability: 54 | Floor: PRESENT | Physics: Forward**
+
+> What it teaches: existence itself can be refactored from the ground up. Skeletal density 20, joint flexibility 95, mutation threshold 90, all consciousness parameters at 95. This is not a human. It is something else. Something with almost no structural rigidity but nearly perfect neural connectivity and consciousness integration. Something that is all sensitivity and no armor. The physics engine models what this would actually experience. The 3D visualization renders it. And in doing so, it reveals what makes human physics specifically human — by showing what happens when you remove them.
