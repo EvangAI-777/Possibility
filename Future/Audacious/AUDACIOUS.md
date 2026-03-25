@@ -535,3 +535,88 @@ Audacity 4 is in active development. The codebase changes daily. The MuseScore f
 The risk profile is front-loaded. The highest-risk item (MuseScore framework compilation) is addressed in Stage 1. If Stage 1 succeeds, the remaining risks are all manageable with known techniques. This is the correct structure — fail fast on the hardest problem, then execute on proven ground.
 
 ---
+
+## Performance Considerations
+
+WASM is not native. It is close — typically 70-90% of native speed for computation-heavy workloads — but the gap matters for an audio editor. Audio processing is real-time. Latency is perceptible. Memory is constrained. This section maps the performance characteristics that AUDACIOUS must navigate and the techniques that close the gap.
+
+### Computation Speed
+
+WebAssembly executes at near-native speed for the kind of work Audacity does: tight loops over audio buffers, floating-point arithmetic, FFT computation, filter convolution. The WASM execution model maps well to this workload.
+
+| Operation | Native Speed | WASM Speed | Gap | Impact |
+|-----------|-------------|------------|-----|--------|
+| FFT (pffft) | 1.0x | 0.85-0.95x | 5-15% | Spectrogram renders slightly slower. Not perceptible for typical buffer sizes. |
+| Sample rate conversion (libsoxr) | 1.0x | 0.80-0.90x | 10-20% | Offline processing. Speed difference not perceptible to user. |
+| Effect processing (normalize, EQ, etc.) | 1.0x | 0.85-0.95x | 5-15% | Real-time effects in AudioWorklet. Must stay within the audio callback deadline. |
+| Noise reduction | 1.0x | 0.75-0.85x | 15-25% | Most computationally expensive built-in effect. May need buffer size tuning. |
+| Waveform rendering | 1.0x | 0.80-0.90x | 10-20% | Canvas rendering via Qt WASM. GPU-accelerated via WebGL2. |
+| File decoding (FLAC, MP3, OGG) | 1.0x | 0.80-0.90x | 10-20% | One-time operation per import. A 5-minute audio file might take 0.5s instead of 0.4s. |
+
+The critical performance boundary is the **audio callback deadline**. At 44.1kHz with a 128-sample buffer, the AudioWorklet has ~2.9ms to process each buffer. At a 512-sample buffer, it has ~11.6ms. WASM at 85% native speed means the effective deadline is tighter — but Audacity's effects were designed to run on hardware from 2005. Modern browsers on modern hardware provide more than enough headroom.
+
+### WASM SIMD
+
+WebAssembly SIMD (Single Instruction Multiple Data) is supported in all major browsers since 2021. It maps to SSE-equivalent 128-bit vector operations. This matters for Audacity's DSP workloads:
+
+- **pffft** (FFT) is SIMD-optimized. The WASM SIMD backend is available.
+- **libsoxr** uses SIMD for sample rate conversion where available.
+- **SoundTouch** can benefit from SIMD for pitch/tempo operations.
+- **Audio buffer operations** (mixing, gain, fade) are naturally vectorizable.
+
+Emscripten's `-msimd128` flag enables WASM SIMD compilation. Combined with `-O3` and `-flto`, the generated code approaches native SIMD performance. The gap between WASM and native narrows from 15-25% to 5-15% for SIMD-friendly workloads.
+
+### Memory
+
+WebAssembly operates in a linear memory space — a single contiguous buffer that grows on demand. The default maximum is browser-dependent but typically 2-4GB. This is relevant because:
+
+- **Audio data is large.** A stereo 16-bit audio file at 44.1kHz uses ~10MB per minute. A 30-minute podcast recording consumes ~300MB in memory.
+- **SQLite operates in memory.** The `.aup3` project file is a SQLite database loaded into the WASM linear memory. Large projects with multiple tracks and undo history can consume hundreds of MB.
+- **The undo stack is in memory.** Audacity's undo system stores audio snapshots. Each undo level for a long recording adds significant memory pressure.
+
+**Memory management strategies:**
+
+1. **Streaming audio data.** Do not load entire audio files into WASM memory at once. Use a block-based approach where only the visible/audible portion is in memory. Audacity's `au3-sample-track` already uses a block storage model — this maps well to a memory-conscious WASM approach.
+2. **Undo compaction.** Instead of storing full audio snapshots, store diffs. This is a trade-off: undo is slower (must reconstruct state) but memory usage is dramatically lower.
+3. **IDBFS offloading.** Move inactive project data to IndexedDB (persistent storage) rather than keeping it in WASM linear memory. This is slower to access but frees memory for active operations.
+4. **`memory.grow` budgeting.** Monitor WASM memory usage and warn users before hitting the browser's memory limit. Provide clear "project too large for browser" messaging rather than crashing.
+
+### Thread Performance
+
+Emscripten's pthread implementation uses Web Workers and SharedArrayBuffer. This works, but with different performance characteristics than native threads:
+
+- **Thread creation is slower.** Spawning a Web Worker has higher overhead than `pthread_create`. AUDACIOUS should pre-create a thread pool at startup rather than creating threads on demand.
+- **Thread synchronization is different.** `Atomics.wait()` and `Atomics.notify()` on SharedArrayBuffer implement mutex/condvar semantics, but the scheduling is controlled by the browser's event loop, not the OS scheduler.
+- **The AudioWorklet thread is special.** It runs on a real-time priority thread managed by the browser. Audio processing in the worklet gets more consistent timing than audio processing in a regular Web Worker.
+- **Maximum thread count is limited.** Browsers limit the number of Web Workers. Typically 8-16 concurrent workers. Audacity's thread pool must be sized accordingly.
+
+**Thread strategy for AUDACIOUS:**
+- Audio processing: AudioWorklet thread (highest priority, real-time scheduling)
+- Waveform rendering: dedicated Web Worker
+- File I/O: dedicated Web Worker
+- Effect computation (offline): Web Worker pool (2-4 workers)
+- UI: main thread (must never block)
+
+### Rendering Performance
+
+Qt WASM renders QML through OpenGL ES → WebGL2 → browser compositor. The rendering pipeline:
+
+```
+QML scene graph
+    → Qt's OpenGL ES renderer
+        → WebGL2 API calls
+            → Browser's GPU compositor
+                → Screen
+```
+
+For Audacity's UI — toolbar, menus, waveform view, spectrogram — this pipeline is more than sufficient. The waveform view is the most demanding element, and it is fundamentally a 2D rendering task: drawing polylines from audio sample data. WebGL2 handles this at 60fps without strain.
+
+The potential bottleneck is **canvas resolution on high-DPI displays**. A 4K display with device pixel ratio of 2.0 means the canvas is 3840×2160. Qt WASM handles this via `devicePixelRatio` scaling, but the rendering workload quadruples compared to a 1080p display. For the waveform view specifically, rendering at half resolution and upscaling is an acceptable optimization — the visual difference is imperceptible for waveform data.
+
+### The Performance Verdict
+
+AUDACIOUS will not match native Audacity's performance. It does not need to. The target is "fast enough that users do not notice the difference in their normal workflow." For the core operations — playback, recording, editing, applying effects, importing, exporting — WASM performance is sufficient. The areas where WASM is measurably slower (large-file processing, complex effect chains, spectrogram rendering on very long files) are the same areas where native Audacity already shows loading indicators and progress bars. The browser adds 10-20% to those wait times. Users will not perceive the difference.
+
+The one area that demands careful engineering is the real-time audio path: AudioWorklet processing must stay within the callback deadline. This is achievable with proper buffer sizing, SIMD optimization, and efficient memory management. It is an engineering challenge, not a feasibility concern.
+
+---
