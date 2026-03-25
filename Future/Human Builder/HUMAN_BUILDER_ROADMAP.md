@@ -305,3 +305,107 @@ The relationship between Foundation and Environment produces four distinct confi
 | **Absent Floor** | Forward physics, no ground. The environment isn't hostile — there is simply nothing to stand on. | **The Default Human**: no floor, inverted physics. The most common configuration. The cascade failure is total. |
 
 Each combination produces different systemic effects visible in the 3D engine. The Anomaly is particularly significant: high stability score (the foundation is strong), but the environment runs backward. The build can stand — it just cannot rest.
+
+---
+
+## The Analysis Suite
+
+Three diagnostic tools that read across both engines. They do not change anything. They reveal what is already there.
+
+### Inversion Detector
+
+Scans every parameter in the physical build, foundation, and environment. Color-coded results:
+
+- **Physical parameters < 40** → `INVERTED` (red)
+- **Foundation parameters < 30** → `INVERTED` (red)
+- **Physics Direction = false** → `INVERTED` (red)
+- All other values → `OK` (green)
+
+Shows what correct configuration looks like alongside the current inverted state.
+
+**Sample scan: The Default Human**
+
+| Layer | Parameter | Value | Status |
+|-------|-----------|-------|--------|
+| Cellular | Cell Type Diversity | 65 | OK |
+| Cellular | Replication Rate | 60 | OK |
+| Cellular | Mutation Threshold | 40 | OK |
+| Cellular | Cell Communication | 55 | OK |
+| Skeletal | Bone Density | 60 | OK |
+| Nervous | Pain Threshold | **30** | **INVERTED** |
+| Nervous | Stress Response | 80 | OK |
+| Muscular | Endurance | 45 | OK |
+| Skin | Permeability | **40** | OK |
+| Consciousness | Physical Integration | 50 | OK |
+| Foundation | Attachment Security | **20** | **INVERTED** |
+| Foundation | Early Provision | **15** | **INVERTED** |
+| Foundation | Protection | **10** | **INVERTED** |
+| Foundation | Validation | **5** | **INVERTED** |
+| Foundation | Reciprocity | **10** | **INVERTED** |
+| Environment | Physics Direction | **0** | **INVERTED** |
+
+The moment of understanding: running the inversion detector on the Default Human and seeing that the physical build is mostly fine — it is the foundation and environment that are almost entirely inverted. The body is not broken. The floor is absent. The physics are running backward. Every anatomy tool in existence would show this body as functional. Only CREATEME shows what it is standing on.
+
+### Fracture Scanner
+
+Maps where the physical build has absorbed costs it was not designed to absorb.
+
+**Detection logic:** `physical parameter > 60 AND foundation average < 40 = fracture point`
+
+A fracture point means a physical layer is bearing load the substrate should be bearing. The body compensates for what the floor does not provide.
+
+**Sample scan: The Default Human** (foundation average: 12)
+
+```
+FRACTURE SCANNER — 11 fracture point(s) detected
+
+Cellular → Cell Type Diversity     physical: 65   substrate deficiency: 88%
+Organ    → Organ Size              physical: 60   substrate deficiency: 88%
+Organ    → Placement Optimization  physical: 65   substrate deficiency: 88%
+Nervous  → Connection Pathways     physical: 70   substrate deficiency: 88%
+Nervous  → Signal Speed            physical: 65   substrate deficiency: 88%
+Nervous  → Stress Response         physical: 80   substrate deficiency: 88%
+Skin     → Sensitivity             physical: 70   substrate deficiency: 88%
+Consciousness → Experiential Depth physical: 65   substrate deficiency: 88%
+Consciousness → Emotional Range    physical: 70   substrate deficiency: 88%
+```
+
+The concept: a strong nervous system (`pathways: 70`) on an absent floor (foundation avg: 12) means the nervous system is bearing load the floor should be bearing. The fracture scanner shows this causation directly. No interpretation required.
+
+**Same scan: Floor Installed** — `No fracture points detected — foundation adequately supports physical build.` Same body. Different floor. Every fracture resolved.
+
+### Comparison Engine
+
+Place two complete builds side by side. Layer-by-layer comparison with delta values.
+
+**Default Human vs. Floor Installed:**
+
+| Layer | Default Human | Delta | Floor Installed |
+|-------|--------------|-------|----------------|
+| Cellular | 55 | 0 | 55 |
+| Skeletal | 55 | 0 | 55 |
+| Organ | 60 | 0 | 60 |
+| Nervous | 61 | 0 | 61 |
+| Muscular | 50 | 0 | 50 |
+| Skin | 54 | 0 | 54 |
+| Consciousness | 61 | 0 | 61 |
+| **Foundation** | **12** | **+76** | **88** |
+| **Stability** | **7** | **+43** | **50** |
+
+Every physical layer is identical. The delta is zero across the entire body. Only the foundation changed. And the stability score went from 7 to 50. The comparison engine renders this gap in a way that makes the relationship between floor and stability impossible to miss.
+
+**Default Human vs. The Anomaly:**
+
+| Layer | Default Human | Delta | The Anomaly |
+|-------|--------------|-------|-------------|
+| Cellular | 55 | +14 | 69 |
+| Skeletal | 55 | +25 | 80 |
+| Organ | 60 | +25 | 85 |
+| Nervous | 61 | +5 | 66 |
+| Muscular | 50 | +30 | 80 |
+| Skin | 54 | +26 | 80 |
+| Consciousness | 61 | +28 | 89 |
+| **Foundation** | **12** | **+76** | **88** |
+| **Stability** | **7** | **+70** | **77** |
+
+Everything is different. The physical build is stronger. The foundation is present. The stability is tenfold. But both live in inverted environments. The Anomaly is correctly configured in hostile physics. The Default Human is poorly configured in hostile physics. The comparison makes the difference visible.
