@@ -762,3 +762,48 @@ POST /builds/:id/to-geno-pr    →   POST /repos/:id/pulls
 ```
 
 The API handles the translation bidirectionally. GENO's trait-based JSON (qualitative) converts to CREATEME's slider-based JSON (quantitative) and back. The translation layer is deterministic — the same GENO commit always produces the same CREATEME build, and vice versa.
+
+---
+
+## Privacy & Ethics
+
+### The Core Principle
+
+Biological and psychological configuration data is deeply personal. A build configuration that includes foundation values of `attachment: 5, validation: 5` is not an abstract data point — it is someone's life rendered in numbers. The tool treats this with the precision it demands.
+
+### Consent Model
+
+- Build configurations created by users are owned by those users
+- Shared builds in the community library are opt-in — nothing is public by default
+- Featured builds (Default Human, The Anomaly, Floor Installed, The Non-Human) are archetypes, not real people
+- When integrated with GENO, the same consent model applies — living people must consent to having their configuration rendered as a 3D build
+- The CREATEME → GENO push flow requires repository owner approval (the PR model) for exactly this reason
+- A user cannot commit someone else's configuration to a family repository without the repository owner's review
+
+### No Pathologizing
+
+The tool shows configuration, not diagnosis. A low pain threshold is not "wrong" — it is a configuration with specific consequences. An absent floor is not a "disorder" — it is a substrate state with measurable effects on stability. The tool shows the consequences without judgment. The inversion detector labels things `INVERTED`, not `BROKEN`. The fracture scanner shows where load is being carried, not where damage has occurred.
+
+### No Prescriptive Framing
+
+There is no "correct" human. The Default Human preset is called "default" to describe what is common, not what is ideal. The Floor Installed preset shows what changes when a floor is present — it does not say "this is what you should be." The tool is descriptive, never prescriptive.
+
+### Trauma-Informed Design
+
+The tool handles attachment, provision, protection, validation, reciprocity — all sensitive topics. Language is precise and clinical, never sensational. The slider labels are neutral. The analysis tool outputs are factual. The 3D visualization shows physics, not pathology.
+
+### Data Protection
+
+- Encryption at rest and in transit
+- No data sales — configuration data is never sold to third parties
+- GDPR/CCPA compliance — right to deletion, data export, consent management
+- Build configurations stored as user-owned data with user-controlled visibility
+- GENO integration inherits GENO's privacy model — the same permissions and access controls apply
+
+### Professional Use
+
+Therapists and counselors can use the tool as a visualization aid — with client consent. A therapist can load a client's GENO commit into CREATEME and use the 3D visualization to show where fracture points exist, where inversion is occurring, what the stability score means. But the tool is not therapy and does not replace it. It is a visualization instrument, not a diagnostic instrument.
+
+### The Inversion Detector Ethics
+
+Showing someone that their configuration is "inverted" requires careful framing. Inverted means running opposite to designed direction — not "broken," not "wrong," not "disordered." The tool's language is deliberately mechanical: `INVERTED` vs `OK`. The physics are the physics. The user interprets them in context.
