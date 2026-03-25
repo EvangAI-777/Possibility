@@ -620,3 +620,273 @@ AUDACIOUS will not match native Audacity's performance. It does not need to. The
 The one area that demands careful engineering is the real-time audio path: AudioWorklet processing must stay within the callback deadline. This is achievable with proper buffer sizing, SIMD optimization, and efficient memory management. It is an engineering challenge, not a feasibility concern.
 
 ---
+
+## Build Pipeline
+
+Compiling Audacity 4 to WebAssembly is not a single command. It is a multi-stage build pipeline that must handle three codebases (MuseScore framework, Audacity `src/`, Audacity `au3/`), two compilation targets (host tools and WASM target), and a complex dependency graph. This section defines the complete build pipeline from source checkout to deployable artifact.
+
+### Prerequisites
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Emscripten SDK (emsdk)** | 3.1.50+ | WASM compiler toolchain. Provides `emcc`, `em++`, `emcmake`, `emmake`. |
+| **CMake** | 3.22+ | Build system generator. Audacity 4 requires 3.22 minimum. |
+| **Qt 6.9 (WASM build)** | 6.9.x | Qt compiled for Emscripten. Installed via `aqtinstall` or built from source with `configure -platform wasm-emscripten`. |
+| **Qt 6.9 (Host build)** | 6.9.x | Qt compiled for the host platform. Required for build tools (`moc`, `rcc`, `uic`, `qmlcachegen`) that must run natively during the cross-compilation. |
+| **Python** | 3.8+ | Build scripts, asset processing, packaging. |
+| **Ninja** | 1.10+ | Build executor. Faster than Make for large projects. |
+| **Node.js** | 18+ | Required by Emscripten for some toolchain operations. Also used for the development server. |
+| **Brotli** | Latest | Compression for the final WASM binary. |
+
+### The Two-Target Build
+
+This is the most important concept in the build pipeline. When cross-compiling to WebAssembly, some tools must run on the **host machine** during the build (code generators, asset processors, Qt build tools), while the actual output targets **WASM**. Confusing the two is the most common Emscripten build failure.
+
+```
+┌─────────────────────────────────────────────┐
+│                HOST BUILD                    │
+│  (runs on the build machine — x86/ARM)      │
+│                                              │
+│  • Qt host tools (moc, rcc, uic, qmlcachegen)│
+│  • MuseScore framework code generators       │
+│  • Asset processors and packaging scripts    │
+│  • Build-time test runners                   │
+└──────────────────────┬──────────────────────┘
+                       │ generates code / assets
+                       ▼
+┌─────────────────────────────────────────────┐
+│              WASM TARGET BUILD               │
+│  (compiles C/C++ to WebAssembly via emcc)    │
+│                                              │
+│  • MuseScore framework (WASM)                │
+│  • Audacity src/ modules (WASM)              │
+│  • Audacity au3/ libraries (WASM)            │
+│  • Third-party libraries (WASM)              │
+│  • Qt WASM libraries (pre-built)             │
+└──────────────────────┬──────────────────────┘
+                       │ links
+                       ▼
+┌─────────────────────────────────────────────┐
+│             OUTPUT ARTIFACTS                  │
+│                                              │
+│  • audacious.wasm     (WebAssembly binary)   │
+│  • audacious.js       (Emscripten JS glue)   │
+│  • audacious.worker.js (pthread Web Worker)  │
+│  • audacious.data     (preloaded assets)     │
+│  • qtloader.js        (Qt WASM loader)       │
+│  • index.html         (entry point)          │
+└─────────────────────────────────────────────┘
+```
+
+### CMake Configuration
+
+The top-level CMake invocation for the WASM build:
+
+```bash
+# Step 1: Set up Emscripten environment
+source /path/to/emsdk/emsdk_env.sh
+
+# Step 2: Configure the WASM build
+emcmake cmake -S /path/to/audacity -B build-wasm \
+  -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="/path/to/qt-wasm/lib/cmake" \
+  -DQT_HOST_PATH="/path/to/qt-host" \
+  -DAUDACIOUS_WASM=ON \
+  -DAUDACITY_BUILD_VST3=OFF \
+  -DAUDACITY_BUILD_LV2=OFF \
+  -DAUDACITY_BUILD_LADSPA=OFF \
+  -DAUDACITY_BUILD_AUDIOUNIT=OFF \
+  -DAUDACITY_BUILD_NYQUIST=OFF \
+  -DAUDACITY_BUILD_PORTBURN=OFF \
+  -DAUDACIOUS_STAGE=1
+
+# Step 3: Build
+emmake ninja -j2 -C build-wasm
+
+# Step 4: Optimize
+wasm-opt -O3 --enable-simd build-wasm/audacious.wasm -o build-wasm/audacious.opt.wasm
+
+# Step 5: Compress
+brotli -9 build-wasm/audacious.opt.wasm -o build-wasm/audacious.opt.wasm.br
+```
+
+Key flags explained:
+
+- `-G Ninja` — Ninja is faster than Make and handles the complex dependency graph better.
+- `-DQT_HOST_PATH` — tells CMake where to find host Qt tools (`moc`, `rcc`) that must run natively during cross-compilation. Without this, the build tries to run WASM-compiled Qt tools on the host machine and fails.
+- `-DAUDACIOUS_WASM=ON` — a custom flag that AUDACIOUS adds to Audacity's CMake. Guards all `#ifdef __EMSCRIPTEN__` code paths and enables WASM-specific modules.
+- `-DAUDACIOUS_STAGE=1` — controls which subsystems are enabled. Stage 1 stubs everything. Stage 6 enables everything.
+- `-j2` — keeps parallel compilation to 2 jobs. Higher parallelism causes Emscripten to OOM on large codebases. This is a known Emscripten limitation.
+
+### The `AUDACIOUS_STAGE` Build Variable
+
+Each stage enables progressively more of the codebase:
+
+| Stage | Modules Enabled | Modules Stubbed |
+|-------|----------------|-----------------|
+| **1** | `appshell`, `uicomponents`, `preferences` | `au3audio`, `au3wrap`, `playback`, `record`, `effects`, `trackedit`, `projectscene`, `spectrogram`, `importexport` |
+| **2** | + `trackedit`, `projectscene`, `importexport`, `au3wrap` (partial) | `au3audio`, `playback`, `record`, `effects`, `spectrogram` |
+| **3** | + `au3audio`, `playback`, `au3wrap` (audio path) | `record`, `effects`, `spectrogram` |
+| **4** | + `effects`, `spectrogram` | `record` |
+| **5** | + `record` | — |
+| **6** | + Nyquist, cloud features, advanced UI | — |
+
+This staged enablement means each stage produces a smaller, faster-compiling, easier-to-debug WASM binary. Stage 1 might compile in 10 minutes. Stage 6 might take an hour. Developers working on Stage 3 do not wait for Stage 6 code to compile.
+
+### Emscripten Compiler Flags
+
+The production build uses these Emscripten-specific flags:
+
+```cmake
+set(EMSCRIPTEN_FLAGS
+  # Optimization
+  "-O3"                              # Maximum optimization
+  "-flto"                            # Link-time optimization (critical for size)
+  "-msimd128"                        # Enable WASM SIMD
+
+  # Threading
+  "-pthread"                         # Enable pthreads (Web Workers)
+  "-sPTHREAD_POOL_SIZE=8"           # Pre-create 8 worker threads
+
+  # Memory
+  "-sINITIAL_MEMORY=256MB"          # Starting memory allocation
+  "-sALLOW_MEMORY_GROWTH=1"         # Allow dynamic growth
+  "-sMAXIMUM_MEMORY=4GB"            # Maximum memory ceiling
+  "-sSTACK_SIZE=1MB"                # Stack size per thread
+
+  # Module system
+  "-sMODULARIZE=1"                  # Export as ES module
+  "-sEXPORT_ES6=1"                  # ES6 module format
+  "-sEXPORT_NAME=Audacious"         # Module export name
+
+  # Filesystem
+  "-sFORCE_FILESYSTEM=1"            # Enable Emscripten VFS
+  "-lidbfs.js"                      # IDBFS for persistent storage
+
+  # Web Audio
+  "-sAUDIO_WORKLET=1"               # Enable AudioWorklet support
+  "-sWASM_WORKERS=1"                # Enable WASM workers
+
+  # Debug (development only)
+  "-sASSERTIONS=1"                  # Runtime assertions
+  "-gsource-map"                    # Source maps for debugging
+)
+```
+
+### CI/CD Pipeline
+
+The build pipeline runs in CI (GitHub Actions) on every push:
+
+```yaml
+# .github/workflows/build-wasm.yml
+name: Build AUDACIOUS WASM
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive  # MuseScore framework is a submodule
+
+      - name: Install Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.50
+
+      - name: Install Qt (Host)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.9.0'
+          target: 'desktop'
+
+      - name: Install Qt (WASM)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.9.0'
+          target: 'wasm_multithread'
+
+      - name: Configure
+        run: |
+          emcmake cmake -S . -B build-wasm \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DAUDACIOUS_WASM=ON \
+            -DAUDACIOUS_STAGE=${{ matrix.stage }}
+
+      - name: Build
+        run: emmake ninja -j2 -C build-wasm
+
+      - name: Optimize
+        run: wasm-opt -O3 --enable-simd build-wasm/audacious.wasm -o build-wasm/audacious.opt.wasm
+
+      - name: Compress
+        run: brotli -9 build-wasm/audacious.opt.wasm
+
+      - name: Report size
+        run: |
+          echo "Uncompressed: $(du -h build-wasm/audacious.opt.wasm | cut -f1)"
+          echo "Compressed:   $(du -h build-wasm/audacious.opt.wasm.br | cut -f1)"
+
+      - name: Deploy to staging
+        if: github.ref == 'refs/heads/develop'
+        run: # Deploy to staging URL
+
+    strategy:
+      matrix:
+        stage: [1, 2, 3, 4, 5, 6]
+```
+
+### Development Server
+
+For local development, a custom dev server handles the COOP/COEP headers and serves the WASM artifacts:
+
+```bash
+# Development server with required headers
+npx serve build-wasm \
+  --cors \
+  --config serve.json
+```
+
+Where `serve.json` includes:
+
+```json
+{
+  "headers": [
+    {
+      "source": "**/*",
+      "headers": [
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" }
+      ]
+    }
+  ]
+}
+```
+
+### The Build Output
+
+A successful Stage 6 build produces:
+
+```
+build-wasm/
+├── audacious.wasm          ~80-120 MB (uncompressed)
+├── audacious.wasm.br       ~30-50 MB  (Brotli compressed)
+├── audacious.js            ~200 KB    (Emscripten glue code)
+├── audacious.worker.js     ~50 KB     (pthread Web Worker)
+├── audacious.data          ~5-10 MB   (preloaded assets, QML files)
+├── qtloader.js             ~20 KB     (Qt WASM bootstrap)
+├── index.html              ~2 KB      (entry point)
+└── sw.js                   ~5 KB      (Service Worker for caching)
+```
+
+The Service Worker (`sw.js`) caches the WASM binary and assets after first load. Subsequent visits load entirely from cache — zero network requests, instant startup.
+
+---
