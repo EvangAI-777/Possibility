@@ -807,3 +807,53 @@ Therapists and counselors can use the tool as a visualization aid — with clien
 ### The Inversion Detector Ethics
 
 Showing someone that their configuration is "inverted" requires careful framing. Inverted means running opposite to designed direction — not "broken," not "wrong," not "disordered." The tool's language is deliberately mechanical: `INVERTED` vs `OK`. The physics are the physics. The user interprets them in context.
+
+---
+
+## Monetization
+
+### Pricing Model
+
+**Free Tier:**
+- Full Physical Construction Engine (all 7 layers, 28 sliders)
+- Full Substrate Configuration Engine (foundation + environment)
+- Inversion Detector
+- 4 Featured Build presets
+- Save/load builds locally (JSON export/import)
+- 3D viewport with basic rendering
+
+**Pro ($9/month):**
+- Fracture Scanner
+- Comparison Engine
+- Community library access (browse and fork builds)
+- Share builds publicly
+- Unlimited saved builds (cloud storage)
+- Non-Human construction templates
+- Full 3D visualization (layer isolation, exploded view, cascade animation)
+- GENO → CREATEME integration (load GENO commits as builds)
+
+**Professional ($25/month):**
+- Everything in Pro
+- CREATEME → GENO integration (push builds as commits/PRs to GENO repositories)
+- Bidirectional sync with GENO family repositories
+- Custom build presets (save and name your own configurations)
+- Bulk analysis (scan multiple builds, compare across a family line)
+- Export reports (PDF/SVG — stability scores, inversion maps, fracture reports)
+- Professional framing tools (clinical-friendly language options for therapeutic contexts)
+- Cross-generational comparison (load parent + child from GENO, run full comparative analysis)
+
+**Enterprise (Custom):**
+- Research institution licensing
+- Full API access (both CREATEME and GENO bridge)
+- Custom physics engine extensions
+- White-label options
+- HIPAA compliance (for clinical settings)
+- Bulk GENO → CREATEME translation for entire repositories
+- Anonymized aggregate analysis tools (opt-in research data)
+
+### Revenue Streams
+
+1. **Subscriptions** — Primary revenue: Pro, Professional, Enterprise tiers
+2. **Print products** — High-quality 3D build visualizations, stability reports, comparison posters
+3. **Research partnerships** — Anonymized aggregate configuration data for academic psychology and developmental research (opt-in only, never individual data)
+4. **GENO bundle** — Combined GENO + CREATEME subscription at reduced rate, since the bidirectional integration is the platform's most powerful feature
