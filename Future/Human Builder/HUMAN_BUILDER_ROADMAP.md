@@ -857,3 +857,105 @@ Showing someone that their configuration is "inverted" requires careful framing.
 2. **Print products** — High-quality 3D build visualizations, stability reports, comparison posters
 3. **Research partnerships** — Anonymized aggregate configuration data for academic psychology and developmental research (opt-in only, never individual data)
 4. **GENO bundle** — Combined GENO + CREATEME subscription at reduced rate, since the bidirectional integration is the platform's most powerful feature
+
+---
+
+## Development Phases
+
+### Phase 0: Proof of Concept (COMPLETE)
+
+What exists today:
+- Full specification document (`Future/Human Builder/CREATEME.md`)
+- Interactive React component (`React Component Artifacts/createme.jsx`) with all 3 modes, 7 physical layers, substrate configuration, 3 analysis tools, 4 featured builds
+- Loadable via REACTOR.html in any browser
+
+This phase proved the two-engine model works. Users build a body, place it on a substrate, and see the stability score change in real time. The translation happens the moment they move the floor sliders.
+
+### Phase 1: Standalone Demo Site (MVP)
+
+**Goal**: A single self-contained HTML file (`CREATEME.html`) that delivers the full builder experience — hosted on GitHub Pages alongside the other Possibility tools.
+
+**Deliverables**:
+- Full dark theme builder UI with 3-column layout
+- All slider interactions, mode switching, preset loading
+- Real-time stability score and floor status computation
+- All 3 analysis tools functional (inversion detector, fracture scanner, comparison engine)
+- 4 featured build presets with one-click loading
+- JSON export/import for builds
+- Deployed at `docs/CREATEME.html`
+
+**Timeline**: Weeks
+
+### Phase 2: 3D Visualization Engine
+
+**Goal**: Render the physical build at anatomical fidelity on par with BioDigital Human, Visible Body, Complete Anatomy, and Anatomage — then extend beyond all of them.
+
+**Deliverables**:
+- WebGL/Canvas 3D renderer for biological visualization
+- **Layers 1–6 at industry-standard fidelity**: skeletal rendering (individual bones, joint articulation), organ visualization (placement, size, connectivity), muscular overlay (fiber direction, attachment points), nervous system pathways (signal routing, connection density), cellular composition (replication visualization, communication networks), skin/external surface (sensitivity mapping, permeability visualization)
+- **Layer 7 — Consciousness Integration**: experiential visualization that no existing tool offers — rendered as energy patterns, integration fields, awareness overlays tied to physical body state
+- **Floor visualization**: substrate renders as a visible surface beneath the build. Present floors are solid. Partial floors are translucent. Absent floors are empty space — the build floats, visibly unstable.
+- **Cascade animation**: parameter changes propagate visibly through the 3D model — cellular instability ripples upward, substrate absence ripples downward
+- Interactive controls: rotation, zoom, layer isolation, exploded view
+- Real-time updates: every slider change reflected immediately in the 3D viewport
+
+**The competitive position**: at the end of this phase, CREATEME renders the human body at the same fidelity as the best tools in the industry. But those tools stop here. CREATEME's layers 1–6 are their complete product. Our layer 7, substrate engine, floor visualization, and cascade animation are capabilities none of them possess.
+
+**Timeline**: 2–3 months
+
+### Phase 3: Physics Engine
+
+**Goal**: Move from slider values to actual consequence modeling — not animation, real physics.
+
+**Deliverables**:
+- Cellular communication cascade simulation (misconfigured cell communication produces propagating failures)
+- Structural integrity modeling for skeletal layer (load bearing capacity vs. actual load computation)
+- Nervous system signal routing visualization (pain/stress signals traced through specific pathways)
+- Organ functional output modeling (connectivity and placement affect actual output)
+- Muscular demand vs. capacity modeling (what the body demands vs. what muscles can deliver)
+- Consciousness integration physics (how physical state maps to experiential state)
+- Floor physics (how absent/partial/present floors affect cascade propagation rates)
+
+**Timeline**: 2–3 months
+
+### Phase 4: Community & Sharing
+
+**Goal**: Build the community library and sharing infrastructure.
+
+**Deliverables**:
+- User accounts and build storage
+- Community build library with categories (impossible builds, failure documentation, alternative experience, non-human configurations)
+- Fork and modify other users' builds
+- Build versioning (track how a build evolves over time)
+- Search and discovery (find builds by parameter ranges, stability scores, floor status)
+
+**Timeline**: 2–3 months
+
+### Phase 5: GENO Integration (Bidirectional)
+
+**Goal**: Full two-way integration between CREATEME and GENO.
+
+**Deliverables**:
+- **GENO → CREATEME**: load any GENO commit as a 3D build template
+- **CREATEME → GENO**: push completed builds as commits or PRs to GENO repositories
+- Qualitative ↔ quantitative translation layer (GENO traits to slider values and back)
+- Cross-tool analysis (run CREATEME analysis tools on GENO commits)
+- Cross-generational comparison (load parent + child from GENO, compare in 3D)
+- Unified navigation between GENO repository view and CREATEME builder view
+- Bidirectional sync API (REST + WebSocket for real-time updates)
+
+**Timeline**: 2–3 months
+
+### Phase 6: Professional & Research Tools
+
+**Goal**: Serve therapists, researchers, and institutional users.
+
+**Deliverables**:
+- Therapeutic visualization features (clinical-friendly language, session recording, progress tracking)
+- Research API with anonymized aggregate data
+- Bulk analysis (scan entire GENO repositories through CREATEME's analysis tools)
+- Export reports (PDF/SVG — stability scores, inversion maps, fracture reports, comparison visualizations)
+- Enterprise tier with HIPAA compliance
+- Custom physics engine extensions for research contexts
+
+**Timeline**: Ongoing
