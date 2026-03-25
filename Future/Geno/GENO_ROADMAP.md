@@ -974,6 +974,22 @@ Everything that exists today in the Possibility repository:
 | **Test Suite** | `js_tests/geno.test.jsx` | 25 tests covering all views, interactions, conflict resolution, and scanner modes |
 | **This Roadmap** | `Future/Geno/GENO_ROADMAP.md` | The document you're reading — full platform vision |
 
+### What the React Component Contains
+
+- **6 views** — Repository, Commits, Branches, Merge Conflicts, Pull Requests, Scanner
+- **6 person-commits** — spanning 1923–2015 across 6 generations of the Johnson-Washington family
+- **4 branches** — `main/paternal/johnson` (blue), `main/maternal/washington` (pink), `feature/first-gen-college` (emerald), `hotfix/floor-installation` (amber)
+- **4 trait categories per commit** — inherited from father, inherited from mother, new in this commit, passed forward
+- **2 merge conflicts** — Floor Layer Configuration (absent vs. partial), Emotional Expression Protocol (shutdown vs. restricted)
+- **4 conflict resolution options** — accept branch A, accept branch B, manual merge, flag for review
+- **2 pull requests** — floor installation attempt (open), hypervigilance deprecation (merged), each with changes, downstream impact, reviewer assignments, and cost documentation
+- **1 deprecation warning** — `hypervigilance_protocol_v1923` with threat assessment, effects list, and removal notes
+- **2 legacy code entries** — `inverted_connection_mechanism` (11+ generations, origin unknown), `scarcity_resource_model` (8+ generations, origin unknown)
+- **Scanner mode** — toggles between deprecation scanner and legacy code detector
+- **Expandable commit detail sections** — collapsible inherited/new/passed-forward trait panels per commit
+- **Dark theme UI** — GitHub-faithful styling, Tailwind CSS, Lucide icons (GitBranch, GitCommit, GitMerge, GitFork)
+- **Interactive state** — conflict resolution tracking, branch selection, PR detail expansion
+
 ### The Sample Data
 
 The Johnson-Washington family repository spans 1923-2015 across 6 generations:
