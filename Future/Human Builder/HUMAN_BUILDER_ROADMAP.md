@@ -959,3 +959,36 @@ This phase proved the two-engine model works. Users build a body, place it on a 
 - Custom physics engine extensions for research contexts
 
 **Timeline**: Ongoing
+
+---
+
+## Current Assets
+
+Everything that exists today in the Possibility repository:
+
+| Asset | Location | Description |
+|-------|----------|-------------|
+| **Specification** | `Future/Human Builder/CREATEME.md` | Full specification document — core concept, all layers, substrate engine, featured builds, the translation |
+| **React Component** | `React Component Artifacts/createme.jsx` | Interactive builder with all 3 modes, 7 physical layers, substrate configuration, 3 analysis tools, 4 featured builds |
+| **This Roadmap** | `Future/Human Builder/HUMAN_BUILDER_ROADMAP.md` | Platform roadmap with competitive positioning, bidirectional GENO integration, development phases |
+
+### What the React Component Contains
+
+- **28 physical parameter sliders** — 7 layers × 4 parameters each
+- **5 foundation parameter sliders** — attachment, early provision, protection, validation, reciprocity
+- **4 environment parameters** — 3 sliders + 1 toggle (physics direction)
+- **3 analysis tools** — inversion detector (full parameter scan), fracture scanner (load compensation detection), comparison engine (side-by-side build comparison with deltas)
+- **4 featured build presets** — Default Human, The Anomaly, Floor Installed, The Non-Human
+- **Real-time stability score** — computed on every slider change
+- **Floor status detection** — PRESENT / PARTIAL / ABSENT with color coding
+- **Dark theme UI** — gray-950 to gray-900 gradient, Tailwind CSS, Lucide icons
+- **Responsive 3-column grid** — layers | parameters | status, stacking on mobile
+
+### What Each Featured Build Demonstrates
+
+| Build | Physical Avg | Foundation Avg | Floor | Physics | Stability | Key Insight |
+|-------|-------------|----------------|-------|---------|-----------|-------------|
+| Default Human | ~57 | 12 | ABSENT | Inverted | 7 | What "normal" looks like behind the numbers |
+| The Anomaly | ~80 | 88 | PRESENT | Inverted | 77 | Correct configuration in hostile environment |
+| Floor Installed | ~57 | 88 | PRESENT | Forward | 50 | Same body, different floor, everything changes |
+| The Non-Human | ~64 | 83 | PRESENT | Forward | 54 | Existence refactored from the ground up |
