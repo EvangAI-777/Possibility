@@ -920,3 +920,332 @@ Cross-Origin-Embedder-Policy: require-corp
 ```
 
 Without these headers, SharedArrayBuffer is disabled and threading will not work. For GitHub Pages, use `coi-serviceworker`.
+
+---
+
+## WebAssembly Porting Reference
+
+*Consolidated from `TEMPLATE.md` — the master schema for porting large native applications to the browser via WebAssembly.*
+
+**Source doc:** `TEMPLATE.md`
+
+This reference applies to AUDACIOUS and any future WebAssembly porting work. Everything below was learned the hard way.
+
+### Source Application Inventory
+
+Before writing a single line of porting code, audit what you are porting.
+
+**Subsystem Audit Checklist:**
+
+| Subsystem | Native API | Web Target |
+|-----------|------------|------------|
+| GPU / Rendering | — | WebGL2 / WebGPU |
+| Audio | — | Web Audio API |
+| File I/O | — | Emscripten VFS |
+| Networking | — | WebSocket / Fetch |
+| Scripting | — | Pyodide / QuickJS |
+| Threading | — | Web Workers |
+| Input | — | Browser Events |
+| Clipboard | — | Clipboard API |
+| Drag-and-Drop | — | HTML5 DnD API |
+
+### Build System Translation
+
+The build system is where most ports die. Not in the graphics layer. Not in the audio. In the build.
+
+**Native Build → Emscripten Cross-Compilation:**
+
+```bash
+emcmake cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/path/to/install
+
+emmake make -j$(nproc)
+```
+
+**Build-Tool / Browser-Target Separation:**
+
+This is THE critical pattern. Build tools (code generators, data processors, asset compilers) must run on the HOST machine. Only the final application targets the BROWSER. Mixing these two targets is the single most common build failure.
+
+Build tools require:
+- `SINGLE_FILE` mode (embed WASM in JS for Node.js execution)
+- A crosscompiling emulator so CMake `try_run()` works
+- Native host compiler, NOT the cross-compiler
+
+**Global Flag Safety Rules:**
+
+> NEVER apply flags globally that should only target specific binaries.
+
+- `-pthread` on a build tool will crash it
+- `-s USE_PTHREADS=1` applied globally contaminates everything
+- Linker flags meant for the final binary will break intermediary tools
+- Scope every flag to its specific target
+
+### GPU / Graphics Translation Layer
+
+| Desktop Feature | WebGL2 Equivalent | Gap Strategy |
+|----------------|-------------------|--------------|
+| OpenGL 4.3+ | ES 3.0 (WebGL2) | Downgrade or emulate |
+| Compute Shaders | Not available | CPU fallback |
+| SSBOs | UBOs (limited 16KB) | Rewrite to UBO/std140 layout |
+| Geometry Shaders | Not available | Vertex shader workaround |
+| Tessellation | Not available | Pre-tessellate on CPU |
+| Bindless Textures | Not available | Traditional binding |
+| 64-bit integers in shaders | Not available | Pack into vec2 or float |
+
+**Shader Language:** GLSL 330+ → GLSL ES 300. Add `precision mediump float;`. Replace `sampler2DShadow` with manual comparison.
+
+**Compute Shader → CPU Fallback:** Extract compute logic, write C/C++ equivalent, call on main thread or Web Worker.
+
+**SSBO → UBO Rewriting:** Split large SSBOs into multiple UBO binding points (16KB min guaranteed). Restructure to `std140` alignment.
+
+**Compatibility Shim:** Wrap GL calls, route desktop-only calls to WebGL2 equivalents or CPU fallbacks. Do NOT shadow real WebGL2 function names — causes infinite recursion.
+
+**WebGPU:** Future path mapping closer to Vulkan/Metal/DX12. Design shim layer to be swappable.
+
+### Audio Translation
+
+**Autoplay Policy:** Browsers block audio until user interaction. This is enforced, not optional.
+- Register click/keypress handler that calls `audioContext.resume()`
+- Show "Click to start" overlay if needed
+- Do NOT try to bypass — browsers will block it
+
+**AudioWorklet Pattern:**
+
+```javascript
+class AppAudioProcessor extends AudioWorkletProcessor {
+  process(inputs, outputs, parameters) {
+    // Real-time audio processing
+    return true;
+  }
+}
+registerProcessor('app-audio-processor', AppAudioProcessor);
+```
+
+### File I/O Translation
+
+| VFS Type | Persistence | Use Case |
+|----------|-------------|----------|
+| MEMFS | None (RAM only) | Temporary files, scratch space |
+| IDBFS | IndexedDB | User settings, saved state |
+| WORKERFS | Read-only | Large read-only assets in Workers |
+
+**File Import:** Drag-and-drop → `FileReader.readAsArrayBuffer()` → `FS.writeFile()`
+**File Export:** `FS.readFile()` → `Blob` → `URL.createObjectURL()` → `<a download>`
+**Persistence:** IDBFS + `FS.syncfs()` after writes, `FS.syncfs(true, callback)` on startup
+
+### Threading Model
+
+**Native Threads → Web Workers + SharedArrayBuffer:**
+- Emscripten's `-pthread` flag enables pthreads via Web Workers
+- SharedArrayBuffer is REQUIRED for shared memory
+- **Required HTTP headers:**
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+**coi-serviceworker for GitHub Pages** (no custom headers support):
+
+```html
+<script src="coi-serviceworker.js"></script>
+```
+
+Must load BEFORE any other scripts.
+
+**-pthread Scoping Rules:**
+
+> NEVER apply `-pthread` globally. NEVER.
+
+- Apply ONLY to the final application target
+- Build tools compiled with `-pthread` will crash or hang
+
+**Single-Threaded Fallback:** Design port to run without threading. Move background work to `requestAnimationFrame`/`setTimeout` chains. Accept reduced performance on browsers without SharedArrayBuffer.
+
+### Networking
+
+| Native API | Browser Equivalent | Use Case |
+|-----------|-------------------|----------|
+| TCP Sockets | WebSocket | Persistent bidirectional |
+| UDP Sockets | WebRTC Data Channels | Low-latency, unreliable |
+| HTTP Requests | Fetch API | REST, asset loading |
+| Raw Sockets | Not available | Requires server proxy |
+
+### Input Handling
+
+SDL2 in Emscripten handles most input automatically. Handle manually:
+- **Pointer Lock:** `canvas.requestPointerLock()` for FPS-style input
+- **Multi-touch:** Direct touch event handling (SDL2 only maps single touch to mouse)
+- **Gamepad:** Poll each frame via `navigator.getGamepads()`
+
+### Scripting / Plugin Systems
+
+| Native Language | WASM Alternative | Notes |
+|----------------|-----------------|-------|
+| Python (CPython) | Pyodide | Full CPython in WASM, supports pip |
+| Lua | Lua-WASM / Fengari | Lightweight, good for game scripting |
+| JavaScript | QuickJS (WASM) | Embeddable JS engine |
+| C# (Mono/.NET) | Blazor / .NET WASM | Full .NET runtime, heavy download |
+| GDScript (Godot) | Godot WASM export | Godot handles natively |
+
+**Native plugins (`.dll`/`.so`/`.dylib`):** Cannot load in browser. Options: compile to WASM, JS plugin API via `Module.ccall`/`Module.cwrap`, or disable.
+
+### Staged Deployment
+
+Do not port everything at once. Quick wins first. Dependencies second. Complexity last.
+
+1. **Stage 1** — Build system compiles and links. App launches in browser.
+2. **Stage 2** — Core rendering. Pixels on screen. Viewport navigation.
+3. **Stage 3** — Primary workflow. Single most important user action works end-to-end.
+4. **Stage 4** — Secondary systems. Audio, file I/O, scripting.
+5. **Stage 5** — Polish. Performance, UI refinement, mobile.
+6. **Stage 6** — Advanced. Networking, collaboration, plugins.
+
+### Performance & Optimization
+
+**WASM SIMD:**
+
+```bash
+emcc -msimd128 -O3 app.c -o app.wasm
+```
+
+2-4x speedup on math-heavy code. Widely supported since 2024.
+
+**Streaming Compilation:** Serve `.wasm` with `Content-Type: application/wasm` — browser compiles while downloading.
+
+**Module Splitting:** Load feature modules on demand via `WebAssembly.instantiateStreaming()`. Keep initial download under 10MB.
+
+**wasm-opt:**
+
+```bash
+wasm-opt -O3 -o output-opt.wasm output.wasm
+```
+
+WARNING: Can OOM on 100MB+ binaries. Use `-O2` or skip on large binaries.
+
+**Compression:** Brotli (60-70% reduction) or gzip (50-60%). Serve `.wasm.br` or `.wasm.gz`.
+
+**IndexedDB Caching:** Cache compiled WASM module for repeat visits.
+
+**Web Workers:** Offload non-rendering work (file parsing, physics, data processing) to keep main thread responsive.
+
+### CI/CD Pipeline
+
+```yaml
+name: Build WASM
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.51
+      - name: Configure
+        run: mkdir build && cd build && emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cd build && emmake make -j2  # Keep -j2 to avoid OOM
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-build
+          path: build/output/
+```
+
+**Build Parallelism:** GitHub Actions runners have 7GB RAM. Use `-j2`, never `-j$(nproc)`.
+
+### Browser Compatibility Matrix
+
+| Feature | Chrome | Firefox | Safari | Edge | Mobile Chrome | Mobile Safari |
+|---------|--------|---------|--------|------|---------------|---------------|
+| WebAssembly | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| WebGL2 | ✓ | ✓ | ✓ (15.2+) | ✓ | ✓ | ✓ (15.2+) |
+| SharedArrayBuffer | ✓* | ✓* | ✓* | ✓* | ✓* | ✓* |
+| WASM SIMD | ✓ | ✓ | ✓ (16.4+) | ✓ | ✓ | ✓ (16.4+) |
+| WASM Threads | ✓* | ✓* | ✓* | ✓* | ✓* | Limited |
+| WebGPU | ✓ | In Progress | In Progress | ✓ | Limited | No |
+
+*\* Requires COOP/COEP headers*
+
+**Mobile Considerations:** Less RAM, touch input, variable GPU, thermal throttling, battery impact — optimize aggressively.
+
+### Known Pitfalls
+
+Every pitfall below was discovered the hard way.
+
+**Pitfall 1: Global Flag Contamination** — A flag applied globally via `CMAKE_C_FLAGS` reaches build tools that should never receive it. Use `target_compile_options()` and `target_link_options()`.
+
+**Pitfall 2: OOM on CI** — `make -j$(nproc)` exhausts RAM. Use `-j2` on CI.
+
+**Pitfall 3: wasm-opt OOM** — `wasm-opt -O3` loads entire binary into memory. Test locally before adding to CI.
+
+**Pitfall 4: 32-bit Pointer Assumptions** — WASM is 32-bit. Audit all pointer arithmetic and `size_t` for 32-bit safety.
+
+**Pitfall 5: UNIX=true False Matches** — Emscripten sets `UNIX=true`. Always check `if(EMSCRIPTEN)` BEFORE `if(UNIX)`.
+
+**Pitfall 6: Build Tools Need SINGLE_FILE** — Build tools try to load separate `.wasm` at runtime. Compile with `-s SINGLE_FILE=1`.
+
+**Pitfall 7: Shadowing WebGL2 Functions** — Shim functions with same name as real functions → infinite recursion. Use `shim_` prefix.
+
+**Pitfall 8: Library Version Mismatches** — Emscripten ports ship specific versions. Check with `emcc --show-ports`.
+
+**Pitfall 9: Type System Conflicts** — Libraries define conflicting types (e.g., `boolean`). Use preprocessor guards or patching.
+
+### Validation & Early Detection
+
+**Binary Validation:**
+
+```bash
+wasm-validate output.wasm
+wasm-objdump -h output.wasm
+```
+
+Success: exit code 0, expected sections, file size in expected range. Do not deploy if validation fails.
+
+**Staged Testing:** Local machine → different browser → staging URL → production.
+
+**Health Check Matrix:**
+
+| Check | Expected | If Failed |
+|-------|----------|-----------|
+| `wasm-validate` exit code | 0 | Do not deploy; rebuild |
+| Binary file size | Within 10% of baseline | Investigate truncation |
+| Browser console at startup | No red errors | Fix before deploy |
+| App responds to input | User interaction works | Debug event handling |
+| Consistent across browsers | Same result | Document browser-specific issues |
+
+### Diagnostic Flowchart — When It Goes Silent
+
+```
+App is blank or hung after deployment
+│
+├─ Does wasm-validate pass?
+│  ├─ NO → Binary corrupted (OOM during link, disk full, CI crash)
+│  └─ YES → Continue
+│
+├─ Does browser console show any output?
+│  ├─ YES, but stops → Initialization hangs (infinite loop, deadlock, memory fail)
+│  ├─ NO, console empty → Silent failure (CORS, CSP, missing headers, wrong MIME type)
+│  └─ YES, complete but blank → Check HTML/CSS
+│
+├─ Works on localhost but not deployed?
+│  └─ YES → Check headers, asset paths (use relative ./), cache, WASM MIME type
+│
+├─ Works in some browsers but not others?
+│  └─ YES → GPU differences, missing feature detection, security policy
+│
+├─ System memory growing without stopping?
+│  └─ YES → Memory exhaustion (reduce initial allocation, stream large files)
+│
+└─ None of above → Review build logs, compiler output, CI warnings
+```
+
+**When to Escalate:** Gather complete build log, full browser console, network tab, memory profiler graph, and exact reproduction steps before posting.
