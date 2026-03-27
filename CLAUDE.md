@@ -445,3 +445,223 @@ In GENO, death is a closed pull request. The person's life was a proposal to cha
 | **5** | Social & Discovery | Planned | Profiles, orgs, stars/forks, explore page, discussions |
 | **6** | Integration & Scale | Planned | GEDCOM, 23andMe, AncestryDNA, FamilySearch, mobile PWA |
 | **7** | Enterprise & Research | Planned | HIPAA compliance, research API, white-label |
+
+---
+
+### CREATEME — Build Your Own Human
+
+*Build Your Own Human. Real physics. Real biology. Real consequence modeling. Discovery through construction.*
+
+**Source docs:** `Future/Human Builder/CREATEME.md` (concept spec) | `Future/Human Builder/HUMAN_BUILDER_ROADMAP.md` (platform roadmap)
+**Current assets:** `React Component Artifacts/createme.jsx` (interactive component) | `js_tests/createme.test.jsx` (25 tests)
+
+#### Vision
+
+**Working titles:** Build Your Own Human | Human Builder | CREATEME
+
+CREATEME is a full physical construction and refactoring tool that lets users build biological entities from the ground up. Human or otherwise. With real physics. Real biology. Real consequence modeling. Users are not told what a human is — they discover it by building one. Or by building something else entirely and seeing what that produces.
+
+The tool operates on two simultaneous engines — **Physical Construction** and **Substrate Configuration** — both interacting in real time. A perfectly constructed physical body placed on an absent floor produces visible systemic instability. The tool shows this without commentary. The user sees it directly.
+
+#### The Competitive Position
+
+The existing landscape of 3D body simulation tools — BioDigital Human, Visible Body, Zygote Body, Complete Anatomy, Anatomage — represents the state of the art in anatomical visualization.
+
+**Their entire feature set is our Default Human preset.**
+
+Every system those tools model maps to layers 1 through 6 of the Physical Construction Engine. That is where they stop. That is where CREATEME starts:
+
+- **Layer 7: Consciousness Integration** — where physical construction meets experiential configuration
+- **The Substrate Configuration Engine** — what the body stands on: attachment security, early provision, protection, validation, reciprocity
+- **The Analysis Suite** — inversion detection, fracture scanning, comparison analysis across both physical and substrate layers
+- **Floor Integration** — the stability formula: `stability = physicalAverage * (foundationAverage / 100)`
+
+#### The Two-Way Bridge with GENO
+
+- **GENO → CREATEME**: Any commit in a GENO family repository can be loaded directly into the 3D builder as a template
+- **CREATEME → GENO**: A completed build can be pushed as a new commit or submitted as a pull request into a GENO family repository
+
+This means CREATEME is both a **visualization tool** for existing GENO data and a **construction interface** for new GENO data.
+
+#### Core Architecture
+
+**The Stack:**
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | React 18 + Tailwind CSS | Dark theme, slider-heavy UI, real-time feedback |
+| **3D Engine** | Custom WebGL/Canvas renderer | Biological visualization at anatomical fidelity |
+| **Physics Engine** | Custom consequence modeling | Real cellular cascade, structural integrity, nervous system routing |
+| **State Management** | Layered configuration state | Physical + Substrate + Analysis — three-engine state architecture |
+| **GENO Bridge** | Bidirectional REST + WebSocket API | Two-way commit/PR translation between CREATEME builds and GENO repositories |
+| **Backend** | Node.js / Python (FastAPI) | Build sharing, community library, GENO integration endpoints |
+| **Storage** | Structured JSON configs + S3 | Build configuration files, 3D model data, community library |
+
+**The Two-Engine Model:**
+
+**Engine 1: Physical Construction Engine** — the body itself. Seven layers of biological construction from cellular to consciousness. Layers 1-6 match industry-standard 3D body simulators. Layer 7 (consciousness integration) goes where none of them touch.
+
+**Engine 2: Substrate Configuration Engine** — what the body stands on. Foundation (the floor) and Environment (what surrounds it). No equivalent in any existing anatomy tool.
+
+Both engines feed into the **Analysis Layer** — three diagnostic tools that read across both engines without modifying either.
+
+#### State Architecture
+
+```json
+{
+  "mode": "physical | substrate | analysis",
+  "activeLayer": "cellular | skeletal | organ | nervous | muscular | skin | consciousness",
+  "activeFeaturedBuild": "default-human | anomaly | floor-installed | non-human | null",
+  "analysisMode": "inversion | fracture | comparison",
+  "physicalConfig": {
+    "cellular": { "cellTypes": 65, "replication": 60, "mutation": 40, "communication": 55 },
+    "skeletal": { "boneDensity": 60, "joints": 55, "weightDist": 50, "loadBearing": 55 },
+    "organ": { "organSize": 60, "connectivity": 55, "function": 60, "placement": 65 },
+    "nervous": { "pathways": 70, "signalSpeed": 65, "painThreshold": 30, "stressResponse": 80 },
+    "muscular": { "strength": 50, "endurance": 45, "recovery": 50, "precision": 55 },
+    "skin": { "sensitivity": 70, "permeability": 40, "durability": 50, "envInteraction": 55 },
+    "consciousness": { "selfAwareness": 60, "experientialDepth": 65, "emotionalRange": 70, "integration": 50 }
+  },
+  "substrateConfig": {
+    "foundation": { "attachment": 20, "earlyProvision": 15, "protection": 10, "validation": 5, "reciprocity": 10 },
+    "environment": { "sandbox": 30, "physicsDirection": false, "acknowledgment": 15, "protectionExploitation": 20 }
+  }
+}
+```
+
+The state shown above is the Default Human preset. Note the disparity: physical values moderate (50-70), foundation values devastatingly low (5-20), environment inverted.
+
+#### The Stability Formula
+
+```
+stability = physicalAverage * (foundationAverage / 100)
+```
+
+- A perfect physical build (avg 100) with zero foundation = **0 stability**
+- A moderate physical build (avg 57) with absent foundation (avg 12) = **stability of 7** (the Default Human)
+- That same physical build (avg 57) with present foundation (avg 88) = **stability of 50** (Floor Installed)
+- The physical build did not change. Only the substrate changed. And every metric shifted.
+
+**Floor Status Logic:**
+
+| Foundation Average | Status | Color |
+|-------------------|--------|-------|
+| ≥ 60 | **PRESENT** | Green |
+| 30–59 | **PARTIAL** | Amber |
+| < 30 | **ABSENT** | Red |
+
+#### The Physical Construction Engine — 7 Layers
+
+| # | Layer | Color | Parameters | What Existing Tools Model | What CREATEME Adds |
+|---|-------|-------|-----------|--------------------------|-------------------|
+| 1 | Cellular | Emerald | cellTypes, replication, mutation, communication | Cell visualization | Cascade failure propagation |
+| 2 | Skeletal | Gray | boneDensity, joints, weightDist, loadBearing | Full skeletal rendering | Structural consequence under load |
+| 3 | Organ | Red | organSize, connectivity, function, placement | Organ placement & anatomy | Non-standard organ physics |
+| 4 | Nervous | Purple | pathways, signalSpeed, painThreshold, stressResponse | Neural pathway mapping | Inversion detection, stress cascade |
+| 5 | Muscular | Orange | strength, endurance, recovery, precision | Muscle group visualization | Demand vs. capacity modeling |
+| 6 | Skin | Amber | sensitivity, permeability, durability, envInteraction | External surface rendering | Permeability & environmental interaction |
+| 7 | Consciousness | Cyan | selfAwareness, experientialDepth, emotionalRange, integration | **None** | Experiential configuration + floor integration |
+
+**28 physical parameters total.** Every slider change recalculates the stability score and updates the 3D visualization in real time.
+
+**The Cascade Principle:** Every layer depends on the layers below it. Cellular instability propagates upward. But the cascade also runs downward from the substrate. An absent floor destabilizes consciousness integration, which propagates through every physical layer. The cascade is bidirectional.
+
+#### The Substrate Configuration Engine
+
+**Foundation Panel (the floor):**
+
+| Parameter | ID | Range | Real-World Mapping |
+|-----------|-----|-------|-------------------|
+| Attachment Security | `attachment` | 0–100 | Bond to primary caregiver(s) |
+| Early Provision | `earlyProvision` | 0–100 | Needs met or unmet at the beginning of life |
+| Protection | `protection` | 0–100 | Safety vs. exposure |
+| Validation | `validation` | 0–100 | Seen vs. invisible |
+| Reciprocity | `reciprocity` | 0–100 | Mutual vs. one-directional |
+
+**Environment Panel:**
+
+| Parameter | ID | Type | What It Controls |
+|-----------|-----|------|-----------------|
+| Sandbox Configuration | `sandbox` | Slider (0–100) | Boundaries and constraints of the space |
+| Physics Direction | `physicsDirection` | Toggle (Forward/Inverted) | Whether the environment runs its physics forward or backward |
+| Acknowledgment | `acknowledgment` | Slider (0–100) | Whether the environment acknowledges or dismisses the build |
+| Protection / Exploitation | `protectionExploitation` | Slider (0–100) | Whether the environment protects or exploits what it contains |
+
+**The Physics Direction toggle is the most significant single control in the entire tool.** In an inverted environment, strength is punished, vulnerability is exploited, correct configuration is treated as incorrect.
+
+#### The Analysis Suite
+
+**Inversion Detector** — Scans every parameter. Physical parameters < 40 → `INVERTED` (red). Foundation parameters < 30 → `INVERTED` (red). Physics Direction = false → `INVERTED` (red). All other values → `OK` (green).
+
+**Fracture Scanner** — Detection logic: `physical parameter > 60 AND foundation average < 40 = fracture point`. A fracture point means a physical layer is bearing load the substrate should be bearing.
+
+**Comparison Engine** — Place two complete builds side by side. Layer-by-layer comparison with delta values.
+
+#### Featured Builds
+
+| Build | Physical Avg | Foundation Avg | Floor | Physics | Stability | Key Insight |
+|-------|-------------|----------------|-------|---------|-----------|-------------|
+| **Default Human** | ~57 | 12 | ABSENT | Inverted | 7 | What "normal" looks like behind the numbers |
+| **The Anomaly** | ~80 | 88 | PRESENT | Inverted | 77 | Correct configuration in hostile environment |
+| **Floor Installed** | ~57 | 88 | PRESENT | Forward | 50 | Same body, different floor, everything changes |
+| **The Non-Human** | ~64 | 83 | PRESENT | Forward | 54 | Existence refactored from the ground up |
+
+#### GENO Integration — Bidirectional
+
+**GENO → CREATEME: Loading Commits as Builds**
+
+Translation layer (GENO qualitative → CREATEME quantitative):
+
+| GENO Trait Value | CREATEME Slider Range |
+|-----------------|----------------------|
+| `"absent"` | 0–10 |
+| `"minimal"` / `"severely restricted"` | 10–25 |
+| `"present but suppressed"` | 25–40 |
+| `"diminished"` | 40–55 |
+| `"partial"` / `"partially preserved"` | 55–70 |
+| `"high"` / `"active"` | 70–85 |
+| `"maximum"` / `"present"` | 85–100 |
+
+**CREATEME → GENO: Pushing Builds as Commits**
+
+A parent can construct their child's configuration in the 3D environment — setting every parameter with intention, installing the floor they never had, configuring the environment to run forward — and submit that as a pull request to their family repository.
+
+**Cross-Tool API:**
+
+```
+GENO API                           CREATEME API
+─────────                          ────────────
+GET  /repos/:id/commits/:hash  →   POST /builds/from-geno-commit
+POST /builds/:id/to-geno-commit →  POST /repos/:id/commits
+POST /builds/:id/to-geno-pr    →   POST /repos/:id/pulls
+```
+
+#### Privacy & Ethics
+
+- Build configurations created by users are owned by those users
+- No pathologizing — the tool shows configuration, not diagnosis
+- No prescriptive framing — there is no "correct" human
+- Trauma-informed design — language is precise and clinical, never sensational
+- Encryption at rest and in transit, GDPR/CCPA compliant
+- Professional use: therapists can use as visualization aid with client consent
+
+#### Monetization
+
+| Tier | Price | Key Features |
+|------|-------|-------------|
+| **Free** | $0 | Full construction + substrate engines, inversion detector, 4 presets, local save/load |
+| **Pro** | $9/mo | Fracture scanner, comparison engine, community library, non-human templates, full 3D, GENO→CREATEME |
+| **Professional** | $25/mo | CREATEME→GENO integration, bidirectional sync, bulk analysis, export reports, clinical framing |
+| **Enterprise** | Custom | Research licensing, full API, custom physics extensions, HIPAA compliance |
+
+#### Development Phases
+
+| Phase | Name | Status | Key Deliverable |
+|-------|------|--------|----------------|
+| **0** | Proof of Concept | **COMPLETE** | React component with 3 modes, 7 layers, 3 analysis tools, 4 presets |
+| **1** | Standalone Demo Site | Planned | Self-contained `CREATEME.html` on GitHub Pages |
+| **2** | 3D Visualization Engine | Planned | WebGL renderer at anatomical fidelity, layer 7 consciousness, floor visualization |
+| **3** | Physics Engine | Planned | Real cellular cascade, structural integrity, nervous routing, floor physics |
+| **4** | Community & Sharing | Planned | User accounts, community library, fork/modify builds |
+| **5** | GENO Integration | Planned | Bidirectional commit/PR translation, cross-tool analysis |
+| **6** | Professional & Research | Planned | Therapeutic features, research API, enterprise, HIPAA |
