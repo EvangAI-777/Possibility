@@ -665,3 +665,258 @@ POST /builds/:id/to-geno-pr    →   POST /repos/:id/pulls
 | **4** | Community & Sharing | Planned | User accounts, community library, fork/modify builds |
 | **5** | GENO Integration | Planned | Bidirectional commit/PR translation, cross-tool analysis |
 | **6** | Professional & Research | Planned | Therapeutic features, research API, enterprise, HIPAA |
+
+---
+
+### AUDACIOUS — Audacity in the Browser
+
+*The world's most popular open-source audio editor. Compiled to WebAssembly. Running in your browser.*
+
+**Source doc:** `Future/Audacious/AUDACIOUS.md` (full technical spec)
+
+#### Vision
+
+This is not a "web-based audio editor inspired by Audacity." This is **Audacity itself** — the actual C++ codebase, the actual audio engine, the actual effects pipeline — compiled to WebAssembly via Emscripten and running natively in any modern browser.
+
+Audacity 4 is being rewritten right now. The old wxWidgets UI is being replaced with Qt 6 and QML. Qt 6 has an official WebAssembly target. The architecture is being re-modularized. For the first time in Audacity's history, a browser port is architecturally aligned with the direction the project is already moving.
+
+#### Competitive Position
+
+- **Commercial DAWs** (Soundtrap, BandLab) — full-featured but proprietary, subscription-based, not Audacity
+- **Lightweight web editors** (AudioMass, wavacity) — open-source but limited. JavaScript-based. Missing deep effects, multi-track, format support
+- **Wavacity** — early attempt to compile Audacity 3.x to WASM, hit the wxWidgets wall
+
+**Audacity 4 removes the wxWidgets wall entirely.** Qt 6 replaces it with a production-grade WebAssembly platform plugin.
+
+#### Source Application Architecture
+
+**Audacity 4 Dual Codebase:**
+
+```
+audacity/
+├── src/                    ← NEW Audacity 4 code (Qt 6 / QML)
+│   ├── app/                Application entry point
+│   ├── appshell/           Application shell and window management
+│   ├── au3audio/           Audio subsystem (new layer over au3)
+│   ├── au3wrap/            Bridge to legacy Audacity 3 code
+│   ├── audio/              New audio infrastructure
+│   ├── effects/            Effects management
+│   ├── importexport/       File import/export
+│   ├── playback/           Playback engine
+│   ├── projectscene/       Waveform display and track UI
+│   ├── record/             Recording engine
+│   ├── spectrogram/        Spectrogram visualization
+│   ├── trackedit/          Track editing operations
+│   └── uicomponents/       Shared UI components
+│
+├── au3/                    ← LEGACY Audacity 3 code (C++)
+│   ├── src/                Core audio processing source
+│   ├── libraries/          50+ internal libraries
+│   ├── lib-src/            Third-party dependencies
+│   └── modules/            Plugin module system
+│
+└── muse_framework/         ← MuseScore's application framework (submodule)
+```
+
+The `au3wrap` bridge between new and legacy code is the seam where the WASM port operates.
+
+**MuseScore Framework** provides application lifecycle, module loading, UI infrastructure, and more. It's Qt-based and well-architected — if the framework compiles to WASM, a huge portion of Audacity 4 comes along for free. But it has never been compiled for WebAssembly, which is the gating risk.
+
+**Legacy Libraries (~50+):**
+- ~35 are pure C++ with no platform dependencies — will compile to WASM
+- ~8 depend on native audio/plugin APIs — need replacement or stubbing
+- ~4 depend on wxWidgets — legacy wrappers, can be bypassed
+- ~3 depend on POSIX — need `if(EMSCRIPTEN)` branches
+
+**Third-Party Dependencies:**
+
+| Library | Purpose | WASM Compilable | Strategy |
+|---------|---------|-----------------|----------|
+| **SQLite** | Project file storage (.aup3) | **Yes — proven** | Compiles cleanly |
+| **libsoxr** | Sample rate conversion | **Yes — likely** | Pure C math |
+| **libsbsms** | Time-stretching | **Yes — likely** | Pure C++ DSP |
+| **SoundTouch** | Pitch shifting / tempo | **Yes — proven** | Compiled in other projects |
+| **pffft** | FFT | **Yes — likely** | Pure C, SIMD-friendly |
+| **Qt 6.9** | UI framework | **Yes — official** | Production WASM target |
+| **libnyquist** | Nyquist scripting | **Complex** | Custom Lisp interpreter |
+| **portmixer** | Audio device mixer | **No** | OS-specific, must stub |
+| **portburn** | CD burning | **No** | Not applicable in browser |
+
+#### Subsystem Translation Map
+
+| Subsystem | Native → Browser | Difficulty |
+|-----------|-----------------|------------|
+| **UI Rendering** | Qt 6/QML → WebGL2 via Qt WASM plugin | Medium |
+| **Audio I/O** | PortAudio → Web Audio API + AudioWorklet | Hard |
+| **Audio Processing Graph** | Native threads → AudioWorklet + SharedArrayBuffer | Hard |
+| **File I/O** | POSIX → Emscripten VFS (MEMFS + IDBFS) | Medium |
+| **Project Storage** | SQLite on disk → SQLite-WASM in VFS | Easy |
+| **Networking** | Qt Network → Fetch API / WebSocket | Easy |
+| **Threading** | pthreads → Web Workers + SharedArrayBuffer | Hard |
+| **Input Handling** | Qt events → Browser events via Qt WASM | Easy |
+| **Clipboard** | System clipboard → Async Clipboard API | Easy |
+| **Drag-and-Drop** | Qt DnD → HTML5 DnD API | Easy |
+| **Scripting (Nyquist)** | C Lisp interpreter → Compile to WASM | Hard |
+| **Plugin Systems** | VST/VST3/LV2/LADSPA/AudioUnit | **Not possible** |
+| **CD Burning** | portburn | **Not applicable** |
+| **Sample Rate Conversion** | libsoxr (pure C) | Easy |
+| **FFT** | pffft (pure C) | Easy |
+| **Time Stretching** | libsbsms (pure C++) | Easy |
+| **Undo/Redo** | In-memory + SQLite | Easy |
+
+**Three Categories:** ~60% direct translation, ~30% significant rearchitecting, ~10% not portable (disabled).
+
+**The Audio Pipeline Translation:**
+
+```
+Native:  User action → PortAudio → audio graph (native thread) → effects → mixer → PortAudio output
+Browser: User action → Web Audio API → AudioWorklet (worklet thread) → effects (WASM) → mixer (WASM) → AudioContext output
+```
+
+The middle of the pipeline — effects processing, mixing, DSP math — does not change. It is pure C++ computation. Only the endpoints change.
+
+#### 6-Stage Porting Strategy
+
+**Stage 1: The Shell** (Effort: XL)
+- MuseScore framework compiled to WASM with `if(EMSCRIPTEN)` stubs
+- Qt 6.9 WASM platform plugin driving QML UI
+- Application shell rendering: main window, menu bar, toolbar, status bar
+- **This is the gating stage.** If the framework doesn't compile, the port is blocked.
+
+**Stage 2: The Editor** (Effort: L)
+- File import via HTML5 drag-and-drop
+- Waveform display from real audio data
+- Cut/copy/paste/select/delete/zoom/scroll
+- SQLite-WASM for `.aup3` project files
+- Export via browser download
+
+**Stage 3: The Player** (Effort: XL)
+- Web Audio API backend replacing PortAudio
+- AudioWorklet hosting compiled-to-WASM audio graph
+- SharedArrayBuffer bridge between UI and audio threads
+- Transport controls (play/pause/stop/seek)
+- COOP/COEP headers configured
+
+**Stage 4: The Processor** (Effort: L)
+- Built-in effects compiled to WASM (normalize, amplify, EQ, reverb, noise reduction)
+- Real-time effect preview
+- Spectrogram visualization
+- Time-stretching and pitch shifting
+
+**Stage 5: The Studio** (Effort: L)
+- Microphone recording via `getUserMedia()`
+- IDBFS persistent storage (projects survive browser refresh)
+- Multi-format export (WAV, MP3, OGG, FLAC)
+- Auto-save and storage quota management
+
+**Stage 6: The Platform** (Effort: XL)
+- Nyquist interpreter compiled to WASM
+- Cloud audiocom integration
+- Keyboard customization, accessibility
+- PWA with Service Worker offline support
+
+**What Is NOT Ported:** VST/VST3/LV2/LADSPA/AudioUnit plugins (native binary loading incompatible with WASM), CD burning, system mixer control, ASIO drivers, multiple simultaneous audio devices.
+
+#### Risk Assessment
+
+| Risk | Likelihood | Impact | Mitigation | Overall |
+|------|-----------|--------|------------|---------|
+| MuseScore framework compilation | High | Critical | Stage 1 exists to prove/disprove; `#ifdef __EMSCRIPTEN__` stubs | **High** |
+| Audio latency | Medium | High | AudioWorklet designed for this; `latencyHint: "interactive"` | **Medium** |
+| Binary size (80-120MB uncompressed) | High | Medium | Dead-code elimination, module splitting, streaming compilation, caching | **Medium** |
+| COOP/COEP headers | Certain | Medium | One-time deployment config; solved problem | **Low** |
+| Moving target codebase | Certain | Medium | Pin to specific commit/tag; upstream-first approach | **Medium** |
+
+#### Performance Considerations
+
+| Operation | WASM vs Native | Impact |
+|-----------|---------------|--------|
+| FFT (pffft) | 85-95% native | Imperceptible for typical buffers |
+| Sample rate conversion | 80-90% | Offline; not perceptible |
+| Effect processing | 85-95% | Must stay within AudioWorklet callback deadline |
+| Noise reduction | 75-85% | Most expensive effect; may need buffer tuning |
+| File decoding | 80-90% | One-time per import |
+
+**WASM SIMD** (`-msimd128`) narrows the gap from 15-25% to 5-15% for SIMD-friendly workloads.
+
+**Memory:** Audio data is ~10MB/min (stereo 16-bit 44.1kHz). Strategies: streaming audio blocks, undo compaction (diffs not snapshots), IDBFS offloading, `memory.grow` budgeting.
+
+**Thread Strategy:**
+- Audio processing: AudioWorklet thread (real-time priority)
+- Waveform rendering: dedicated Web Worker
+- File I/O: dedicated Web Worker
+- Effect computation (offline): Web Worker pool (2-4)
+- UI: main thread (must never block)
+
+#### Build Pipeline
+
+**Prerequisites:** Emscripten SDK 3.1.50+, CMake 3.22+, Qt 6.9 (WASM + Host builds), Python 3.8+, Ninja, Node.js 18+, Brotli
+
+**CMake Configuration:**
+
+```bash
+emcmake cmake -S /path/to/audacity -B build-wasm \
+  -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="/path/to/qt-wasm/lib/cmake" \
+  -DQT_HOST_PATH="/path/to/qt-host" \
+  -DAUDACIOUS_WASM=ON \
+  -DAUDACITY_BUILD_VST3=OFF \
+  -DAUDACITY_BUILD_LV2=OFF \
+  -DAUDACITY_BUILD_LADSPA=OFF \
+  -DAUDACITY_BUILD_AUDIOUNIT=OFF \
+  -DAUDACITY_BUILD_NYQUIST=OFF \
+  -DAUDACITY_BUILD_PORTBURN=OFF \
+  -DAUDACIOUS_STAGE=1
+
+emmake ninja -j2 -C build-wasm
+wasm-opt -O3 --enable-simd build-wasm/audacious.wasm -o build-wasm/audacious.opt.wasm
+brotli -9 build-wasm/audacious.opt.wasm
+```
+
+**Key flags:** `-j2` to avoid OOM (Emscripten limitation), `-DQT_HOST_PATH` for native Qt tools, `-DAUDACIOUS_STAGE` controls which subsystems are enabled.
+
+**Emscripten Compiler Flags:**
+
+```cmake
+"-O3" "-flto" "-msimd128"           # Optimization + SIMD
+"-pthread" "-sPTHREAD_POOL_SIZE=8"  # Threading
+"-sINITIAL_MEMORY=256MB" "-sALLOW_MEMORY_GROWTH=1" "-sMAXIMUM_MEMORY=4GB"  # Memory
+"-sMODULARIZE=1" "-sEXPORT_ES6=1"  # Module system
+"-sFORCE_FILESYSTEM=1" "-lidbfs.js" # Filesystem
+"-sAUDIO_WORKLET=1" "-sWASM_WORKERS=1"  # Web Audio
+```
+
+**Staged Build Enablement:**
+
+| Stage | Modules Enabled | Modules Stubbed |
+|-------|----------------|-----------------|
+| **1** | appshell, uicomponents, preferences | Everything else |
+| **2** | + trackedit, projectscene, importexport, au3wrap (partial) | au3audio, playback, record, effects, spectrogram |
+| **3** | + au3audio, playback, au3wrap (audio path) | record, effects, spectrogram |
+| **4** | + effects, spectrogram | record |
+| **5** | + record | — |
+| **6** | + Nyquist, cloud, advanced UI | — |
+
+**Build Output (Stage 6):**
+
+```
+build-wasm/
+├── audacious.wasm          ~80-120 MB (uncompressed)
+├── audacious.wasm.br       ~30-50 MB  (Brotli compressed)
+├── audacious.js            ~200 KB    (Emscripten glue)
+├── audacious.worker.js     ~50 KB     (pthread Web Worker)
+├── audacious.data          ~5-10 MB   (preloaded assets, QML files)
+├── qtloader.js             ~20 KB     (Qt WASM bootstrap)
+├── index.html              ~2 KB      (entry point)
+└── sw.js                   ~5 KB      (Service Worker for caching)
+```
+
+**Required HTTP Headers (for SharedArrayBuffer/threading):**
+
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Without these headers, SharedArrayBuffer is disabled and threading will not work. For GitHub Pages, use `coi-serviceworker`.
