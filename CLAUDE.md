@@ -70,12 +70,13 @@ Possibility/
 │   ├── test_omnidirectional_math.py → 130 tests
 │   └── test_agent_configs.py        → 36 tests
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   └── [11 test files]              → 322 tests
+│   └── [12 test files]              → 422 tests
 ├── docs/                            → HTML documentation (GitHub Pages)
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
 │   ├── REACTOR.html                 → Universal JSX component loader
 │   ├── MARKER.html                  → Markdown viewer & renderer
+│   ├── JASON.html                   → JSON explorer & tree viewer
 │   ├── periodic-table-of-meaning.html
 │   └── compound_interest_explainer.html
 ├── Future/                          → Specs and roadmaps
@@ -93,9 +94,9 @@ Possibility/
 ## Running Tests
 
 ```bash
-npm run test:all    # Both suites (662 tests)
+npm run test:all    # Both suites (762 tests)
 npm run test:py     # Python only (pytest, 340 tests)
-npm run test:js     # JavaScript only (Jest, 322 tests)
+npm run test:js     # JavaScript only (Jest, 422 tests)
 
 # Or directly:
 python -m pytest tests/ -v
