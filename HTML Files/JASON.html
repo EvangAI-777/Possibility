@@ -977,3 +977,63 @@
         $('btn-tree-view').classList.remove('active');
         $('btn-raw-view').classList.add('active');
       }
+
+      // -- Deployment Pipeline ---------------------------------------------
+
+      async function deploy(file) {
+        showScreen('loading-screen');
+        resetSteps();
+
+        try {
+          // Step 1: Read file
+          setStep('step-read', 'active', `Reading ${file.name}...`);
+          const text = await readFile(file);
+          await delay(300);
+          setStep('step-read', 'done', `${file.name} (${(text.length / 1024).toFixed(1)} KB)`);
+
+          // Step 2: Parse JSON
+          setStep('step-parse', 'active', 'Parsing JSON...');
+          const data = JSON.parse(text);
+          await delay(300);
+          const type = Array.isArray(data) ? 'array' : typeof data;
+          const count = type === 'array' ? data.length + ' items' : (type === 'object' ? Object.keys(data).length + ' keys' : type);
+          setStep('step-parse', 'done', `Parsed: ${count}`);
+
+          // Step 3: Render tree
+          setStep('step-render', 'active', 'Building tree view...');
+          currentData = data;
+          renderTree(data);
+          renderRaw(data);
+          await delay(300);
+          setStep('step-render', 'done', 'Tree rendered');
+
+          await delay(400);
+          setPath(['root']);
+          showScreen('component-view');
+          window.scrollTo(0, 0);
+
+        } catch (err) {
+          showError(err.message, err.stack || '');
+        }
+      }
+
+      // -- Public API ------------------------------------------------------
+
+      function reset() {
+        currentData = null;
+        currentPath = [];
+        $('json-tree').innerHTML = '';
+        $('json-raw').querySelector('code').innerHTML = '';
+        $('path-breadcrumb').textContent = 'root';
+        $('search-input').value = '';
+        $('json-tree').style.display = '';
+        $('json-raw').classList.remove('active');
+        $('btn-tree-view').classList.add('active');
+        $('btn-raw-view').classList.remove('active');
+        $('file-input').value = '';
+        $('file-name').classList.remove('visible');
+        showScreen('upload-screen');
+      }
+
+      return { deploy, reset, showTreeView, showRawView, expandAll, collapseAll };
+    })();
