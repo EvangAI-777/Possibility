@@ -38,6 +38,42 @@ These principles are not suggestions. They are the difference between work that 
 - **One subsystem per PR.** Do not bundle unrelated changes. Each pull request should touch one subsystem and be reviewable in isolation.
 - **Believe user observations over theories.** If the user says "this crashes on Safari," do not respond with "it should work." Investigate what actually happens.
 
+### Large File Creation: Sequential Section Commits
+
+> **NEVER write a large file (500+ lines) in a single commit. Build it in sections.**
+
+This is not a suggestion. This is a hard-won rule from four failed iterations of JASON.html. Three separate AI assistants attempted to write the entire 1100-line file in one shot. Every one of them got stuck, lost context, produced broken output, and wasted the user's money.
+
+**What fails:**
+- Writing 900-1100 lines of HTML/CSS/JS in a single file write
+- The AI runs out of output capacity mid-file and produces truncated or corrupt output
+- The user has to start over from scratch, paying again for the same work
+
+**What works — the JASON.html pattern:**
+
+JASON.html (1109 lines) was successfully built across **9 sequential commits**, each adding 50-170 lines:
+
+| Commit | Section | Lines Added |
+|--------|---------|-------------|
+| 1 | DOCTYPE, head, CSS variables, upload screen & logo CSS | ~130 |
+| 2 | Loading screen, error screen, component view CSS | ~130 |
+| 3 | JSON-specific feature CSS (tree, raw, search, breadcrumb) | ~170 |
+| 4 | Responsive CSS, back-link, close style/head | ~35 |
+| 5 | HTML body — all 4 screens | ~85 |
+| 6 | JS IIFE — state, helpers, screen/step management | ~140 |
+| 7 | JS — tree rendering, syntax highlighting, view toggle | ~170 |
+| 8 | JS — deploy pipeline, reset, public API | ~60 |
+| 9 | Event wiring, close tags | ~70 |
+
+Each commit was pushed immediately. If any commit had failed, only that section would need to be redone — not the entire file.
+
+**Rules for large file creation:**
+1. **Plan the sections first.** Know the file's structure before writing line 1.
+2. **Each section is one commit.** Write it, commit it, push it.
+3. **Never exceed ~170 lines per section.** If a section is larger, split it further.
+4. **Each commit must append cleanly.** The file may be syntactically incomplete mid-build — that is fine. It becomes valid at the final commit.
+5. **Push after every commit.** If you lose context, the work is safe on the remote.
+
 ---
 
 ## Directory Layout
