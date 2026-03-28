@@ -807,3 +807,173 @@
           }
         });
       }
+
+      // -- Tree Rendering --------------------------------------------------
+
+      function renderTree(data) {
+        const tree = $('json-tree');
+        tree.innerHTML = '';
+        buildNode(null, data, tree, 0, ['root']);
+      }
+
+      function buildNode(key, value, container, depth, path) {
+        const type = Array.isArray(value) ? 'array' : typeof value;
+
+        if (value !== null && type === 'object' || type === 'array') {
+          const isArray = Array.isArray(value);
+          const node = document.createElement('div');
+          node.className = depth === 0 ? 'tree-node root' : 'tree-node';
+
+          const toggle = document.createElement('span');
+          toggle.className = 'tree-toggle' + (depth < 2 ? ' expanded' : '');
+
+          if (key !== null) {
+            const keySpan = document.createElement('span');
+            keySpan.className = 'tree-key';
+            keySpan.textContent = isArray ? key : `"${key}"`;
+            keySpan.addEventListener('click', (e) => {
+              e.stopPropagation();
+              copyToClipboard(String(key));
+            });
+            const colon = document.createElement('span');
+            colon.className = 'tree-colon';
+            colon.textContent = ':';
+            toggle.appendChild(keySpan);
+            toggle.appendChild(colon);
+          }
+
+          const bracket = document.createElement('span');
+          bracket.className = 'tree-bracket';
+          bracket.textContent = isArray ? '[' : '{';
+          toggle.appendChild(bracket);
+
+          const count = document.createElement('span');
+          count.className = 'node-count';
+          const entries = isArray ? value.length : Object.keys(value).length;
+          count.textContent = isArray ? `${entries} items` : `${entries} keys`;
+          toggle.appendChild(count);
+
+          const children = document.createElement('div');
+          children.className = 'tree-children' + (depth < 2 ? ' expanded' : '');
+
+          toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggle.classList.toggle('expanded');
+            children.classList.toggle('expanded');
+            setPath(path);
+          });
+
+          node.appendChild(toggle);
+          node.appendChild(children);
+
+          const entries2 = isArray ? value.map((v, i) => [i, v]) : Object.entries(value);
+          entries2.forEach(([k, v]) => {
+            buildNode(k, v, children, depth + 1, [...path, String(k)]);
+          });
+
+          const closeBracket = document.createElement('span');
+          closeBracket.className = 'tree-bracket';
+          closeBracket.textContent = isArray ? ']' : '}';
+          closeBracket.style.paddingLeft = '1.25rem';
+          children.appendChild(closeBracket);
+
+          container.appendChild(node);
+        } else {
+          const node = document.createElement('div');
+          node.className = 'tree-node';
+
+          const leaf = document.createElement('span');
+          leaf.className = 'tree-leaf';
+
+          if (key !== null) {
+            const keySpan = document.createElement('span');
+            keySpan.className = 'tree-key';
+            keySpan.textContent = typeof key === 'number' ? key : `"${key}"`;
+            keySpan.style.cursor = 'pointer';
+            keySpan.addEventListener('click', (e) => {
+              e.stopPropagation();
+              copyToClipboard(String(key));
+            });
+            const colon = document.createElement('span');
+            colon.className = 'tree-colon';
+            colon.textContent = ':';
+            leaf.appendChild(keySpan);
+            leaf.appendChild(colon);
+          }
+
+          const valSpan = document.createElement('span');
+          let valType = value === null ? 'null' : typeof value;
+          valSpan.className = `tree-value ${valType}`;
+          valSpan.textContent = value === null ? 'null' : typeof value === 'string' ? `"${value}"` : String(value);
+          valSpan.style.cursor = 'pointer';
+          valSpan.addEventListener('click', (e) => {
+            e.stopPropagation();
+            copyToClipboard(value === null ? 'null' : String(value));
+            setPath([...path]);
+          });
+          leaf.appendChild(valSpan);
+
+          node.appendChild(leaf);
+          container.appendChild(node);
+        }
+      }
+
+      // -- Expand / Collapse All -------------------------------------------
+
+      function expandAll() {
+        $('json-tree').querySelectorAll('.tree-toggle').forEach(t => t.classList.add('expanded'));
+        $('json-tree').querySelectorAll('.tree-children').forEach(c => c.classList.add('expanded'));
+      }
+
+      function collapseAll() {
+        $('json-tree').querySelectorAll('.tree-toggle').forEach(t => t.classList.remove('expanded'));
+        $('json-tree').querySelectorAll('.tree-children').forEach(c => c.classList.remove('expanded'));
+      }
+
+      // -- Raw View --------------------------------------------------------
+
+      function renderRaw(data) {
+        const raw = $('json-raw');
+        const jsonStr = JSON.stringify(data, null, 2);
+        raw.querySelector('code').innerHTML = syntaxHighlight(jsonStr);
+      }
+
+      function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(
+          /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+          function (match) {
+            let cls = 'number';
+            if (/^"/.test(match)) {
+              if (/:$/.test(match)) {
+                cls = 'key';
+                match = match.replace(/:$/, '');
+                return '<span class="' + cls + '">' + match + '</span>:';
+              } else {
+                cls = 'string';
+              }
+            } else if (/true|false/.test(match)) {
+              cls = 'boolean';
+            } else if (/null/.test(match)) {
+              cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+          }
+        );
+      }
+
+      // -- View Toggle -----------------------------------------------------
+
+      function showTreeView() {
+        $('json-tree').style.display = '';
+        $('json-raw').classList.remove('active');
+        $('btn-tree-view').classList.add('active');
+        $('btn-raw-view').classList.remove('active');
+      }
+
+      function showRawView() {
+        $('json-tree').style.display = 'none';
+        $('json-raw').classList.add('active');
+        $('btn-tree-view').classList.remove('active');
+        $('btn-raw-view').classList.add('active');
+      }
