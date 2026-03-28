@@ -352,6 +352,31 @@ Open in any browser. No backend. marked.js and highlight.js loaded from CDN.
 
 ---
 
+### `HTML Files/JASON.html`
+
+JASON — JSON Explorer. Upload any `.json` file and navigate its structure as a collapsible tree with search, path tracking, and syntax highlighting.
+
+Open in any browser. No backend. No CDN dependencies — `JSON.parse()` is native.
+
+**How it works:**
+1. Open JASON.html in a browser
+2. Click **"Upload .json File"** or drag-and-drop a JSON file
+3. An animated loading screen shows processing progress (Read → Parse → Render)
+4. The JSON renders as an interactive, collapsible tree view
+
+**Features:**
+- Collapsible tree view with expand/collapse all controls
+- Syntax-highlighted raw view toggle (Tree / Raw)
+- Type-colored values: strings (green), numbers (blue), booleans (yellow), null (red)
+- Key names highlighted in orange (JASON's signature color)
+- Path breadcrumb showing current location in the tree
+- Search/filter by key name with auto-expand of matching branches
+- Click any key or value to copy it to clipboard
+- Node counts on objects and arrays (e.g., "5 keys", "12 items")
+- Single HTML file, works from `file://` protocol (no server needed)
+
+---
+
 ### React Component Artifacts
 
 All React components live in the `React Component Artifacts/` folder. Any of these can be loaded directly in the browser using **REACTOR.html**.
@@ -863,6 +888,26 @@ Structural and functional validation for the MARKER Markdown Viewer & Renderer (
 - **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
 - **All HTML tools have back links** (10 tests) — Every tool in docs/ has index.html link and back-link class
 - **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in docs/index.html
+
+#### `js_tests/jason.test.js` — 100 tests
+
+Structural and functional validation for the JASON JSON Explorer (`JASON.html`):
+
+- **File existence** (3 tests) — Source and docs copies exist and are identical
+- **HTML structure** (4 tests) — Title, DOCTYPE, lang, viewport
+- **No CDN dependencies** (5 tests) — React, Babel, marked.js, highlight.js absent; comment noting native JSON.parse
+- **Four-screen architecture** (6 tests) — Upload, loading, error, component-view screens; drop zone; JSON file acceptance
+- **JASON branding** (7 tests) — Title, subtitle, logo, brace elements, dot element, jason-glow variable and orange color
+- **Loading pipeline** (4 tests) — Read, parse, render steps with JSON-specific labels
+- **GitHub Dark theme** (11 tests) — All CSS variables match REACTOR/MARKER color scheme
+- **JSON-specific features** (11 tests) — Tree view, raw view, search input, breadcrumb, tree toggle, value type classes, node count, copy toast, view toggle buttons, expand/collapse buttons
+- **JavaScript engine** (13 tests) — JASON IIFE, deploy, reset, showScreen, renderTree, buildNode, syntaxHighlight, filterTree, JSON.parse, FileReader, clipboard API with fallback, public API
+- **Event wiring** (8 tests) — DOMContentLoaded, file input, drag events, JASON.deploy/reset calls, search input handler
+- **Responsive design** (4 tests) — 768px/480px breakpoints, clamp(), min()
+- **Error handling** (5 tests) — Error containers, retry button, showError function, JSON-specific error title
+- **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
+- **All HTML tools have back links** (12 tests) — Every tool in docs/ (including JASON) has index.html link and back-link class
+- **Index.html integration** (4 tests) — JASON link, card title, description, live badge in docs/index.html
 
 ---
 
