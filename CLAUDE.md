@@ -38,7 +38,7 @@ These principles are not suggestions. They are the difference between work that 
 - **One subsystem per PR.** Do not bundle unrelated changes. Each pull request should touch one subsystem and be reviewable in isolation.
 - **Believe user observations over theories.** If the user says "this crashes on Safari," do not respond with "it should work." Investigate what actually happens.
 
-### Large File Creation: Sequential Section Commits
+### Large File Creation: Sequential Section Commits (Battle Scar)
 
 > **NEVER write a large file (500+ lines) in a single commit. Build it in sections.**
 
@@ -73,6 +73,20 @@ Each commit was pushed immediately. If any commit had failed, only that section 
 3. **Never exceed ~170 lines per section.** If a section is larger, split it further.
 4. **Each commit must append cleanly.** The file may be syntactically incomplete mid-build — that is fine. It becomes valid at the final commit.
 5. **Push after every commit.** If you lose context, the work is safe on the remote.
+
+### Ghost Branches: Clean Up After Yourself (Battle Scar)
+
+> **Failed sessions leave ghost branches on the remote. They don't delete themselves.**
+
+When an AI session fails mid-work — context lost, output truncated, user has to start over — the remote branch from that session stays on GitHub. It shows up in the branches list, clutters the UI, and confuses future sessions.
+
+This happened during the JASON.html saga. A previous session's branch (`claude/evaluate-claude-md-ruOcF`) was merged and the session ended, but the branch was never deleted from the remote. It lingered as a ghost — visible on the GitHub branches page, serving no purpose, until the user manually deleted it through the GitHub UI and ran `git remote prune origin` locally to clean up the stale tracking reference.
+
+**Rules for branch hygiene:**
+1. **After a PR is merged, delete the source branch.** GitHub offers a "Delete branch" button on merged PRs — use it, or ask the user to.
+2. **If a session fails and leaves a remote branch behind, note it.** Tell the user the branch exists so they can clean it up.
+3. **If you see stale remote tracking refs**, run `git remote prune origin` to clean them locally.
+4. **Never assume old branches were cleaned up.** Check `git branch -r` at the start of a session if the user reports branch clutter.
 
 ---
 
