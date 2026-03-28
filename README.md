@@ -665,7 +665,7 @@ The framework gives an AI permission to write about anything with genuine curios
 
 ## Testing
 
-**662 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, and markdown documentation integrity.
+**765 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, the JASON JSON explorer, and markdown documentation integrity.
 
 ### Quick Start
 
