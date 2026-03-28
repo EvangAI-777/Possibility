@@ -665,3 +665,145 @@
   </div>
 
   <div id="copy-toast" class="copy-toast">Copied!</div>
+
+  <!-- -- Engine ---------------------------------------------------------- -->
+  <script>
+    const JASON = (() => {
+
+      // -- State -----------------------------------------------------------
+
+      let currentData = null;
+      let currentPath = [];
+
+      const $ = (id) => document.getElementById(id);
+
+      // -- Screen Management -----------------------------------------------
+
+      function showScreen(name) {
+        ['upload-screen', 'loading-screen', 'error-screen', 'component-view'].forEach(id => {
+          const el = $(id);
+          if (id === name) {
+            el.classList.add('active');
+            el.classList.remove('hidden');
+          } else {
+            el.classList.remove('active');
+            el.classList.add('hidden');
+          }
+        });
+      }
+
+      function setStep(stepId, state, detail) {
+        const step = $(stepId);
+        step.classList.remove('active', 'done');
+        if (state) step.classList.add(state);
+        const detailEl = $(`${stepId}-detail`);
+        if (detailEl && detail) detailEl.textContent = detail;
+      }
+
+      function resetSteps() {
+        ['step-read', 'step-parse', 'step-render'].forEach(id => {
+          setStep(id, null, 'Waiting...');
+        });
+      }
+
+      // -- Helpers ---------------------------------------------------------
+
+      function readFile(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = () => reject(new Error('Failed to read file'));
+          reader.readAsText(file);
+        });
+      }
+
+      function delay(ms) {
+        return new Promise(r => setTimeout(r, ms));
+      }
+
+      function showError(message, detail) {
+        $('error-message').textContent = message;
+        $('error-detail').textContent = detail || 'No additional details';
+        showScreen('error-screen');
+      }
+
+      // -- Clipboard -------------------------------------------------------
+
+      async function copyToClipboard(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (e) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.cssText = 'position:fixed;opacity:0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+        showCopyToast();
+      }
+
+      function showCopyToast() {
+        const toast = $('copy-toast');
+        toast.classList.add('visible');
+        setTimeout(() => toast.classList.remove('visible'), 1500);
+      }
+
+      // -- Path Management -------------------------------------------------
+
+      function setPath(pathArray) {
+        currentPath = pathArray;
+        const breadcrumb = $('path-breadcrumb');
+        breadcrumb.innerHTML = '';
+        pathArray.forEach((seg, i) => {
+          if (i > 0) {
+            const sep = document.createElement('span');
+            sep.className = 'breadcrumb-separator';
+            sep.textContent = '>';
+            breadcrumb.appendChild(sep);
+          }
+          const span = document.createElement('span');
+          span.className = 'breadcrumb-segment';
+          span.textContent = seg;
+          breadcrumb.appendChild(span);
+        });
+      }
+
+      function getPathString() {
+        return currentPath.join('.');
+      }
+
+      // -- Search / Filter -------------------------------------------------
+
+      function filterTree(query) {
+        const tree = $('json-tree');
+        const nodes = tree.querySelectorAll('.tree-node');
+        const q = query.toLowerCase();
+        if (!q) {
+          nodes.forEach(n => n.style.display = '');
+          return;
+        }
+        nodes.forEach(node => {
+          const keyEl = node.querySelector(':scope > .tree-toggle > .tree-key, :scope > .tree-leaf > .tree-key');
+          if (keyEl) {
+            const match = keyEl.textContent.toLowerCase().includes(q);
+            node.style.display = match ? '' : 'none';
+            if (match) {
+              // Show all ancestors
+              let parent = node.parentElement;
+              while (parent && parent !== tree) {
+                parent.style.display = '';
+                if (parent.classList.contains('tree-children')) {
+                  parent.classList.add('expanded');
+                  const toggle = parent.previousElementSibling;
+                  if (toggle && toggle.classList.contains('tree-toggle')) {
+                    toggle.classList.add('expanded');
+                  }
+                }
+                parent = parent.parentElement;
+              }
+            }
+          }
+        });
+      }
