@@ -580,3 +580,88 @@
     .back-link:hover { opacity: 1; text-decoration: underline; }
   </style>
 </head>
+<body>
+  <a href="index.html" class="back-link">&larr; Possibility</a>
+
+  <!-- -- Upload Screen --------------------------------------------------- -->
+  <div id="upload-screen" class="upload-screen">
+    <div class="jason-logo">
+      <span class="jason-brace">{</span>
+      <span class="jason-bracket">[</span>
+      <span class="jason-dot"></span>
+      <span class="jason-bracket">]</span>
+      <span class="jason-brace right">}</span>
+    </div>
+    <h1 class="upload-title">JASON</h1>
+    <p class="upload-subtitle">JSON Explorer</p>
+    <div id="drop-zone" class="drop-zone">
+      <div class="drop-zone-icon">{ }</div>
+      <div class="drop-zone-label">Upload .json File</div>
+      <div class="drop-zone-hint">Click to browse or drag and drop a JSON file</div>
+      <input type="file" id="file-input" accept=".json">
+    </div>
+    <div id="file-name" class="file-name-display"></div>
+  </div>
+
+  <!-- -- Loading Screen -------------------------------------------------- -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-card">
+      <div class="loading-title">Exploring JSON</div>
+      <div class="loading-step" id="step-read">
+        <div class="step-indicator">📄</div>
+        <div class="step-text">
+          <span class="label">Reading file</span>
+          <span class="detail" id="step-read-detail">Waiting...</span>
+        </div>
+      </div>
+      <div class="loading-step" id="step-parse">
+        <div class="step-indicator">⚙️</div>
+        <div class="step-text">
+          <span class="label">Parsing JSON</span>
+          <span class="detail" id="step-parse-detail">Waiting...</span>
+        </div>
+      </div>
+      <div class="loading-step" id="step-render">
+        <div class="step-indicator">🌳</div>
+        <div class="step-text">
+          <span class="label">Rendering tree</span>
+          <span class="detail" id="step-render-detail">Waiting...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- -- Error Screen ---------------------------------------------------- -->
+  <div id="error-screen" class="error-screen">
+    <div class="error-card">
+      <div class="error-icon">⚠️</div>
+      <div class="error-title">Failed to Parse JSON</div>
+      <div class="error-message" id="error-message"></div>
+      <div class="error-detail" id="error-detail"></div>
+      <button class="btn" onclick="JASON.reset()">↩ Try Another</button>
+    </div>
+  </div>
+
+  <!-- -- JSON Viewer ----------------------------------------------------- -->
+  <div id="component-view" class="component-view">
+    <div class="back-pill" onclick="JASON.reset()">
+      <span class="jason-dot"></span>
+      <span>JASON — Load Another</span>
+    </div>
+    <div class="json-layout">
+      <div class="json-toolbar">
+        <input type="text" id="search-input" class="search-input" placeholder="Search keys...">
+        <div class="view-toggle">
+          <button id="btn-tree-view" class="toolbar-btn active" onclick="JASON.showTreeView()">Tree</button>
+          <button id="btn-raw-view" class="toolbar-btn" onclick="JASON.showRawView()">Raw</button>
+        </div>
+        <button id="btn-expand-all" class="toolbar-btn" onclick="JASON.expandAll()">Expand All</button>
+        <button id="btn-collapse-all" class="toolbar-btn" onclick="JASON.collapseAll()">Collapse All</button>
+      </div>
+      <div id="path-breadcrumb" class="path-breadcrumb">root</div>
+      <div id="json-tree" class="json-tree"></div>
+      <pre id="json-raw" class="json-raw"><code></code></pre>
+    </div>
+  </div>
+
+  <div id="copy-toast" class="copy-toast">Copied!</div>
