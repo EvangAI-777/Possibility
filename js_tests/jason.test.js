@@ -1,22 +1,22 @@
 /**
- * Tests for the MARKER Markdown Viewer & Renderer.
+ * Tests for the JASON JSON Explorer.
  *
- * The engine lives inside MARKER.html as inline JS.
- * We extract the core screen management and helper logic
- * and test it here, plus validate the HTML structure.
+ * The engine lives inside JASON.html as inline JS.
+ * We validate the HTML structure, CSS, JavaScript engine,
+ * and integration with the docs site.
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '..', 'HTML Files', 'MARKER.html');
-const docsPath = path.join(__dirname, '..', 'docs', 'MARKER.html');
+const htmlPath = path.join(__dirname, '..', 'HTML Files', 'JASON.html');
+const docsPath = path.join(__dirname, '..', 'docs', 'JASON.html');
 
 // ===========================================================================
 //                         FILE EXISTENCE & STRUCTURE
 // ===========================================================================
 
-describe('MARKER.html files exist', () => {
+describe('JASON.html files exist', () => {
   test('source file exists in HTML Files/', () => {
     expect(fs.existsSync(htmlPath)).toBe(true);
   });
@@ -41,7 +41,7 @@ describe('HTML structure', () => {
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
   test('has correct title', () => {
-    expect(html).toMatch(/<title>MARKER.*Markdown/);
+    expect(html).toMatch(/<title>JASON.*JSON/);
   });
 
   test('has DOCTYPE declaration', () => {
@@ -58,31 +58,31 @@ describe('HTML structure', () => {
 });
 
 // ===========================================================================
-//                       CDN DEPENDENCIES
+//                       NO CDN DEPENDENCIES
 // ===========================================================================
 
-describe('CDN dependencies', () => {
+describe('no CDN dependencies (JSON.parse is native)', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
-  test('includes marked.js', () => {
-    expect(html).toMatch(/marked.*\.min\.js/);
-  });
-
-  test('includes highlight.js library', () => {
-    expect(html).toMatch(/highlight.*\.min\.js/);
-  });
-
-  test('includes highlight.js github-dark theme', () => {
-    expect(html).toMatch(/github-dark.*\.min\.css/);
-  });
-
-  test('does not include React (not needed)', () => {
+  test('does not include React', () => {
     expect(html).not.toMatch(/unpkg\.com\/react@/);
   });
 
-  test('does not include Babel (not needed)', () => {
+  test('does not include Babel', () => {
     expect(html).not.toMatch(/babel.*standalone/);
+  });
+
+  test('does not include marked.js', () => {
+    expect(html).not.toMatch(/marked.*\.min\.js/);
+  });
+
+  test('does not include highlight.js', () => {
+    expect(html).not.toMatch(/highlight.*\.min\.js/);
+  });
+
+  test('has comment noting no CDN deps needed', () => {
+    expect(html).toMatch(/No CDN dependencies/i);
   });
 });
 
@@ -106,7 +106,7 @@ describe('four-screen architecture', () => {
     expect(html).toMatch(/id="error-screen"/);
   });
 
-  test('has component view (rendered markdown)', () => {
+  test('has component view (JSON viewer)', () => {
     expect(html).toMatch(/id="component-view"/);
   });
 
@@ -114,41 +114,45 @@ describe('four-screen architecture', () => {
     expect(html).toMatch(/id="drop-zone"/);
   });
 
-  test('file input accepts markdown files', () => {
-    expect(html).toMatch(/accept="\.md,\.markdown,\.txt"/);
+  test('file input accepts JSON files', () => {
+    expect(html).toMatch(/accept="\.json"/);
   });
 });
 
 // ===========================================================================
-//                        MARKER BRANDING
+//                        JASON BRANDING
 // ===========================================================================
 
-describe('MARKER branding', () => {
+describe('JASON branding', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
-  test('has MARKER title', () => {
-    expect(html).toMatch(/class="upload-title">MARKER</);
+  test('has JASON title', () => {
+    expect(html).toMatch(/class="upload-title">JASON</);
   });
 
-  test('has markdown subtitle', () => {
-    expect(html).toMatch(/Markdown Viewer.*Renderer/);
+  test('has JSON Explorer subtitle', () => {
+    expect(html).toMatch(/JSON Explorer/);
   });
 
-  test('has marker logo animation', () => {
-    expect(html).toMatch(/class="marker-logo"/);
+  test('has jason logo', () => {
+    expect(html).toMatch(/class="jason-logo"/);
   });
 
-  test('has marker pen element', () => {
-    expect(html).toMatch(/class="marker-pen"/);
+  test('has jason brace elements', () => {
+    expect(html).toMatch(/class="jason-brace"/);
   });
 
-  test('has marker stroke animation', () => {
-    expect(html).toMatch(/class="marker-stroke"/);
+  test('has jason dot element', () => {
+    expect(html).toMatch(/class="jason-dot"/);
   });
 
-  test('has marker-glow CSS variable', () => {
-    expect(html).toMatch(/--marker-glow/);
+  test('has jason-glow CSS variable', () => {
+    expect(html).toMatch(/--jason-glow/);
+  });
+
+  test('jason-glow is orange', () => {
+    expect(html).toMatch(/--jason-glow:\s*#f0883e/);
   });
 });
 
@@ -172,10 +176,10 @@ describe('loading pipeline', () => {
     expect(html).toMatch(/id="step-render"/);
   });
 
-  test('step labels are markdown-specific', () => {
+  test('step labels are JSON-specific', () => {
     expect(html).toMatch(/Reading file/);
-    expect(html).toMatch(/Parsing Markdown/);
-    expect(html).toMatch(/Rendering document/);
+    expect(html).toMatch(/Parsing JSON/);
+    expect(html).toMatch(/Rendering tree/);
   });
 });
 
@@ -207,51 +211,56 @@ describe('GitHub Dark theme consistency', () => {
 });
 
 // ===========================================================================
-//                       MARKDOWN RENDERING FEATURES
+//                       JSON-SPECIFIC FEATURES
 // ===========================================================================
 
-describe('markdown rendering features', () => {
+describe('JSON-specific features', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
-  test('has markdown output container', () => {
-    expect(html).toMatch(/id="markdown-output"/);
+  test('has tree view container', () => {
+    expect(html).toMatch(/id="json-tree"/);
   });
 
-  test('has markdown-body class for styling', () => {
-    expect(html).toMatch(/class="markdown-body"/);
+  test('has raw view container', () => {
+    expect(html).toMatch(/id="json-raw"/);
   });
 
-  test('has table of contents sidebar', () => {
-    expect(html).toMatch(/id="toc-sidebar"/);
+  test('has search input', () => {
+    expect(html).toMatch(/id="search-input"/);
   });
 
-  test('has TOC list container', () => {
-    expect(html).toMatch(/id="toc-list"/);
+  test('has path breadcrumb', () => {
+    expect(html).toMatch(/id="path-breadcrumb"/);
   });
 
-  test('has TOC toggle for mobile', () => {
-    expect(html).toMatch(/id="toc-toggle"/);
+  test('has tree toggle styling', () => {
+    expect(html).toMatch(/\.tree-toggle/);
   });
 
-  test('styles code blocks', () => {
-    expect(html).toMatch(/\.markdown-body pre/);
+  test('has tree-value type classes', () => {
+    expect(html).toMatch(/\.tree-value\.string/);
+    expect(html).toMatch(/\.tree-value\.number/);
+    expect(html).toMatch(/\.tree-value\.boolean/);
+    expect(html).toMatch(/\.tree-value\.null/);
   });
 
-  test('styles blockquotes', () => {
-    expect(html).toMatch(/\.markdown-body blockquote/);
+  test('has node count styling', () => {
+    expect(html).toMatch(/\.node-count/);
   });
 
-  test('styles tables', () => {
-    expect(html).toMatch(/\.markdown-body table/);
+  test('has copy toast', () => {
+    expect(html).toMatch(/id="copy-toast"/);
   });
 
-  test('has copy code button styling', () => {
-    expect(html).toMatch(/\.copy-code-btn/);
+  test('has view toggle buttons', () => {
+    expect(html).toMatch(/id="btn-tree-view"/);
+    expect(html).toMatch(/id="btn-raw-view"/);
   });
 
-  test('has code language label styling', () => {
-    expect(html).toMatch(/\.code-lang-label/);
+  test('has expand/collapse buttons', () => {
+    expect(html).toMatch(/id="btn-expand-all"/);
+    expect(html).toMatch(/id="btn-collapse-all"/);
   });
 });
 
@@ -263,8 +272,8 @@ describe('JavaScript engine', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
-  test('defines MARKER IIFE', () => {
-    expect(html).toMatch(/const MARKER = \(\(\) =>/);
+  test('defines JASON IIFE', () => {
+    expect(html).toMatch(/const JASON = \(\(\) =>/);
   });
 
   test('has deploy function', () => {
@@ -279,53 +288,40 @@ describe('JavaScript engine', () => {
     expect(html).toMatch(/function showScreen\(name\)/);
   });
 
-  test('has wrapCodeBlocks function', () => {
-    expect(html).toMatch(/function wrapCodeBlocks\(container\)/);
+  test('has renderTree function', () => {
+    expect(html).toMatch(/function renderTree\(data\)/);
   });
 
-  test('has buildTableOfContents function', () => {
-    expect(html).toMatch(/function buildTableOfContents\(container\)/);
+  test('has buildNode function', () => {
+    expect(html).toMatch(/function buildNode\(/);
   });
 
-  test('has renderTOC function', () => {
-    expect(html).toMatch(/function renderTOC\(toc\)/);
+  test('has syntaxHighlight function', () => {
+    expect(html).toMatch(/function syntaxHighlight\(/);
   });
 
-  test('has setupScrollSpy function', () => {
-    expect(html).toMatch(/function setupScrollSpy\(\)/);
+  test('has filterTree function', () => {
+    expect(html).toMatch(/function filterTree\(/);
   });
 
-  test('has toggleTOC function', () => {
-    expect(html).toMatch(/function toggleTOC\(\)/);
+  test('uses JSON.parse', () => {
+    expect(html).toMatch(/JSON\.parse\(/);
   });
 
   test('uses FileReader API', () => {
     expect(html).toMatch(/new FileReader\(\)/);
   });
 
-  test('uses marked.parse for rendering', () => {
-    expect(html).toMatch(/marked\.parse\(/);
-  });
-
-  test('uses hljs for syntax highlighting', () => {
-    expect(html).toMatch(/hljs\.highlight\(/);
-    expect(html).toMatch(/hljs\.highlightAuto\(/);
-  });
-
-  test('uses IntersectionObserver for scroll spy', () => {
-    expect(html).toMatch(/new IntersectionObserver/);
-  });
-
   test('uses navigator.clipboard for copy', () => {
     expect(html).toMatch(/navigator\.clipboard\.writeText/);
   });
 
-  test('has clipboard fallback for non-HTTPS', () => {
+  test('has clipboard fallback', () => {
     expect(html).toMatch(/document\.execCommand\('copy'\)/);
   });
 
-  test('returns public API with deploy, reset, toggleTOC', () => {
-    expect(html).toMatch(/return \{ deploy, reset, toggleTOC \}/);
+  test('returns public API', () => {
+    expect(html).toMatch(/return \{ deploy, reset, showTreeView, showRawView, expandAll, collapseAll \}/);
   });
 });
 
@@ -357,16 +353,16 @@ describe('event wiring', () => {
     expect(html).toMatch(/dropZone\.addEventListener\('drop'/);
   });
 
-  test('calls MARKER.deploy on file select', () => {
-    expect(html).toMatch(/MARKER\.deploy\(file\)/);
+  test('calls JASON.deploy on file select', () => {
+    expect(html).toMatch(/JASON\.deploy\(file\)/);
   });
 
-  test('calls MARKER.reset on back pill click', () => {
-    expect(html).toMatch(/onclick="MARKER\.reset\(\)"/);
+  test('calls JASON.reset on back pill click', () => {
+    expect(html).toMatch(/onclick="JASON\.reset\(\)"/);
   });
 
-  test('calls MARKER.toggleTOC on toggle click', () => {
-    expect(html).toMatch(/onclick="MARKER\.toggleTOC\(\)"/);
+  test('handles search input', () => {
+    expect(html).toMatch(/searchInput\.addEventListener\('input'/);
   });
 });
 
@@ -378,11 +374,11 @@ describe('responsive design', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
-  test('has 768px breakpoint for TOC', () => {
+  test('has 768px breakpoint', () => {
     expect(html).toMatch(/max-width:\s*768px/);
   });
 
-  test('has 480px breakpoint for mobile', () => {
+  test('has 480px breakpoint', () => {
     expect(html).toMatch(/max-width:\s*480px/);
   });
 
@@ -417,6 +413,10 @@ describe('error handling', () => {
 
   test('has showError function', () => {
     expect(html).toMatch(/function showError\(message, detail\)/);
+  });
+
+  test('error title references JSON', () => {
+    expect(html).toMatch(/Failed to Parse JSON/);
   });
 });
 
@@ -475,30 +475,29 @@ describe('all HTML tools in docs/ have back-to-home links', () => {
 });
 
 // ===========================================================================
-//               INDEX.HTML REFERENCES MARKER
+//               INDEX.HTML REFERENCES JASON
 // ===========================================================================
 
-describe('docs/index.html includes MARKER', () => {
+describe('docs/index.html includes JASON', () => {
   let indexHtml;
   beforeAll(() => {
     indexHtml = fs.readFileSync(path.join(__dirname, '..', 'docs', 'index.html'), 'utf-8');
   });
 
-  test('has link to MARKER.html', () => {
-    expect(indexHtml).toMatch(/href="MARKER\.html"/);
+  test('has link to JASON.html', () => {
+    expect(indexHtml).toMatch(/href="JASON\.html"/);
   });
 
-  test('has MARKER card title', () => {
-    expect(indexHtml).toMatch(/>MARKER</);
+  test('has JASON card title', () => {
+    expect(indexHtml).toMatch(/>JASON</);
   });
 
-  test('has MARKER description', () => {
-    expect(indexHtml).toMatch(/Markdown Viewer.*Renderer/);
+  test('has JASON description', () => {
+    expect(indexHtml).toMatch(/JSON Explorer/);
   });
 
-  test('MARKER card has live badge', () => {
-    // Check that the MARKER link appears after a "Live" badge within the same card
-    const markerCard = indexHtml.match(/MARKER[\s\S]*?<\/div>\s*<\/div>/);
-    expect(markerCard).toBeTruthy();
+  test('JASON card has live badge', () => {
+    const jasonCard = indexHtml.match(/JASON[\s\S]*?<\/div>\s*<\/div>/);
+    expect(jasonCard).toBeTruthy();
   });
 });
