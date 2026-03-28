@@ -354,3 +354,195 @@
     }
 
     .btn:hover { background: var(--accent-hover); }
+
+    /* -- JSON Layout ----------------------------------------------------- */
+
+    .json-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      padding-top: 3.5rem;
+    }
+
+    /* -- Toolbar --------------------------------------------------------- */
+
+    .json-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 140px;
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.4rem 0.7rem;
+      color: var(--text);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--jason-glow); }
+
+    .toolbar-btn {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.4rem 0.7rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .toolbar-btn:hover { color: var(--text); border-color: var(--text-muted); }
+    .toolbar-btn.active { color: var(--jason-glow); border-color: var(--jason-glow); }
+
+    .view-toggle {
+      display: flex;
+      gap: 0;
+    }
+
+    .view-toggle .toolbar-btn:first-child { border-radius: 6px 0 0 6px; }
+    .view-toggle .toolbar-btn:last-child { border-radius: 0 6px 6px 0; border-left: none; }
+
+    /* -- Path Breadcrumb ------------------------------------------------- */
+
+    .path-breadcrumb {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-segment {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb-segment:hover { color: var(--jason-glow); }
+
+    .breadcrumb-separator {
+      color: var(--border);
+      margin: 0 4px;
+    }
+
+    /* -- Tree View ------------------------------------------------------- */
+
+    .json-tree {
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .tree-node {
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .tree-node.root { padding-left: 0; }
+
+    .tree-toggle {
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .tree-toggle:hover { color: var(--jason-glow); }
+
+    .tree-toggle::before {
+      content: '\25B6';
+      font-size: 0.6rem;
+      display: inline-block;
+      transition: transform 0.15s ease;
+      color: var(--text-muted);
+      width: 1em;
+    }
+
+    .tree-toggle.expanded::before { transform: rotate(90deg); }
+
+    .tree-children { display: none; }
+    .tree-children.expanded { display: block; }
+
+    .tree-key { color: var(--jason-glow); }
+    .tree-colon { color: var(--text-muted); margin: 0 4px; }
+
+    .tree-value.string { color: var(--green); }
+    .tree-value.number { color: var(--accent); }
+    .tree-value.boolean { color: var(--yellow); }
+    .tree-value.null { color: var(--red); font-style: italic; }
+
+    .tree-bracket { color: var(--text-muted); font-weight: 600; }
+    .node-count { color: var(--text-muted); font-size: 0.75rem; margin-left: 4px; }
+
+    .tree-leaf {
+      padding-left: 1.25rem;
+      display: block;
+    }
+
+    /* -- Raw View -------------------------------------------------------- */
+
+    .json-raw {
+      display: none;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow: auto;
+      white-space: pre;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-height: 80vh;
+    }
+
+    .json-raw.active { display: block; }
+
+    .json-raw .string { color: var(--green); }
+    .json-raw .number { color: var(--accent); }
+    .json-raw .boolean { color: var(--yellow); }
+    .json-raw .null { color: var(--red); font-style: italic; }
+    .json-raw .key { color: var(--jason-glow); }
+
+    /* -- Copy Toast ------------------------------------------------------ */
+
+    .copy-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--green);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 99999;
+      pointer-events: none;
+    }
+
+    .copy-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
