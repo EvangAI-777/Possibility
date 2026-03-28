@@ -168,3 +168,189 @@
     }
 
     .file-name-display.visible { display: inline-block; }
+
+    /* -- Loading Screen -------------------------------------------------- */
+
+    .loading-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .loading-screen.active { display: flex; }
+    .upload-screen.hidden { display: none; }
+
+    .loading-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: min(90vw, 420px);
+    }
+
+    .loading-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .loading-step {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      opacity: 0.3;
+      transition: all 0.4s ease;
+    }
+
+    .loading-step.active { opacity: 1; }
+    .loading-step.done { opacity: 0.7; }
+
+    .step-indicator {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      transition: all 0.4s ease;
+    }
+
+    .loading-step.active .step-indicator {
+      border-color: var(--jason-glow);
+      color: var(--jason-glow);
+      animation: step-pulse 1s ease-in-out infinite;
+    }
+
+    .loading-step.done .step-indicator {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(63,185,80,0.1);
+    }
+
+    @keyframes step-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(240,136,62,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(240,136,62,0); }
+    }
+
+    .step-text { font-size: 0.95rem; }
+    .step-text .label { font-weight: 600; }
+    .step-text .detail { color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 2px; }
+
+    /* -- Component View -------------------------------------------------- */
+
+    .component-view {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .component-view.active { display: block; }
+
+    .back-pill {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 99999;
+      background: rgba(22,27,34,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    .back-pill:hover {
+      background: rgba(22,27,34,0.95);
+      color: var(--jason-glow);
+      border-color: var(--jason-glow);
+    }
+
+    .back-pill .jason-dot {
+      width: 8px; height: 8px;
+      background: var(--jason-glow);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    /* -- Error Display --------------------------------------------------- */
+
+    .error-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .error-screen.active { display: flex; }
+
+    .error-card {
+      background: var(--surface);
+      border: 1px solid var(--red);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: min(90vw, 550px);
+      text-align: center;
+    }
+
+    .error-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    .error-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .error-message {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      word-break: break-word;
+    }
+
+    .error-detail {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      font-size: 0.8rem;
+      color: var(--red);
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+      white-space: pre-wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: var(--accent-hover); }
