@@ -38,7 +38,7 @@ These principles are not suggestions. They are the difference between work that 
 - **One subsystem per PR.** Do not bundle unrelated changes. Each pull request should touch one subsystem and be reviewable in isolation.
 - **Believe user observations over theories.** If the user says "this crashes on Safari," do not respond with "it should work." Investigate what actually happens.
 
-### Large File Creation: Sequential Section Commits
+### Large File Creation: Sequential Section Commits (Battle Scar)
 
 > **NEVER write a large file (500+ lines) in a single commit. Build it in sections.**
 
@@ -74,7 +74,7 @@ Each commit was pushed immediately. If any commit had failed, only that section 
 4. **Each commit must append cleanly.** The file may be syntactically incomplete mid-build — that is fine. It becomes valid at the final commit.
 5. **Push after every commit.** If you lose context, the work is safe on the remote.
 
-### Ghost Branches: Clean Up After Yourself
+### Ghost Branches: Clean Up After Yourself (Battle Scar)
 
 > **Failed sessions leave ghost branches on the remote. They don't delete themselves.**
 
