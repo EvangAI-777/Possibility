@@ -188,17 +188,17 @@ describe('GitHub Dark theme consistency', () => {
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
   const expectedVars = [
-    '--bg: #0d1117',
-    '--surface: #161b22',
-    '--surface-hover: #1c2129',
-    '--border: #30363d',
-    '--text: #e6edf3',
-    '--text-muted: #8b949e',
-    '--accent: #58a6ff',
-    '--accent-hover: #79b8ff',
+    '--bg: #0b0f14',
+    '--surface: #141a22',
+    '--surface-hover: #1c2430',
+    '--border: #2a3140',
+    '--text: #e2e8f0',
+    '--text-muted: #8191a6',
+    '--accent: #5b9cf5',
+    '--accent-hover: #7db4ff',
     '--green: #3fb950',
-    '--yellow: #d29922',
-    '--red: #f85149',
+    '--yellow: #d4a017',
+    '--red: #f04e4e',
   ];
 
   test.each(expectedVars)('contains CSS variable %s', (cssVar) => {
