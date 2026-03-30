@@ -879,7 +879,7 @@ Structural and functional validation for the MARKER Markdown Viewer & Renderer (
 - **Four-screen architecture** (6 tests) — Upload, loading, error, component-view screens; drop zone; markdown file acceptance
 - **MARKER branding** (6 tests) — Title, subtitle, logo, pen, stroke animation, marker-glow variable
 - **Loading pipeline** (4 tests) — Read, parse, render steps with markdown-specific labels
-- **GitHub Dark theme** (11 tests) — All CSS variables match REACTOR's color scheme
+- **Unified dark theme** (11 tests) — All CSS variables match the site-wide color palette
 - **Markdown rendering features** (10 tests) — Output container, TOC sidebar/list/toggle, code blocks, blockquotes, tables, copy button, language labels
 - **JavaScript engine** (17 tests) — MARKER IIFE, deploy, reset, showScreen, wrapCodeBlocks, buildTableOfContents, renderTOC, setupScrollSpy, toggleTOC, FileReader, marked.parse, hljs, IntersectionObserver, clipboard API with fallback, public API
 - **Event wiring** (8 tests) — DOMContentLoaded, file input, drag events, MARKER.deploy/reset/toggleTOC calls
@@ -899,7 +899,7 @@ Structural and functional validation for the JASON JSON Explorer (`JASON.html`):
 - **Four-screen architecture** (6 tests) — Upload, loading, error, component-view screens; drop zone; JSON file acceptance
 - **JASON branding** (7 tests) — Title, subtitle, logo, brace elements, dot element, jason-glow variable and orange color
 - **Loading pipeline** (4 tests) — Read, parse, render steps with JSON-specific labels
-- **GitHub Dark theme** (11 tests) — All CSS variables match REACTOR/MARKER color scheme
+- **Unified dark theme** (11 tests) — All CSS variables match the site-wide color palette
 - **JSON-specific features** (11 tests) — Tree view, raw view, search input, breadcrumb, tree toggle, value type classes, node count, copy toast, view toggle buttons, expand/collapse buttons
 - **JavaScript engine** (13 tests) — JASON IIFE, deploy, reset, showScreen, renderTree, buildNode, syntaxHighlight, filterTree, JSON.parse, FileReader, clipboard API with fallback, public API
 - **Event wiring** (8 tests) — DOMContentLoaded, file input, drag events, JASON.deploy/reset calls, search input handler

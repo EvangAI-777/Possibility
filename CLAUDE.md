@@ -175,6 +175,23 @@ npx jest --verbose
 - **Auto AI JSON files** are tested for structural validity by `tests/test_agent_configs.py` — maintain required fields
 - **Markdown files** in Auto AI/ are companion docs referenced by JSON configs AND validated by `js_tests/markdown_docs.test.js` — do not delete or rename them
 - **HTML files** are self-contained (no build step, no backend, dependencies via CDN only)
+- **Unified site color palette** — All pages in `docs/` share a common dark foundation. No shared CSS file; variables are declared inline per page. When creating or modifying HTML tools, use these values:
+
+  | Role | Variable | Hex |
+  |------|----------|-----|
+  | Background | `--bg` | `#0b0f14` |
+  | Surface | `--surface` | `#141a22` |
+  | Surface Hover | `--surface-hover` | `#1c2430` |
+  | Border | `--border` | `#2a3140` |
+  | Text | `--text` | `#e2e8f0` |
+  | Text Muted | `--text-muted` | `#8191a6` |
+  | Accent | `--accent` | `#5b9cf5` |
+  | Accent Hover | `--accent-hover` | `#7db4ff` |
+  | Success | `--green` | `#3fb950` |
+  | Warning | `--yellow` | `#d4a017` |
+  | Error | `--red` | `#f04e4e` |
+
+  Each tool also has a unique identity glow color (REACTOR: `#5b9cf5`, MARKER: `#a78bfa`, JASON: `#e8943e`, Meta Debug: `#3ee88a`, Periodic Table: `#c9a84c`, Compound Interest: `#1aac7a`). Back-links use `#5b9cf5` text, `#0b0f14` background, `#2a3140` border on all pages.
 
 ---
 
