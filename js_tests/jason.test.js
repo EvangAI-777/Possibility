@@ -187,7 +187,7 @@ describe('loading pipeline', () => {
 //                    GITHUB DARK THEME (CSS VARIABLES)
 // ===========================================================================
 
-describe('GitHub Dark theme consistency', () => {
+describe('Unified dark theme consistency', () => {
   let html;
   beforeAll(() => { html = fs.readFileSync(htmlPath, 'utf-8'); });
 
