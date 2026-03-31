@@ -10,7 +10,6 @@ const fs = require('fs');
 const path = require('path');
 
 const htmlPath = path.join(__dirname, '..', 'HTML Files', 'JASON.html');
-const docsPath = path.join(__dirname, '..', 'docs', 'JASON.html');
 
 // ===========================================================================
 //                         FILE EXISTENCE & STRUCTURE
@@ -19,16 +18,6 @@ const docsPath = path.join(__dirname, '..', 'docs', 'JASON.html');
 describe('JASON.html files exist', () => {
   test('source file exists in HTML Files/', () => {
     expect(fs.existsSync(htmlPath)).toBe(true);
-  });
-
-  test('deployed file exists in docs/', () => {
-    expect(fs.existsSync(docsPath)).toBe(true);
-  });
-
-  test('source and docs copies are identical', () => {
-    const source = fs.readFileSync(htmlPath, 'utf-8');
-    const docs = fs.readFileSync(docsPath, 'utf-8');
-    expect(source).toBe(docs);
   });
 });
 
@@ -433,7 +422,7 @@ describe('back-to-home navigation', () => {
   });
 
   test('links to index.html', () => {
-    expect(html).toMatch(/href="index\.html".*class="back-link"/);
+    expect(html).toMatch(/href="\.\.\/index\.html".*class="back-link"/);
   });
 
   test('has left arrow and Possibility text', () => {
@@ -453,7 +442,7 @@ describe('back-to-home navigation', () => {
 //          ALL HTML TOOLS HAVE BACK-TO-HOME LINKS
 // ===========================================================================
 
-describe('all HTML tools in docs/ have back-to-home links', () => {
+describe('all HTML tools have back-to-home links', () => {
   const toolFiles = [
     'meta_debug.html',
     'periodic-table-of-meaning.html',
@@ -464,12 +453,12 @@ describe('all HTML tools in docs/ have back-to-home links', () => {
   ];
 
   test.each(toolFiles)('%s has a link to index.html', (file) => {
-    const content = fs.readFileSync(path.join(__dirname, '..', 'docs', file), 'utf-8');
-    expect(content).toMatch(/href="index\.html"/);
+    const content = fs.readFileSync(path.join(__dirname, '..', 'HTML Files', file), 'utf-8');
+    expect(content).toMatch(/href="\.\.\/index\.html"/);
   });
 
   test.each(toolFiles)('%s has back-link class', (file) => {
-    const content = fs.readFileSync(path.join(__dirname, '..', 'docs', file), 'utf-8');
+    const content = fs.readFileSync(path.join(__dirname, '..', 'HTML Files', file), 'utf-8');
     expect(content).toMatch(/class="back-link"/);
   });
 });
@@ -478,14 +467,14 @@ describe('all HTML tools in docs/ have back-to-home links', () => {
 //               INDEX.HTML REFERENCES JASON
 // ===========================================================================
 
-describe('docs/index.html includes JASON', () => {
+describe('index.html includes JASON', () => {
   let indexHtml;
   beforeAll(() => {
-    indexHtml = fs.readFileSync(path.join(__dirname, '..', 'docs', 'index.html'), 'utf-8');
+    indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf-8');
   });
 
   test('has link to JASON.html', () => {
-    expect(indexHtml).toMatch(/href="JASON\.html"/);
+    expect(indexHtml).toMatch(/href="HTML%20Files\/JASON\.html"/);
   });
 
   test('has JASON card title', () => {
