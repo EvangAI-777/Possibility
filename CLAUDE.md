@@ -88,6 +88,98 @@ This happened during the JASON.html saga. A previous session's branch (`claude/e
 3. **If you see stale remote tracking refs**, run `git remote prune origin` to clean them locally.
 4. **Never assume old branches were cleaned up.** Check `git branch -r` at the start of a session if the user reports branch clutter.
 
+### Token Efficiency: Working Lean
+
+> Tokens are spent on two things: **context** (what Claude reads) and **output** (what Claude writes). Most waste comes from three patterns: vague tasks requiring many clarifying rounds, agents launched for things a direct tool call could handle, and asking Claude to explore before you've told it where to look.
+
+**1. Be specific about the target.**
+
+Bad:
+> "There's a bug in the authentication flow, can you look into it?"
+
+Good:
+> "In `src/auth/session.ts` around line 84, `validateToken()` isn't checking expiry before returning `true`. Add the expiry check."
+
+The second version skips file discovery, hypothesis generation, and clarification rounds — probably 80% fewer tokens.
+
+**2. Know the file before asking Claude to find it.**
+
+If you already know where something lives, say so. `"Read 'Python Files/congo.py' lines 40–80"` costs far less than `"find where the resonance logic is."` Searching costs tokens. Knowing costs zero.
+
+**3. Avoid agents for directed searches.** Agents are powerful but expensive:
+
+- "Find the definition of `parseConfig`" → use Grep directly
+- "Check if `utils.js` calls `fetch`" → use Grep directly
+- "What's in `config/defaults.json`?" → use Read directly
+
+Agents add overhead: spawning, sub-tool calls, summarizing, returning. For anything describable with a file path or symbol name, skip the agent.
+
+**4. Use agents only for genuinely open-ended work.**
+
+Good agent uses: researching an unfamiliar codebase, scanning upstream project history across many pages/commits, running a multi-step background task while you do something else.
+
+Bad agent uses: finding a single function, answering a question about one file you could just read, doing something a single Grep would handle.
+
+**5. One task, one session.** Sessions accumulate context. When a logical unit of work is done (bug fix, feature, research task), commit, push, and start a fresh session for the next thing. Clean context = fewer tokens per useful output.
+
+**6. Commit frequently, before context gets heavy.** If you continue in a new session, a clean commit history means Claude can reconstruct intent from `git log` rather than re-reading files. Small, descriptive commits also make code review faster.
+
+**7. Front-load constraints.** Tell Claude what NOT to do at the start — not after it has already done it:
+
+- "Don't spawn agents, use direct tool calls."
+- "Don't refactor anything outside the specific function I'm asking about."
+- "Keep the change under 20 lines."
+- "Don't add comments, docstrings, or type annotations."
+- "Don't add error handling for cases that can't happen."
+
+Correcting an unwanted 200-line response costs more tokens than preventing it.
+
+**8. Ask for a plan before a big implementation.** For anything touching more than 3 files, ask Claude to describe the approach in one paragraph before writing any code. Course-correct there — not after the implementation is already written.
+
+**9. Narrow the scope of exploratory tasks.**
+
+Bad:
+> "Scan all recent upstream changes and tell me what's relevant."
+
+Better:
+> "Fetch the v2.4 release notes page and summarize only the breaking API changes."
+
+Scoping the question scopes the work.
+
+**10. Use CLAUDE.md to avoid re-explaining context.** Every token spent re-teaching Claude project conventions is wasted. When you notice Claude doing something wrong repeatedly, add it to CLAUDE.md rather than correcting it every session. One-time documentation cost, permanent savings.
+
+**Token cost reference (rough order of magnitude):**
+
+| Operation | Relative Cost |
+|-----------|--------------|
+| Direct file read (Read tool) | Low |
+| Direct Grep/Glob search | Low |
+| Single WebFetch | Medium |
+| Single WebSearch | Medium |
+| Agent (foreground, simple task) | High |
+| Agent (foreground, research task) | Very High |
+| Large refactor across 10+ files | Very High |
+| Back-and-forth correction loops | Compounds fast |
+
+**Emergency mode (near the weekly cap):**
+
+1. No agents — every task uses direct tool calls only.
+2. No exploration — know the file before asking about it.
+3. One thing — pick the single highest-value task.
+4. Short outputs: "in one paragraph", "under 20 lines", "just the diff, no explanation."
+5. Skip docs — no comments, docstrings, or summaries unless they are the deliverable.
+6. Commit before you start — if the session ends mid-task, you want a clean base to return to.
+
+**What is worth spending tokens on (priority order):**
+
+1. Bug fixes with a clear reproduction — high value, tight scope
+2. Implementing a feature you've already designed — efficient when spec is provided upfront
+3. One-time research with durable output — pays for itself if findings are written down
+4. Refactoring — defer unless actively blocking work
+5. Exploration / "what does this code do?" — use sparingly; read it yourself when you can
+
+> **The meta-principle:** Claude Code works best when you treat it like a skilled contractor, not a search engine. A contractor does their best work when handed a blueprint. The more you've thought through a task before opening a session, the more of your token budget goes toward actual work rather than planning overhead. **Hand Claude a blueprint. Don't ask it to design the building.**
+
 ---
 
 ## Directory Layout
