@@ -1123,6 +1123,162 @@ directories:
   buildResources: resources
 ```
 
+#### GitHub Actions CI/CD Pipeline
+
+Every push to `main` that touches GENO source code triggers the build pipeline. Tagged releases (`v1.0.0`, `v1.1.0`, etc.) additionally publish the installer to GitHub Releases.
+
+**Workflow: `.github/workflows/geno-desktop.yml`**
+
+```yaml
+name: GENO Desktop Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'geno-desktop/**'
+      - '.github/workflows/geno-desktop.yml'
+    tags:
+      - 'geno-v*'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'geno-desktop/**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: geno-desktop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: geno-desktop
+        run: npm ci
+
+      - name: Run tests
+        working-directory: geno-desktop
+        run: npm test
+
+      - name: Build renderer
+        working-directory: geno-desktop
+        run: npm run build:renderer
+
+      - name: Build main process
+        working-directory: geno-desktop
+        run: npm run build:main
+
+      - name: Package Windows x64
+        working-directory: geno-desktop
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: geno-windows-x64
+          path: geno-desktop/dist/geno-setup-*.exe
+
+  release:
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/geno-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: geno-windows-x64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: GENO ${{ github.ref_name }}
+          body: |
+            ## GENO Desktop — ${{ github.ref_name }}
+
+            Windows x64 installer for GENO.
+
+            ### Installation
+            1. Download `geno-setup-*.exe` below
+            2. Run the installer
+            3. Launch GENO from the Start Menu or Desktop shortcut
+
+            ### What's included
+            - Full genealogy repository management (create, commit, branch, merge)
+            - Pull request workflow for deliberate generational changes
+            - Deprecation scanner, legacy code detector, fracture scanner
+            - Cross-repository pattern analysis
+            - GEDCOM import/export
+            - Offline-first — all data stored locally
+          files: geno-setup-*.exe
+          draft: false
+          prerelease: false
+```
+
+**Pipeline Behavior:**
+
+| Trigger | What Happens |
+|---------|-------------|
+| Push to `main` (GENO paths) | Build + test + package. Artifact uploaded for verification. No release. |
+| Pull request to `main` | Build + test only. Validates the PR doesn't break packaging. |
+| Tag `geno-v*` pushed | Build + test + package + **publish to GitHub Releases**. |
+
+**Creating a release:**
+
+```bash
+git tag geno-v1.0.0
+git push origin geno-v1.0.0
+# GitHub Actions builds and publishes geno-setup-1.0.0.exe to Releases
+```
+
+#### Release Strategy
+
+**Versioning:** Semantic versioning (`MAJOR.MINOR.PATCH`).
+
+| Version | Meaning |
+|---------|---------|
+| `1.0.0` | First stable desktop release — all phases complete |
+| `1.0.x` | Patch releases — bug fixes, no new features |
+| `1.x.0` | Minor releases — new features, backward compatible |
+| `2.0.0` | Major release — breaking changes to data format or API |
+
+**Pre-release builds:** Before 1.0, tagged pre-releases (`geno-v0.1.0-alpha`, `geno-v0.9.0-rc.1`) publish as GitHub pre-releases, marked clearly as unstable.
+
+**Auto-updates:** After installation, `geno.exe` checks GitHub Releases for new versions on startup (configurable). When an update is available, the user sees a non-intrusive notification. Updates download in the background and apply on next restart. Users can disable auto-update in settings.
+
+**Data migration:** Each release includes migration scripts for the SQLite schema. Migrations run automatically on first launch after update. The user's `~/GENO/` repository data (plain JSON files) is never modified by updates — only the database index is rebuilt if the schema changes.
+
+#### Path from Concept to Binary
+
+This is the concrete sequence from where GENO is today (Phase 0 — React component) to a shipping `geno.exe`:
+
+| Step | What | Depends On | Deliverable |
+|------|------|-----------|-------------|
+| **1** | Scaffold `geno-desktop/` with Electron + electron-builder | Phase 0 complete | Empty Electron shell that launches |
+| **2** | Embed existing React component as renderer | Step 1 | `geno.jsx` renders inside Electron window |
+| **3** | Add SQLite database + schema migrations | Step 1 | Local database for repositories, commits, metadata |
+| **4** | Build local API server (Express/Fastify) | Step 3 | REST endpoints matching the web platform API spec |
+| **5** | Connect renderer to local API | Steps 2 + 4 | React frontend reads/writes real data instead of sample data |
+| **6** | Implement commit creation flow | Step 5 | Users can add people to repositories with full trait configuration |
+| **7** | Implement branching + merge + conflict detection | Step 6 | Full version control operations for genealogical data |
+| **8** | Implement pull request workflow | Step 7 | Deliberate generational changes with review and merge |
+| **9** | Build scanner worker threads | Step 5 | Deprecation, legacy, fracture scanners run in background |
+| **10** | Add GEDCOM import/export | Step 5 | Industry-standard genealogy file format support |
+| **11** | Set up GitHub Actions CI pipeline | Step 1 | Automated build + test + package on every push |
+| **12** | Add auto-updater | Step 11 | `geno.exe` self-updates from GitHub Releases |
+| **13** | Tag `geno-v1.0.0` | Steps 1–12 complete | First stable release published to GitHub Releases |
+
+Steps 1–5 produce a working desktop app with real data. Steps 6–10 implement the platform features (Phases 2–6 from the roadmap above). Steps 11–12 set up the delivery infrastructure. Step 13 ships it.
+
 ---
 
 ## Current Assets
