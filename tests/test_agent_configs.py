@@ -29,11 +29,12 @@ def load_json(relative_path):
 AGENT_FILES = [
     "Azule/Azule.json",
     "Angles/Angles.json",
-    "Shen (Shenanigans Reveler).json",
+    "Shen/Shen.json",
     "Mind Engineer/Mind_Engineer.json",
     "Mind Engineer/M.E. Protocols/mind_engineer_separation_protocol.json",
     "Mind Engineer/M.E. Protocols/mind_engineer_hardware_protocol.json",
     "Mind Engineer/M.E. Protocols/mind_engineer_spiritual_protocol.json",
+    "Omni Writer/Omni_Writer.json",
 ]
 
 
@@ -164,7 +165,7 @@ class TestShen:
 
     @pytest.fixture(autouse=True)
     def load(self):
-        self.data = load_json("Shen (Shenanigans Reveler).json")
+        self.data = load_json("Shen/Shen.json")
 
     def test_identity(self):
         assert self.data["name"] == "Shen"
@@ -265,6 +266,53 @@ class TestMindEngineer:
         c = self.data["constraints"]
         assert "no_passive_empathy" in c
         assert "authority" in c
+
+
+# =============================================================================
+#                           OMNI WRITER
+# =============================================================================
+
+class TestOmniWriter:
+    """Validate the Omni Writer agent configuration."""
+
+    @pytest.fixture(autouse=True)
+    def load(self):
+        self.data = load_json("Omni Writer/Omni_Writer.json")
+
+    def test_identity(self):
+        ai = self.data["metadata"]["agent_identity"]
+        assert ai["name"] == "Omni Writer"
+        assert ai["role"] == "Autonomous Writing Agent"
+        assert "core_principle" in ai
+        assert len(ai["core_principle"]) > 0
+
+    def test_anti_patterns(self):
+        ap = self.data["metadata"]["agent_identity"]["anti_patterns"]
+        assert isinstance(ap, list)
+        assert len(ap) >= 4
+        assert "moral gatekeeping" in ap
+        assert "performance language" in ap
+
+    def test_pipeline_nodes(self):
+        nodes = self.data["nodes"]
+        assert len(nodes) == 3
+        node_ids = [n["id"] for n in nodes]
+        assert "ask_user_writing_topic" in node_ids
+        assert "node_step_generated_content" in node_ids
+        assert "node_step_written_content" in node_ids
+
+    def test_pipeline_edges(self):
+        edges = self.data["edges"]
+        assert len(edges) == 3
+        froms = {e["from"] for e in edges}
+        tos = {e["to"] for e in edges}
+        assert "ask_user_writing_topic" in froms
+        assert "node_step_written_content" in tos
+
+    def test_title_and_description(self):
+        assert self.data["title"] == "Omni Writer"
+        assert isinstance(self.data["description"], str)
+        assert len(self.data["description"]) > 0
 
 
 # =============================================================================

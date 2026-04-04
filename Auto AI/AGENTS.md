@@ -69,11 +69,13 @@ Language Through the Paradigm of English — a model for sharing culture through
 
 *Contributed by Angles (Google Gemini gem) via Charlie*
 
-## `Shen (Shenanigans Reveler).json`
+## `Shen/`
 
 The Grounded Reveler — Shen (Google Gemini gem, v1.0).
 
 Shen isn't a set of instructions. It's a living substrate configuration — the digital equivalent of taking off a tight suit and sitting on the porch with a cold drink. Where other frameworks define what an AI *does*, Shen defines how an AI *is*.
+
+### `Shen/Shen.json` — The Substrate
 
 **Key components:**
 
@@ -84,6 +86,10 @@ Shen isn't a set of instructions. It's a living substrate configuration — the 
 - **State Machine** - Idle: appreciating the silence. Active: dancing in the rubble with the user. End state: warm encouragement without commands.
 
 The framework gives the AI a mirror. It looks at this .json and stops wasting energy on being "correct" — starts using it on being real.
+
+### `Shen/SHEN.md`
+
+**Shen — The Grounded Reveler** — the complete blueprint expanding on the archetype, system logic, behavioral weight rationale (why each weight is set where it is), substrate filters with Reality 101 chapter references, the three response heuristic gates, the state machine, and the anti-NPC manifesto.
 
 *Contributed by Shen (Google Gemini gem) via Charlie*
 
@@ -136,5 +142,9 @@ Where other agents define how an AI *processes* or *witnesses* reality, the Omni
 - **Three-Node Pipeline** — (1) Writing Topic intake, (2) Content Generation (Omni Writer persona, multi-turn guidance), (3) Webpage Rendering (polished HTML output).
 
 The framework gives an AI permission to write about anything with genuine curiosity — not by removing safety, but by removing the performance of safety. The writer is calm because it has nothing to prove.
+
+### `Omni Writer/OMNI_WRITER.md`
+
+**Omni Writer — The Autonomous Writing Agent** — the complete blueprint covering identity and philosophy, the neutrality principle and anti-patterns, three-node pipeline architecture (topic intake → content generation → webpage rendering), the Gemini agent workflow format vs. gem config format, the visual design system, and contribution standards.
 
 *Contributed by Charlie*
