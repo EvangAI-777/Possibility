@@ -88,6 +88,44 @@ This happened during the JASON.html saga. A previous session's branch (`claude/e
 3. **If you see stale remote tracking refs**, run `git remote prune origin` to clean them locally.
 4. **Never assume old branches were cleaned up.** Check `git branch -r` at the start of a session if the user reports branch clutter.
 
+### Context Recovery: Re-Read After Any Interruption (Battle Scar)
+
+> **After ANY context loss — memory compaction, agent executor switch, user interruption, session resume — IMMEDIATELY re-read the plan file and CLAUDE.md before continuing work.**
+
+This is not optional. This is the first action after regaining context. Not the second. Not "after I finish this one thing." The first.
+
+Context compaction strips working memory. The plan file and CLAUDE.md contain the ground truth for what was being done, what constraints apply, and what steps remain. Without re-reading them, you will:
+
+- Skip steps that were explicitly planned (e.g., updating `index.html` when the plan says to)
+- Repeat work that was already completed
+- Violate project conventions documented in CLAUDE.md
+- Confidently declare "done" while missing deliverables
+
+**Rules for context recovery:**
+1. **Re-read the plan file** (`/root/.claude/plans/`) if one exists. It contains the full task breakdown.
+2. **Re-read CLAUDE.md.** It contains project conventions, pitfalls, and constraints you will otherwise forget.
+3. **Check the todo list** if one was in use. It tracks what's done and what's pending.
+4. **Do not trust your summary of prior work.** Verify against the plan. Summaries compress away critical details.
+
+### Deployment Pipeline Awareness (Battle Scar)
+
+> **Before assuming where deployed files live, CHECK the actual deployment pipeline. Read `.github/workflows/`.**
+
+This project does NOT use a `docs/` directory. It used to. It doesn't anymore. The GitHub Pages deployment is handled by `.github/workflows/deploy-pages.yml`, which:
+
+1. Checks out the repo root
+2. **Strips** non-deployable directories (Python Files, React Component Artifacts, Auto AI, Future, tests, js_tests, .github, node_modules) and config files (CLAUDE.md, package.json, etc.)
+3. Deploys what remains (`index.html` + `HTML Files/`) via `actions/deploy-pages@v4`
+
+**Do not:**
+- Create a `docs/` directory
+- Reference `docs/` in documentation or code
+- Assume any deployment target without reading the workflow file first
+
+**Do:**
+- Check `.github/workflows/` at the start of any session involving deployment or documentation updates
+- Note the actual deployment mechanism in CLAUDE.md if it ever changes
+
 ### Token Efficiency: Working Lean
 
 > Tokens are spent on two things: **context** (what Claude reads) and **output** (what Claude writes). Most waste comes from three patterns: vague tasks requiring many clarifying rounds, agents launched for things a direct tool call could handle, and asking Claude to explore before you've told it where to look.
@@ -218,7 +256,6 @@ Possibility/
 ├── js_tests/                        → JavaScript test suite (Jest)
 │   ├── [12 test files]              → 421 tests
 │   └── JAVASCRIPT_TESTS.md          → JavaScript test suite documentation
-├── docs/                            → HTML documentation (GitHub Pages)
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
 │   ├── REACTOR.html                 → Universal JSX component loader
@@ -268,13 +305,13 @@ npx jest --verbose
 - **Jest** — JS tests with jsdom, React Testing Library, Babel
 - **pytest** — Python tests
 - **No TypeScript, no linter, no formatter** — Follow existing code style
-- **GitHub Pages** — Deploys from `docs/` on push to main/master
+- **GitHub Pages** — Deploys from repo root via GitHub Actions (`actions/deploy-pages@v4`) on push to main. The workflow (`.github/workflows/deploy-pages.yml`) strips non-deployable directories (Python Files, React Component Artifacts, Auto AI, Future, tests, js_tests, .github, node_modules) and deploys what remains (`index.html` + `HTML Files/`). There is NO `docs/` directory.
 - **Shared Claude API client** — `React Component Artifacts/callClaude.js` (model: `claude-sonnet-4-20250514`, default max tokens: 2000)
 - **Directory names have spaces** — Always quote paths: `"Python Files/possibility.py"`
 - **Auto AI JSON files** are tested for structural validity by `tests/test_agent_configs.py` — maintain required fields
 - **Markdown files** in Auto AI/ are companion docs referenced by JSON configs AND validated by `js_tests/markdown_docs.test.js` — do not delete or rename them
 - **HTML files** are self-contained (no build step, no backend, dependencies via CDN only)
-- **Unified site color palette** — All pages in `docs/` share a common dark foundation. No shared CSS file; variables are declared inline per page. When creating or modifying HTML tools, use these values:
+- **Unified site color palette** — All deployed pages share a common dark foundation. No shared CSS file; variables are declared inline per page. When creating or modifying HTML tools, use these values:
 
   | Role | Variable | Hex |
   |------|----------|-----|
