@@ -94,24 +94,29 @@ This happened during the JASON.html saga. A previous session's branch (`claude/e
 
 This is not optional. This is the first action after regaining context. Not the second. Not "after I finish this one thing." The first.
 
-Context compaction strips working memory. The plan file and CLAUDE.md contain the ground truth for what was being done, what constraints apply, and what steps remain. Without re-reading them, you will:
+This happened during the README segmentation project. A 10-commit plan was written in `/root/.claude/plans/expressive-munching-acorn.md` with explicit Phase C instructions: **Commit C1** rewrites README.md, **Commit C2** updates CLAUDE.md directory chart **+ reviews and updates `index.html`**. The plan file said it. Line 100: "Verify `index.html` — currently has no doc references that need updating (confirmed earlier), but review in case the new structure warrants a docs link." Line 119 in the "All Files Modified" table: "`index.html` | Review and update if needed."
 
-- Skip steps that were explicitly planned (e.g., updating `index.html` when the plan says to)
-- Repeat work that was already completed
-- Violate project conventions documented in CLAUDE.md
-- Confidently declare "done" while missing deliverables
+Context compaction hit mid-session. The AI resumed from a summary, completed the README rewrite and CLAUDE.md chart update, ran all 761 tests, and confidently declared the entire plan complete. It never touched `index.html`. The plan file — sitting right there in `/root/.claude/plans/` — explicitly listed it as a deliverable. The AI didn't re-read the plan after compaction, so it didn't know it had skipped a step. The user had to catch it and point it out.
+
+**What was lost:** One deliverable skipped. The user paid for the correction round. Trust was dented — if the AI says "done" and it isn't done, every future "done" gets questioned.
 
 **Rules for context recovery:**
-1. **Re-read the plan file** (`/root/.claude/plans/`) if one exists. It contains the full task breakdown.
+1. **Re-read the plan file** (`/root/.claude/plans/`) if one exists. It contains the full task breakdown. Compare what the plan says to what you've actually done.
 2. **Re-read CLAUDE.md.** It contains project conventions, pitfalls, and constraints you will otherwise forget.
 3. **Check the todo list** if one was in use. It tracks what's done and what's pending.
-4. **Do not trust your summary of prior work.** Verify against the plan. Summaries compress away critical details.
+4. **Do not trust your summary of prior work.** Verify against the plan. Summaries compress away critical details — that's literally how the `index.html` step got lost.
 
 ### Deployment Pipeline Awareness (Battle Scar)
 
 > **Before assuming where deployed files live, CHECK the actual deployment pipeline. Read `.github/workflows/`.**
 
-This project does NOT use a `docs/` directory. It used to. It doesn't anymore. The GitHub Pages deployment is handled by `.github/workflows/deploy-pages.yml`, which:
+This project does NOT use a `docs/` directory. It used to. It doesn't anymore. But CLAUDE.md said it did.
+
+During the same README segmentation session, the AI needed to verify whether `index.html` lived in `docs/` or at the repo root. Instead of reading `.github/workflows/deploy-pages.yml` (a single file, 30 lines, would have answered the question in one Read call), it ran `ls docs/`, got "directory does not exist," and moved on. That was fine for the immediate task — but the deeper problem was that CLAUDE.md's own Tech Stack section (line 271 at the time) still said `"GitHub Pages — Deploys from docs/ on push to main/master"`. The directory chart listed `docs/ → HTML documentation (GitHub Pages)` as if it were a real directory. The color palette section referenced "All pages in `docs/`."
+
+Three separate lies in the project's own ground-truth document. All from a deployment pipeline that had been migrated from `docs/`-based to Actions-based deployment at some point, and nobody updated the docs. Every future AI session that read CLAUDE.md would inherit those lies and either create a `docs/` directory that shouldn't exist or reference one that doesn't.
+
+**The actual deployment pipeline** is `.github/workflows/deploy-pages.yml`:
 
 1. Checks out the repo root
 2. **Strips** non-deployable directories (Python Files, React Component Artifacts, Auto AI, Future, tests, js_tests, .github, node_modules) and config files (CLAUDE.md, package.json, etc.)
@@ -121,10 +126,12 @@ This project does NOT use a `docs/` directory. It used to. It doesn't anymore. T
 - Create a `docs/` directory
 - Reference `docs/` in documentation or code
 - Assume any deployment target without reading the workflow file first
+- Trust CLAUDE.md's deployment description without verifying against the actual workflow file — if they conflict, the workflow file is truth and CLAUDE.md needs updating
 
 **Do:**
 - Check `.github/workflows/` at the start of any session involving deployment or documentation updates
 - Note the actual deployment mechanism in CLAUDE.md if it ever changes
+- Fix CLAUDE.md immediately if you find it contradicts reality
 
 ### Token Efficiency: Working Lean
 
