@@ -966,12 +966,185 @@ This phase proved the two-engine model works. Users build a body, place it on a 
 
 **Target**: Ship CREATEME 1.0 as a full desktop Windows x64 binary application (`createme.exe`).
 
-**Distribution**:
-- Built via GitHub Actions CI pipeline
-- Published as a downloadable Windows x64 installer via GitHub Releases
-- Executable: `createme.exe`
-
 **What 1.0 includes**: All features from Phases 0 through 6 above, packaged as a standalone desktop application.
+
+#### Why Desktop
+
+CREATEME runs a 3D visualization engine, a physics engine, and three analysis tools simultaneously. The desktop is the right target because:
+
+- **GPU access** — WebGL rendering through a browser sandbox adds overhead. Electron's Chromium shell provides direct GPU access with hardware acceleration enabled by default, which matters for anatomical-fidelity 3D rendering across 7 physical layers.
+- **Physics computation** — Real cellular cascade simulation, structural integrity modeling, and nervous system routing are CPU-intensive. Desktop Node.js worker threads provide genuine parallel computation without the limitations of browser Web Workers.
+- **Large builds** — A fully configured build with all 28 physical parameters, 9 substrate parameters, and 3 analysis tool outputs generates substantial state. Local memory and storage have no browser quota limits.
+- **Offline construction** — Building a human should not require an internet connection. The entire construction and analysis workflow runs locally.
+- **GENO integration** — Bidirectional sync with GENO repositories requires filesystem access to read/write commit JSON files. A desktop app reads directly from `~/GENO/repositories/`.
+
+#### Desktop Application Architecture
+
+**Framework: Electron**
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Shell** | Electron 33+ | Chromium + Node.js runtime, GPU hardware acceleration |
+| **Frontend** | React 18 + Tailwind CSS | The same dark-theme builder UI from the web platform |
+| **3D Engine** | WebGL2 (via Chromium) | Anatomical-fidelity rendering, layer isolation, cascade visualization |
+| **Physics** | Node.js worker threads | Consequence modeling runs off the main thread |
+| **State** | Local JSON + SQLite | Build configurations as JSON, metadata index in SQLite |
+| **GENO Bridge** | Direct filesystem I/O | Reads/writes GENO repository commit files in `~/GENO/` |
+| **Updates** | electron-updater | Auto-update from GitHub Releases |
+| **Installer** | electron-builder + NSIS | Windows x64 installer (`createme-setup.exe`) producing `createme.exe` |
+
+**Why Electron over Tauri:** CREATEME's physics engine runs in Node.js worker threads. Electron embeds Node.js natively — worker threads operate at full native speed. Tauri would require rewriting the physics engine in Rust or running a Node.js sidecar, adding unnecessary complexity. The WebGL2 3D renderer runs identically in Electron's Chromium as in a browser, with the bonus of hardware acceleration flags enabled by default.
+
+**Architecture Diagram:**
+
+```
+createme.exe (Electron)
+├── Main Process (Node.js)
+│   ├── Physics Engine Manager
+│   │   ├── Cascade Worker Thread (cellular → consciousness)
+│   │   ├── Structural Integrity Worker Thread
+│   │   └── Nervous Routing Worker Thread
+│   ├── Analysis Engine
+│   │   ├── Inversion Detector
+│   │   ├── Fracture Scanner
+│   │   └── Comparison Engine
+│   ├── GENO Bridge (filesystem I/O to ~/GENO/)
+│   ├── Build Storage (~/CREATEME/)
+│   ├── Auto-Updater (electron-updater → GitHub Releases)
+│   └── IPC Bridge → Renderer
+│
+├── Renderer Process (Chromium + WebGL2)
+│   ├── React 18 Application
+│   ├── 3D Viewport (WebGL2 anatomical renderer)
+│   │   ├── Layer rendering (7 physical layers)
+│   │   ├── Floor visualization (present/partial/absent)
+│   │   ├── Cascade animation (bidirectional propagation)
+│   │   └── Interactive controls (rotate, zoom, isolate, explode)
+│   ├── Slider UI (28 physical + 9 substrate parameters)
+│   ├── Analysis Views (inversion, fracture, comparison)
+│   ├── Featured Build Presets (Default Human, Anomaly, Floor Installed, Non-Human)
+│   └── IPC Bridge → Main
+│
+└── User Data (~/CREATEME/)
+    ├── builds/
+    │   └── {build-name}.json      (full build configuration)
+    ├── comparisons/
+    │   └── {comparison-name}.json (saved comparison snapshots)
+    ├── createme.db                (SQLite — build index, search, metadata)
+    └── settings.json
+```
+
+**Key Design Decisions:**
+
+1. **Physics runs in worker threads, not the renderer** — The physics engine must never block the 3D viewport. Cascade calculations, structural integrity checks, and nervous system routing run in dedicated Node.js worker threads. Results stream to the renderer via IPC for real-time visualization.
+2. **Build files are plain JSON** — Every build configuration is a self-contained JSON file that can be read, shared, and version-controlled independently. The same JSON format used by the web platform and GENO integration.
+3. **GENO bridge is filesystem-based** — Rather than HTTP APIs, the desktop CREATEME reads and writes directly to the GENO repository directory (`~/GENO/repositories/`). This means GENO → CREATEME and CREATEME → GENO work offline with zero network overhead.
+4. **WebGL2 in Chromium for 3D** — No separate native rendering engine. Chromium's WebGL2 with hardware acceleration provides sufficient performance for anatomical-fidelity visualization. The same shaders and rendering code run in both web and desktop versions.
+5. **Stability score computed on every frame** — `stability = physicalAverage × (foundationAverage / 100)` recalculates in the physics worker thread on every parameter change, with the result pushed to the renderer for real-time display.
+
+#### Build Pipeline: Source to Binary
+
+**Prerequisites:**
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | 20 LTS | Runtime for build scripts, Electron, and physics worker threads |
+| npm | 10+ | Package management |
+| electron | 33+ | Application shell with GPU access |
+| electron-builder | 25+ | Packaging and installer creation |
+| NSIS | 3.x | Windows installer framework (bundled by electron-builder) |
+
+**Build Steps (local development):**
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Build the React frontend + WebGL renderer
+npm run build:renderer
+
+# 3. Build the Electron main process + physics workers
+npm run build:main
+
+# 4. Package for Windows x64
+npx electron-builder --win --x64
+
+# Output: dist/createme-setup.exe (installer) and dist/win-unpacked/createme.exe
+```
+
+**Project Structure (desktop app):**
+
+```
+createme-desktop/
+├── src/
+│   ├── main/                        Electron main process
+│   │   ├── index.ts                 App entry, window management, GPU flags
+│   │   ├── physics/
+│   │   │   ├── cascade-worker.ts    Cellular → consciousness cascade computation
+│   │   │   ├── structural-worker.ts Skeletal load-bearing / integrity checks
+│   │   │   └── nervous-worker.ts    Signal routing and stress response
+│   │   ├── analysis/
+│   │   │   ├── inversion.ts         Parameter scan: inverted vs. correct
+│   │   │   ├── fracture.ts          Substrate deficiency → physical impact mapping
+│   │   │   └── comparison.ts        Side-by-side build delta computation
+│   │   ├── geno-bridge.ts           Read/write ~/GENO/ repository files
+│   │   ├── database.ts              SQLite connection + migrations
+│   │   ├── updater.ts               Auto-update logic
+│   │   └── ipc-handlers.ts          IPC message routing
+│   ├── renderer/                    React frontend + WebGL
+│   │   ├── App.jsx
+│   │   ├── components/              Builder UI, sliders, mode switching
+│   │   ├── viewport/                WebGL2 3D rendering engine
+│   │   │   ├── renderer.ts          Core WebGL2 setup + render loop
+│   │   │   ├── layers/              Per-layer rendering (cellular through consciousness)
+│   │   │   ├── floor.ts             Floor visualization (solid/translucent/absent)
+│   │   │   └── cascade.ts           Cascade animation renderer
+│   │   └── ...
+│   └── shared/                      Types and constants shared across processes
+│       ├── schema.ts                Build configuration type definitions
+│       ├── stability.ts             Stability formula + floor status logic
+│       └── constants.ts
+├── resources/
+│   ├── icon.ico                     Windows app icon
+│   └── icon.png                     Source icon (1024x1024)
+├── electron-builder.yml             Packaging configuration
+├── package.json
+└── tsconfig.json
+```
+
+**electron-builder.yml:**
+
+```yaml
+appId: com.possibility.createme
+productName: CREATEME
+copyright: Copyright © Charles H. Johnson, III
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: resources/icon.ico
+  artifactName: createme-setup-${version}.exe
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: CREATEME
+
+publish:
+  provider: github
+  owner: EvangAI-777
+  repo: Possibility
+
+directories:
+  output: dist
+  buildResources: resources
+```
 
 ---
 
