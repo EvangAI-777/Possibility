@@ -226,9 +226,9 @@ Possibility/
 │   ├── Geno/GENO.md                 → GENO concept spec
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
-│   └── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
-├── README.md                        → Project documentation
-└── TEMPLATE.md                      → WebAssembly porting reference
+│   ├── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
+│   └── TEMPLATE.md                  → WebAssembly porting reference
+└── README.md                        → Project documentation
 ```
 
 ---
@@ -1087,9 +1087,9 @@ Without these headers, SharedArrayBuffer is disabled and threading will not work
 
 ## WebAssembly Porting Reference
 
-*Consolidated from `TEMPLATE.md` — the master schema for porting large native applications to the browser via WebAssembly.*
+*Consolidated from `Future/TEMPLATE.md` — the master schema for porting large native applications to the browser via WebAssembly.*
 
-**Source doc:** `TEMPLATE.md`
+**Source doc:** `Future/TEMPLATE.md`
 
 This reference applies to AUDACIOUS and any future WebAssembly porting work. Everything below was learned the hard way.
 
