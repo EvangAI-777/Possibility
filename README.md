@@ -755,7 +755,7 @@ AUDACIOUS is not a "web-based audio editor inspired by Audacity." It is Audacity
 
 ## Testing
 
-**765 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, the JASON JSON explorer, and markdown documentation integrity.
+**761 tests** across Python and JavaScript, covering every layer of the project — from core Python logic, the Congo resonance engine, and JSON agent schemas to React component rendering, the Meta Debug resonance engine, Congo Messenger, GENO genealogy explorer, CREATEME human builder, the MARKER markdown viewer, the JASON JSON explorer, and markdown documentation integrity.
 
 ### Quick Start
 
@@ -830,7 +830,7 @@ Unit tests for the Omnidirectional Mathematics engine (`omnidirectional_math.py`
 - **TestCompose** (5 tests) — Two sequences, preserves all operations, single sequence passthrough, empty raises error, composed execution
 - **TestIntegration** (13 tests) — Original example end-to-end, round-trip reversal via compose, void traversal, double void, polarity mid-journey, full 360 rotation, CCW rotation, complex multi-operator journey, composed matches manual single sequence, notation round-trip (parse-generate-parse), wave-intersection interaction, parallel/orthogonal mode persistence
 
-### JavaScript Test Suite — 322 tests
+### JavaScript Test Suite — 421 tests
 
 Located in `js_tests/`. Run with `npx jest --verbose`.
 
@@ -979,7 +979,7 @@ Structural and functional validation for the MARKER Markdown Viewer & Renderer (
 - **All HTML tools have back links** (10 tests) — Every tool in docs/ has index.html link and back-link class
 - **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in docs/index.html
 
-#### `js_tests/jason.test.js` — 100 tests
+#### `js_tests/jason.test.js` — 99 tests
 
 Structural and functional validation for the JASON JSON Explorer (`JASON.html`):
 
