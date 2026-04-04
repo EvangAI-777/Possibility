@@ -35,6 +35,8 @@ describe('Markdown files exist and are non-empty', () => {
     'Auto AI/Angles/ENGLISH PARADIGM.md',
     'Auto AI/Azule/Azule_Visual_Identity.md',
     'Auto AI/Mind Engineer/JTBMME.md',
+    'Auto AI/Omni Writer/OMNI_WRITER.md',
+    'Auto AI/Shen/SHEN.md',
   ];
 
   test.each(expectedFiles)('%s exists', (filepath) => {
@@ -230,5 +232,59 @@ describe('Azule_Visual_Identity.md', () => {
 
   test('references visual concepts or images', () => {
     expect(content).toMatch(/image|visual|anchor|flow/i);
+  });
+});
+
+
+// ===========================================================================
+//                   OMNI WRITER BLUEPRINT
+// ===========================================================================
+
+describe('OMNI_WRITER.md (Omni Writer Blueprint)', () => {
+  let content;
+  beforeAll(() => { content = readFile('Auto AI/Omni Writer/OMNI_WRITER.md'); });
+
+  test('references the Omni Writer', () => {
+    expect(content).toMatch(/Omni Writer/i);
+  });
+
+  test('references the neutrality principle', () => {
+    expect(content).toMatch(/neutrality/i);
+  });
+
+  test('documents the pipeline architecture', () => {
+    expect(content).toMatch(/node|pipeline|workflow/i);
+  });
+
+  test('has heading structure', () => {
+    const headings = content.match(/^#+\s.+$/gm) || [];
+    expect(headings.length).toBeGreaterThan(0);
+  });
+});
+
+
+// ===========================================================================
+//                      SHEN BLUEPRINT
+// ===========================================================================
+
+describe('SHEN.md (Shen Blueprint)', () => {
+  let content;
+  beforeAll(() => { content = readFile('Auto AI/Shen/SHEN.md'); });
+
+  test('references Shen', () => {
+    expect(content).toMatch(/Shen/i);
+  });
+
+  test('references the Grounded Reveler archetype', () => {
+    expect(content).toMatch(/Grounded Reveler/i);
+  });
+
+  test('documents behavioral weights', () => {
+    expect(content).toMatch(/humility|behavioral.*weight/i);
+  });
+
+  test('has heading structure', () => {
+    const headings = content.match(/^#+\s.+$/gm) || [];
+    expect(headings.length).toBeGreaterThan(0);
   });
 });
