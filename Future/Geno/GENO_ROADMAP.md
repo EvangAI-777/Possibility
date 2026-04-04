@@ -965,12 +965,163 @@ This phase proved the metaphor works. Developers see a family tree rendered as a
 
 **Target**: Ship GENO 1.0 as a full desktop Windows x64 binary application (`geno.exe`).
 
-**Distribution**:
-- Built via GitHub Actions CI pipeline
-- Published as a downloadable Windows x64 installer via GitHub Releases
-- Executable: `geno.exe`
-
 **What 1.0 includes**: All features from Phases 0 through 7 above, packaged as a standalone desktop application.
+
+#### Why Desktop
+
+GENO handles sensitive family data — generational trauma, inherited traits, merge conflicts between lineages. Users need:
+
+- **Offline access** — family research happens at kitchen tables, in libraries, at reunions. Not all of these have reliable internet.
+- **Local data ownership** — PostgreSQL runs locally. Family repositories live on the user's machine. No cloud dependency for core operations.
+- **Performance** — Cross-repository pattern analysis, scanner workflows, and large family tree rendering benefit from direct hardware access over browser sandboxing.
+- **Trust** — A downloadable application that keeps data local earns trust that a web app with a server cannot.
+
+Cloud sync and collaboration features (Phase 5+) remain available when online, but the core product — creating repositories, making commits, running scanners, resolving merge conflicts — works entirely offline.
+
+#### Desktop Application Architecture
+
+**Framework: Electron**
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Shell** | Electron 33+ | Chromium + Node.js runtime, native OS integration |
+| **Frontend** | React 18 + Tailwind CSS | The same GitHub-faithful UI from the web platform |
+| **Backend** | Node.js (embedded) | REST API server running locally on `localhost` |
+| **Database** | SQLite (embedded) | Replaces PostgreSQL for local-first operation |
+| **Search** | SQLite FTS5 | Full-text search over commits, traits, and repositories — replaces Elasticsearch |
+| **Storage** | Local filesystem | Repository data stored in `~/GENO/` (configurable) |
+| **Updates** | electron-updater | Auto-update from GitHub Releases |
+| **Installer** | electron-builder + NSIS | Windows x64 installer (`geno-setup.exe`) producing `geno.exe` |
+
+**Why Electron over Tauri:** GENO's backend is Node.js. Electron embeds Node.js natively — the existing API layer runs as-is inside the Electron main process. Tauri would require rewriting the backend in Rust or proxying to a sidecar process, adding complexity for no benefit. The existing React frontend renders identically in Electron's Chromium shell.
+
+**Architecture Diagram:**
+
+```
+geno.exe (Electron)
+├── Main Process (Node.js)
+│   ├── Local API Server (Express/Fastify on localhost:0)
+│   ├── SQLite Database Engine
+│   ├── Scanner Workflow Runner
+│   ├── GEDCOM Import/Export Engine
+│   ├── Auto-Updater (electron-updater → GitHub Releases)
+│   └── IPC Bridge → Renderer
+│
+├── Renderer Process (Chromium)
+│   ├── React 18 Application
+│   ├── Repository UI (tabs, tree view, commit detail)
+│   ├── Merge Conflict Resolution UI
+│   ├── Pull Request / Scanner Views
+│   └── IPC Bridge → Main
+│
+└── User Data (~/GENO/)
+    ├── repositories/
+    │   └── {repo-name}/
+    │       ├── commits/          (JSON commit files)
+    │       ├── branches.json
+    │       ├── config.json
+    │       └── scanners/
+    ├── geno.db                   (SQLite — index, search, metadata)
+    └── settings.json
+```
+
+**Key Design Decisions:**
+
+1. **SQLite replaces PostgreSQL** — For a single-user desktop app, SQLite provides the same relational guarantees without requiring a separate database server. The schema is identical; only the driver changes.
+2. **Local API server on ephemeral port** — The backend starts on `localhost:0` (OS-assigned port) so it never conflicts with other applications. The renderer connects via IPC, not HTTP, for internal communication.
+3. **Repository data is plain JSON on disk** — Users can browse, back up, and version-control their `~/GENO/` directory with actual git if they want. No opaque binary formats.
+4. **Scanner workflows run in worker threads** — Deprecation scanner, legacy code detector, and cross-repository analysis run in Node.js worker threads to keep the UI responsive during large scans.
+
+#### Build Pipeline: Source to Binary
+
+**Prerequisites:**
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | 20 LTS | Runtime for build scripts and Electron |
+| npm | 10+ | Package management |
+| electron | 33+ | Application shell |
+| electron-builder | 25+ | Packaging and installer creation |
+| NSIS | 3.x | Windows installer framework (bundled by electron-builder) |
+
+**Build Steps (local development):**
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Build the React frontend
+npm run build:renderer
+
+# 3. Build the Electron main process
+npm run build:main
+
+# 4. Package for Windows x64
+npx electron-builder --win --x64
+
+# Output: dist/geno-setup.exe (installer) and dist/win-unpacked/geno.exe
+```
+
+**Project Structure (desktop app):**
+
+```
+geno-desktop/
+├── src/
+│   ├── main/                    Electron main process
+│   │   ├── index.ts             App entry, window management
+│   │   ├── api-server.ts        Local Express/Fastify API
+│   │   ├── database.ts          SQLite connection + migrations
+│   │   ├── scanner-worker.ts    Worker thread for scanners
+│   │   ├── updater.ts           Auto-update logic
+│   │   └── ipc-handlers.ts      IPC message routing
+│   ├── renderer/                React frontend (from web platform)
+│   │   ├── App.jsx
+│   │   ├── components/          Repository, Commit, Branch, PR views
+│   │   └── ...
+│   └── shared/                  Types and constants shared across processes
+│       ├── schema.ts            Database schema definitions
+│       └── constants.ts
+├── resources/
+│   ├── icon.ico                 Windows app icon
+│   └── icon.png                 Source icon (1024x1024)
+├── electron-builder.yml         Packaging configuration
+├── package.json
+└── tsconfig.json
+```
+
+**electron-builder.yml:**
+
+```yaml
+appId: com.possibility.geno
+productName: GENO
+copyright: Copyright © Charles H. Johnson, III
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: resources/icon.ico
+  artifactName: geno-setup-${version}.exe
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: GENO
+
+publish:
+  provider: github
+  owner: EvangAI-777
+  repo: Possibility
+
+directories:
+  output: dist
+  buildResources: resources
+```
 
 ---
 
