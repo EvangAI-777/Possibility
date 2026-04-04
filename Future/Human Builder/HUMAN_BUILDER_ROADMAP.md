@@ -962,6 +962,361 @@ This phase proved the two-engine model works. Users build a body, place it on a 
 
 **Timeline**: Ongoing
 
+### Release 1.0: Desktop Application
+
+**Target**: Ship CREATEME 1.0 as a full desktop Windows x64 binary application (`createme.exe`).
+
+**What 1.0 includes**: All features from Phases 0 through 6 above, packaged as a standalone desktop application.
+
+#### Why Desktop
+
+CREATEME runs a 3D visualization engine, a physics engine, and three analysis tools simultaneously. The desktop is the right target because:
+
+- **GPU access** — WebGL rendering through a browser sandbox adds overhead. Electron's Chromium shell provides direct GPU access with hardware acceleration enabled by default, which matters for anatomical-fidelity 3D rendering across 7 physical layers.
+- **Physics computation** — Real cellular cascade simulation, structural integrity modeling, and nervous system routing are CPU-intensive. Desktop Node.js worker threads provide genuine parallel computation without the limitations of browser Web Workers.
+- **Large builds** — A fully configured build with all 28 physical parameters, 9 substrate parameters, and 3 analysis tool outputs generates substantial state. Local memory and storage have no browser quota limits.
+- **Offline construction** — Building a human should not require an internet connection. The entire construction and analysis workflow runs locally.
+- **GENO integration** — Bidirectional sync with GENO repositories requires filesystem access to read/write commit JSON files. A desktop app reads directly from `~/GENO/repositories/`.
+
+#### Desktop Application Architecture
+
+**Framework: Electron**
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Shell** | Electron 33+ | Chromium + Node.js runtime, GPU hardware acceleration |
+| **Frontend** | React 18 + Tailwind CSS | The same dark-theme builder UI from the web platform |
+| **3D Engine** | WebGL2 (via Chromium) | Anatomical-fidelity rendering, layer isolation, cascade visualization |
+| **Physics** | Node.js worker threads | Consequence modeling runs off the main thread |
+| **State** | Local JSON + SQLite | Build configurations as JSON, metadata index in SQLite |
+| **GENO Bridge** | Direct filesystem I/O | Reads/writes GENO repository commit files in `~/GENO/` |
+| **Updates** | electron-updater | Auto-update from GitHub Releases |
+| **Installer** | electron-builder + NSIS | Windows x64 installer (`createme-setup.exe`) producing `createme.exe` |
+
+**Why Electron over Tauri:** CREATEME's physics engine runs in Node.js worker threads. Electron embeds Node.js natively — worker threads operate at full native speed. Tauri would require rewriting the physics engine in Rust or running a Node.js sidecar, adding unnecessary complexity. The WebGL2 3D renderer runs identically in Electron's Chromium as in a browser, with the bonus of hardware acceleration flags enabled by default.
+
+**Architecture Diagram:**
+
+```
+createme.exe (Electron)
+├── Main Process (Node.js)
+│   ├── Physics Engine Manager
+│   │   ├── Cascade Worker Thread (cellular → consciousness)
+│   │   ├── Structural Integrity Worker Thread
+│   │   └── Nervous Routing Worker Thread
+│   ├── Analysis Engine
+│   │   ├── Inversion Detector
+│   │   ├── Fracture Scanner
+│   │   └── Comparison Engine
+│   ├── GENO Bridge (filesystem I/O to ~/GENO/)
+│   ├── Build Storage (~/CREATEME/)
+│   ├── Auto-Updater (electron-updater → GitHub Releases)
+│   └── IPC Bridge → Renderer
+│
+├── Renderer Process (Chromium + WebGL2)
+│   ├── React 18 Application
+│   ├── 3D Viewport (WebGL2 anatomical renderer)
+│   │   ├── Layer rendering (7 physical layers)
+│   │   ├── Floor visualization (present/partial/absent)
+│   │   ├── Cascade animation (bidirectional propagation)
+│   │   └── Interactive controls (rotate, zoom, isolate, explode)
+│   ├── Slider UI (28 physical + 9 substrate parameters)
+│   ├── Analysis Views (inversion, fracture, comparison)
+│   ├── Featured Build Presets (Default Human, Anomaly, Floor Installed, Non-Human)
+│   └── IPC Bridge → Main
+│
+└── User Data (~/CREATEME/)
+    ├── builds/
+    │   └── {build-name}.json      (full build configuration)
+    ├── comparisons/
+    │   └── {comparison-name}.json (saved comparison snapshots)
+    ├── createme.db                (SQLite — build index, search, metadata)
+    └── settings.json
+```
+
+**Key Design Decisions:**
+
+1. **Physics runs in worker threads, not the renderer** — The physics engine must never block the 3D viewport. Cascade calculations, structural integrity checks, and nervous system routing run in dedicated Node.js worker threads. Results stream to the renderer via IPC for real-time visualization.
+2. **Build files are plain JSON** — Every build configuration is a self-contained JSON file that can be read, shared, and version-controlled independently. The same JSON format used by the web platform and GENO integration.
+3. **GENO bridge is filesystem-based** — Rather than HTTP APIs, the desktop CREATEME reads and writes directly to the GENO repository directory (`~/GENO/repositories/`). This means GENO → CREATEME and CREATEME → GENO work offline with zero network overhead.
+4. **WebGL2 in Chromium for 3D** — No separate native rendering engine. Chromium's WebGL2 with hardware acceleration provides sufficient performance for anatomical-fidelity visualization. The same shaders and rendering code run in both web and desktop versions.
+5. **Stability score computed on every frame** — `stability = physicalAverage × (foundationAverage / 100)` recalculates in the physics worker thread on every parameter change, with the result pushed to the renderer for real-time display.
+
+#### Build Pipeline: Source to Binary
+
+**Prerequisites:**
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | 20 LTS | Runtime for build scripts, Electron, and physics worker threads |
+| npm | 10+ | Package management |
+| electron | 33+ | Application shell with GPU access |
+| electron-builder | 25+ | Packaging and installer creation |
+| NSIS | 3.x | Windows installer framework (bundled by electron-builder) |
+
+**Build Steps (local development):**
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Build the React frontend + WebGL renderer
+npm run build:renderer
+
+# 3. Build the Electron main process + physics workers
+npm run build:main
+
+# 4. Package for Windows x64
+npx electron-builder --win --x64
+
+# Output: dist/createme-setup.exe (installer) and dist/win-unpacked/createme.exe
+```
+
+**Project Structure (desktop app):**
+
+```
+createme-desktop/
+├── src/
+│   ├── main/                        Electron main process
+│   │   ├── index.ts                 App entry, window management, GPU flags
+│   │   ├── physics/
+│   │   │   ├── cascade-worker.ts    Cellular → consciousness cascade computation
+│   │   │   ├── structural-worker.ts Skeletal load-bearing / integrity checks
+│   │   │   └── nervous-worker.ts    Signal routing and stress response
+│   │   ├── analysis/
+│   │   │   ├── inversion.ts         Parameter scan: inverted vs. correct
+│   │   │   ├── fracture.ts          Substrate deficiency → physical impact mapping
+│   │   │   └── comparison.ts        Side-by-side build delta computation
+│   │   ├── geno-bridge.ts           Read/write ~/GENO/ repository files
+│   │   ├── database.ts              SQLite connection + migrations
+│   │   ├── updater.ts               Auto-update logic
+│   │   └── ipc-handlers.ts          IPC message routing
+│   ├── renderer/                    React frontend + WebGL
+│   │   ├── App.jsx
+│   │   ├── components/              Builder UI, sliders, mode switching
+│   │   ├── viewport/                WebGL2 3D rendering engine
+│   │   │   ├── renderer.ts          Core WebGL2 setup + render loop
+│   │   │   ├── layers/              Per-layer rendering (cellular through consciousness)
+│   │   │   ├── floor.ts             Floor visualization (solid/translucent/absent)
+│   │   │   └── cascade.ts           Cascade animation renderer
+│   │   └── ...
+│   └── shared/                      Types and constants shared across processes
+│       ├── schema.ts                Build configuration type definitions
+│       ├── stability.ts             Stability formula + floor status logic
+│       └── constants.ts
+├── resources/
+│   ├── icon.ico                     Windows app icon
+│   └── icon.png                     Source icon (1024x1024)
+├── electron-builder.yml             Packaging configuration
+├── package.json
+└── tsconfig.json
+```
+
+**electron-builder.yml:**
+
+```yaml
+appId: com.possibility.createme
+productName: CREATEME
+copyright: Copyright © Charles H. Johnson, III
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: resources/icon.ico
+  artifactName: createme-setup-${version}.exe
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: CREATEME
+
+publish:
+  provider: github
+  owner: EvangAI-777
+  repo: Possibility
+
+directories:
+  output: dist
+  buildResources: resources
+```
+
+#### GitHub Actions CI/CD Pipeline
+
+Every push to `main` that touches CREATEME source code triggers the build pipeline. Tagged releases (`createme-v1.0.0`, etc.) additionally publish the installer to GitHub Releases.
+
+**Workflow: `.github/workflows/createme-desktop.yml`**
+
+```yaml
+name: CREATEME Desktop Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'createme-desktop/**'
+      - '.github/workflows/createme-desktop.yml'
+    tags:
+      - 'createme-v*'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'createme-desktop/**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: createme-desktop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: createme-desktop
+        run: npm ci
+
+      - name: Run tests
+        working-directory: createme-desktop
+        run: npm test
+
+      - name: Run physics engine tests
+        working-directory: createme-desktop
+        run: npm run test:physics
+
+      - name: Build renderer + WebGL viewport
+        working-directory: createme-desktop
+        run: npm run build:renderer
+
+      - name: Build main process + physics workers
+        working-directory: createme-desktop
+        run: npm run build:main
+
+      - name: Package Windows x64
+        working-directory: createme-desktop
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: createme-windows-x64
+          path: createme-desktop/dist/createme-setup-*.exe
+
+  release:
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/createme-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: createme-windows-x64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CREATEME ${{ github.ref_name }}
+          body: |
+            ## CREATEME Desktop — ${{ github.ref_name }}
+
+            Windows x64 installer for CREATEME — Build Your Own Human.
+
+            ### Installation
+            1. Download `createme-setup-*.exe` below
+            2. Run the installer
+            3. Launch CREATEME from the Start Menu or Desktop shortcut
+
+            ### What's included
+            - Full physical construction engine (7 layers, 28 parameters)
+            - Substrate configuration engine (foundation + environment)
+            - 3D anatomical-fidelity visualization with cascade animation
+            - Physics engine with real consequence modeling
+            - Analysis suite (inversion detector, fracture scanner, comparison engine)
+            - 4 featured build presets
+            - GENO integration (bidirectional commit/PR translation)
+            - Offline-first — all builds stored locally
+          files: createme-setup-*.exe
+          draft: false
+          prerelease: false
+```
+
+**Pipeline Behavior:**
+
+| Trigger | What Happens |
+|---------|-------------|
+| Push to `main` (CREATEME paths) | Build + test (including physics engine tests) + package. Artifact uploaded. No release. |
+| Pull request to `main` | Build + test only. Validates the PR doesn't break packaging. |
+| Tag `createme-v*` pushed | Build + test + package + **publish to GitHub Releases**. |
+
+**Creating a release:**
+
+```bash
+git tag createme-v1.0.0
+git push origin createme-v1.0.0
+# GitHub Actions builds and publishes createme-setup-1.0.0.exe to Releases
+```
+
+**Physics engine test suite:** The CI pipeline runs a dedicated `test:physics` step that validates:
+- Cascade propagation produces correct values for all 4 featured build presets
+- Stability formula: `physicalAverage × (foundationAverage / 100)` matches expected outputs
+- Floor status thresholds: PRESENT (≥60), PARTIAL (30–59), ABSENT (<30)
+- Inversion detection flags correct parameters
+- Fracture scanner identifies load compensation correctly
+- Comparison engine computes accurate deltas between builds
+
+#### Release Strategy
+
+**Versioning:** Semantic versioning (`MAJOR.MINOR.PATCH`).
+
+| Version | Meaning |
+|---------|---------|
+| `1.0.0` | First stable desktop release — all phases complete |
+| `1.0.x` | Patch releases — bug fixes, physics accuracy corrections |
+| `1.x.0` | Minor releases — new layers, analysis tools, presets |
+| `2.0.0` | Major release — breaking changes to build format or physics model |
+
+**Pre-release builds:** Before 1.0, tagged pre-releases (`createme-v0.1.0-alpha`, `createme-v0.9.0-rc.1`) publish as GitHub pre-releases, marked clearly as unstable.
+
+**Auto-updates:** After installation, `createme.exe` checks GitHub Releases for new versions on startup (configurable). Updates download in the background and apply on next restart. Users can disable auto-update in settings.
+
+**Build format stability:** The JSON build configuration format is the contract between CREATEME and GENO. Build files created in any version of CREATEME must remain readable in all future versions. If the format changes, a migration layer translates old formats on load. Build files are never modified in place — migrated versions are saved alongside originals.
+
+#### Path from Concept to Binary
+
+This is the concrete sequence from where CREATEME is today (Phase 0 — React component) to a shipping `createme.exe`:
+
+| Step | What | Depends On | Deliverable |
+|------|------|-----------|-------------|
+| **1** | Scaffold `createme-desktop/` with Electron + electron-builder | Phase 0 complete | Empty Electron shell with GPU acceleration flags |
+| **2** | Embed existing React component as renderer | Step 1 | `createme.jsx` renders inside Electron window with all 3 modes |
+| **3** | Set up WebGL2 viewport in renderer | Step 2 | 3D rendering canvas integrated with React component |
+| **4** | Build physics worker threads | Step 1 | Cascade, structural, and nervous routing workers compute off-thread |
+| **5** | Connect sliders → physics → 3D viewport pipeline | Steps 3 + 4 | Parameter changes trigger physics recalculation and 3D update in real time |
+| **6** | Implement all 7 physical layers in 3D renderer | Step 5 | Anatomical-fidelity rendering: cellular through consciousness |
+| **7** | Implement floor visualization | Step 5 | Substrate renders as visible surface (solid/translucent/absent) |
+| **8** | Implement cascade animation | Steps 6 + 7 | Parameter changes propagate visibly through layers (bidirectional) |
+| **9** | Build analysis engine (inversion, fracture, comparison) | Step 4 | Three analysis tools running against physics engine output |
+| **10** | Add build storage (JSON + SQLite index) | Step 1 | Save/load builds, search by parameter ranges and stability scores |
+| **11** | Implement GENO bridge (filesystem I/O) | Step 10 | Read GENO commits as builds, push builds as GENO commits/PRs |
+| **12** | Set up GitHub Actions CI pipeline | Step 1 | Automated build + test + package on every push |
+| **13** | Add auto-updater | Step 12 | `createme.exe` self-updates from GitHub Releases |
+| **14** | Tag `createme-v1.0.0` | Steps 1–13 complete | First stable release published to GitHub Releases |
+
+Steps 1–2 get the existing React component running in a desktop shell. Steps 3–8 build the 3D visualization and physics engines (Phases 2–3 from the roadmap). Step 9 completes the analysis suite. Steps 10–11 add persistence and GENO integration (Phases 4–5). Steps 12–13 set up delivery infrastructure. Step 14 ships it.
+
 ---
 
 ## Current Assets

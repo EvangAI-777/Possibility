@@ -961,6 +961,324 @@ This phase proved the metaphor works. Developers see a family tree rendered as a
 
 **Timeline**: Ongoing
 
+### Release 1.0: Desktop Application
+
+**Target**: Ship GENO 1.0 as a full desktop Windows x64 binary application (`geno.exe`).
+
+**What 1.0 includes**: All features from Phases 0 through 7 above, packaged as a standalone desktop application.
+
+#### Why Desktop
+
+GENO handles sensitive family data — generational trauma, inherited traits, merge conflicts between lineages. Users need:
+
+- **Offline access** — family research happens at kitchen tables, in libraries, at reunions. Not all of these have reliable internet.
+- **Local data ownership** — PostgreSQL runs locally. Family repositories live on the user's machine. No cloud dependency for core operations.
+- **Performance** — Cross-repository pattern analysis, scanner workflows, and large family tree rendering benefit from direct hardware access over browser sandboxing.
+- **Trust** — A downloadable application that keeps data local earns trust that a web app with a server cannot.
+
+Cloud sync and collaboration features (Phase 5+) remain available when online, but the core product — creating repositories, making commits, running scanners, resolving merge conflicts — works entirely offline.
+
+#### Desktop Application Architecture
+
+**Framework: Electron**
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Shell** | Electron 33+ | Chromium + Node.js runtime, native OS integration |
+| **Frontend** | React 18 + Tailwind CSS | The same GitHub-faithful UI from the web platform |
+| **Backend** | Node.js (embedded) | REST API server running locally on `localhost` |
+| **Database** | SQLite (embedded) | Replaces PostgreSQL for local-first operation |
+| **Search** | SQLite FTS5 | Full-text search over commits, traits, and repositories — replaces Elasticsearch |
+| **Storage** | Local filesystem | Repository data stored in `~/GENO/` (configurable) |
+| **Updates** | electron-updater | Auto-update from GitHub Releases |
+| **Installer** | electron-builder + NSIS | Windows x64 installer (`geno-setup.exe`) producing `geno.exe` |
+
+**Why Electron over Tauri:** GENO's backend is Node.js. Electron embeds Node.js natively — the existing API layer runs as-is inside the Electron main process. Tauri would require rewriting the backend in Rust or proxying to a sidecar process, adding complexity for no benefit. The existing React frontend renders identically in Electron's Chromium shell.
+
+**Architecture Diagram:**
+
+```
+geno.exe (Electron)
+├── Main Process (Node.js)
+│   ├── Local API Server (Express/Fastify on localhost:0)
+│   ├── SQLite Database Engine
+│   ├── Scanner Workflow Runner
+│   ├── GEDCOM Import/Export Engine
+│   ├── Auto-Updater (electron-updater → GitHub Releases)
+│   └── IPC Bridge → Renderer
+│
+├── Renderer Process (Chromium)
+│   ├── React 18 Application
+│   ├── Repository UI (tabs, tree view, commit detail)
+│   ├── Merge Conflict Resolution UI
+│   ├── Pull Request / Scanner Views
+│   └── IPC Bridge → Main
+│
+└── User Data (~/GENO/)
+    ├── repositories/
+    │   └── {repo-name}/
+    │       ├── commits/          (JSON commit files)
+    │       ├── branches.json
+    │       ├── config.json
+    │       └── scanners/
+    ├── geno.db                   (SQLite — index, search, metadata)
+    └── settings.json
+```
+
+**Key Design Decisions:**
+
+1. **SQLite replaces PostgreSQL** — For a single-user desktop app, SQLite provides the same relational guarantees without requiring a separate database server. The schema is identical; only the driver changes.
+2. **Local API server on ephemeral port** — The backend starts on `localhost:0` (OS-assigned port) so it never conflicts with other applications. The renderer connects via IPC, not HTTP, for internal communication.
+3. **Repository data is plain JSON on disk** — Users can browse, back up, and version-control their `~/GENO/` directory with actual git if they want. No opaque binary formats.
+4. **Scanner workflows run in worker threads** — Deprecation scanner, legacy code detector, and cross-repository analysis run in Node.js worker threads to keep the UI responsive during large scans.
+
+#### Build Pipeline: Source to Binary
+
+**Prerequisites:**
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | 20 LTS | Runtime for build scripts and Electron |
+| npm | 10+ | Package management |
+| electron | 33+ | Application shell |
+| electron-builder | 25+ | Packaging and installer creation |
+| NSIS | 3.x | Windows installer framework (bundled by electron-builder) |
+
+**Build Steps (local development):**
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Build the React frontend
+npm run build:renderer
+
+# 3. Build the Electron main process
+npm run build:main
+
+# 4. Package for Windows x64
+npx electron-builder --win --x64
+
+# Output: dist/geno-setup.exe (installer) and dist/win-unpacked/geno.exe
+```
+
+**Project Structure (desktop app):**
+
+```
+geno-desktop/
+├── src/
+│   ├── main/                    Electron main process
+│   │   ├── index.ts             App entry, window management
+│   │   ├── api-server.ts        Local Express/Fastify API
+│   │   ├── database.ts          SQLite connection + migrations
+│   │   ├── scanner-worker.ts    Worker thread for scanners
+│   │   ├── updater.ts           Auto-update logic
+│   │   └── ipc-handlers.ts      IPC message routing
+│   ├── renderer/                React frontend (from web platform)
+│   │   ├── App.jsx
+│   │   ├── components/          Repository, Commit, Branch, PR views
+│   │   └── ...
+│   └── shared/                  Types and constants shared across processes
+│       ├── schema.ts            Database schema definitions
+│       └── constants.ts
+├── resources/
+│   ├── icon.ico                 Windows app icon
+│   └── icon.png                 Source icon (1024x1024)
+├── electron-builder.yml         Packaging configuration
+├── package.json
+└── tsconfig.json
+```
+
+**electron-builder.yml:**
+
+```yaml
+appId: com.possibility.geno
+productName: GENO
+copyright: Copyright © Charles H. Johnson, III
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: resources/icon.ico
+  artifactName: geno-setup-${version}.exe
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: GENO
+
+publish:
+  provider: github
+  owner: EvangAI-777
+  repo: Possibility
+
+directories:
+  output: dist
+  buildResources: resources
+```
+
+#### GitHub Actions CI/CD Pipeline
+
+Every push to `main` that touches GENO source code triggers the build pipeline. Tagged releases (`v1.0.0`, `v1.1.0`, etc.) additionally publish the installer to GitHub Releases.
+
+**Workflow: `.github/workflows/geno-desktop.yml`**
+
+```yaml
+name: GENO Desktop Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'geno-desktop/**'
+      - '.github/workflows/geno-desktop.yml'
+    tags:
+      - 'geno-v*'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'geno-desktop/**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: geno-desktop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: geno-desktop
+        run: npm ci
+
+      - name: Run tests
+        working-directory: geno-desktop
+        run: npm test
+
+      - name: Build renderer
+        working-directory: geno-desktop
+        run: npm run build:renderer
+
+      - name: Build main process
+        working-directory: geno-desktop
+        run: npm run build:main
+
+      - name: Package Windows x64
+        working-directory: geno-desktop
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: geno-windows-x64
+          path: geno-desktop/dist/geno-setup-*.exe
+
+  release:
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/geno-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: geno-windows-x64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: GENO ${{ github.ref_name }}
+          body: |
+            ## GENO Desktop — ${{ github.ref_name }}
+
+            Windows x64 installer for GENO.
+
+            ### Installation
+            1. Download `geno-setup-*.exe` below
+            2. Run the installer
+            3. Launch GENO from the Start Menu or Desktop shortcut
+
+            ### What's included
+            - Full genealogy repository management (create, commit, branch, merge)
+            - Pull request workflow for deliberate generational changes
+            - Deprecation scanner, legacy code detector, fracture scanner
+            - Cross-repository pattern analysis
+            - GEDCOM import/export
+            - Offline-first — all data stored locally
+          files: geno-setup-*.exe
+          draft: false
+          prerelease: false
+```
+
+**Pipeline Behavior:**
+
+| Trigger | What Happens |
+|---------|-------------|
+| Push to `main` (GENO paths) | Build + test + package. Artifact uploaded for verification. No release. |
+| Pull request to `main` | Build + test only. Validates the PR doesn't break packaging. |
+| Tag `geno-v*` pushed | Build + test + package + **publish to GitHub Releases**. |
+
+**Creating a release:**
+
+```bash
+git tag geno-v1.0.0
+git push origin geno-v1.0.0
+# GitHub Actions builds and publishes geno-setup-1.0.0.exe to Releases
+```
+
+#### Release Strategy
+
+**Versioning:** Semantic versioning (`MAJOR.MINOR.PATCH`).
+
+| Version | Meaning |
+|---------|---------|
+| `1.0.0` | First stable desktop release — all phases complete |
+| `1.0.x` | Patch releases — bug fixes, no new features |
+| `1.x.0` | Minor releases — new features, backward compatible |
+| `2.0.0` | Major release — breaking changes to data format or API |
+
+**Pre-release builds:** Before 1.0, tagged pre-releases (`geno-v0.1.0-alpha`, `geno-v0.9.0-rc.1`) publish as GitHub pre-releases, marked clearly as unstable.
+
+**Auto-updates:** After installation, `geno.exe` checks GitHub Releases for new versions on startup (configurable). When an update is available, the user sees a non-intrusive notification. Updates download in the background and apply on next restart. Users can disable auto-update in settings.
+
+**Data migration:** Each release includes migration scripts for the SQLite schema. Migrations run automatically on first launch after update. The user's `~/GENO/` repository data (plain JSON files) is never modified by updates — only the database index is rebuilt if the schema changes.
+
+#### Path from Concept to Binary
+
+This is the concrete sequence from where GENO is today (Phase 0 — React component) to a shipping `geno.exe`:
+
+| Step | What | Depends On | Deliverable |
+|------|------|-----------|-------------|
+| **1** | Scaffold `geno-desktop/` with Electron + electron-builder | Phase 0 complete | Empty Electron shell that launches |
+| **2** | Embed existing React component as renderer | Step 1 | `geno.jsx` renders inside Electron window |
+| **3** | Add SQLite database + schema migrations | Step 1 | Local database for repositories, commits, metadata |
+| **4** | Build local API server (Express/Fastify) | Step 3 | REST endpoints matching the web platform API spec |
+| **5** | Connect renderer to local API | Steps 2 + 4 | React frontend reads/writes real data instead of sample data |
+| **6** | Implement commit creation flow | Step 5 | Users can add people to repositories with full trait configuration |
+| **7** | Implement branching + merge + conflict detection | Step 6 | Full version control operations for genealogical data |
+| **8** | Implement pull request workflow | Step 7 | Deliberate generational changes with review and merge |
+| **9** | Build scanner worker threads | Step 5 | Deprecation, legacy, fracture scanners run in background |
+| **10** | Add GEDCOM import/export | Step 5 | Industry-standard genealogy file format support |
+| **11** | Set up GitHub Actions CI pipeline | Step 1 | Automated build + test + package on every push |
+| **12** | Add auto-updater | Step 11 | `geno.exe` self-updates from GitHub Releases |
+| **13** | Tag `geno-v1.0.0` | Steps 1–12 complete | First stable release published to GitHub Releases |
+
+Steps 1–5 produce a working desktop app with real data. Steps 6–10 implement the platform features (Phases 2–6 from the roadmap above). Steps 11–12 set up the delivery infrastructure. Step 13 ships it.
+
 ---
 
 ## Current Assets

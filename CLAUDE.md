@@ -605,6 +605,7 @@ In GENO, death is a closed pull request. The person's life was a proposal to cha
 | **5** | Social & Discovery | Planned | Profiles, orgs, stars/forks, explore page, discussions |
 | **6** | Integration & Scale | Planned | GEDCOM, 23andMe, AncestryDNA, FamilySearch, mobile PWA |
 | **7** | Enterprise & Research | Planned | HIPAA compliance, research API, white-label |
+| **1.0** | Desktop Release | Planned | Full Windows x64 binary (`geno.exe`) via GitHub Actions CI |
 
 ---
 
@@ -825,6 +826,7 @@ POST /builds/:id/to-geno-pr    →   POST /repos/:id/pulls
 | **4** | Community & Sharing | Planned | User accounts, community library, fork/modify builds |
 | **5** | GENO Integration | Planned | Bidirectional commit/PR translation, cross-tool analysis |
 | **6** | Professional & Research | Planned | Therapeutic features, research API, enterprise, HIPAA |
+| **1.0** | Desktop Release | Planned | Full Windows x64 binary (`createme.exe`) via GitHub Actions CI |
 
 ---
 
