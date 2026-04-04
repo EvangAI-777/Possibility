@@ -221,12 +221,12 @@ Possibility/
 │   ├── JASON.html                   → JSON explorer & tree viewer
 │   ├── periodic-table-of-meaning.html
 │   └── compound_interest_explainer.html
-├── Future/                          → Specs and roadmaps
-│   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser spec
+├── Future/                          → Specs, roadmaps, and desktop release plans
+│   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser WebAssembly spec
 │   ├── Geno/GENO.md                 → GENO concept spec
-│   ├── Geno/GENO_ROADMAP.md         → GENO platform roadmap
+│   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
-│   └── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap
+│   └── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
 ├── README.md                        → Project documentation
 └── TEMPLATE.md                      → WebAssembly porting reference
 ```
