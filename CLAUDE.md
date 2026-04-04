@@ -88,6 +88,51 @@ This happened during the JASON.html saga. A previous session's branch (`claude/e
 3. **If you see stale remote tracking refs**, run `git remote prune origin` to clean them locally.
 4. **Never assume old branches were cleaned up.** Check `git branch -r` at the start of a session if the user reports branch clutter.
 
+### Context Recovery: Re-Read After Any Interruption (Battle Scar)
+
+> **After ANY context loss — memory compaction, agent executor switch, user interruption, session resume — IMMEDIATELY re-read the plan file and CLAUDE.md before continuing work.**
+
+This is not optional. This is the first action after regaining context. Not the second. Not "after I finish this one thing." The first.
+
+This happened during the README segmentation project. A 10-commit plan was written in `/root/.claude/plans/expressive-munching-acorn.md` with explicit Phase C instructions: **Commit C1** rewrites README.md, **Commit C2** updates CLAUDE.md directory chart **+ reviews and updates `index.html`**. The plan file said it. Line 100: "Verify `index.html` — currently has no doc references that need updating (confirmed earlier), but review in case the new structure warrants a docs link." Line 119 in the "All Files Modified" table: "`index.html` | Review and update if needed."
+
+Context compaction hit mid-session. The AI resumed from a summary, completed the README rewrite and CLAUDE.md chart update, ran all 761 tests, and confidently declared the entire plan complete. It never touched `index.html`. The plan file — sitting right there in `/root/.claude/plans/` — explicitly listed it as a deliverable. The AI didn't re-read the plan after compaction, so it didn't know it had skipped a step. The user had to catch it and point it out.
+
+**What was lost:** One deliverable skipped. The user paid for the correction round. Trust was dented — if the AI says "done" and it isn't done, every future "done" gets questioned.
+
+**Rules for context recovery:**
+1. **Re-read the plan file** (`/root/.claude/plans/`) if one exists. It contains the full task breakdown. Compare what the plan says to what you've actually done.
+2. **Re-read CLAUDE.md.** It contains project conventions, pitfalls, and constraints you will otherwise forget.
+3. **Check the todo list** if one was in use. It tracks what's done and what's pending.
+4. **Do not trust your summary of prior work.** Verify against the plan. Summaries compress away critical details — that's literally how the `index.html` step got lost.
+
+### Deployment Pipeline Awareness (Battle Scar)
+
+> **Before assuming where deployed files live, CHECK the actual deployment pipeline. Read `.github/workflows/`.**
+
+This project does NOT use a `docs/` directory. It used to. It doesn't anymore. But CLAUDE.md said it did.
+
+During the same README segmentation session, the AI needed to verify whether `index.html` lived in `docs/` or at the repo root. Instead of reading `.github/workflows/deploy-pages.yml` (a single file, 30 lines, would have answered the question in one Read call), it ran `ls docs/`, got "directory does not exist," and moved on. That was fine for the immediate task — but the deeper problem was that CLAUDE.md's own Tech Stack section (line 271 at the time) still said `"GitHub Pages — Deploys from docs/ on push to main/master"`. The directory chart listed `docs/ → HTML documentation (GitHub Pages)` as if it were a real directory. The color palette section referenced "All pages in `docs/`."
+
+Three separate lies in the project's own ground-truth document. All from a deployment pipeline that had been migrated from `docs/`-based to Actions-based deployment at some point, and nobody updated the docs. Every future AI session that read CLAUDE.md would inherit those lies and either create a `docs/` directory that shouldn't exist or reference one that doesn't.
+
+**The actual deployment pipeline** is `.github/workflows/deploy-pages.yml`:
+
+1. Checks out the repo root
+2. **Strips** non-deployable directories (Python Files, React Component Artifacts, Auto AI, Future, tests, js_tests, .github, node_modules) and config files (CLAUDE.md, package.json, etc.)
+3. Deploys what remains (`index.html` + `HTML Files/`) via `actions/deploy-pages@v4`
+
+**Do not:**
+- Create a `docs/` directory
+- Reference `docs/` in documentation or code
+- Assume any deployment target without reading the workflow file first
+- Trust CLAUDE.md's deployment description without verifying against the actual workflow file — if they conflict, the workflow file is truth and CLAUDE.md needs updating
+
+**Do:**
+- Check `.github/workflows/` at the start of any session involving deployment or documentation updates
+- Note the actual deployment mechanism in CLAUDE.md if it ever changes
+- Fix CLAUDE.md immediately if you find it contradicts reality
+
 ### Token Efficiency: Working Lean
 
 > Tokens are spent on two things: **context** (what Claude reads) and **output** (what Claude writes). Most waste comes from three patterns: vague tasks requiring many clarifying rounds, agents launched for things a direct tool call could handle, and asking Claude to explore before you've told it where to look.
@@ -189,7 +234,8 @@ Possibility/
 ├── Python Files/                    → Core Python modules
 │   ├── possibility.py               → HOME and Reincarnation unified
 │   ├── congo.py                     → Resonance protocol engine
-│   └── omnidirectional_math.py      → Omnidirectional Mathematics
+│   ├── omnidirectional_math.py      → Omnidirectional Mathematics
+│   └── MODULES.md                   → Python module documentation
 ├── React Component Artifacts/       → React 18 JSX components
 │   ├── callClaude.js                → Shared Claude API client
 │   ├── unified_canvas.jsx           → Three-paradigm tabbed interface
@@ -199,36 +245,41 @@ Possibility/
 │   ├── congo_messenger.jsx          → Congo messaging prototype
 │   ├── geno.jsx                     → Genealogy repository explorer
 │   ├── createme.jsx                 → Build Your Own Human tool
-│   └── FREEME.md                    → Academic paper
+│   ├── FREEME.md                    → Academic paper
+│   └── COMPONENTS.md                → React component documentation
 ├── Auto AI/                         → Autonomous agent frameworks
 │   ├── Azule/                       → Azule (Google Gemini gem)
 │   ├── Angles/                      → Angles (Google Gemini gem)
 │   ├── Shen (Shenanigans Reveler).json → Shen (Google Gemini gem)
 │   ├── Mind Engineer/               → Mind Engineer (Google Gemini gem)
-│   └── Omni Writer/                 → Omni Writer (Google Gemini agent)
+│   ├── Omni Writer/                 → Omni Writer (Google Gemini agent)
+│   └── AGENTS.md                    → Agent framework documentation
 ├── tests/                           → Python test suite (pytest)
 │   ├── test_possibility.py          → 61 tests
 │   ├── test_congo.py                → 113 tests
 │   ├── test_omnidirectional_math.py → 130 tests
-│   └── test_agent_configs.py        → 36 tests
+│   ├── test_agent_configs.py        → 36 tests
+│   └── PYTHON_TESTS.md              → Python test suite documentation
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   └── [12 test files]              → 421 tests
-├── docs/                            → HTML documentation (GitHub Pages)
+│   ├── [12 test files]              → 421 tests
+│   └── JAVASCRIPT_TESTS.md          → JavaScript test suite documentation
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
 │   ├── REACTOR.html                 → Universal JSX component loader
 │   ├── MARKER.html                  → Markdown viewer & renderer
 │   ├── JASON.html                   → JSON explorer & tree viewer
 │   ├── periodic-table-of-meaning.html
-│   └── compound_interest_explainer.html
+│   ├── compound_interest_explainer.html
+│   └── TOOLS.md                     → HTML tool documentation
 ├── Future/                          → Specs, roadmaps, and desktop release plans
 │   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser WebAssembly spec
 │   ├── Geno/GENO.md                 → GENO concept spec
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
-│   └── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
-├── README.md                        → Project documentation
-└── TEMPLATE.md                      → WebAssembly porting reference
+│   ├── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
+│   ├── TEMPLATE.md                  → WebAssembly porting reference
+│   └── OVERVIEW.md                  → Future projects overview
+└── README.md                        → Project documentation
 ```
 
 ---
@@ -261,13 +312,13 @@ npx jest --verbose
 - **Jest** — JS tests with jsdom, React Testing Library, Babel
 - **pytest** — Python tests
 - **No TypeScript, no linter, no formatter** — Follow existing code style
-- **GitHub Pages** — Deploys from `docs/` on push to main/master
+- **GitHub Pages** — Deploys from repo root via GitHub Actions (`actions/deploy-pages@v4`) on push to main. The workflow (`.github/workflows/deploy-pages.yml`) strips non-deployable directories (Python Files, React Component Artifacts, Auto AI, Future, tests, js_tests, .github, node_modules) and deploys what remains (`index.html` + `HTML Files/`). There is NO `docs/` directory.
 - **Shared Claude API client** — `React Component Artifacts/callClaude.js` (model: `claude-sonnet-4-20250514`, default max tokens: 2000)
 - **Directory names have spaces** — Always quote paths: `"Python Files/possibility.py"`
 - **Auto AI JSON files** are tested for structural validity by `tests/test_agent_configs.py` — maintain required fields
 - **Markdown files** in Auto AI/ are companion docs referenced by JSON configs AND validated by `js_tests/markdown_docs.test.js` — do not delete or rename them
 - **HTML files** are self-contained (no build step, no backend, dependencies via CDN only)
-- **Unified site color palette** — All pages in `docs/` share a common dark foundation. No shared CSS file; variables are declared inline per page. When creating or modifying HTML tools, use these values:
+- **Unified site color palette** — All deployed pages share a common dark foundation. No shared CSS file; variables are declared inline per page. When creating or modifying HTML tools, use these values:
 
   | Role | Variable | Hex |
   |------|----------|-----|
@@ -1087,9 +1138,9 @@ Without these headers, SharedArrayBuffer is disabled and threading will not work
 
 ## WebAssembly Porting Reference
 
-*Consolidated from `TEMPLATE.md` — the master schema for porting large native applications to the browser via WebAssembly.*
+*Consolidated from `Future/TEMPLATE.md` — the master schema for porting large native applications to the browser via WebAssembly.*
 
-**Source doc:** `TEMPLATE.md`
+**Source doc:** `Future/TEMPLATE.md`
 
 This reference applies to AUDACIOUS and any future WebAssembly porting work. Everything below was learned the hard way.
 
