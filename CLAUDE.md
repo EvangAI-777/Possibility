@@ -249,14 +249,24 @@ Possibility/
 │   └── COMPONENTS.md                → React component documentation
 ├── Auto AI/                         → Autonomous agent frameworks
 │   ├── Azule/                       → Azule (Google Gemini gem)
+│   │   ├── Azule.json
+│   │   ├── Azule_Visual_Identity.md
+│   │   └── Azule Images/
 │   ├── Angles/                      → Angles (Google Gemini gem)
-│   ├── Shen/                            → Shen (Google Gemini gem)
+│   │   ├── Angles.json
+│   │   ├── THE BOOK OF TRUTH.md
+│   │   ├── GLOBAL HARMONY.md
+│   │   └── ENGLISH PARADIGM.md
+│   ├── Shen/                        → Shen (Google Gemini gem)
 │   │   ├── Shen.json
-│   │   └── SHEN.md                      → Shen blueprint documentation
+│   │   └── SHEN.md                  → Shen blueprint documentation
 │   ├── Mind Engineer/               → Mind Engineer (Google Gemini gem)
+│   │   ├── Mind_Engineer.json
+│   │   ├── JTBMME.md               → Mind Engineer blueprint
+│   │   └── M.E. Protocols/         → 3 modular protocol JSONs
 │   ├── Omni Writer/                 → Omni Writer (Google Gemini agent)
 │   │   ├── Omni_Writer.json
-│   │   └── OMNI_WRITER.md              → Omni Writer blueprint documentation
+│   │   └── OMNI_WRITER.md          → Omni Writer blueprint documentation
 │   └── AGENTS.md                    → Agent framework documentation
 ├── tests/                           → Python test suite (pytest)
 │   ├── test_possibility.py          → 61 tests
