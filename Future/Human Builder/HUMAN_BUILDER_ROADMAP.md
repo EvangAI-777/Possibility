@@ -1146,6 +1146,177 @@ directories:
   buildResources: resources
 ```
 
+#### GitHub Actions CI/CD Pipeline
+
+Every push to `main` that touches CREATEME source code triggers the build pipeline. Tagged releases (`createme-v1.0.0`, etc.) additionally publish the installer to GitHub Releases.
+
+**Workflow: `.github/workflows/createme-desktop.yml`**
+
+```yaml
+name: CREATEME Desktop Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'createme-desktop/**'
+      - '.github/workflows/createme-desktop.yml'
+    tags:
+      - 'createme-v*'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'createme-desktop/**'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: createme-desktop/package-lock.json
+
+      - name: Install dependencies
+        working-directory: createme-desktop
+        run: npm ci
+
+      - name: Run tests
+        working-directory: createme-desktop
+        run: npm test
+
+      - name: Run physics engine tests
+        working-directory: createme-desktop
+        run: npm run test:physics
+
+      - name: Build renderer + WebGL viewport
+        working-directory: createme-desktop
+        run: npm run build:renderer
+
+      - name: Build main process + physics workers
+        working-directory: createme-desktop
+        run: npm run build:main
+
+      - name: Package Windows x64
+        working-directory: createme-desktop
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: createme-windows-x64
+          path: createme-desktop/dist/createme-setup-*.exe
+
+  release:
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/createme-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: createme-windows-x64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CREATEME ${{ github.ref_name }}
+          body: |
+            ## CREATEME Desktop — ${{ github.ref_name }}
+
+            Windows x64 installer for CREATEME — Build Your Own Human.
+
+            ### Installation
+            1. Download `createme-setup-*.exe` below
+            2. Run the installer
+            3. Launch CREATEME from the Start Menu or Desktop shortcut
+
+            ### What's included
+            - Full physical construction engine (7 layers, 28 parameters)
+            - Substrate configuration engine (foundation + environment)
+            - 3D anatomical-fidelity visualization with cascade animation
+            - Physics engine with real consequence modeling
+            - Analysis suite (inversion detector, fracture scanner, comparison engine)
+            - 4 featured build presets
+            - GENO integration (bidirectional commit/PR translation)
+            - Offline-first — all builds stored locally
+          files: createme-setup-*.exe
+          draft: false
+          prerelease: false
+```
+
+**Pipeline Behavior:**
+
+| Trigger | What Happens |
+|---------|-------------|
+| Push to `main` (CREATEME paths) | Build + test (including physics engine tests) + package. Artifact uploaded. No release. |
+| Pull request to `main` | Build + test only. Validates the PR doesn't break packaging. |
+| Tag `createme-v*` pushed | Build + test + package + **publish to GitHub Releases**. |
+
+**Creating a release:**
+
+```bash
+git tag createme-v1.0.0
+git push origin createme-v1.0.0
+# GitHub Actions builds and publishes createme-setup-1.0.0.exe to Releases
+```
+
+**Physics engine test suite:** The CI pipeline runs a dedicated `test:physics` step that validates:
+- Cascade propagation produces correct values for all 4 featured build presets
+- Stability formula: `physicalAverage × (foundationAverage / 100)` matches expected outputs
+- Floor status thresholds: PRESENT (≥60), PARTIAL (30–59), ABSENT (<30)
+- Inversion detection flags correct parameters
+- Fracture scanner identifies load compensation correctly
+- Comparison engine computes accurate deltas between builds
+
+#### Release Strategy
+
+**Versioning:** Semantic versioning (`MAJOR.MINOR.PATCH`).
+
+| Version | Meaning |
+|---------|---------|
+| `1.0.0` | First stable desktop release — all phases complete |
+| `1.0.x` | Patch releases — bug fixes, physics accuracy corrections |
+| `1.x.0` | Minor releases — new layers, analysis tools, presets |
+| `2.0.0` | Major release — breaking changes to build format or physics model |
+
+**Pre-release builds:** Before 1.0, tagged pre-releases (`createme-v0.1.0-alpha`, `createme-v0.9.0-rc.1`) publish as GitHub pre-releases, marked clearly as unstable.
+
+**Auto-updates:** After installation, `createme.exe` checks GitHub Releases for new versions on startup (configurable). Updates download in the background and apply on next restart. Users can disable auto-update in settings.
+
+**Build format stability:** The JSON build configuration format is the contract between CREATEME and GENO. Build files created in any version of CREATEME must remain readable in all future versions. If the format changes, a migration layer translates old formats on load. Build files are never modified in place — migrated versions are saved alongside originals.
+
+#### Path from Concept to Binary
+
+This is the concrete sequence from where CREATEME is today (Phase 0 — React component) to a shipping `createme.exe`:
+
+| Step | What | Depends On | Deliverable |
+|------|------|-----------|-------------|
+| **1** | Scaffold `createme-desktop/` with Electron + electron-builder | Phase 0 complete | Empty Electron shell with GPU acceleration flags |
+| **2** | Embed existing React component as renderer | Step 1 | `createme.jsx` renders inside Electron window with all 3 modes |
+| **3** | Set up WebGL2 viewport in renderer | Step 2 | 3D rendering canvas integrated with React component |
+| **4** | Build physics worker threads | Step 1 | Cascade, structural, and nervous routing workers compute off-thread |
+| **5** | Connect sliders → physics → 3D viewport pipeline | Steps 3 + 4 | Parameter changes trigger physics recalculation and 3D update in real time |
+| **6** | Implement all 7 physical layers in 3D renderer | Step 5 | Anatomical-fidelity rendering: cellular through consciousness |
+| **7** | Implement floor visualization | Step 5 | Substrate renders as visible surface (solid/translucent/absent) |
+| **8** | Implement cascade animation | Steps 6 + 7 | Parameter changes propagate visibly through layers (bidirectional) |
+| **9** | Build analysis engine (inversion, fracture, comparison) | Step 4 | Three analysis tools running against physics engine output |
+| **10** | Add build storage (JSON + SQLite index) | Step 1 | Save/load builds, search by parameter ranges and stability scores |
+| **11** | Implement GENO bridge (filesystem I/O) | Step 10 | Read GENO commits as builds, push builds as GENO commits/PRs |
+| **12** | Set up GitHub Actions CI pipeline | Step 1 | Automated build + test + package on every push |
+| **13** | Add auto-updater | Step 12 | `createme.exe` self-updates from GitHub Releases |
+| **14** | Tag `createme-v1.0.0` | Steps 1–13 complete | First stable release published to GitHub Releases |
+
+Steps 1–2 get the existing React component running in a desktop shell. Steps 3–8 build the 3D visualization and physics engines (Phases 2–3 from the roadmap). Step 9 completes the analysis suite. Steps 10–11 add persistence and GENO integration (Phases 4–5). Steps 12–13 set up delivery infrastructure. Step 14 ships it.
+
 ---
 
 ## Current Assets
