@@ -212,7 +212,7 @@ Possibility/
 │   ├── test_omnidirectional_math.py → 130 tests
 │   └── test_agent_configs.py        → 36 tests
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   └── [12 test files]              → 425 tests
+│   └── [12 test files]              → 421 tests
 ├── docs/                            → HTML documentation (GitHub Pages)
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
@@ -236,9 +236,9 @@ Possibility/
 ## Running Tests
 
 ```bash
-npm run test:all    # Both suites (765 tests)
+npm run test:all    # Both suites (761 tests)
 npm run test:py     # Python only (pytest, 340 tests)
-npm run test:js     # JavaScript only (Jest, 425 tests)
+npm run test:js     # JavaScript only (Jest, 421 tests)
 
 # Or directly:
 python -m pytest tests/ -v
