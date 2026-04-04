@@ -150,8 +150,8 @@ Structural and functional validation for the MARKER Markdown Viewer & Renderer (
 - **Responsive design** (4 tests) — 768px/480px breakpoints, clamp(), min()
 - **Error handling** (4 tests) — Error containers, retry button, showError function
 - **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
-- **All HTML tools have back links** (10 tests) — Every tool in docs/ has index.html link and back-link class
-- **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in docs/index.html
+- **All HTML tools have back links** (10 tests) — Every tool in HTML Files/ has index.html link and back-link class
+- **Index.html integration** (4 tests) — MARKER link, card title, description, live badge in index.html
 
 ## `jason.test.js` — 99 tests
 
@@ -170,5 +170,5 @@ Structural and functional validation for the JASON JSON Explorer (`JASON.html`):
 - **Responsive design** (4 tests) — 768px/480px breakpoints, clamp(), min()
 - **Error handling** (5 tests) — Error containers, retry button, showError function, JSON-specific error title
 - **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
-- **All HTML tools have back links** (12 tests) — Every tool in docs/ (including JASON) has index.html link and back-link class
-- **Index.html integration** (4 tests) — JASON link, card title, description, live badge in docs/index.html
+- **All HTML tools have back links** (12 tests) — Every tool in HTML Files/ (including JASON) has index.html link and back-link class
+- **Index.html integration** (4 tests) — JASON link, card title, description, live badge in index.html
