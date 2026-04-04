@@ -189,7 +189,8 @@ Possibility/
 ├── Python Files/                    → Core Python modules
 │   ├── possibility.py               → HOME and Reincarnation unified
 │   ├── congo.py                     → Resonance protocol engine
-│   └── omnidirectional_math.py      → Omnidirectional Mathematics
+│   ├── omnidirectional_math.py      → Omnidirectional Mathematics
+│   └── MODULES.md                   → Python module documentation
 ├── React Component Artifacts/       → React 18 JSX components
 │   ├── callClaude.js                → Shared Claude API client
 │   ├── unified_canvas.jsx           → Three-paradigm tabbed interface
@@ -199,20 +200,24 @@ Possibility/
 │   ├── congo_messenger.jsx          → Congo messaging prototype
 │   ├── geno.jsx                     → Genealogy repository explorer
 │   ├── createme.jsx                 → Build Your Own Human tool
-│   └── FREEME.md                    → Academic paper
+│   ├── FREEME.md                    → Academic paper
+│   └── COMPONENTS.md                → React component documentation
 ├── Auto AI/                         → Autonomous agent frameworks
 │   ├── Azule/                       → Azule (Google Gemini gem)
 │   ├── Angles/                      → Angles (Google Gemini gem)
 │   ├── Shen (Shenanigans Reveler).json → Shen (Google Gemini gem)
 │   ├── Mind Engineer/               → Mind Engineer (Google Gemini gem)
-│   └── Omni Writer/                 → Omni Writer (Google Gemini agent)
+│   ├── Omni Writer/                 → Omni Writer (Google Gemini agent)
+│   └── AGENTS.md                    → Agent framework documentation
 ├── tests/                           → Python test suite (pytest)
 │   ├── test_possibility.py          → 61 tests
 │   ├── test_congo.py                → 113 tests
 │   ├── test_omnidirectional_math.py → 130 tests
-│   └── test_agent_configs.py        → 36 tests
+│   ├── test_agent_configs.py        → 36 tests
+│   └── PYTHON_TESTS.md              → Python test suite documentation
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   └── [12 test files]              → 421 tests
+│   ├── [12 test files]              → 421 tests
+│   └── JAVASCRIPT_TESTS.md          → JavaScript test suite documentation
 ├── docs/                            → HTML documentation (GitHub Pages)
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
@@ -220,14 +225,16 @@ Possibility/
 │   ├── MARKER.html                  → Markdown viewer & renderer
 │   ├── JASON.html                   → JSON explorer & tree viewer
 │   ├── periodic-table-of-meaning.html
-│   └── compound_interest_explainer.html
+│   ├── compound_interest_explainer.html
+│   └── TOOLS.md                     → HTML tool documentation
 ├── Future/                          → Specs, roadmaps, and desktop release plans
 │   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser WebAssembly spec
 │   ├── Geno/GENO.md                 → GENO concept spec
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
 │   ├── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
-│   └── TEMPLATE.md                  → WebAssembly porting reference
+│   ├── TEMPLATE.md                  → WebAssembly porting reference
+│   └── OVERVIEW.md                  → Future projects overview
 └── README.md                        → Project documentation
 ```
 
