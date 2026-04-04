@@ -884,7 +884,7 @@ This phase proved the two-engine model works. Users build a body, place it on a 
 - All 3 analysis tools functional (inversion detector, fracture scanner, comparison engine)
 - 4 featured build presets with one-click loading
 - JSON export/import for builds
-- Deployed at `docs/CREATEME.html`
+- Deployed at `HTML Files/CREATEME.html` (via GitHub Actions from repo root)
 
 **Timeline**: Weeks
 

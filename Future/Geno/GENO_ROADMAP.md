@@ -868,7 +868,7 @@ This phase proved the metaphor works. Developers see a family tree rendered as a
 - 6 tabs: Code (generation directory + SVG tree), Issues (merge conflicts), Pull Requests, Actions (scanner), Wiki (spec docs), Insights (contribution graph + stats)
 - All sample data embedded — fully functional without a backend
 - Responsive design (desktop, tablet, mobile)
-- Deployed at `docs/GENO.html`
+- Deployed at `HTML Files/GENO.html` (via GitHub Actions from repo root)
 
 **Timeline**: Weeks
 

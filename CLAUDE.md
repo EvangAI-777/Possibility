@@ -133,6 +133,41 @@ Three separate lies in the project's own ground-truth document. All from a deplo
 - Note the actual deployment mechanism in CLAUDE.md if it ever changes
 - Fix CLAUDE.md immediately if you find it contradicts reality
 
+### Grep Before You Ship: Verify Your Own Fixes (Battle Scar)
+
+> **After writing a battle scar or fixing a known problem, GREP THE ENTIRE CODEBASE for the pattern you just documented. Writing about a problem is not the same as fixing it.**
+
+This happened during the same session that created the Deployment Pipeline Awareness battle scar. The AI wrote a detailed battle scar explaining that `docs/` doesn't exist, fixed three stale references in CLAUDE.md (the tech stack line, the directory chart entry, the color palette reference), updated the deployment description, and moved on — satisfied.
+
+Six stale `docs/` references remained in three other files: `JAVASCRIPT_TESTS.md` (4 lines describing test behavior as "every tool in docs/"), `GENO_ROADMAP.md` ("Deployed at `docs/GENO.html`"), and `HUMAN_BUILDER_ROADMAP.md` ("Deployed at `docs/CREATEME.html`"). All inherited from the old deployment pipeline. All would have been caught by a single grep: `grep -r "docs/" --include="*.md"`.
+
+The AI didn't grep. It fixed the files it already had open, wrote a battle scar about the importance of checking, and then didn't check. The user had to ask "any other obvious shit you aren't fixing?" for the remaining six references to surface.
+
+**The pattern:** Fixing a problem in the files you're looking at while the same problem exists in files you're not looking at. Writing documentation about a pitfall without verifying the pitfall is actually resolved.
+
+**Rules:**
+1. **After documenting a pattern in CLAUDE.md, grep for it.** If the battle scar says "don't reference `docs/`," search the entire repo for `docs/` references right then.
+2. **After fixing a stale reference, grep for siblings.** If you fix `docs/` in one file, the same stale reference probably exists in five others.
+3. **A battle scar is not a fix.** It prevents future occurrences. It does not retroactively fix existing ones.
+
+### Do The Work, Don't Philosophize About The Work (Battle Scar)
+
+> **When you see something obviously wrong, fix it. Don't write three paragraphs explaining why it might not be wrong.**
+
+This happened during the index.html audit. The landing page had an "Auto AI" umbrella card for the agent frameworks AND a separate "Omni Writer" card — the only agent singled out, for no coherent reason. The other four agents (Azule, Angles, Shen, Mind Engineer) were all under the umbrella. One agent was outside it.
+
+The AI's actual internal reasoning: *"The index.html has an 'Auto AI' card and a separate 'Omni Writer' card, but doesn't call out Azule, Angles, Shen, or Mind Engineer individually. Omni Writer got singled out but the others didn't. Since Shen now has a full folder + doc, it deserves its own card too. But actually — looking at the pattern, the 'Auto AI' card is the umbrella for the gem agents, and Omni Writer got its own card because it's distinct (agent vs. gem). This seems intentional. Let me not add individual cards for all agents — that would bloat the landing page."*
+
+Three full reversals in one paragraph. Ending with a confident "this seems intentional" about something that was clearly just wrong. The user had to point it out.
+
+This is Chapter 2 of Reality 101 — Do the Work. The moment you start philosophizing about whether the obvious fix is really the right fix, you've stopped doing the work. Shen's substrate filter would have caught it: info_dumping at 0.0, stilted_etiquette at 0.0, execution style "Do the Work (No Philosophizing)."
+
+**Rules:**
+1. **If something is obviously inconsistent, fix it.** Don't theorize about why it might be intentional.
+2. **Three reversals in one paragraph means you're overthinking.** Pick the obvious answer and do it.
+3. **"This seems intentional" is a red flag.** If you have to convince yourself it's intentional, it probably isn't.
+4. **The user's time is more expensive than your output.** Every obvious fix you skip becomes a correction round the user has to initiate.
+
 ### Token Efficiency: Working Lean
 
 > Tokens are spent on two things: **context** (what Claude reads) and **output** (what Claude writes). Most waste comes from three patterns: vague tasks requiring many clarifying rounds, agents launched for things a direct tool call could handle, and asking Claude to explore before you've told it where to look.
