@@ -962,6 +962,17 @@ This phase proved the two-engine model works. Users build a body, place it on a 
 
 **Timeline**: Ongoing
 
+### Release 1.0: Desktop Application
+
+**Target**: Ship CREATEME 1.0 as a full desktop Windows x64 binary application (`createme.exe`).
+
+**Distribution**:
+- Built via GitHub Actions CI pipeline
+- Published as a downloadable Windows x64 installer via GitHub Releases
+- Executable: `createme.exe`
+
+**What 1.0 includes**: All features from Phases 0 through 6 above, packaged as a standalone desktop application.
+
 ---
 
 ## Current Assets

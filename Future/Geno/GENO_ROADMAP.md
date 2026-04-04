@@ -961,6 +961,17 @@ This phase proved the metaphor works. Developers see a family tree rendered as a
 
 **Timeline**: Ongoing
 
+### Release 1.0: Desktop Application
+
+**Target**: Ship GENO 1.0 as a full desktop Windows x64 binary application (`geno.exe`).
+
+**Distribution**:
+- Built via GitHub Actions CI pipeline
+- Published as a downloadable Windows x64 installer via GitHub Releases
+- Executable: `geno.exe`
+
+**What 1.0 includes**: All features from Phases 0 through 7 above, packaged as a standalone desktop application.
+
 ---
 
 ## Current Assets

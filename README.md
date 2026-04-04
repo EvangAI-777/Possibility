@@ -487,6 +487,8 @@ Sample data spans 6 generations across the Johnson-Washington family lines, from
 
 Built on the spec in `Future/Geno/GENO.md`.
 
+GENO will ship at 1.0 as a full desktop Windows x64 binary (`geno.exe`), built and distributed via GitHub Actions CI.
+
 ### `React Component Artifacts/createme.jsx`
 
 CREATEME — Build Your Own Human. A physical construction and refactoring tool that allows users to build biological entities from the ground up with real consequence modeling.
@@ -513,6 +515,8 @@ A perfect physical build with zero foundation = stability of 0. An absent floor 
 - **The Non-Human** — Unusual values demonstrating the tool isn't limited to human biology
 
 Built on the spec in `Future/Human Builder/CREATEME.md`.
+
+CREATEME will ship at 1.0 as a full desktop Windows x64 binary (`createme.exe`), built and distributed via GitHub Actions CI.
 
 ---
 
