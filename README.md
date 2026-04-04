@@ -88,7 +88,7 @@ Three planned extensions of the Possibility ecosystem, each shipping at 1.0 as a
 
 ## Testing
 
-**761 tests** across Python and JavaScript, covering every layer of the project.
+**779 tests** across Python and JavaScript, covering every layer of the project.
 
 ### Quick Start
 
@@ -110,13 +110,13 @@ npm test
 - **Python 3.x** with `pytest` (`pip install pytest`)
 - **Node.js 18+** with npm — run `npm install` to set up JS dependencies
 
-### Python Test Suite — 340 tests
+### Python Test Suite — 346 tests
 
 4 test files covering HOME/Reincarnation, Congo resonance engine, Omnidirectional Mathematics, and Auto AI agent config validation.
 
 [Full test inventory](tests/PYTHON_TESTS.md)
 
-### JavaScript Test Suite — 421 tests
+### JavaScript Test Suite — 433 tests
 
 12 test files covering all React components, HTML tools (MARKER, JASON), the shared Claude API client, and markdown documentation integrity.
 

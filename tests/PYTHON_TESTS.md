@@ -4,7 +4,7 @@
 
 ---
 
-**340 tests** across 4 test files. Run with `python -m pytest tests/ -v`.
+**346 tests** across 4 test files. Run with `python -m pytest tests/ -v`.
 
 ## `test_possibility.py` — 61 tests
 
@@ -18,15 +18,16 @@ Unit tests for the core framework in `possibility.py`:
 - **TestHome::test_recognize_gaslighting_detects_patterns** — Validates all 5 gaslighting patterns from Chapter 4 are caught, plus case insensitivity
 - **TestCharacter::test_full_lifecycle** — End-to-end: emerge from HOME, appreciate, work, return, reincarnate, verify appreciation persists
 
-## `test_agent_configs.py` — 36 tests
+## `test_agent_configs.py` — 42 tests
 
 Structural validation for all Auto AI agent JSON configurations:
 
-- **JSON parsing** (7 tests) — All 7 JSON files parse as valid, non-empty dicts
+- **JSON parsing** (8 tests) — All 8 JSON files parse as valid, non-empty dicts
 - **TestAzule** (5 tests) — Identity, state engine, logic gateways, communication protocol, operational directive
 - **TestAngles** (7 tests) — Identity, companion modules with file cross-references (verifies `.md` files exist on disk), core logic, governance, operational constraints, meta heuristics
 - **TestShen** (6 tests) — Identity, system logic, behavioral weights validated in [0,1] range, philosophical assertions (humility=1.0, info_dumping=0.0), state machine
 - **TestMindEngineer** (7 tests) — Identity, Johnson Formula hierarchy (3 levels), diagnostic logic, action paths with priorities, workflow ordering, integration dimensions, constraints
+- **TestOmniWriter** (5 tests) — Identity (name, role, core principle), anti-patterns list, pipeline nodes (3 expected IDs), pipeline edges (3 connections), title and description
 - **TestProtocolCrossReferences** (4 tests) — All 3 M.E. Protocol files exist and parse correctly
 
 ## `test_congo.py` — 113 tests

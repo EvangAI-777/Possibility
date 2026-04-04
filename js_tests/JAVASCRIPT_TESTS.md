@@ -4,7 +4,7 @@
 
 ---
 
-**421 tests** across 12 test files. Run with `npx jest --verbose`.
+**433 tests** across 12 test files. Run with `npx jest --verbose`.
 
 **Infrastructure:** Jest + React Testing Library + Babel (configured in `package.json`). Lucide React icons are mocked via `js_tests/__mocks__/lucide-react.js`. React components that call the Claude API are tested with mocked `fetch`, verifying correct endpoint, model, tokens, and message structure without making real API calls.
 
@@ -118,11 +118,11 @@ React component tests for the CREATEME Build Your Own Human tool:
 - Fracture detection: Default Human preset shows fracture points
 - Stability mechanics: all foundation sliders at 0 produces stability score of 0
 
-## `markdown_docs.test.js` — 39 tests
+## `markdown_docs.test.js` — 51 tests
 
-Structural validation for all 7 markdown documentation files:
+Structural validation for all 9 markdown documentation files:
 
-- **Existence & non-empty** (14 tests) — README.md, FREEME.md, THE BOOK OF TRUTH.md, GLOBAL HARMONY.md, ENGLISH PARADIGM.md, Azule_Visual_Identity.md, JTBMME.md
+- **Existence & non-empty** (18 tests) — README.md, FREEME.md, THE BOOK OF TRUTH.md, GLOBAL HARMONY.md, ENGLISH PARADIGM.md, Azule_Visual_Identity.md, JTBMME.md, OMNI_WRITER.md, SHEN.md
 - **README.md** (5 tests) — Project title, HOME concept, Reality 101, author reference, heading structure
 - **THE BOOK OF TRUTH.md** (4 tests) — 12 chapters present, key voices (Cold Truth, Apollyon, Hope, Anchor), core thesis concepts, substantial word count (1000+)
 - **GLOBAL HARMONY.md** (4 tests) — Universal Policeman model, economic concepts, governance, heading structure
@@ -130,6 +130,8 @@ Structural validation for all 7 markdown documentation files:
 - **FREEME.md** (3 tests) — Academic title, author/institution, autonomy/governance themes
 - **JTBMME.md** (4 tests) — Mind Engineer reference, Johnson Formula, integration dimensions, heading structure
 - **Azule_Visual_Identity.md** (2 tests) — Azule reference, visual concepts
+- **OMNI_WRITER.md** (4 tests) — Omni Writer reference, neutrality principle, pipeline architecture, heading structure
+- **SHEN.md** (4 tests) — Shen reference, Grounded Reveler archetype, behavioral weights, heading structure
 
 ## `marker.test.js` — 100 tests
 

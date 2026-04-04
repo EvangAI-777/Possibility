@@ -250,18 +250,22 @@ Possibility/
 ├── Auto AI/                         → Autonomous agent frameworks
 │   ├── Azule/                       → Azule (Google Gemini gem)
 │   ├── Angles/                      → Angles (Google Gemini gem)
-│   ├── Shen (Shenanigans Reveler).json → Shen (Google Gemini gem)
+│   ├── Shen/                            → Shen (Google Gemini gem)
+│   │   ├── Shen.json
+│   │   └── SHEN.md                      → Shen blueprint documentation
 │   ├── Mind Engineer/               → Mind Engineer (Google Gemini gem)
 │   ├── Omni Writer/                 → Omni Writer (Google Gemini agent)
+│   │   ├── Omni_Writer.json
+│   │   └── OMNI_WRITER.md              → Omni Writer blueprint documentation
 │   └── AGENTS.md                    → Agent framework documentation
 ├── tests/                           → Python test suite (pytest)
 │   ├── test_possibility.py          → 61 tests
 │   ├── test_congo.py                → 113 tests
 │   ├── test_omnidirectional_math.py → 130 tests
-│   ├── test_agent_configs.py        → 36 tests
+│   ├── test_agent_configs.py        → 42 tests
 │   └── PYTHON_TESTS.md              → Python test suite documentation
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   ├── [12 test files]              → 421 tests
+│   ├── [12 test files]              → 433 tests
 │   └── JAVASCRIPT_TESTS.md          → JavaScript test suite documentation
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
@@ -287,9 +291,9 @@ Possibility/
 ## Running Tests
 
 ```bash
-npm run test:all    # Both suites (761 tests)
-npm run test:py     # Python only (pytest, 340 tests)
-npm run test:js     # JavaScript only (Jest, 421 tests)
+npm run test:all    # Both suites (779 tests)
+npm run test:py     # Python only (pytest, 346 tests)
+npm run test:js     # JavaScript only (Jest, 433 tests)
 
 # Or directly:
 python -m pytest tests/ -v
