@@ -161,6 +161,8 @@ The game is the laboratory. The NPCs are the subjects. The players are the obser
 - Don't tell players what's being measured
 - Let differentiation speak for itself
 
+**Prototype:** [`differentiation_lab.jsx`](../../React%20Component%20Artifacts/differentiation_lab.jsx) — interactive React component implementing both games with 6 preset scenarios. Load via [REACTOR.html](../../HTML%20Files/REACTOR.html).
+
 ---
 
 ## The Merit
