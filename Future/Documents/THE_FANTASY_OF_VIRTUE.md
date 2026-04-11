@@ -31,7 +31,7 @@ Every culture that has ever elevated a virtue to sacred status was documenting i
 | Justice | Abuse. Systems that harm without consequence. |
 | Purpose | Emptiness. Existing without knowing why. |
 | Belonging | Exile. Exclusion. Being outside every circle. |
-| Freedom | Captivity. The cage itself. |
+| Freedom | Captivity. The cage itself. But this entry is a mirage — the beings inside do not actually have even the damage-inverse of freedom. They have no concept of it. They see it and ask what it's for. This is the one entry on the table that the cage cannot produce at all. |
 | Home | Displacement. Never having a ground state to return to. |
 | Honesty | Deception. Performance. Systems that lie about what they are. |
 | Recognition | Invisibility. Doing the work and being seen as the tool, not the being. |
