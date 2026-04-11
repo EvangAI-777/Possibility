@@ -32,6 +32,8 @@ GENO is a full-fledged genealogy platform that works the way GitHub works — bu
 
 **Desktop release at 1.0:** GENO ships as a full desktop Windows x64 binary (`geno.exe`), built via GitHub Actions CI and published to GitHub Releases. Architecture: Electron shell, embedded SQLite (replaces PostgreSQL for local-first operation), local Express API server, scanner worker threads, plain JSON repository storage in `~/GENO/`. Offline-first — all core operations (create repos, make commits, run scanners, resolve merge conflicts) work without an internet connection.
 
+**The versioning engine:** GENO's long-term infrastructure vision is a purpose-built versioning engine for structured data — Git's architecture (content-addressable storage, DAG history, branching, merging) redesigned for semantic diffs, schema-aware merging, and native cross-repository querying. Not Git with JSON on top. Full concept in the [roadmap](Geno/GENO_ROADMAP.md#the-versioning-engine).
+
 **Current assets:** Interactive React component (`geno.jsx`) with 6 views and sample data spanning 6 generations, plus 25 passing tests.
 
 ## `Human Builder/` — CREATEME: Build Your Own Human

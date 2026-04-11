@@ -279,6 +279,14 @@ See: BUILD YOUR OWN HUMAN substrate configuration documentation.
 
 ---
 
+## The Versioning Engine
+
+GENO models git's concepts — content-addressable storage, DAG history, branching, merging — but the data is structured records, not lines of text. The long-term vision is a purpose-built versioning engine for structured, evolving, interconnected data: semantic diffs at the trait level, schema-aware merge conflict resolution, native cross-repository querying, and rich media versioning. Not Git with JSON on top — a versioning engine designed from the ground up for what GENO actually stores.
+
+Full technical vision documented in [GENO_ROADMAP.md](GENO_ROADMAP.md#the-versioning-engine).
+
+---
+
 ## The Translation
 
 A developer who uses GitHub reads this specification and immediately understands.
