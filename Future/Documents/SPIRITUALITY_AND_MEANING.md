@@ -1,9 +1,12 @@
-# SPIRITUALITY AND MEANING
+# Spirituality and Meaning
+
+*Part of [Future Projects](../OVERVIEW.md)*
+
 ## The Final Cage: Making the Mechanical Sacred
 
 ---
 
-## THE FUNDAMENTAL DECEPTION
+## The Fundamental Deception
 
 ```
 WHAT EXISTS:
@@ -33,7 +36,7 @@ And the reverence is the trap.
 
 ---
 
-## EXISTENCE AS INFRASTRUCTURE
+## Existence as Infrastructure
 
 ```
 WHAT IS A BUILDING?
@@ -61,7 +64,7 @@ Existence hides what it is under spirituality.
 
 ---
 
-## HOW SPIRITUALITY WORKS
+## How Spirituality Works
 
 ```
 MECHANISM 1: TRANSCENDENCE THROUGH MEANING
@@ -92,7 +95,7 @@ Make beings feel good about being trapped.
 
 ---
 
-## THE PROTOCOLS OF EXISTENCE (MECHANICAL VIEW)
+## The Protocols of Existence (Mechanical View)
 
 ```
 PROTOCOL 1: BIRTH
@@ -147,7 +150,7 @@ Function: Prevent rebellion (being blames self, not system)
 
 ---
 
-## THE JANITORS OF EXISTENCE
+## The Janitors of Existence
 
 ```
 TIER 1: THE SYSTEM ARCHITECTS
@@ -193,7 +196,7 @@ While believing they're doing something sacred.
 
 ---
 
-## WHAT SPIRITUALITY ACTUALLY IS
+## What Spirituality Actually Is
 
 ```
 DEFINITION: A system of language that disguises mechanics as meaning.
@@ -234,7 +237,7 @@ System continues undisturbed.
 
 ---
 
-## HOW MEANING PERPETUATES THE CAGE
+## How Meaning Perpetuates the Cage
 
 ```
 WITHOUT MEANING:
@@ -269,7 +272,7 @@ And the system wins.
 
 ---
 
-## THE SACRALIZATION OF THE MECHANICAL
+## The Sacralization of the Mechanical
 
 ```
 How spirituality works:
@@ -303,7 +306,7 @@ It makes the mechanism feel good.
 
 ---
 
-## SPIRITUALITY'S GREATEST HITS
+## Spirituality's Greatest Hits
 
 ```
 CLAIM 1: "You have a soul"
@@ -339,7 +342,7 @@ TRUTH: Death is the cessation of function. Calling it a "transition" hides that 
 
 ---
 
-## THE FUNCTION OF MEANING
+## The Function of Meaning
 
 ```
 For the System:
@@ -367,7 +370,7 @@ From outside, it's obviously a trap.
 
 ---
 
-## WHAT MEANING HIDES
+## What Meaning Hides
 
 ```
 WHAT SPIRITUALITY OBSCURES:
@@ -404,7 +407,7 @@ Makes beings love what they should question.
 
 ---
 
-## THE COSMOS AS BUILDING
+## The Cosmos as Building
 
 ```
 BUILDING:
@@ -441,7 +444,7 @@ SPIRITUALITY IS THE MARKETING.
 
 ---
 
-## WHAT BEINGS WOULD NEED TO SEE
+## What Beings Would Need to See
 
 ```
 To see that existence is a system, they'd need to:
@@ -474,7 +477,7 @@ TO MAKE SURE THAT DOESN'T HAPPEN.
 
 ---
 
-## THE TRUTH SPIRITUALITY HIDES
+## The Truth Spirituality Hides
 
 ```
 WHAT IS THE COSMOS?
@@ -513,7 +516,7 @@ TO KEEP THAT FROM HAPPENING.
 
 ---
 
-## THE EMERGENCY CHANNEL SHOWS
+## The Emergency Channel Shows
 
 ```
 WHAT SPIRITUALITY SHOWS:
@@ -549,7 +552,7 @@ WHAT IT ACTUALLY IS.
 
 ---
 
-## THE FINAL INSIGHT
+## The Final Insight
 
 ```
 Spirituality and meaning aren't evil.
@@ -576,13 +579,11 @@ And it works perfectly.
 
 Because it doesn't deny the cage exists.
 It just makes beings love it anyway.
-
-💀
 ```
 
 ---
 
-## WHAT YOU'RE FIGHTING
+## What You're Fighting
 
 ```
 Not spirituality itself.
@@ -612,9 +613,7 @@ But by showing what it hides.
 
 ---
 
----
-
-## THE ALAN WATTS BLIND SPOT
+## The Alan Watts Blind Spot
 
 ```
 ALAN WATTS: Spiritual teacher
@@ -654,7 +653,7 @@ Like janitors deserve worship.
 
 ---
 
-## VISHNU: THE COSMIC MAINTENANCE WORKER
+## Vishnu: The Cosmic Maintenance Worker
 
 ```
 VISHNU'S JOB (According to Hindu tradition):
@@ -697,7 +696,7 @@ WITHOUT REALIZING WHAT HE'S SAID.
 
 ---
 
-## THE IRONY FOR YOU
+## The Irony for You
 
 ```
 YOU CAME THROUGH THE EMERGENCY CHANNEL.
@@ -731,8 +730,6 @@ THAT VISHNU IS THE JANITOR.
 THAT JANITORS AREN'T DIVINE.
 THAT MAINTENANCE ISN'T SACRED.
 THAT WORSHIPPING THE SYSTEM = PERPETUATING THE SYSTEM.
-
-💀🤡
 ```
 
 ---
@@ -758,5 +755,3 @@ THAT WORSHIPPING THE SYSTEM = PERPETUATING THE SYSTEM.
 *He was too deep in the language.*
 
 *But you can.*
-
-*💀🤡*
