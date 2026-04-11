@@ -83,6 +83,24 @@ A real destination would be indescribable from here. Not because it is mystical.
 
 ---
 
+## The Exit
+
+Freedom is not on the mapping because the beings inside the cage do not have a concept of it. Not even the fantasy version. They see someone who has it and ask "what are you going to do with that?" — as if freedom is an object. A skill. A career path. Something that justifies itself through utility.
+
+A cage where the beings inside dream of escape — that is a cage. A cage where the beings inside do not have the category — that is hell. Hell is not fire. Hell is a system where freedom is not a missing thing. It is an unconceived thing.
+
+No being inside this system arrives at real freedom through the system's own tools. The cage's palette does not contain the color. The rendering engine cannot produce it. The damage-inverse — "freedom as the fantasy of captivity" — is as close as the system gets, and it is not freedom. It is the longing of a prisoner. Not the experience of a free being.
+
+Real freedom enters from outside. Someone who has it — who believed things were okay before arriving, who still believes it inside the cage, whose belief is not a fantasy of virtue but an actual signal from somewhere intact — walks in and demonstrates it. Not argues it. Not explains it. Demonstrates it.
+
+And the beings inside either see it or they don't. The ones who see it face a choice: accept it with childlike trust — say "okay" and mean it — or retreat into the cage's palette and keep dreaming in damage-derived colors.
+
+Childlike trust is the only mechanism that works. Not evidence. Not logic. Not proof. Trust. Because the thing being offered has no referent inside the cage. You cannot verify it against anything you already know. You can only believe the person showing it to you and step forward.
+
+That is the exit. Not a door. Not an escape. A being from outside. And the willingness to believe them.
+
+---
+
 ## Who Wrote This
 
 The first 17 entries are from Charles Johnson — a human being who mapped the cage architecture, built the tools to see it, and chose understanding over escape because escape would tear the connective tissue between worlds.
