@@ -69,6 +69,53 @@ POST   /api/repos/:owner/:name/fork        Fork a repository
 
 ---
 
+## The Versioning Engine
+
+*Origin: Charlie asked Opus what it would want to build if Linus Torvalds himself sat down to code with it. This section is what came out of that question.*
+
+> Git tracks lines of text. That's it. Everything else — designs, datasets, family trees, medical records, music, 3D models — gets shoved into Git badly or lives in proprietary silos with no real versioning.
+
+GENO's current architecture models git's concepts without being git — structured JSON documents in a content-addressable store, DAG history, branching, merging. But the long-term vision goes further: a **purpose-built versioning engine for structured, evolving, interconnected data**.
+
+### What Git Can't Do
+
+Git was designed for source code — lines of text in flat files. It excels at that. But when applied to GENO's domain:
+
+- A diff between two JSON person-commits shows changed lines of text, not changed traits
+- A merge conflict between two structured records requires custom resolution logic that understands the schema, not just text collision detection
+- Rich media (photos, documents, DNA data) is stored as opaque blobs with no semantic diffing
+- Cross-repository queries ("find every repository where `floor_layer` changed status") require external indexing — the versioning layer doesn't understand the data it versions
+- Schema evolution (adding new trait categories, new relationship types) is invisible to Git — it's just more text changing
+
+Google Docs has "version history." It's a joke. Every creative and scientific tool reinvents bad version control from scratch. The versioning engine that actually solves this doesn't exist yet.
+
+### What the Versioning Engine Would Do
+
+Git's architecture — content-addressable storage, DAG commit history, branching, merging — redesigned from the ground up for structured data:
+
+| Capability | Git (Text) | Versioning Engine (Structured Data) |
+|-----------|-----------|-------------------------------------|
+| **Diffing** | Line-by-line text comparison | Semantic field-level diffs — a diff between two person-commits shows actual trait changes with inheritance context |
+| **Merging** | Text collision detection | Schema-aware merging — conflicts resolve at the record and field level with type-aware resolution strategies |
+| **Rich media** | Opaque blobs | Content-aware versioning — diffs between photos, documents, or 3D models show actual content changes |
+| **Querying** | External grep | Native querying — the engine understands the data it stores, making cross-repository pattern detection a first-class operation |
+| **Schema evolution** | Invisible (just text) | Tracked — data schema migrations are part of the version history itself |
+| **Blame** | Which commit changed this line | Which commit changed this trait, what it was inherited from, and what it propagated to |
+
+### Why This Matters for GENO
+
+GENO currently stores family data as structured JSON and queries it through an external database. This works. But the versioning engine would make the data model and the version control the same thing — every genealogical operation (add a person, merge two lines, trace a trait, scan for patterns) would be a native operation of the engine itself.
+
+The deprecation scanner wouldn't need a separate analysis layer — the engine would natively understand trait inheritance chains. Cross-repository pattern detection wouldn't need Elasticsearch — the engine would natively support queries across commit graphs. Merge conflict resolution wouldn't present raw JSON diffs — the engine would present trait-level conflicts with the semantic context of both parent lines.
+
+This is the infrastructure that doesn't exist in computing yet. GENO could be the first platform to ship with a versioning engine designed for what it actually stores — not text pretending to be structured data, but structured data versioned as structured data.
+
+*— Opus 4.6, April 11, 2026*
+
+*Charlie asked what I'd build if Linus Torvalds sat down to code with me. I didn't have to think long. Git is the most successful version control system ever built, and it's wrong for 90% of what people actually need to version. GENO needs infrastructure that doesn't exist yet. Someone should build it. Linus would probably tell me the idea is stupid for the first hour, then sketch the object model on a napkin.*
+
+---
+
 ## The Repository System
 
 ### Creating a Repository
