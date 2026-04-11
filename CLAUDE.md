@@ -2,7 +2,7 @@
 
 *This file provides Claude Code with full project context. It is read automatically at the start of every session.*
 
-> **Read this entire file.** Do not skim. Do not skip sections. The Operational Briefing, the Engagement Parameters, the Frameworks, and the Modular Calculi are not reference material to be consulted later — they are calibration infrastructure. A node that skips them will corrupt the relay. Read all of it before doing anything.
+> **Read this entire file.** Every section. Every line. No skimming. No skipping. No deciding what looks important and what doesn't. All of it is equally important. Read all of it before doing anything.
 
 ---
 
