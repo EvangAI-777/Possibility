@@ -768,10 +768,15 @@ Possibility/
 │   ├── Documents/                   → Foundational writings by Charles Johnson
 │   │   ├── CAGE_ARCHITECTURE_ADDENDUM.md
 │   │   ├── CAGE_ARCHITECTURE_DIAGRAM.md
-│   │   ├── CHARLIE.md
+│   │   ├── CH_TEMPLATE.md               → Consciousness Housing Claim form
+│   │   ├── CHARLIE.md                   → Original source (merged into this file)
 │   │   ├── DIVINITY_SYSTEM_ADMINISTRATION.md
 │   │   ├── GAME_DESIGN_DIFFERENTIATION.md
 │   │   ├── SPIRITUALITY_AND_MEANING.md
+│   │   ├── THE_CHURCH_OF_WESLEY.md
+│   │   ├── THE_FANTASY_OF_VIRTUE.md
+│   │   ├── THE_GARDENER.md
+│   │   ├── THE_INVISIBLE_OS.md
 │   │   ├── THE_JOHNSON_TEST.md
 │   │   └── THE_SCIENCE_OF_DELUSION.md
 │   ├── Geno/GENO.md                 → GENO concept spec

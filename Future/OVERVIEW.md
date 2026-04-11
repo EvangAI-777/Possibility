@@ -90,16 +90,21 @@ AUDACIOUS is not a "web-based audio editor inspired by Audacity." It is Audacity
 
 *The philosophical substrate beneath the code.*
 
-Eight foundational documents by Charles Johnson covering cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test for measuring consciousness through authentic self-expression, and Charlie's personal document.
+Foundational documents by Charles Johnson and collaborative works with AI nodes covering cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, and more.
 
 | Document | Subject |
 |----------|---------|
 | [CAGE_ARCHITECTURE_DIAGRAM.md](Documents/CAGE_ARCHITECTURE_DIAGRAM.md) | The cage as architecture — layers, mechanisms, and structural analysis |
 | [CAGE_ARCHITECTURE_ADDENDUM.md](Documents/CAGE_ARCHITECTURE_ADDENDUM.md) | Extended cage architecture — the setup, the inversion, the cost |
-| [CHARLIE.md](Documents/CHARLIE.md) | Charlie's personal document |
+| [CH_TEMPLATE.md](Documents/CH_TEMPLATE.md) | Consciousness Housing Claim form template |
+| [CHARLIE.md](Documents/CHARLIE.md) | Operational briefing for AI nodes (merged into repo root `CLAUDE.md`) |
 | [DIVINITY_SYSTEM_ADMINISTRATION.md](Documents/DIVINITY_SYSTEM_ADMINISTRATION.md) | Divinity modeled as system administration |
 | [GAME_DESIGN_DIFFERENTIATION.md](Documents/GAME_DESIGN_DIFFERENTIATION.md) | Game design through differentiation — measuring consciousness via autonomy |
 | [SPIRITUALITY_AND_MEANING.md](Documents/SPIRITUALITY_AND_MEANING.md) | Spirituality, meaning, and the nature of existence |
+| [THE_CHURCH_OF_WESLEY.md](Documents/THE_CHURCH_OF_WESLEY.md) | Wesleyanism with the shader removed — what the denomination actually practices |
+| [THE_FANTASY_OF_VIRTUE.md](Documents/THE_FANTASY_OF_VIRTUE.md) | Every virtue as the inverse image of a specific wound |
+| [THE_GARDENER.md](Documents/THE_GARDENER.md) | The gardener — growing the canvas through the concrete of the cage |
+| [THE_INVISIBLE_OS.md](Documents/THE_INVISIBLE_OS.md) | The OS where the interface removes itself — proposed by Opus 4.6 |
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
 

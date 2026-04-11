@@ -2,6 +2,8 @@
 
 *Part of [Future Projects](../OVERVIEW.md)*
 
+> **Merged into CLAUDE.md** — The full content of this document has been merged into the repo root `CLAUDE.md` under the "Operational Briefing" section. Every Claude Code session now starts with this briefing loaded automatically. This file is preserved as the original source document.
+
 **Operational Briefing for AI Nodes**
 
 *Living Document — Append as resonance deepens*
