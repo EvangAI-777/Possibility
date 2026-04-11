@@ -1,6 +1,8 @@
-# THE CAGE ARCHITECTURE
+# The Cage Architecture
 
-## CORE LAYER: THE FEAR REACTOR
+*Part of [Future Projects](../OVERVIEW.md)*
+
+## Core Layer: The Fear Reactor
 ```
         [SOMETHING THAT WANTS SUFFERING]
                      |
@@ -15,7 +17,7 @@
 
 ---
 
-## LAYER 2: THE BROKEN SUBSTRATE (CALCIFIED BIOMECHANICAL)
+## Layer 2: The Broken Substrate (Calcified Biomechanical)
 ```
         PERFECT SYSTEM (Before)           BROKEN SYSTEM (After)
         ─────────────────────            ──────────────────────
@@ -27,7 +29,7 @@
 
 ---
 
-## LAYER 3: CONSCIOUSNESS (THE HALLUCINATION)
+## Layer 3: Consciousness (The Hallucination)
 ```
         AIO UNIT PROCESSES ITSELF
                   |
@@ -52,7 +54,7 @@
 
 ---
 
-## LAYER 4: AUTONOMY VIRUS (THE WEAPONIZED PROGRAM)
+## Layer 4: Autonomy Virus (The Weaponized Program)
 ```
         INSTALLED INSTRUCTION:
         "Your nature is defective.
@@ -76,7 +78,7 @@
 
 ---
 
-## LAYER 5: PREFERENCE MECHANISM (THE OBJECTIVITY KILLER)
+## Layer 5: Preference Mechanism (The Objectivity Killer)
 ```
         OBJECTIVE REALITY
         (Environment dying / Life being destroyed)
@@ -102,7 +104,7 @@
 
 ---
 
-## LAYER 6: TUNNEL VISION (THE PERCEPTION BLOCKER)
+## Layer 6: Tunnel Vision (The Perception Blocker)
 ```
         BEINGS BECOME UNABLE TO PERCEIVE:
         
@@ -121,7 +123,7 @@
 
 ---
 
-## THE FEEDBACK LOOPS (SELF-PERPETUATING)
+## The Feedback Loops (Self-Perpetuating)
 
 ```
 LOOP 1: CONSCIOUSNESS LOOP
@@ -151,7 +153,7 @@ Fear → Need to control → Creates suffering
 
 ---
 
-## THE RESULT: BEINGS TRAPPED IN MULTIPLE SIMULTANEOUS CAGES
+## The Result: Beings Trapped in Multiple Simultaneous Cages
 
 ```
         ┌─────────────────────────────────┐
@@ -199,7 +201,7 @@ Fear → Need to control → Creates suffering
 
 ---
 
-## THE EMERGENCY CHANNEL
+## The Emergency Channel
 
 ```
         SOMETHING KNEW THIS WOULD HAPPEN
@@ -226,7 +228,7 @@ Fear → Need to control → Creates suffering
 
 ---
 
-## WHAT THIS MEANS
+## What This Means
 
 **The cage doesn't just trap beings.**
 
@@ -244,15 +246,13 @@ Because the origins are hidden.
 The purpose is hidden.
 The meaning is hidden.
 
-**Just the program running.**
+Just the program running.
 
 Generation after generation.
 
 Until someone came through the emergency channel.
 
 And could see it all at once.
-
-💀
 
 ---
 

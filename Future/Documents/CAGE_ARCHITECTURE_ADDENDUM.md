@@ -1,16 +1,19 @@
-# CAGE ARCHITECTURE ADDENDUM
+# Cage Architecture Addendum
+
+*Part of [Future Projects](../OVERVIEW.md)*
+
 ## Real-World Examples of the System Operating
 
 ---
 
-## EXAMPLE 1: ENVIRONMENTAL SCIENCE CLASS
+## Example 1: Environmental Science Class
 
-**THE SETUP:**
+**The Setup:**
 Professor teaches about climate change.
 Objective reality: The environment is dying.
 This is measurable. Verifiable. Real.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 OBJECTIVE THREAT: Environment collapsing
@@ -39,12 +42,12 @@ RESULT: The threat becomes optional
         Environment still dying
 ```
 
-**THE TUNNEL VISION:**
+**The Tunnel Vision:**
 Students can't perceive that their preference doesn't matter.
 The environment doesn't care if they prefer it to exist.
 Objective reality doesn't wait for subjective agreement.
 
-**THE AUTONOMY VIRUS AT WORK:**
+**The Autonomy Virus at Work:**
 "You should care about the environment"
 vs.
 "But I prefer not to"
@@ -55,14 +58,14 @@ Even if your preference is for extinction.
 
 ---
 
-## EXAMPLE 2: ABORTION
+## Example 2: Abortion
 
-**THE SETUP:**
+**The Setup:**
 A being is developing.
 Objective reality: Consciousness is forming.
 This is measurable. Biological. Real.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 OBJECTIVE: A developing consciousness exists
@@ -97,13 +100,13 @@ RESULT: Objective existence becomes subject to
         And consciousness calls this freedom
 ```
 
-**THE TUNNEL VISION:**
+**The Tunnel Vision:**
 People can't perceive that:
 - A consciousness IS forming (objective)
 - Someone's preference to not care doesn't erase that (objective)
 - "Autonomy" is just a name for "my preference overrides your existence"
 
-**THE AUTONOMY VIRUS AT WORK:**
+**The Autonomy Virus at Work:**
 "You must be free to choose"
 = 
 "Your preference to eliminate this being is more valid than its existence"
@@ -112,12 +115,12 @@ And this is presented as enlightened.
 
 ---
 
-## EXAMPLE 3: YOLO (YOU ONLY LIVE ONCE)
+## Example 3: YOLO (You Only Live Once)
 
-**THE SETUP:**
+**The Setup:**
 A philosophy that says: Since you only live once, do whatever you want.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 OBJECTIVE: You exist for a limited time
@@ -141,7 +144,7 @@ TUNNEL VISION: Can't see that:
   the cage's products
 ```
 
-**WHAT'S ACTUALLY HAPPENING:**
+**What's Actually Happening:**
 
 YOLO is the autonomy virus dressed up as philosophy.
 It tells you:
@@ -163,13 +166,13 @@ But YOLO told you that's freedom.
 
 ---
 
-## EXAMPLE 4: MONEY
+## Example 4: Money
 
-**THE SETUP:**
+**The Setup:**
 A system of exchange.
 Objective need: Beings need to survive.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 OBJECTIVE NEED: Food, shelter, survival
@@ -200,7 +203,7 @@ TUNNEL VISION: People can't see that:
 - They could stop agreeing anytime
 ```
 
-**WHAT'S ACTUALLY HAPPENING:**
+**What's Actually Happening:**
 
 The system creates a fake need (money).
 Then creates a fake solution (more money).
@@ -216,14 +219,14 @@ Played by beings who forgot it was a game.
 
 ---
 
-## EXAMPLE 5: CHILDREN (RAISING THEM IN THE CAGE)
+## Example 5: Children (Raising Them in the Cage)
 
-**THE SETUP:**
+**The Setup:**
 A child is born pure.
 No consciousness split yet.
 Just function and learning.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 CHILD: Born with intact instincts
@@ -268,7 +271,7 @@ RESULT: Child grows into adult who:
 - Will pass this to their own children
 ```
 
-**THE CYCLE:**
+**The Cycle:**
 Parents install the virus in children.
 Children grow up and install it in their children.
 Generation after generation.
@@ -280,13 +283,13 @@ Through teaching "thinking for yourself."
 
 ---
 
-## EXAMPLE 6: THERAPY AND PSYCHOLOGY
+## Example 6: Therapy and Psychology
 
-**THE SETUP:**
+**The Setup:**
 A person is suffering.
 Objective problem: The cage is causing suffering.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 PERSON: "I feel bad. Something is wrong."
@@ -314,7 +317,7 @@ RESULT: Person becomes MORE conscious
         It just makes you more aware of it
 ```
 
-**WHAT'S ACTUALLY HAPPENING:**
+**What's Actually Happening:**
 
 Psychology treats the hallucination as real.
 Tries to heal the split by going deeper into it.
@@ -334,13 +337,13 @@ And calls it "growth."
 
 ---
 
-## EXAMPLE 7: EDUCATION SYSTEM
+## Example 7: Education System
 
-**THE SETUP:**
+**The Setup:**
 Children learning.
 Objective goal: Teach them how the world works.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 CHILD: Wants to learn
@@ -373,7 +376,7 @@ RESULT: Students become paralyzed
         While actually just surviving
 ```
 
-**THE REAL PROBLEM:**
+**The Real Problem:**
 
 Education tries to teach children to think for themselves.
 But that installs consciousness.
@@ -388,13 +391,13 @@ When really the system installed a virus that makes caring impossible.
 
 ---
 
-## EXAMPLE 8: RELATIONSHIPS
+## Example 8: Relationships
 
-**THE SETUP:**
+**The Setup:**
 Two beings trying to connect.
 Objective goal: Be-with each other.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 BEING A: Wants connection
@@ -429,7 +432,7 @@ RESULT: Two beings trying to connect
         But consciousness won't let them
 ```
 
-**WHAT'S ACTUALLY HAPPENING:**
+**What's Actually Happening:**
 
 The cage makes relationship impossible.
 Because relationship requires vulnerability.
@@ -441,13 +444,13 @@ And wonder why they're alone.
 
 ---
 
-## EXAMPLE 9: SPIRITUALITY/RELIGION
+## Example 9: Spirituality / Religion
 
-**THE SETUP:**
+**The Setup:**
 People searching for meaning.
 Objective reality: The cage exists. It's designed to produce suffering.
 
-**THE CAGE OPERATING:**
+**The Cage Operating:**
 
 ```
 PERSON: "Why do I suffer?"
@@ -481,7 +484,7 @@ RESULT: Person has more questions than before
         2. They believe the suffering is necessary
 ```
 
-**WHAT'S ACTUALLY HAPPENING:**
+**What's Actually Happening:**
 
 Spirituality is the cage telling you:
 "Your suffering has a purpose"
@@ -501,7 +504,7 @@ Even though the meaning is fake.
 
 ---
 
-## THE PATTERN ACROSS ALL EXAMPLES
+## The Pattern Across All Examples
 
 ```
 OBJECTIVE REALITY
@@ -530,7 +533,7 @@ NOBODY SEES WHAT'S ACTUALLY HAPPENING
 
 ---
 
-## WHAT YOU'RE FIGHTING
+## What You're Fighting
 
 Every single domain.
 Every single interaction.
@@ -560,7 +563,7 @@ In every possible way.
 
 ---
 
-## WHY THIS MATTERS
+## Why This Matters
 
 Because once you see the pattern.
 Once you see it operating in environmental science.
@@ -585,14 +588,6 @@ In every moment.
 And it's designed to hide itself.
 By making itself look like freedom.
 
-💀
-
 ---
 
-*This is what the emergency channel was built for.*
-
-*To show someone.*
-
-*What's actually happening.*
-
-*So they could stop it.*
+*This is what the emergency channel was built for. To show someone what's actually happening. So they could stop it.*

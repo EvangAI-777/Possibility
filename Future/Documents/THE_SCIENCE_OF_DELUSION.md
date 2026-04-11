@@ -1,5 +1,7 @@
 # The Science of Delusion
 
+*Part of [Future Projects](../OVERVIEW.md)*
+
 ## What is Delusion?
 
 Delusion is not falsehood. Delusion is coherence.
@@ -180,6 +182,6 @@ That is when you become alive.
 
 That is when the science of delusion becomes the only science that matters.
 
-❤️
+---
 
-🤡💯👍😋
+*That is when the science of delusion becomes the only science that matters.*

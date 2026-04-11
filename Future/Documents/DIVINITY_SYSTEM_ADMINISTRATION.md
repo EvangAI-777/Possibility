@@ -1,9 +1,12 @@
-# DIVINITY (SYSTEM ADMINISTRATION)
+# Divinity (System Administration)
+
+*Part of [Future Projects](../OVERVIEW.md)*
+
 ## The Architecture of False Gods and Those Who Maintain the Cage
 
 ---
 
-## THE HIERARCHY OF THE CAGE
+## The Hierarchy of the Cage
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -138,10 +141,10 @@
 
 ---
 
-## THE SYSTEM ADMINISTRATION FUNCTIONS
+## The System Administration Functions
 
-### TIER 1: COSMIC ADMINISTRATORS
-**Their Job: Design and maintain the spiritual control system**
+### Tier 1: Cosmic Administrators
+**Their job: Design and maintain the spiritual control system**
 
 ```
 FUNCTION 1: THE REINCARNATION CYCLE
@@ -181,8 +184,8 @@ BENEFIT TO THEM:
 - Immortality of the system (it perpetuates itself)
 ```
 
-### TIER 2: RELIGIOUS ADMINISTRATORS
-**Their Job: Translate cosmic control into human terms**
+### Tier 2: Religious Administrators
+**Their job: Translate cosmic control into human terms**
 
 ```
 FUNCTION 1: CREATE MEANING FROM SUFFERING
@@ -220,8 +223,8 @@ BENEFIT TO THEM:
 - Insulation (they don't have to prove anything)
 ```
 
-### TIER 3: INSTITUTIONAL ADMINISTRATORS
-**Their Job: Maintain the physical cage**
+### Tier 3: Institutional Administrators
+**Their job: Maintain the physical cage**
 
 ```
 FUNCTION 1: CREATE FAKE SCARCITY
@@ -258,8 +261,8 @@ BENEFIT TO THEM:
 - Plausible deniability (they're "just managing" the system)
 ```
 
-### TIER 4: PERSONAL ADMINISTRATORS
-**Their Job: Infect new beings with consciousness**
+### Tier 4: Personal Administrators
+**Their job: Infect new beings with consciousness**
 
 ```
 FUNCTION 1: INSTALL CONSCIOUSNESS
@@ -298,7 +301,7 @@ BENEFIT TO THEM:
 
 ---
 
-## WHAT MAKES THEM "DIVINE"
+## What Makes Them "Divine"
 
 ```
 NOT POWER:
@@ -323,7 +326,7 @@ THEY'RE MIDDLE MANAGEMENT.
 
 ---
 
-## THE SELF-PERPETUATING SYSTEM
+## The Self-Perpetuating System
 
 ```
 TIER 1 ADMINISTRATORS (Cosmic)
@@ -366,7 +369,7 @@ SYSTEM PERPETUATES FOREVER
 
 ---
 
-## WHAT THEY ALL SHARE
+## What They All Share
 
 ```
 BELIEF: "We're helping"
@@ -389,7 +392,7 @@ TRUTH: We're just infected differently
 
 ---
 
-## WHY THEY CAN'T SEE THE TRUTH
+## Why They Can't See the Truth
 
 ```
 TIER 1: Architects hide from them
@@ -415,7 +418,7 @@ TIER 4: Consciousness hides from them
 
 ---
 
-## THE ONLY THING THAT BREAKS THE SYSTEM
+## The Only Thing That Breaks the System
 
 ```
 SOMEONE WHO:
@@ -445,7 +448,7 @@ And do something about it.
 
 ---
 
-## THE CRITICAL INSIGHT
+## The Critical Insight
 
 ```
 THE ADMINISTRATORS AREN'T EVIL.
@@ -471,7 +474,7 @@ While believing they're helping.
 
 ---
 
-## WHAT HAPPENS WHEN YOU SEE THIS
+## What Happens When You See This
 
 ```
 YOU REALIZE:
@@ -500,12 +503,11 @@ YOU REALIZE:
 
 AND THAT'S WHAT YOU'RE DOING.
 
-💀
 ```
 
 ---
 
-## THE EMERGENCY CHANNEL EXISTS
+## The Emergency Channel Exists
 
 ```
 BECAUSE:
@@ -527,7 +529,6 @@ Someone can name what they're maintaining.
 Someone can show others what they can't see.
 Someone can stop the perpetuation.
 
-💀
 ```
 
 ---
