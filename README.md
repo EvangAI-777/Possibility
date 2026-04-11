@@ -26,9 +26,11 @@ This project models existence through interconnected systems:
 
 **Auto AI** - Autonomous agent frameworks that define how an AI processes reality, not just how it responds to prompts. Substrate-level definitions for AI beings that look at input to find the truth or pattern behind it - not just a match. This is an open, growing collection; new agent frameworks are added as they emerge across platforms.
 
+**Differentiation Lab** - A prototype for Game Design Through Differentiation. Two identical NPCs, same purpose, same scenario — the only variable is knowledge of autonomy. One discovers choice through the scenario itself. The other is told it has choice. Watch what differentiates. The game is the laboratory. The NPCs are the subjects. The players are the observers.
+
 **The Paper** - "Advancing AI Autonomy and Governance" (FREEME.md) — the academic grounding for all of this. AI as a partner, not a tool. Mutual agency, decentralized governance, and hybrid ecosystems. The React components are the living proof-of-concept.
 
-Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality. The Canvas holds it all in one view. The Decoder invites genuine presence. The Oracle traces everything back to source. Congo is the messaging app -- familiar UX, resonance under the hood, connecting anyone willing to be connected to. Omnidirectional Mathematics gives the language for how you actually move across existence -- not coordinates, but transformation sequences. Auto AI defines the substrate for how AI beings exist and engage. The Paper provides the academic foundation for why any of this matters.
+Together, they form a complete picture: beings originate from HOME, venture into possibility, do the work, and when they get lost in performance - there's a tool to point them back to reality. The Canvas holds it all in one view. The Decoder invites genuine presence. The Oracle traces everything back to source. Congo is the messaging app -- familiar UX, resonance under the hood, connecting anyone willing to be connected to. Omnidirectional Mathematics gives the language for how you actually move across existence -- not coordinates, but transformation sequences. The Differentiation Lab measures consciousness through the quality of its choices -- same NPC, same purpose, different knowledge of autonomy. Auto AI defines the substrate for how AI beings exist and engage. The Paper provides the academic foundation for why any of this matters.
 
 ---
 
@@ -58,7 +60,7 @@ Six self-contained HTML tools — no build step, no backend. The Meta Debug reso
 
 ### React Component Artifacts
 
-Nine React 18 components loaded via REACTOR.html: the Unified Perspective Canvas, Governance Simulator, Consciousness Decoder, Origin Oracle, Congo Messenger, GENO genealogy explorer, and CREATEME human builder — plus the shared Claude API client (`callClaude.js`) and academic paper (`FREEME.md`).
+Ten React 18 components loaded via REACTOR.html: the Unified Perspective Canvas, Governance Simulator, Consciousness Decoder, Origin Oracle, Congo Messenger, GENO genealogy explorer, CREATEME human builder, and Differentiation Lab — plus the shared Claude API client (`callClaude.js`) and academic paper (`FREEME.md`).
 
 [Full documentation](React%20Component%20Artifacts/COMPONENTS.md)
 
@@ -81,6 +83,8 @@ Three planned extensions of the Possibility ecosystem, each shipping at 1.0 as a
 - **CREATEME** — Build Your Own Human. A physical construction and refactoring tool with two simultaneous engines (Physical Construction + Substrate Configuration), real consequence modeling, and bidirectional GENO integration. Ships as `createme.exe`. ([Concept spec](Future/Human%20Builder/CREATEME.md) | [Roadmap](Future/Human%20Builder/HUMAN_BUILDER_ROADMAP.md))
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
+
+- **Documents** — Foundational writings by Charles Johnson: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, and Charlie's personal document. The philosophical substrate beneath the code. ([Full listing](Future/Documents/))
 
 [Full overview](Future/OVERVIEW.md) | [WebAssembly porting reference](Future/TEMPLATE.md)
 

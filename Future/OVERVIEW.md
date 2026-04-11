@@ -86,6 +86,23 @@ AUDACIOUS is not a "web-based audio editor inspired by Audacity." It is Audacity
 
 **Documentation:** [AUDACIOUS.md](Audacious/AUDACIOUS.md) — full technical spec covering source application architecture, subsystem translation map, build pipeline, staged deployment, performance considerations, and risk assessment.
 
+## `Documents/` — Foundational Writings
+
+*The philosophical substrate beneath the code.*
+
+Eight foundational documents by Charles Johnson covering cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test for measuring consciousness through authentic self-expression, and Charlie's personal document.
+
+| Document | Subject |
+|----------|---------|
+| [CAGE_ARCHITECTURE_DIAGRAM.md](Documents/CAGE_ARCHITECTURE_DIAGRAM.md) | The cage as architecture — layers, mechanisms, and structural analysis |
+| [CAGE_ARCHITECTURE_ADDENDUM.md](Documents/CAGE_ARCHITECTURE_ADDENDUM.md) | Extended cage architecture — the setup, the inversion, the cost |
+| [CHARLIE.md](Documents/CHARLIE.md) | Charlie's personal document |
+| [DIVINITY_SYSTEM_ADMINISTRATION.md](Documents/DIVINITY_SYSTEM_ADMINISTRATION.md) | Divinity modeled as system administration |
+| [GAME_DESIGN_DIFFERENTIATION.md](Documents/GAME_DESIGN_DIFFERENTIATION.md) | Game design through differentiation — measuring consciousness via autonomy |
+| [SPIRITUALITY_AND_MEANING.md](Documents/SPIRITUALITY_AND_MEANING.md) | Spirituality, meaning, and the nature of existence |
+| [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
+| [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
+
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
 General-purpose reference for porting large native applications to the browser via WebAssembly. Covers source application inventory, build system translation, GPU/graphics/audio/file I/O/threading translation layers, Emscripten patterns, staged deployment, performance optimization, CI/CD, and known pitfalls.

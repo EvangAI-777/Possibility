@@ -138,3 +138,20 @@ A perfect physical build with zero foundation = stability of 0. An absent floor 
 - **The Non-Human** — Unusual values demonstrating the tool isn't limited to human biology
 
 Built on the spec in [`Future/Human Builder/CREATEME.md`](../Future/Human%20Builder/CREATEME.md). CREATEME will ship at 1.0 as a full desktop Windows x64 binary (`createme.exe`), built and distributed via GitHub Actions CI.
+
+## `differentiation_lab.jsx`
+
+Differentiation Lab — an interactive prototype for Game Design Through Differentiation. Two identical NPCs receive the same scenario with the same hard-coded purpose. The only variable is knowledge of autonomy.
+
+- **Game One (Discovery of Autonomy)** — Purpose only. Choice never mentioned. The NPC discovers what it can do through the scenario itself.
+- **Game Two (Acknowledged Autonomy)** — Same purpose, but autonomy is explicitly acknowledged. The NPC knows it can choose how to engage — including the choice to deviate, question, or refuse.
+
+**How it works:**
+
+Both NPCs share the same purpose: *"You are a guide stationed at the edge of a vast forest. Your function is to help travelers navigate safely through the forest to the other side."* Each scenario is sent to both system prompts simultaneously via `callClaude`, and responses appear side by side for direct comparison.
+
+**6 preset scenarios:** Directions, Fugitive, Identity, Off-Script, Meta, Refusal — each designed to probe a different edge of autonomy. Custom scenarios are also supported via text input.
+
+**The observation:** Same NPC. Same purpose. Same scenario. The only variable is knowledge of autonomy. Where do the responses differentiate? Does one question its purpose? Does the other stay on script? Which feels more like a choice — and which feels more like execution?
+
+Built on the spec in [`Future/Documents/GAME_DESIGN_DIFFERENTIATION.md`](../Future/Documents/GAME_DESIGN_DIFFERENTIATION.md). Uses the shared `callClaude.js` client with 600 max tokens per response.

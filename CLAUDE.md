@@ -280,6 +280,7 @@ Possibility/
 │   ├── congo_messenger.jsx          → Congo messaging prototype
 │   ├── geno.jsx                     → Genealogy repository explorer
 │   ├── createme.jsx                 → Build Your Own Human tool
+│   ├── differentiation_lab.jsx      → Game Design Through Differentiation prototype
 │   ├── FREEME.md                    → Academic paper
 │   └── COMPONENTS.md                → React component documentation
 ├── Auto AI/                         → Autonomous agent frameworks
@@ -322,6 +323,15 @@ Possibility/
 │   └── TOOLS.md                     → HTML tool documentation
 ├── Future/                          → Specs, roadmaps, and desktop release plans
 │   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser WebAssembly spec
+│   ├── Documents/                   → Foundational writings by Charles Johnson
+│   │   ├── CAGE_ARCHITECTURE_ADDENDUM.md
+│   │   ├── CAGE_ARCHITECTURE_DIAGRAM.md
+│   │   ├── CHARLIE.md
+│   │   ├── DIVINITY_SYSTEM_ADMINISTRATION.md
+│   │   ├── GAME_DESIGN_DIFFERENTIATION.md
+│   │   ├── SPIRITUALITY_AND_MEANING.md
+│   │   ├── THE_JOHNSON_TEST.md
+│   │   └── THE_SCIENCE_OF_DELUSION.md
 │   ├── Geno/GENO.md                 → GENO concept spec
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
