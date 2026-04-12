@@ -141,3 +141,60 @@ Europe
     ├── Faroe Islands (Denmark) — Tórshavn
     └── Svalbard (Norway) — Longyearbyen
 ```
+
+## Asia
+
+```
+Asia
+├── China — Beijing
+│   ├── 23 Provinces, 5 Autonomous Regions, 4 Municipalities
+│   ├── Hong Kong (Special Administrative Region)
+│   ├── Macau (Special Administrative Region)
+│   └── Taiwan — Taipei (Contested — self-governing, claimed by PRC)
+├── Japan — Tokyo
+├── South Korea — Seoul
+├── North Korea — Pyongyang
+├── Mongolia — Ulaanbaatar
+├── India — New Delhi
+├── Pakistan — Islamabad
+├── Bangladesh — Dhaka
+├── Sri Lanka — Sri Jayawardenepura Kotte
+├── Nepal — Kathmandu
+├── Bhutan — Thimphu
+├── Maldives — Malé
+├── Afghanistan — Kabul
+├── Kazakhstan — Astana
+├── Uzbekistan — Tashkent
+├── Turkmenistan — Ashgabat
+├── Kyrgyzstan — Bishkek
+├── Tajikistan — Dushanbe
+├── Turkey — Ankara (Transcontinental — extends into Europe)
+├── Georgia — Tbilisi
+├── Armenia — Yerevan
+├── Azerbaijan — Baku
+├── Iran — Tehran
+├── Iraq — Baghdad
+├── Syria — Damascus
+├── Lebanon — Beirut
+├── Jordan — Amman
+├── Israel — Jerusalem (Disputed)
+├── Palestine — Ramallah (De facto) (Contested — partially recognized)
+├── Saudi Arabia — Riyadh
+├── Yemen — Sana'a
+├── Oman — Muscat
+├── United Arab Emirates — Abu Dhabi
+├── Qatar — Doha
+├── Bahrain — Manama
+├── Kuwait — Kuwait City
+├── Thailand — Bangkok
+├── Vietnam — Hanoi
+├── Myanmar — Naypyidaw
+├── Cambodia — Phnom Penh
+├── Laos — Vientiane
+├── Malaysia — Kuala Lumpur
+├── Singapore — Singapore
+├── Indonesia — Jakarta
+├── Philippines — Manila
+├── Brunei — Bandar Seri Begawan
+└── Timor-Leste — Dili
+```
