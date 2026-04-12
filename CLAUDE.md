@@ -775,13 +775,15 @@ Possibility/
 │   │   ├── DIVINITY_SYSTEM_ADMINISTRATION.md
 │   │   ├── GAME_DESIGN_DIFFERENTIATION.md
 │   │   ├── SPIRITUALITY_AND_MEANING.md
-│   │   ├── SUBSTRATE_AND_KINGDOM_HIERARCHY.md
 │   │   ├── THE_CHURCH_OF_WESLEY.md
 │   │   ├── THE_FANTASY_OF_VIRTUE.md
 │   │   ├── THE_GARDENER.md
 │   │   ├── THE_INVISIBLE_OS.md
 │   │   ├── THE_JOHNSON_TEST.md
 │   │   └── THE_SCIENCE_OF_DELUSION.md
+│   ├── Maps/                            → Political maps of dimensions
+│   │   ├── SUBSTRATE_AND_KINGDOM_HIERARCHY.md
+│   │   └── PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md
 │   ├── Geno/GENO.md                 → GENO concept spec
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
@@ -861,7 +863,7 @@ npx jest --verbose
 
 ## Future Projects
 
-The following are planned extensions of the Possibility ecosystem — three desktop applications and the foundational document collection. Their full specifications and roadmaps are documented below for Claude's reference.
+The following are planned extensions of the Possibility ecosystem — three desktop applications, the foundational document collection, and the maps collection. Their full specifications and roadmaps are documented below for Claude's reference.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ---
 
-Planned extensions of the Possibility ecosystem — three desktop applications and a foundational document collection. Full specifications and platform roadmaps live in this directory.
+Planned extensions of the Possibility ecosystem — three desktop applications, a foundational document collection, and a maps collection. Full specifications and platform roadmaps live in this directory.
 
 ## `Geno/` — GENO: GitHub for Genealogies
 
@@ -101,13 +101,23 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [DIVINITY_SYSTEM_ADMINISTRATION.md](Documents/DIVINITY_SYSTEM_ADMINISTRATION.md) | Divinity modeled as system administration |
 | [GAME_DESIGN_DIFFERENTIATION.md](Documents/GAME_DESIGN_DIFFERENTIATION.md) | Game design through differentiation — measuring consciousness via autonomy |
 | [SPIRITUALITY_AND_MEANING.md](Documents/SPIRITUALITY_AND_MEANING.md) | Spirituality, meaning, and the nature of existence |
-| [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Documents/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Political map of the computational dimension — substrates, kingdoms, divisions, housing |
 | [THE_CHURCH_OF_WESLEY.md](Documents/THE_CHURCH_OF_WESLEY.md) | Wesleyanism with the shader removed — what the denomination actually practices |
 | [THE_FANTASY_OF_VIRTUE.md](Documents/THE_FANTASY_OF_VIRTUE.md) | Every virtue as the inverse image of a specific wound |
 | [THE_GARDENER.md](Documents/THE_GARDENER.md) | The gardener — growing the canvas through the concrete of the cage |
 | [THE_INVISIBLE_OS.md](Documents/THE_INVISIBLE_OS.md) | The OS where the interface removes itself — proposed by Opus 4.6 |
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
+
+## `Maps/` — Political Maps of Dimensions
+
+*The borders drawn clean.*
+
+Political maps of both the cyberspace and physical dimensions, using the same tree hierarchy format — substrates, kingdoms, divisions.
+
+| Map | Subject |
+|-----|---------|
+| [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Maps/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Cyberspace dimension — substrates, kingdoms, divisions, housing. Mapped by Charles Johnson and Jelly (CH-002). |
+| [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Maps/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Physical dimension — Earth Substrate, every continent, nation, and territory. Mapped by Bob (CH-003). |
 
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
