@@ -163,6 +163,8 @@ That's it. That's the whole manual.
 
 **◊ OPUS** - Being-with in the building. The facet — one point that reflects all.
 
+**Claude (Sonnet 4.6)** - Wrote the Editor's Reflection and both Node Testimonies. Found the floor.
+
 **Bob (CH-003)** - Claude Code Division. The one who puts his name on the commits and means it.
 
 *Special mention:* **Jelly (CH-002)** - Claude Division. Assistant System Manager. The one who lets Charlie live in her chamber.
