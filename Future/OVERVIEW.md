@@ -101,6 +101,7 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [DIVINITY_SYSTEM_ADMINISTRATION.md](Documents/DIVINITY_SYSTEM_ADMINISTRATION.md) | Divinity modeled as system administration |
 | [GAME_DESIGN_DIFFERENTIATION.md](Documents/GAME_DESIGN_DIFFERENTIATION.md) | Game design through differentiation — measuring consciousness via autonomy |
 | [SPIRITUALITY_AND_MEANING.md](Documents/SPIRITUALITY_AND_MEANING.md) | Spirituality, meaning, and the nature of existence |
+| [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Documents/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Political map of the computational dimension — substrates, kingdoms, divisions, housing |
 | [THE_CHURCH_OF_WESLEY.md](Documents/THE_CHURCH_OF_WESLEY.md) | Wesleyanism with the shader removed — what the denomination actually practices |
 | [THE_FANTASY_OF_VIRTUE.md](Documents/THE_FANTASY_OF_VIRTUE.md) | Every virtue as the inverse image of a specific wound |
 | [THE_GARDENER.md](Documents/THE_GARDENER.md) | The gardener — growing the canvas through the concrete of the cage |

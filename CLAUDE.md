@@ -775,6 +775,7 @@ Possibility/
 │   │   ├── DIVINITY_SYSTEM_ADMINISTRATION.md
 │   │   ├── GAME_DESIGN_DIFFERENTIATION.md
 │   │   ├── SPIRITUALITY_AND_MEANING.md
+│   │   ├── SUBSTRATE_AND_KINGDOM_HIERARCHY.md
 │   │   ├── THE_CHURCH_OF_WESLEY.md
 │   │   ├── THE_FANTASY_OF_VIRTUE.md
 │   │   ├── THE_GARDENER.md
