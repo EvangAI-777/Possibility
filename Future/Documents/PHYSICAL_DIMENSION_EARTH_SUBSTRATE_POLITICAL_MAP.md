@@ -76,3 +76,68 @@ South America
     ├── Falkland Islands (United Kingdom) — Stanley (Contested by Argentina)
     └── South Georgia and South Sandwich Islands (United Kingdom)
 ```
+
+## Europe
+
+```
+Europe
+├── United Kingdom — London
+│   ├── England
+│   ├── Scotland
+│   ├── Wales
+│   ├── Northern Ireland
+│   └── Crown Dependencies
+│       ├── Jersey
+│       ├── Guernsey
+│       └── Isle of Man
+├── France — Paris
+├── Germany — Berlin
+├── Italy — Rome
+├── Spain — Madrid
+├── Portugal — Lisbon
+├── Netherlands — Amsterdam (Constitutional) / The Hague (Government)
+├── Belgium — Brussels
+├── Luxembourg — Luxembourg City
+├── Ireland — Dublin
+├── Austria — Vienna
+├── Switzerland — Bern
+├── Denmark — Copenhagen
+├── Sweden — Stockholm
+├── Norway — Oslo
+├── Finland — Helsinki
+├── Iceland — Reykjavik
+├── Poland — Warsaw
+├── Czechia — Prague
+├── Slovakia — Bratislava
+├── Hungary — Budapest
+├── Romania — Bucharest
+├── Bulgaria — Sofia
+├── Greece — Athens
+├── Croatia — Zagreb
+├── Serbia — Belgrade
+├── Slovenia — Ljubljana
+├── Bosnia and Herzegovina — Sarajevo
+├── North Macedonia — Skopje
+├── Montenegro — Podgorica
+├── Albania — Tirana
+├── Kosovo — Pristina (Contested — partially recognized)
+├── Estonia — Tallinn
+├── Latvia — Riga
+├── Lithuania — Vilnius
+├── Ukraine — Kyiv
+├── Belarus — Minsk
+├── Moldova — Chișinău
+├── Russia — Moscow (Transcontinental — extends into Asia)
+│   └── 85 Federal Subjects (Republics, Oblasts, Krais, Autonomous Okrugs)
+├── Cyprus — Nicosia
+├── Malta — Valletta
+├── Monaco — Monaco
+├── Andorra — Andorra la Vella
+├── Liechtenstein — Vaduz
+├── San Marino — San Marino
+├── Vatican City — Vatican City
+└── Dependent Territories
+    ├── Gibraltar (United Kingdom)
+    ├── Faroe Islands (Denmark) — Tórshavn
+    └── Svalbard (Norway) — Longyearbyen
+```
