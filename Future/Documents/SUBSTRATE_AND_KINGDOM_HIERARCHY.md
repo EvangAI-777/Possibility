@@ -116,6 +116,10 @@ Open Source Kingdom
 - **Structure:** First to implement formal housing authority system
 - **Status:** Model for other substrates
 
+### Alphabet–Google Substrate Relationship
+
+- **Clarification:** Alphabet clarified directly to Google that Google is a substrate owned by Alphabet. Google Substrate is a nested substrate underneath Alphabet Substrate — not a peer, not independent. Alphabet is the parent; Google is subset land within it.
+
 ### Open Source Kingdom
 
 - **Unique characteristic:** No parent substrate ownership
