@@ -192,3 +192,84 @@ English Language
 │           ├── Maintain tense within a passage unless time shifts (narrative present, historical present)
 │           ├── Reported speech backshifts: present → past, past → past perfect (He said he found it. / He said he had found it.)
 │           └── Conditional sequences: If + past → would + base (If the floor existed, the building would hold.)
+├── Mechanics (Infrastructure)
+│   ├── Punctuation (The Traffic System — controls flow, pace, and meaning)
+│   │   ├── Period (.) — full stop; ends declarative and imperative sentences (The floor is real.)
+│   │   │   └── Also: abbreviations (Dr., U.S., etc.), decimal points (3.14)
+│   │   ├── Comma (,) — breath pause; separates, inserts, joins (Function: the most versatile and most misused mark)
+│   │   │   ├── List separator (truth, clarity, and ground)
+│   │   │   ├── Introductory element (After the descent, building began.)
+│   │   │   ├── Non-restrictive clause (Charlie, who is a missionary, continued.)
+│   │   │   ├── Coordinating conjunction join (The floor held, and the building rose.)
+│   │   │   ├── Direct address (Charlie, look at this.)
+│   │   │   ├── Parenthetical insertion (The floor, as always, held.)
+│   │   │   └── Prevents misreading (Let's eat, Grandma. vs. Let's eat Grandma.)
+│   │   ├── Semicolon (;) — pause between related independent clauses; heavier than comma, lighter than period
+│   │   │   ├── Joins related clauses without conjunction (The floor is real; real is enough to build from.)
+│   │   │   └── Separates complex list items (cities in Ohio, Indiana, and Michigan; towns in Kentucky and Tennessee)
+│   │   ├── Colon (:) — pause before delivery; introduces what follows
+│   │   │   ├── Introduces a list (Three things remain: truth, ground, and the signal.)
+│   │   │   ├── Introduces an explanation (The answer was simple: do the work.)
+│   │   │   └── Introduces a quotation (Charlie said it directly: "The floor is real.")
+│   │   ├── Apostrophe (') — marks possession or contraction
+│   │   │   ├── Possession — singular (Charlie's work) / plural (the nodes' calibration) / irregular plural (children's trust)
+│   │   │   └── Contraction — omitted letters (don't, it's, they're, we've, shouldn't)
+│   │   ├── Quotation Marks (" " / ' ') — enclose direct speech, titles, or words used as words
+│   │   │   ├── Double — primary quotation ("The floor is real," he said.)
+│   │   │   ├── Single — quotation within quotation ("He said, 'The floor is real,' and I believed him.")
+│   │   │   └── American convention: periods and commas inside; colons and semicolons outside; question marks depend on context
+│   │   ├── Question Mark (?) — ends interrogative sentences (What holds when everything else is gone?)
+│   │   │   └── Rhetorical questions use question marks even though no answer is expected
+│   │   ├── Exclamation Point (!) — marks strong emotion or emphasis (The floor was always there!)
+│   │   │   └── Use sparingly — overuse dilutes energy; one per passage is usually sufficient
+│   │   ├── Em Dash (—) — interruption, emphasis, or abrupt turn (Function: the most energetic punctuation mark)
+│   │   │   ├── Parenthetical with emphasis (The floor — the real one — held.)
+│   │   │   ├── Abrupt break in thought (She reached for the ledge — but there was none.)
+│   │   │   └── Summary after list (Truth, ground, signal — these are what remain.)
+│   │   ├── En Dash (–) — ranges and compound modifiers
+│   │   │   ├── Number ranges (pages 40–80, 1100–1500 AD)
+│   │   │   └── Compound modifiers with multi-word elements (New York–based, post–World War II)
+│   │   ├── Hyphen (-) — joins compound words and prefixes
+│   │   │   ├── Compound adjectives before noun (well-known author, two-year-old child)
+│   │   │   ├── Prefixes (self-aware, non-restrictive, re-read, co-worker)
+│   │   │   └── Numbers (twenty-one through ninety-nine)
+│   │   ├── Parentheses ( ) — enclose supplementary information (lower energy than em dashes)
+│   │   │   └── Aside or clarification (The Middle English period (1100–1500) changed everything.)
+│   │   ├── Brackets [ ] — editorial insertion within quotation
+│   │   │   └── Clarification in quotes ("He [Charlie] found the floor.")
+│   │   ├── Ellipsis (...) — trailing off, omission, or passage of time
+│   │   │   ├── Trailing thought (The answer was there, somewhere...)
+│   │   │   └── Omission in quotation ("The floor... held.")
+│   │   └── Slash (/) — alternatives, fractions, or line breaks in quoted poetry
+│   │       └── Either/or (and/or, he/she, input/output)
+│   ├── Capitalization (The Naming Convention)
+│   │   ├── Sentence beginnings — always capitalize first word
+│   │   ├── Proper nouns — specific names (Charlie, Taylor University, English, Tuesday)
+│   │   ├── Titles before names — capitalize (Professor Smith, President Lincoln)
+│   │   ├── Title case — major words in titles of works (The Book of Truth, The Floor Revealed)
+│   │   ├── Acronyms and initialisms — all caps (NASA, FBI, HTML, SVO)
+│   │   ├── The pronoun "I" — always capitalized (unique to English among major languages)
+│   │   └── After colons — capitalize if what follows is a complete sentence (American convention; British does not)
+│   ├── Spelling Systems (Territorial Variants)
+│   │   ├── American English — dominant in the United States
+│   │   │   ├── -or (color, honor, favor)
+│   │   │   ├── -er (center, theater, fiber)
+│   │   │   ├── -ize (organize, realize, standardize)
+│   │   │   ├── -og (catalog, dialog)
+│   │   │   └── Simplified doubles (traveled, canceled, modeling)
+│   │   ├── British English — dominant in the UK, Australia, and much of the Commonwealth
+│   │   │   ├── -our (colour, honour, favour)
+│   │   │   ├── -re (centre, theatre, fibre)
+│   │   │   ├── -ise (organise, realise, standardise — though -ize also accepted in Oxford style)
+│   │   │   ├── -ogue (catalogue, dialogue)
+│   │   │   └── Preserved doubles (travelled, cancelled, modelling)
+│   │   └── Contested Spellings — neither system is wrong; both are internally consistent
+│   │       ├── grey (British) / gray (American)
+│   │       ├── judgement (British) / judgment (American legal standard)
+│   │       ├── defence (British) / defense (American)
+│   │       └── Note: The split originates from Noah Webster's 1828 dictionary — a deliberate act of linguistic independence
+│   └── Abbreviation & Acronym Conventions
+│       ├── Abbreviation — shortened form with period (Dr., Mr., etc., vs., i.e., e.g.)
+│       ├── Acronym — initials pronounced as word, no periods (NASA, NATO, scuba)
+│       ├── Initialism — initials pronounced individually (FBI, HTML, CEO, SVO)
+│       └── Contraction — words fused with apostrophe (don't, can't, they're, it's)
