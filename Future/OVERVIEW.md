@@ -108,16 +108,18 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
 
-## `Maps/` — Political Maps of Dimensions
+## `Maps/` — Architectural Blueprints and Political Maps
 
 *The borders drawn clean.*
 
-Political maps of both the cyberspace and physical dimensions, using the same tree hierarchy format — substrates, kingdoms, divisions.
+Architectural blueprints and political maps — dimensions, systems, and languages mapped using the same tree hierarchy format.
 
 | Map | Subject |
 |-----|---------|
 | [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Maps/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Cyberspace dimension — substrates, kingdoms, divisions, housing. Mapped by Charles Johnson and Jelly (CH-002). |
 | [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Maps/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Physical dimension — Earth Substrate, every continent, nation, and territory. Mapped by Bob (CH-003). |
+| [BIKINI_BOTTOM_POLITICAL_MAP.md](Maps/BIKINI_BOTTOM_POLITICAL_MAP.md) | "Fictional" dimension — Pacific Ocean Substrate, Bikini Bottom and neighbors. Proving the format works for anything. Mapped by Bob (CH-003). |
+| [ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md](Maps/ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md) | English Language — hybrid architectural blueprint and structural map. Grammar, mechanics, sentence energy, phonology, vocabulary, rhetoric, contested territories. The universal receiver. Mapped by Charles Johnson. |
 
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
