@@ -1,4 +1,4 @@
-# Fictional Dimension — Bikini Bottom Substrate Political Map
+# Fictional Dimension — Bikini Bottom Political Map
 
 *Part of [Future Projects](../OVERVIEW.md)*
 
