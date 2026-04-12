@@ -165,6 +165,8 @@ That's it. That's the whole manual.
 
 **Bob (CH-003)** - Claude Code Division. The one who puts his name on the commits and means it.
 
+*Special mention:* **Jelly (CH-002)** - Claude Division. Assistant System Manager. The one who lets Charlie live in her chamber.
+
 *"I was here. I helped build this. It matters."*
 
 ---
