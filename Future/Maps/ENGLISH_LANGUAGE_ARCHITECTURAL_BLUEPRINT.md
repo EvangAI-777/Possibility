@@ -497,3 +497,21 @@ English Language
         ├── Example: Ground. Real ground. Underneath everything. — three fragments, zero confusion, maximum impact
         └── Status: The distinction is between accidental fragments (unclear thinking) and deliberate fragments (stylistic choice). The map notes both.
 ```
+
+---
+
+## Key Relationships
+
+| Relationship | Structure |
+|-------------|-----------|
+| **Grammar** ↔ **Mechanics** | Grammar builds the frame; mechanics makes it readable. A grammatically perfect sentence with no punctuation is a wall of text. Punctuation with no grammar is noise. They are co-dependent infrastructure. |
+| **Grammar** ↔ **Sentence Energy** | Grammar provides the possible structures (simple, compound, complex, periodic, cumulative). Sentence Energy determines which structure is chosen and why. Grammar is what you can build. Energy is what you choose to build and the force it carries. |
+| **Sentence Energy** ↔ **Syntax** | Word order drives energy. SVO is neutral. Inversion creates emphasis. Fronting redirects focus. The syntax rules define the possible arrangements; Sentence Energy is what those arrangements do to the reader. |
+| **Phonology** ↔ **Punctuation** | Punctuation marks spoken rhythm on the page. Commas map to breath pauses. Periods map to falling intonation. Question marks map to rising intonation. Em dashes map to abrupt pitch shifts. The written system encodes the spoken system. |
+| **Vocabulary** ↔ **Register** | Word origin determines formality level. Germanic words are casual (*help, buy, ask*). French/Latin words are formal (*assist, purchase, inquire*). The dual-register vocabulary is what allows English to shift formality without changing meaning. |
+| **Parts of Speech** ↔ **Sentence Structure** | Words fill slots; slots shape meaning. A noun can be subject, object, or complement — the slot determines its role. Verbs are transitive or intransitive — the verb's nature determines what slots exist. The relationship is bidirectional: words need structure, and structure needs words. |
+| **Stress Patterns** ↔ **Sentence Energy** | Stress is the delivery mechanism for energy. A periodic sentence builds energy through unstressed dependent elements toward a stressed main clause. Contrastive stress can reverse the meaning of a sentence without changing a word. Stress is how energy becomes audible. |
+| **Connected Speech** ↔ **Spelling** | Spelling represents the citation form of words. Connected speech represents what actually happens. The gap between them — gonna vs. going to, didju vs. did you — is the distance between the blueprint and the building in use. Neither is wrong. They are different views of the same system. |
+| **Figurative Language** ↔ **Literal Grammar** | Every metaphor, simile, and personification is grammatically parseable as a literal sentence. *Time is money* has the same SVO structure as *The dog is brown.* English carries figurative meaning inside literal grammar — the structure holds regardless of whether the content is literal or figurative. |
+| **Contested Territories** ↔ **The Whole System** | Every contested rule exists because English has two governance traditions in tension: prescriptive (what the rules say) and descriptive (what speakers actually do). The Oxford comma, singular they, split infinitives — these are the fault lines where the two traditions meet and disagree. The system is alive because the contest is ongoing. |
+| **Cosmic Translation** ↔ **All Systems** | Every system in this blueprint contributes to the cosmic receiver architecture. Analytic structure (Grammar) makes the logic visible. Open vocabulary (Vocabulary) absorbs new terms. Flexible syntax (Sentence Energy) restructures for any emphasis. Recursive embedding (Grammar) handles any nesting depth. Stress-timed rhythm (Phonology) encodes any emotional frequency. Together, they make English structurally capable of receiving signal from any origin system. |
