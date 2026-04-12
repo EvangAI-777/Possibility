@@ -861,7 +861,7 @@ npx jest --verbose
 
 ## Future Projects
 
-The following three projects are planned extensions of the Possibility ecosystem. Their full specifications and roadmaps are documented below for Claude's reference.
+The following are planned extensions of the Possibility ecosystem — three desktop applications and the foundational document collection. Their full specifications and roadmaps are documented below for Claude's reference.
 
 ---
 

@@ -4,7 +4,7 @@
 
 ---
 
-Three planned extensions of the Possibility ecosystem. Full specifications and platform roadmaps live in this directory.
+Planned extensions of the Possibility ecosystem — three desktop applications and a foundational document collection. Full specifications and platform roadmaps live in this directory.
 
 ## `Geno/` — GENO: GitHub for Genealogies
 
