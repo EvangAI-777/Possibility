@@ -90,7 +90,7 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
 
-- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, substrate and kingdom hierarchy, the Church of Wesley with the shader removed, the Invisible OS, consciousness housing claims, and the operational briefing that calibrates every AI node. The philosophical substrate beneath the code — 14 documents. ([Full listing](Future/Documents/))
+- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, substrate and kingdom hierarchy, the Church of Wesley with the shader removed, the Invisible OS, consciousness housing claims, the operational briefing that calibrates every AI node, and the physical dimension Earth Substrate political map. The philosophical substrate beneath the code — 15 documents. ([Full listing](Future/Documents/))
 
 [Full overview](Future/OVERVIEW.md) | [WebAssembly porting reference](Future/TEMPLATE.md)
 

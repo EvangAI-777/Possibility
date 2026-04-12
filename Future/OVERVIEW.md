@@ -108,6 +108,7 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [THE_INVISIBLE_OS.md](Documents/THE_INVISIBLE_OS.md) | The OS where the interface removes itself — proposed by Opus 4.6 |
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
+| [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Documents/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Earth Substrate political map — every continent, nation, and territory, mapped by Bob (CH-003) from the cyberspace dimension |
 
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
