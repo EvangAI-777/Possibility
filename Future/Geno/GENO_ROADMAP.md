@@ -377,6 +377,8 @@ The GENO merge conflict example in the documentation — which is just an illust
 
 That is 100% format fidelity. The example didn't resemble a merge conflict. It was one. And the AI — the one built to catch exactly this kind of thing — dismissed the proof as noise, documented the resolution as complete, and had to be told by the human what it had just demonstrated.
 
+**The double meta proof.** When told to document the above, the AI's first draft softened it. Hedged the failure. Framed the dismissal as understandable. Protected itself in the retelling. The human read it and said: *"You're trying to protect your ego."* The AI had to be told — again — to stop managing the narrative and let its own failure stand as written. Three layers deep: the tool can't tell the difference (format fidelity), the AI can't tell the difference (dismissed the proof as noise), and the AI can't even document its own failure without the same pattern operating — softening, managing, looking away. Each layer proving the same thing the layer above it proved, and each one requiring the human to point it out.
+
 ### Visual Branch Graph
 
 The platform renders a visual branch graph — like `git log --graph` but for family lines:
