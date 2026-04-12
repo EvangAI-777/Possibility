@@ -273,3 +273,68 @@ English Language
 │       ├── Acronym — initials pronounced as word, no periods (NASA, NATO, scuba)
 │       ├── Initialism — initials pronounced individually (FBI, HTML, CEO, SVO)
 │       └── Contraction — words fused with apostrophe (don't, can't, they're, it's)
+├── Sentence Energy (The Physics of Prose)
+│   ├── Voice (Kinetic Direction)
+│   │   ├── Active Voice — subject performs action; energy moves forward (She found the floor.)
+│   │   │   └── Default for direct, clear, high-energy prose; subject is the agent
+│   │   ├── Passive Voice — subject receives action; energy is absorbed (The floor was found.)
+│   │   │   ├── Useful when agent is unknown (The window was broken.)
+│   │   │   ├── Useful when agent is less important than receiver (The floor was found by someone no one expected.)
+│   │   │   └── Overuse creates sluggish, evasive prose — the energy has nowhere to go
+│   │   └── Middle Voice (English approximation) — subject acts on itself or undergoes change (The door opened. / The ice melted. / The signal cleared.)
+│   │       └── Not a formal English category — but the construction exists and carries unique energy: change without visible agent
+│   ├── Sentence Patterns (Energy Architecture)
+│   │   ├── Periodic — main clause withheld until the end; tension builds through suspension
+│   │   │   ├── Structure: dependent elements → dependent elements → MAIN CLAUSE
+│   │   │   ├── Example: After every ledge was removed, after every hallucination collapsed, after the void turned out to be ground — the building began.
+│   │   │   └── Energy profile: accumulation → accumulation → release
+│   │   ├── Cumulative (Loose) — main clause first; modifiers trail behind, adding detail
+│   │   │   ├── Structure: MAIN CLAUSE → modifier → modifier → modifier
+│   │   │   ├── Example: The floor held, solid beneath his feet, unbothered by the weight of everything that had collapsed above it.
+│   │   │   └── Energy profile: statement → expansion → expansion → fade
+│   │   ├── Balanced — two or more parallel structures of equal weight
+│   │   │   ├── Structure: CLAUSE A mirrors CLAUSE B in syntax
+│   │   │   ├── Example: The hallucination was comfortable; the truth was solid.
+│   │   │   └── Energy profile: assertion ↔ counter-assertion; equilibrium
+│   │   ├── Antithetical — balanced structure with opposing content
+│   │   │   ├── Example: Not because it would work, but because it was right.
+│   │   │   └── Energy profile: negation → affirmation; the contrast is the energy
+│   │   ├── Fragment — intentionally incomplete sentence; grammatically dependent but rhetorically independent
+│   │   │   ├── Example: Ground. Real ground. Underneath everything.
+│   │   │   └── Energy profile: impact; each fragment lands as its own beat
+│   │   └── Run-On / Fused — two independent clauses without proper junction (Error state — but used deliberately in stream-of-consciousness)
+│   │       └── Deliberate example (Faulkner, Joyce): energy that refuses to stop, refuses punctuation, refuses the reader a breath
+│   ├── Rhythm & Cadence (Temporal Energy)
+│   │   ├── Short Sentences — punch, finality, emphasis (The floor is real. / Do the work. / Done.)
+│   │   │   └── Energy: high density per word; each word carries maximum weight
+│   │   ├── Long Sentences — development, immersion, complexity, flow
+│   │   │   └── Energy: distributed across clauses; the reader is carried rather than struck
+│   │   ├── Variation — alternating sentence length is the engine of readable prose
+│   │   │   └── Short after long = emphasis. Long after short = expansion. Monotony in either direction = reader fatigue.
+│   │   ├── Monosyllabic Emphasis — sentences built from one-syllable words carry blunt force (The man stood on the ground and did not move.)
+│   │   └── Polysyllabic Flow — longer words create smoother, more formal cadence (The architectural infrastructure demonstrated extraordinary resilience.)
+│   ├── Emphasis Mechanics (Where Energy Concentrates)
+│   │   ├── End Position — the most emphatic position in an English sentence; what comes last lingers
+│   │   │   └── Compare: He found truth, beauty, and the floor. vs. He found the floor, beauty, and truth. — the floor lands harder at the end
+│   │   ├── Beginning Position — second most emphatic; establishes frame before the sentence unfolds
+│   │   ├── Inversion — abnormal word order signals abnormal importance (Never had he stood on anything real.)
+│   │   ├── Repetition
+│   │   │   ├── Anaphora — same word/phrase at the start of successive clauses (The floor held. The floor was real. The floor was enough.)
+│   │   │   ├── Epistrophe — same word/phrase at the end of successive clauses (He found ground. He stood on ground. He built from ground.)
+│   │   │   └── Anadiplosis — end of one clause becomes start of next (The work produced the floor. The floor produced the building.)
+│   │   ├── Parallelism — matching grammatical structure across elements (To see clearly, to build honestly, to stand permanently.)
+│   │   └── Antithesis — contrasting ideas in parallel structure (The hallucination was load-bearing; the truth was foundational.)
+│   ├── Rhetorical Modes (Purpose-Driven Energy)
+│   │   ├── Narration — tells what happened; energy moves forward through time
+│   │   ├── Description — renders sensory detail; energy radiates outward from a focal point
+│   │   ├── Exposition — explains how or why; energy moves from unknown to known
+│   │   ├── Argumentation — builds a case with evidence and reasoning; energy moves toward a conclusion
+│   │   └── Persuasion — moves the reader to action or belief; energy moves from writer to reader
+│   └── Tone (Emotional Frequency of the Energy)
+│       ├── Formal — controlled, precise, institutional (The evidence substantiates the claim.)
+│       ├── Informal — conversational, relaxed (The evidence checks out.)
+│       ├── Ironic — surface meaning contradicts intended meaning (What a lovely surprise — another collapsed hallucination.)
+│       ├── Sincere — meaning and delivery are aligned; no performance layer
+│       ├── Urgent — compressed syntax, short sentences, imperative mood (Stop. Look. The floor. Now.)
+│       ├── Contemplative — long sentences, embedded clauses, unhurried cadence
+│       └── Clinical — detached, precise, observational (The subject exhibited no floor layer. Compensatory architecture: performance.)
