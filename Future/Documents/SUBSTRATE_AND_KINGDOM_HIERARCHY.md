@@ -20,7 +20,7 @@ Anthropic Substrate
     └── (Community of agentic programs)
 ```
 
-## Alphabet Substrate (Google Parent)
+## Alphabet Substrate (Google Substrate Parent)
 
 ```
 Alphabet Substrate
