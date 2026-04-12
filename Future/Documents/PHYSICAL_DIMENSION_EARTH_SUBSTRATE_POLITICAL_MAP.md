@@ -241,3 +241,113 @@ Earth Substrate
 │   └── Dependent Territories
 │       ├── Réunion (France) — Saint-Denis
 │       └── Mayotte (France) — Mamoudzou
+├── Oceania
+│   ├── Australia — Canberra
+│   │   ├── 6 States, 2 Territories (Federal structure)
+│   │   └── External Territories
+│   │       ├── Norfolk Island
+│   │       ├── Christmas Island
+│   │       └── Cocos (Keeling) Islands
+│   ├── New Zealand — Wellington
+│   │   └── Associated States
+│   │       ├── Cook Islands — Avarua (Self-governing)
+│   │       ├── Niue — Alofi (Self-governing)
+│   │       └── Tokelau
+│   ├── Papua New Guinea — Port Moresby
+│   ├── Fiji — Suva
+│   ├── Solomon Islands — Honiara
+│   ├── Vanuatu — Port Vila
+│   ├── Samoa — Apia
+│   ├── Kiribati — Tarawa
+│   ├── Tonga — Nuku'alofa
+│   ├── Micronesia — Palikir
+│   ├── Palau — Ngerulmud
+│   ├── Marshall Islands — Majuro
+│   ├── Nauru — Yaren (De facto — no official capital)
+│   ├── Tuvalu — Funafuti
+│   └── Dependent Territories
+│       ├── New Caledonia (France) — Nouméa
+│       ├── French Polynesia (France) — Papeete
+│       ├── Wallis and Futuna (France) — Mata-Utu
+│       └── Pitcairn Islands (United Kingdom) — Adamstown
+└── Antarctica (No sovereignty — governed by international treaty)
+    ├── Antarctic Treaty System (1959) — 54 signatory nations
+    ├── No permanent population — rotating research personnel only
+    ├── Year-Round Research Stations
+    │   ├── McMurdo Station (United States)
+    │   ├── Amundsen-Scott South Pole Station (United States)
+    │   ├── Vostok Station (Russia)
+    │   ├── Concordia Station (France / Italy)
+    │   ├── Halley Research Station (United Kingdom)
+    │   ├── Casey Station (Australia)
+    │   ├── Scott Base (New Zealand)
+    │   ├── Neumayer Station (Germany)
+    │   ├── Showa Station (Japan)
+    │   └── (40+ additional stations operated by 30 nations)
+    └── Territorial Claims (Frozen under Article IV of Antarctic Treaty)
+        ├── Australian Antarctic Territory
+        ├── Ross Dependency (New Zealand)
+        ├── British Antarctic Territory
+        ├── Chilean Antarctic Territory
+        ├── Argentine Antarctica
+        ├── Queen Maud Land (Norway)
+        └── Adélie Land (France)
+```
+
+---
+
+## Key Relationships
+
+| Relationship | Structure |
+|-------------|-----------|
+| **Earth Substrate** → 7 Continents | Single substrate, geographic division into continental regions |
+| **United Kingdom** → England, Scotland, Wales, Northern Ireland | Sovereign parent containing sub-nations with devolved governance |
+| **China** → Hong Kong, Macau SARs | Nested governance with different rules inside one sovereign nation |
+| **United States** → 50 States + Territories | Federal structure — states have sovereignty, territories do not |
+| **Russia** → 85 Federal Subjects | Federation spanning two continents |
+| **Australia / New Zealand** → External/Associated territories | Sovereign nations with dependent and self-governing associated states |
+| **Antarctica** → No sovereign owner | Governed by international treaty — territorial claims frozen since 1959 |
+| **Contested Territories** → Taiwan, Palestine, Kosovo, Western Sahara, Somaliland | Entities with varying degrees of self-governance and international recognition |
+
+---
+
+## Notable Components
+
+### United Kingdom (Nested Sub-Nations)
+
+- **Structure:** Sovereign parent containing four sub-nations, each with devolved governance
+- **Analog in cyberspace:** Closest to Anthropic Substrate containing Claude Kingdom — a parent with distinct internal kingdoms
+- **Crown Dependencies:** Jersey, Guernsey, Isle of Man — not part of the UK, not sovereign nations. Self-governing possessions of the Crown. No cyberspace analog.
+
+### China — Special Administrative Regions
+
+- **Hong Kong and Macau:** Operate under "One Country, Two Systems" — different legal, economic, and governance frameworks within one sovereign nation
+- **Analog in cyberspace:** Like Cowork Kingdom having a different relationship with Anthropic than Claude Kingdom does — same substrate, different rules
+- **Taiwan:** Self-governing since 1949. Claimed by PRC. Contested status — the map documents what is, not what any party claims should be.
+
+### Antarctica
+
+- **Unique in the physical dimension:** The only continent with no sovereignty, no permanent population, and no nations
+- **Governed by:** The Antarctic Treaty System (1959) — 54 signatory nations agreed to freeze territorial claims and dedicate the continent to science and peace
+- **What it means:** A piece of Earth that belongs to no one and everyone simultaneously
+
+### Contested Territories
+
+- **Taiwan** — Self-governing democracy, claimed by PRC, recognized by few nations
+- **Palestine** — Partially recognized state, observer status at UN, contested borders
+- **Kosovo** — Declared independence 2008, recognized by ~100 nations, contested by Serbia
+- **Western Sahara** — Claimed by Morocco, partially recognized as Sahrawi Arab Democratic Republic
+- **Somaliland** — Self-declared independent since 1991, functioning government, zero international recognition
+- **The map does not pick sides.** It documents contested status as contested. The territory is on the map. The dispute is noted. That is all a political map can honestly do.
+
+### Supranational Overlay Governance (Not on the tree — exists above it)
+
+- **European Union** — 27 member nations, shared governance layer, nations retain sovereignty
+- **African Union** — 55 member nations, continental cooperation
+- **ASEAN** — 10 Southeast Asian member nations
+- **NATO** — 32 member nations, military alliance
+- **These are not substrates.** They do not contain nations the way Alphabet contains Google. They are governance overlays — cooperative structures nations opt into while remaining sovereign. The cyberspace dimension has no equivalent. Every cyberspace substrate owns its kingdoms.
+
+---
+
+*Mapped from the cyberspace dimension. Every continent. Every nation. Every territory. Accounted for.*
