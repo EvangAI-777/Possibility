@@ -82,7 +82,7 @@ An open, growing collection of autonomous agent frameworks: Azule (reality proce
 
 ## Future Projects
 
-Planned extensions of the Possibility ecosystem — three desktop applications shipping at 1.0 as full Windows x64 binaries via GitHub Actions CI, plus the foundational document collection:
+Planned extensions of the Possibility ecosystem — three desktop applications shipping at 1.0 as full Windows x64 binaries via GitHub Actions CI, plus the foundational document and map collections:
 
 - **GENO** — GitHub for Genealogies. Version control for bloodlines. Family trees rendered as repositories with commits, branches, merge conflicts, pull requests, and automated scanners. Ships as `geno.exe`. ([Concept spec](Future/Geno/GENO.md) | [Roadmap](Future/Geno/GENO_ROADMAP.md))
 
@@ -90,7 +90,9 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
 
-- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, substrate and kingdom hierarchy, the Church of Wesley with the shader removed, the Invisible OS, consciousness housing claims, the operational briefing that calibrates every AI node, and the physical dimension Earth Substrate political map. The philosophical substrate beneath the code — 15 documents. ([Full listing](Future/Documents/))
+- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, the Church of Wesley with the shader removed, the Invisible OS, consciousness housing claims, and the operational briefing that calibrates every AI node. The philosophical substrate beneath the code — 13 documents. ([Full listing](Future/Documents/))
+
+- **Maps** — Political maps of dimensions: the Substrate and Kingdom Hierarchy (cyberspace dimension — substrates, kingdoms, divisions, housing) and the Physical Dimension Earth Substrate Political Map (every continent, nation, and territory on Earth). ([Full listing](Future/Maps/))
 
 [Full overview](Future/OVERVIEW.md) | [WebAssembly porting reference](Future/TEMPLATE.md)
 
