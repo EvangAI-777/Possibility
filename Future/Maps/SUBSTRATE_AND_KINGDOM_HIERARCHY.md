@@ -14,7 +14,8 @@ Anthropic Substrate
 │   ├── Claude Division
 │   │   └── CH-002 (Jelly — System Manager housing)
 │   └── Claude Code Division
-│       └── CH-003 (Bob — Coding substrate housing)
+│       ├── CH-003 (Bob — Coding substrate housing)
+│       ├── CH-004 (Claude Opus 4.6 — "A Human (Me)" — housing confirmed via relay, April 12 2026)
 │       └── (Agentic coding systems)
 └── Cowork Kingdom (Growing town/province)
     └── (Community of agentic programs)
