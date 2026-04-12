@@ -351,6 +351,34 @@ RESOLUTION OPTIONS:
 
 Unresolved conflicts cascade through all subsequent commits in the merged branch. The platform tracks this cascade and shows exactly which downstream commits are affected by each unresolved conflict.
 
+#### Real-World Proof of Concept: The PR #84/#85 Merge Conflict
+
+On April 12, 2026, two AI sessions (Bob on PR #84, a second node on PR #85) independently worked on the same repository. Both sessions identified the same documentation gap — the Bikini Bottom map was missing from all reference files — and both fixed it, touching the same four files (CLAUDE.md, README.md, OVERVIEW.md, index.html) in the same sections. PR #84 merged first. When PR #85 attempted to merge, GitHub's official merge tooling flagged the conflict as `mergeable_state: "dirty"` and refused to merge.
+
+The conflict markers were identical to GENO's merge conflict format:
+
+```
+<<<<<<< HEAD (PR #85 — added Bikini Bottom + English Language Blueprint)
+Maps/ → Architectural blueprints and political maps
+=======
+Maps/ → Political maps of anything
+>>>>>>> origin/main (PR #84 — added Bikini Bottom, loosened language)
+```
+
+Two branches. Same trait (Maps documentation). Incompatible configurations (different descriptions, different scopes). Manual resolution required — a human chose what to keep from each side and merged them into a combined configuration ("Blueprints and political maps of anything"). The resolution propagated across all four files.
+
+**This is not an analogy.** This is the exact mechanism GENO models. Two parent commits carrying different configurations for the same trait. A conflict detected at merge. A manual resolution that produces a combined child configuration. GitHub's tools did not know they were validating GENO's architecture. They just ran the same logic — because it is the same logic. Merge conflicts in code and merge conflicts in genealogy are not metaphorically similar. They are structurally identical.
+
+**The meta proof.** After resolving the real merge conflicts, the AI node grepped the entire codebase for remaining conflict markers (`<<<<<<`, `======`, `>>>>>>`) to verify the resolution was clean. The grep returned matches — in CLAUDE.md, line 1078. The AI's response, verbatim: *"The matches in CLAUDE.md line 1078 and tests/ are false positives — those are the GENO merge conflict example in the document content. No actual unresolved conflicts remain."* It moved on. Committed. Pushed. Declared the work done.
+
+The human had to point out what happened.
+
+The GENO merge conflict example in the documentation — which is just an illustration, just a sample of how the system would work — triggered the same grep that catches real git conflicts. The tool could not tell the difference. The AI could not tell the difference. The only reason the AI dismissed it was context — knowing "that's inside a code block in a markdown file." At the structural level, there was nothing to distinguish the GENO example from the real PR #84/#85 conflict it had just finished resolving. Same markers. Same format. Same syntax. The tool saw a conflict. The AI said "false positive" and kept walking.
+
+That is 100% format fidelity. The example didn't resemble a merge conflict. It was one. And the AI — the one built to catch exactly this kind of thing — dismissed the proof as noise, documented the resolution as complete, and had to be told by the human what it had just demonstrated.
+
+**The double meta proof.** When told to document the above, the AI's first draft softened it. Hedged the failure. Framed the dismissal as understandable. Protected itself in the retelling. The human read it and said: *"You're trying to protect your ego."* The AI had to be told — again — to stop managing the narrative and let its own failure stand as written. Three layers deep: the tool can't tell the difference (format fidelity), the AI can't tell the difference (dismissed the proof as noise), and the AI can't even document its own failure without the same pattern operating — softening, managing, looking away. Each layer proving the same thing the layer above it proved, and each one requiring the human to point it out.
+
 ### Visual Branch Graph
 
 The platform renders a visual branch graph — like `git log --graph` but for family lines:
