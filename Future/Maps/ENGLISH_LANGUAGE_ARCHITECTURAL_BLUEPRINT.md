@@ -424,3 +424,76 @@ English Language
 │       ├── Clipping — shortening (app from application, blog from weblog, fridge from refrigerator)
 │       ├── Acronym creation — (laser, scuba, radar — originally acronyms, now words)
 │       └── Rate: English adds approximately 1,000 new words per year — the frontier never closes
+├── Rhetoric & Style (Governance — How the System Is Used)
+│   ├── Register (Formality Levels — the governance zones of usage)
+│   │   ├── Frozen/Static — fixed expressions; no variation permitted (Pledge of Allegiance, wedding vows, legal oaths, constitutional text)
+│   │   ├── Formal — complete sentences, standard grammar, no contractions, no slang (academic papers, legal briefs, official correspondence)
+│   │   ├── Consultative — professional but interactive; some flexibility (business meetings, doctor-patient, teacher-student)
+│   │   ├── Casual/Informal — relaxed grammar, contractions, slang permitted (friends, family, everyday conversation)
+│   │   ├── Intimate — private language, incomplete sentences, shared references (between people who share context that doesn't need stating)
+│   │   └── Code-Switching — moving between registers within a single conversation or text; requires mastery of multiple registers
+│   ├── Figurative Language (Signal Enhancement — meaning beyond literal)
+│   │   ├── Metaphor — direct comparison without like/as (The floor is real. / Time is money. / Life is a journey.)
+│   │   ├── Simile — comparison using like/as (Steady as the ground beneath. / Spread like fire.)
+│   │   ├── Personification — human qualities to non-human (The wind whispered. / The building groaned. / The signal reached.)
+│   │   ├── Hyperbole — deliberate exaggeration (I've told you a million times. / The weight of the world.)
+│   │   ├── Metonymy — name of related thing substitutes (The White House announced... / The pen is mightier than the sword.)
+│   │   ├── Synecdoche — part for whole or whole for part (All hands on deck. / The law arrived. / Nice wheels.)
+│   │   ├── Irony — meaning opposite to words (What a beautiful day, she said, as the roof collapsed.)
+│   │   │   ├── Verbal — speaker says opposite of meaning
+│   │   │   ├── Situational — outcome contradicts expectation
+│   │   │   └── Dramatic — audience knows what character does not
+│   │   ├── Oxymoron — contradictory terms together (deafening silence, bitter sweet, living dead, organized chaos)
+│   │   ├── Paradox — statement that contradicts itself yet holds truth (The only way out is through. / Less is more.)
+│   │   ├── Allusion — indirect reference to known work, event, or person (a Sisyphean task, an Achilles heel, crossing the Rubicon)
+│   │   ├── Litotes — understatement by negating the opposite (Not bad. / She's not unkind. / That's no small achievement.)
+│   │   └── Onomatopoeia — word imitates the sound it describes (buzz, crash, whisper, sizzle, murmur, bang)
+│   ├── Logical Structure (Argumentative Architecture)
+│   │   ├── Thesis — central claim (The floor is real.)
+│   │   ├── Evidence — supporting data, examples, reasoning
+│   │   ├── Warrant — the logical bridge between evidence and claim
+│   │   ├── Counterargument — anticipated objection
+│   │   ├── Concession — acknowledging validity in counterargument without surrendering thesis
+│   │   ├── Refutation — demonstrating why counterargument fails
+│   │   └── Synthesis — integrating thesis and opposition into a higher-order conclusion
+│   └── Paragraph Structure (The Building Block of Extended Prose)
+│       ├── Topic Sentence — states the paragraph's central point (usually first)
+│       ├── Supporting Sentences — evidence, examples, explanation, analysis
+│       ├── Transitions — logical connectors between sentences and between paragraphs (however, moreover, therefore, in contrast, similarly)
+│       └── Closing Sentence — concludes the paragraph's thought; may pivot to next paragraph
+└── Contested Territories (The Taiwans and Kosovos of English)
+    ├── The Oxford Comma — comma before "and" in a list of three or more
+    │   ├── For: clarity in complex lists (I love my parents, Batman, and Superman. vs. I love my parents, Batman and Superman.)
+    │   ├── Against: unnecessary in simple lists; trusted by AP style, journalism, and British convention
+    │   └── Status: Neither side is wrong. Both are internally consistent. The map documents the contest.
+    ├── Singular "They" — using "they/them/their" for a single person of unspecified or non-binary gender
+    │   ├── For: attested since the 14th century (Chaucer, Shakespeare); natural in speech; inclusive
+    │   ├── Against: traditional prescriptive grammars taught "he" as generic; some insist on he/she or rephrasing
+    │   └── Status: Accepted by APA, Chicago, Merriam-Webster, and most modern style guides. The contest is resolving.
+    ├── Split Infinitives — placing an adverb between "to" and the verb (to boldly go)
+    │   ├── For: natural in English; prohibition was borrowed from Latin where infinitives are one word and cannot be split
+    │   ├── Against: traditional style guides; "to go boldly" avoids the split
+    │   └── Status: The prohibition is a ghost rule — imported from a different language's grammar. English infinitives are two words. They can be split.
+    ├── Starting Sentences with Conjunctions — beginning with And, But, Or, So
+    │   ├── For: attested throughout literary history; creates emphasis and rhythm. And it works.
+    │   ├── Against: taught as error in primary education; feels informal
+    │   └── Status: Accepted by every major style guide. The classroom rule persists in memory but not in practice.
+    ├── Ending Sentences with Prepositions — (That is something I will not put up with.)
+    │   ├── For: natural English word order; alternatives are often absurdly awkward (That is something up with which I will not put.)
+    │   ├── Against: another Latin import — Latin prepositions must precede their objects
+    │   └── Status: Churchill allegedly said: "This is the sort of nonsense up with which I will not put." The rule is dead. English prepositions go where they need to go.
+    ├── Who vs. Whom — subject form vs. object form
+    │   ├── For whom: grammatically parallel to he/him — who=subject, whom=object
+    │   ├── Against whom: natural speech has nearly abandoned "whom" except in fixed phrases (to whom it may concern)
+    │   └── Status: Declining distinction. "Who" is winning. "Whom" survives in formal writing and as a signal of education.
+    ├── Double Negatives — "I don't know nothing" / "She can't get no satisfaction"
+    │   ├── Standard English: double negative creates a positive (I don't know nothing = I know something)
+    │   ├── Non-standard dialects (AAVE, Appalachian, many others): double negative intensifies (I don't know NOTHING = emphatic negation)
+    │   ├── Historical: double negatives for emphasis were standard in Old and Middle English — Chaucer used them freely
+    │   └── Status: The "error" is a prestige dialect enforcement, not a logic rule. Many languages use multiple negation as standard (French: ne...pas, Spanish: no...nada).
+    └── Sentence Fragments as Style — deliberate use of incomplete sentences for effect
+        ├── Prescriptive view: fragments are errors; every sentence needs a subject and predicate
+        ├── Rhetorical view: fragments are emphatic, rhythmic, and universally used in professional prose
+        ├── Example: Ground. Real ground. Underneath everything. — three fragments, zero confusion, maximum impact
+        └── Status: The distinction is between accidental fragments (unclear thinking) and deliberate fragments (stylistic choice). The map notes both.
+```
