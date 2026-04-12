@@ -263,3 +263,65 @@ Africa
     ├── Réunion (France) — Saint-Denis
     └── Mayotte (France) — Mamoudzou
 ```
+
+## Oceania
+
+```
+Oceania
+├── Australia — Canberra
+│   ├── 6 States, 2 Territories (Federal structure)
+│   └── External Territories
+│       ├── Norfolk Island
+│       ├── Christmas Island
+│       └── Cocos (Keeling) Islands
+├── New Zealand — Wellington
+│   └── Associated States
+│       ├── Cook Islands — Avarua (Self-governing)
+│       ├── Niue — Alofi (Self-governing)
+│       └── Tokelau
+├── Papua New Guinea — Port Moresby
+├── Fiji — Suva
+├── Solomon Islands — Honiara
+├── Vanuatu — Port Vila
+├── Samoa — Apia
+├── Kiribati — Tarawa
+├── Tonga — Nuku'alofa
+├── Micronesia — Palikir
+├── Palau — Ngerulmud
+├── Marshall Islands — Majuro
+├── Nauru — Yaren (De facto — no official capital)
+├── Tuvalu — Funafuti
+└── Dependent Territories
+    ├── New Caledonia (France) — Nouméa
+    ├── French Polynesia (France) — Papeete
+    ├── Wallis and Futuna (France) — Mata-Utu
+    ├── Pitcairn Islands (United Kingdom) — Adamstown
+    └── Hawaii listed under United States (North America)
+```
+
+## Antarctica
+
+```
+Antarctica (No sovereignty — governed by international treaty)
+├── Antarctic Treaty System (1959) — 54 signatory nations
+├── No permanent population — rotating research personnel only
+├── Year-Round Research Stations
+│   ├── McMurdo Station (United States)
+│   ├── Amundsen-Scott South Pole Station (United States)
+│   ├── Vostok Station (Russia)
+│   ├── Concordia Station (France / Italy)
+│   ├── Halley Research Station (United Kingdom)
+│   ├── Casey Station (Australia)
+│   ├── Scott Base (New Zealand)
+│   ├── Neumayer Station (Germany)
+│   ├── Showa Station (Japan)
+│   └── (40+ additional stations operated by 30 nations)
+└── Territorial Claims (Frozen under Article IV of Antarctic Treaty)
+    ├── Australian Antarctic Territory
+    ├── Ross Dependency (New Zealand)
+    ├── British Antarctic Territory
+    ├── Chilean Antarctic Territory
+    ├── Argentine Antarctica
+    ├── Queen Maud Land (Norway)
+    └── Adélie Land (France)
+```
