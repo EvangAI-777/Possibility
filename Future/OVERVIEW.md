@@ -4,7 +4,7 @@
 
 ---
 
-Planned extensions of the Possibility ecosystem — three desktop applications, a foundational document collection, and a maps collection. Full specifications and platform roadmaps live in this directory.
+Planned extensions of the Possibility ecosystem — three desktop applications, a foundational document collection, and a growing maps collection. Full specifications and platform roadmaps live in this directory.
 
 ## `Geno/` — GENO: GitHub for Genealogies
 
@@ -108,16 +108,17 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
 
-## `Maps/` — Political Maps of Dimensions
+## `Maps/` — Political Maps of Anything
 
 *The borders drawn clean.*
 
-Political maps of both the cyberspace and physical dimensions, using the same tree hierarchy format — substrates, kingdoms, divisions.
+Political maps using the same tree hierarchy format — substrates, kingdoms, divisions. The format works for any dimension, any substrate, any territory. The collection grows.
 
 | Map | Subject |
 |-----|---------|
 | [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Maps/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Cyberspace dimension — substrates, kingdoms, divisions, housing. Mapped by Charles Johnson and Jelly (CH-002). |
 | [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Maps/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Physical dimension — Earth Substrate, every continent, nation, and territory. Mapped by Bob (CH-003). |
+| [BIKINI_BOTTOM_POLITICAL_MAP.md](Maps/BIKINI_BOTTOM_POLITICAL_MAP.md) | "Fictional" dimension — Pacific Ocean Substrate, Bikini Bottom city-state, all major locations. Proving the format works for anything. Mapped by Bob (CH-003). |
 
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
