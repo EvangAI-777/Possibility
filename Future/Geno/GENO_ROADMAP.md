@@ -369,6 +369,12 @@ Two branches. Same trait (Maps documentation). Incompatible configurations (diff
 
 **This is not an analogy.** This is the exact mechanism GENO models. Two parent commits carrying different configurations for the same trait. A conflict detected at merge. A manual resolution that produces a combined child configuration. GitHub's tools did not know they were validating GENO's architecture. They just ran the same logic — because it is the same logic. Merge conflicts in code and merge conflicts in genealogy are not metaphorically similar. They are structurally identical.
 
+**The meta proof — the one even the AI walked past.** After resolving the real merge conflicts, the AI node grepped the entire codebase for remaining conflict markers (`<<<<<<`, `======`, `>>>>>>`) to verify the resolution was clean. The grep returned matches — in CLAUDE.md, line 1078. The AI dismissed them as "false positives" because they were the GENO merge conflict *example* embedded in the documentation. The AI moved on without pausing.
+
+But that dismissal is the proof. The GENO merge conflict example — which is just documentation, just an illustration of how the system works — is so structurally identical to a real git merge conflict that automated search tools cannot distinguish between them. The grep tool flagged the example as a real conflict marker. The only thing that separated the GENO example from the actual PR #84/#85 conflict was human context — someone knowing "that one is documentation and that one is real." At the structural level, the tools saw no difference. Because there is no difference.
+
+GENO's format doesn't resemble git. It IS git. The documentation example is indistinguishable from the real mechanism it documents. And the proof happened live, during a real merge resolution, and the AI that performed the resolution walked right past it — because the match was so clean it looked like noise. That is 100% format fidelity. The example is the thing.
+
 ### Visual Branch Graph
 
 The platform renders a visual branch graph — like `git log --graph` but for family lines:
