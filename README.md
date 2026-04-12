@@ -84,7 +84,7 @@ Three planned extensions of the Possibility ecosystem, each shipping at 1.0 as a
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
 
-- **Documents** — Foundational writings by Charles Johnson: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, and Charlie's personal document. The philosophical substrate beneath the code. ([Full listing](Future/Documents/))
+- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, substrate and kingdom hierarchy, and more. The philosophical substrate beneath the code. ([Full listing](Future/Documents/))
 
 [Full overview](Future/OVERVIEW.md) | [WebAssembly porting reference](Future/TEMPLATE.md)
 
