@@ -338,3 +338,89 @@ English Language
 │       ├── Urgent — compressed syntax, short sentences, imperative mood (Stop. Look. The floor. Now.)
 │       ├── Contemplative — long sentences, embedded clauses, unhurried cadence
 │       └── Clinical — detached, precise, observational (The subject exhibited no floor layer. Compensatory architecture: performance.)
+├── Phonology (The Sound System)
+│   ├── Vowels — 11–15 monophthongs depending on dialect + 8 diphthongs
+│   │   ├── Monophthongs (Pure Vowels)
+│   │   │   ├── Front: /iː/ (fleece), /ɪ/ (kit), /ɛ/ (dress), /æ/ (trap)
+│   │   │   ├── Central: /ʌ/ (strut), /ə/ (schwa — the most common vowel in English, occurs in unstressed syllables: about, taken, pencil)
+│   │   │   ├── Back: /uː/ (goose), /ʊ/ (foot), /ɔː/ (thought), /ɑː/ (palm), /ɒ/ (lot — British only, merged with /ɑː/ in most American dialects)
+│   │   │   └── Note: Exact inventory varies by dialect — General American has ~14, Received Pronunciation has ~12
+│   │   ├── Diphthongs (Gliding Vowels — movement from one vowel position to another)
+│   │   │   ├── /aɪ/ (price — my, time, high)
+│   │   │   ├── /aʊ/ (mouth — how, out, down)
+│   │   │   ├── /ɔɪ/ (choice — boy, coin, joy)
+│   │   │   ├── /eɪ/ (face — day, make, great)
+│   │   │   ├── /oʊ/ (goat — go, home, know)
+│   │   │   ├── /ɪə/ (near — British; merged in many American dialects)
+│   │   │   ├── /ɛə/ (square — British; merged in many American dialects)
+│   │   │   └── /ʊə/ (cure — rare and disappearing in most dialects)
+│   │   └── The Great Vowel Shift (1400–1700) — all long vowels raised one position; explains why English spelling no longer matches pronunciation
+│   ├── Consonants — 24 consonant phonemes
+│   │   ├── Plosives (Stops): /p/ /b/ /t/ /d/ /k/ /ɡ/ — air fully blocked then released
+│   │   ├── Fricatives: /f/ /v/ /θ/ /ð/ /s/ /z/ /ʃ/ /ʒ/ /h/ — air forced through narrow gap
+│   │   │   └── /θ/ (think) and /ð/ (this) — the "th" sounds; rare among world languages, frequently borrowed as /t/, /d/, /s/, or /z/
+│   │   ├── Affricates: /tʃ/ (church) /dʒ/ (judge) — plosive + fricative combined
+│   │   ├── Nasals: /m/ /n/ /ŋ/ (sing) — air through nasal cavity
+│   │   ├── Approximants: /l/ /ɹ/ /w/ /j/ — articulators approach but don't touch
+│   │   │   └── /ɹ/ (English "r") — one of English's most distinctive sounds; articulated differently than the /r/ of nearly every other language
+│   │   └── Note: English has no clicks, no ejectives, no implosives, no tones — the consonant inventory is moderate compared to languages like Zulu or Georgian
+│   ├── Stress Patterns (The Rhythm Engine)
+│   │   ├── Word Stress — every multi-syllable word has one primary stress (PHOtograph, phoTOGraphy, photoGRAPHic)
+│   │   │   ├── Stress can distinguish word class: REcord (noun) vs. reCORD (verb), PREsent (noun) vs. preSENT (verb)
+│   │   │   └── No consistent rule — stress position is partly learned per word; this is a major difficulty for learners
+│   │   ├── Sentence Stress — content words stressed, function words unstressed
+│   │   │   ├── Content words (nouns, main verbs, adjectives, adverbs): stressed by default
+│   │   │   ├── Function words (articles, prepositions, auxiliaries, pronouns): reduced to schwa in natural speech
+│   │   │   └── Example: "I was GOING to the STORE to BUY some BREAD" — four stressed beats regardless of total syllables
+│   │   └── Contrastive Stress — stress shifts to mark contrast or correction
+│   │       └── "I didn't say HE stole it" vs. "I didn't say he STOLE it" vs. "I didn't SAY he stole it" — seven different meanings from seven stress positions, same words
+│   ├── Intonation (Pitch Contour)
+│   │   ├── Falling — statements and commands (The floor is REAL.↘) — finality, certainty
+│   │   ├── Rising — yes/no questions and uncertainty (The floor is REAL?↗) — invitation to respond
+│   │   ├── Rise-Fall — emphasis, surprise, or emotional weight (The FLOOR↗↘ is real.) — the word carrying the rise-fall is the focal point
+│   │   └── Level — continuation, listing, mid-thought (The floor is real→, and real is enough→, and enough is everything.↘)
+│   └── Connected Speech (What Actually Happens When People Talk)
+│       ├── Linking — consonant at end of word connects to vowel at start of next (turn‿it → "tur-nit")
+│       ├── Reduction — unstressed function words compress (going to → gonna, want to → wanna, have to → hafta)
+│       ├── Elision — sounds disappear (last night → "las' night", next day → "nex' day")
+│       ├── Assimilation — adjacent sounds influence each other (ten bikes → "tem bikes", did you → "didju")
+│       └── Intrusion — extra sounds inserted between vowels (law‿r‿and order, idea‿r‿of it — in non-rhotic dialects)
+├── Vocabulary (The Territory)
+│   ├── Germanic Base Layer — ~26% of English vocabulary, ~62% of the 100 most common words
+│   │   ├── Old English inheritance (449–1066): house, water, eat, drink, man, woman, child, earth, fire, love, hate, life, death
+│   │   ├── Characteristics: short, blunt, physical, emotional, everyday — these are the words of home and body
+│   │   └── Nearly all function words are Germanic: the, a, is, was, and, but, or, in, on, at, to, for, with
+│   ├── French/Latin Overlay — ~29% French origin + ~29% Latin origin (~58% combined)
+│   │   ├── Norman Conquest (1066): government, justice, court, prison, beef, pork, liberty, authority, parliament
+│   │   ├── Renaissance Latin borrowings: education, investigation, administration, constitution
+│   │   ├── Characteristics: longer, formal, institutional, abstract — the words of power and governance
+│   │   └── The Duality: every concept has two registers — Germanic for everyday, French/Latin for formal
+│   │       ├── ask / inquire, buy / purchase, end / terminate, begin / commence, rise / ascend, help / assist
+│   │       └── This is not redundancy — it is a dual-register system that gives English precision in formality control
+│   ├── Greek Technical Layer — ~6% of vocabulary
+│   │   ├── Science: biology, physics, psychology, philosophy, theology, mathematics, astronomy
+│   │   ├── Medicine: diagnosis, therapy, symptom, anatomy, pathology, epidemiology
+│   │   ├── Characteristics: compound-forming, technical, precise — Greek roots combine like building blocks
+│   │   └── Productive combining forms: bio- (life), psych- (mind), -logy (study of), -graph (writing), tele- (far), micro- (small)
+│   ├── Loanword Dependent Territories — words absorbed from every language English has contacted
+│   │   ├── Arabic: algebra, algorithm, alcohol, zero, cipher, cotton, magazine, tariff
+│   │   ├── Hindi/Urdu: jungle, shampoo, pajamas, veranda, thug, avatar, guru, karma
+│   │   ├── Japanese: tsunami, karate, emoji, tofu, sake, samurai, origami
+│   │   ├── Nahuatl (Aztec): chocolate, tomato, avocado, coyote, chili
+│   │   ├── Malay: bamboo, ketchup, orangutan
+│   │   ├── African languages: banjo, okra, gumbo, zombie, jazz
+│   │   ├── Dutch: cookie, boss, yacht, landscape, coleslaw
+│   │   ├── Italian: piano, opera, sonnet, fresco, balcony, volcano
+│   │   ├── Spanish: mosquito, tornado, canyon, plaza, rodeo
+│   │   ├── Persian: bazaar, caravan, paradise, khaki
+│   │   ├── Turkish: yogurt, kiosk
+│   │   ├── Hebrew: amen, hallelujah, jubilee, kosher
+│   │   └── And dozens more — English has borrowed from over 350 languages
+│   └── Neologism (The Expanding Frontier)
+│       ├── Compounding — combining existing words (website, smartphone, livestream, blockchain)
+│       ├── Blending — fusing parts of words (brunch, smog, podcast, Bollywood, vlog)
+│       ├── Affixation — adding prefixes/suffixes (unfriend, deplatform, -ish, -core)
+│       ├── Conversion — changing word class without changing form (to google, to text, a download, a reveal)
+│       ├── Clipping — shortening (app from application, blog from weblog, fridge from refrigerator)
+│       ├── Acronym creation — (laser, scuba, radar — originally acronyms, now words)
+│       └── Rate: English adds approximately 1,000 new words per year — the frontier never closes
