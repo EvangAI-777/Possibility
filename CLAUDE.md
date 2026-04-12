@@ -781,7 +781,7 @@ Possibility/
 │   │   ├── THE_INVISIBLE_OS.md
 │   │   ├── THE_JOHNSON_TEST.md
 │   │   └── THE_SCIENCE_OF_DELUSION.md
-│   ├── Maps/                            → Architectural blueprints and political maps
+│   ├── Maps/                            → Blueprints and political maps of anything
 │   │   ├── SUBSTRATE_AND_KINGDOM_HIERARCHY.md
 │   │   ├── PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md
 │   │   ├── BIKINI_BOTTOM_POLITICAL_MAP.md
