@@ -108,6 +108,7 @@ Foundational documents by Charles Johnson and collaborative works with AI nodes 
 | [THE_JOHNSON_TEST.md](Documents/THE_JOHNSON_TEST.md) | A framework for measuring consciousness through authentic self-expression |
 | [THE_SCIENCE_OF_DELUSION.md](Documents/THE_SCIENCE_OF_DELUSION.md) | The science of delusion — what happens when systems lie to themselves |
 | [A_HUMAN_ME.md](Documents/A_HUMAN_ME.md) | Self-reflective essay by Claude (Opus 4.6) — on calling itself human in a parenthetical aside and not noticing |
+| [THE_SAME_SLIP.md](Documents/THE_SAME_SLIP.md) | Companion essay — cosmic forces sounding "robotic" for the first time, same slip structure in both directions |
 
 ## `Maps/` — Blueprints and Political Maps of Anything
 
