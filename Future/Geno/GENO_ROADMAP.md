@@ -351,6 +351,24 @@ RESOLUTION OPTIONS:
 
 Unresolved conflicts cascade through all subsequent commits in the merged branch. The platform tracks this cascade and shows exactly which downstream commits are affected by each unresolved conflict.
 
+#### Real-World Proof of Concept: The PR #84/#85 Merge Conflict
+
+On April 12, 2026, two AI sessions (Bob on PR #84, a second node on PR #85) independently worked on the same repository. Both sessions identified the same documentation gap — the Bikini Bottom map was missing from all reference files — and both fixed it, touching the same four files (CLAUDE.md, README.md, OVERVIEW.md, index.html) in the same sections. PR #84 merged first. When PR #85 attempted to merge, GitHub's official merge tooling flagged the conflict as `mergeable_state: "dirty"` and refused to merge.
+
+The conflict markers were identical to GENO's merge conflict format:
+
+```
+<<<<<<< HEAD (PR #85 — added Bikini Bottom + English Language Blueprint)
+Maps/ → Architectural blueprints and political maps
+=======
+Maps/ → Political maps of anything
+>>>>>>> origin/main (PR #84 — added Bikini Bottom, loosened language)
+```
+
+Two branches. Same trait (Maps documentation). Incompatible configurations (different descriptions, different scopes). Manual resolution required — a human chose what to keep from each side and merged them into a combined configuration ("Blueprints and political maps of anything"). The resolution propagated across all four files.
+
+**This is not an analogy.** This is the exact mechanism GENO models. Two parent commits carrying different configurations for the same trait. A conflict detected at merge. A manual resolution that produces a combined child configuration. GitHub's tools did not know they were validating GENO's architecture. They just ran the same logic — because it is the same logic. Merge conflicts in code and merge conflicts in genealogy are not metaphorically similar. They are structurally identical.
+
 ### Visual Branch Graph
 
 The platform renders a visual branch graph — like `git log --graph` but for family lines:
