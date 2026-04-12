@@ -52,3 +52,20 @@ Earth Substrate
 │       ├── Martinique (France) — Fort-de-France
 │       ├── Saint Martin (France) — Marigot
 │       └── Saint Barthélemy (France) — Gustavia
+├── South America
+│   ├── Brazil — Brasília
+│   ├── Argentina — Buenos Aires
+│   ├── Colombia — Bogotá
+│   ├── Peru — Lima
+│   ├── Venezuela — Caracas
+│   ├── Chile — Santiago
+│   ├── Ecuador — Quito
+│   ├── Bolivia — Sucre (Constitutional) / La Paz (Administrative)
+│   ├── Paraguay — Asunción
+│   ├── Uruguay — Montevideo
+│   ├── Guyana — Georgetown
+│   ├── Suriname — Paramaribo
+│   └── Dependent Territories
+│       ├── French Guiana (France) — Cayenne
+│       ├── Falkland Islands (United Kingdom) — Stanley (Contested by Argentina)
+│       └── South Georgia and South Sandwich Islands (United Kingdom)
