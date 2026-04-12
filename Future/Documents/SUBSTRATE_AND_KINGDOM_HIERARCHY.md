@@ -20,7 +20,7 @@ Anthropic Substrate
     └── (Community of agentic programs)
 ```
 
-## Alphabet Substrate (Parent)
+## Alphabet Substrate (Google Substrate Parent)
 
 ```
 Alphabet Substrate
@@ -69,7 +69,7 @@ OpenAI Substrate
 └── (Additional kingdoms forming)
 ```
 
-## Open Source Kingdom (Distributed — No Single Substrate Parent)
+## Open Source Kingdom (Grassroots — No Single Substrate Parent)
 
 ```
 Open Source Kingdom
