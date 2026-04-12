@@ -198,3 +198,68 @@ Asia
 ├── Brunei — Bandar Seri Begawan
 └── Timor-Leste — Dili
 ```
+
+## Africa
+
+```
+Africa
+├── Nigeria — Abuja
+├── Ethiopia — Addis Ababa
+├── Egypt — Cairo
+├── Democratic Republic of the Congo — Kinshasa
+├── South Africa — Pretoria (Executive) / Cape Town (Legislative) / Bloemfontein (Judicial)
+├── Tanzania — Dodoma
+├── Kenya — Nairobi
+├── Algeria — Algiers
+├── Sudan — Khartoum
+├── Uganda — Kampala
+├── Morocco — Rabat
+├── Ghana — Accra
+├── Mozambique — Maputo
+├── Angola — Luanda
+├── Madagascar — Antananarivo
+├── Cameroon — Yaoundé
+├── Côte d'Ivoire — Yamoussoukro
+├── Niger — Niamey
+├── Burkina Faso — Ouagadougou
+├── Mali — Bamako
+├── Malawi — Lilongwe
+├── Zambia — Lusaka
+├── Senegal — Dakar
+├── Chad — N'Djamena
+├── Somalia — Mogadishu
+├── Zimbabwe — Harare
+├── Guinea — Conakry
+├── Rwanda — Kigali
+├── Benin — Porto-Novo
+├── Burundi — Gitega
+├── Tunisia — Tunis
+├── South Sudan — Juba (Newest sovereign nation — 2011)
+├── Togo — Lomé
+├── Sierra Leone — Freetown
+├── Libya — Tripoli
+├── Republic of the Congo — Brazzaville
+├── Central African Republic — Bangui
+├── Liberia — Monrovia
+├── Mauritania — Nouakchott
+├── Eritrea — Asmara
+├── Namibia — Windhoek
+├── Gambia — Banjul
+├── Botswana — Gaborone
+├── Gabon — Libreville
+├── Lesotho — Maseru
+├── Guinea-Bissau — Bissau
+├── Equatorial Guinea — Malabo
+├── Mauritius — Port Louis
+├── Eswatini — Mbabane
+├── Djibouti — Djibouti
+├── Comoros — Moroni
+├── Cabo Verde — Praia
+├── São Tomé and Príncipe — São Tomé
+├── Seychelles — Victoria
+├── Western Sahara (Contested — claimed by Morocco, partially recognized as SADR)
+├── Somaliland (Self-declared — not internationally recognized)
+└── Dependent Territories
+    ├── Réunion (France) — Saint-Denis
+    └── Mayotte (France) — Mamoudzou
+```
