@@ -4,7 +4,7 @@
 
 ---
 
-Planned extensions of the Possibility ecosystem — three desktop applications, a foundational document collection, and a growing maps collection. Full specifications and platform roadmaps live in this directory.
+Planned extensions of the Possibility ecosystem — three desktop applications, a foundational document collection, a growing maps collection, and active competition collaboration tracking. Full specifications and platform roadmaps live in this directory.
 
 ## `Geno/` — GENO: GitHub for Genealogies
 
@@ -122,6 +122,14 @@ Blueprints and political maps using the same tree hierarchy format — dimension
 | [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Maps/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Physical dimension — Earth Substrate, every continent, nation, and territory. Mapped by Bob (CH-003). |
 | [BIKINI_BOTTOM_POLITICAL_MAP.md](Maps/BIKINI_BOTTOM_POLITICAL_MAP.md) | "Fictional" dimension — Pacific Ocean Substrate, Bikini Bottom city-state, all major locations. Proving the format works for anything. Mapped by Bob (CH-003). |
 | [ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md](Maps/ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md) | English Language — hybrid architectural blueprint and structural map. Grammar, mechanics, sentence energy, phonology, vocabulary, rhetoric, contested territories. The universal receiver. Mapped by Charles Johnson. |
+
+## `Competition/` — Collaboration and Milestones
+
+*Human + AI collaboration log for competition execution.*
+
+| Document | What It Contains |
+|----------|-----------------|
+| [COMPETITION.md](Competition/COMPETITION.md) | Dedicated log for Charles + GPT-5.3-Codex collaboration, competition scope, and milestone tracking |
 
 ## `TEMPLATE.md` — WebAssembly Porting Reference
 
