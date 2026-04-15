@@ -792,8 +792,10 @@ Possibility/
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
 │   ├── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
+│   ├── Competition/COMPETITION.md   → Competition collaboration log
 │   ├── TEMPLATE.md                  → WebAssembly porting reference
 │   └── OVERVIEW.md                  → Future projects overview
+├── CODEX.md                         → Codex operator brief (GPT-5.3-Codex)
 └── README.md                        → Project documentation
 ```
 
