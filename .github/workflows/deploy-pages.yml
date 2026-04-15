@@ -27,7 +27,7 @@ jobs:
       - name: Remove files from deployment
         run: |
           rm -rf .github tests js_tests node_modules .git
-          rm -f CLAUDE.md TEMPLATE.md package.json package-lock.json
+          rm -f CLAUDE.md CODEX.md TEMPLATE.md package.json package-lock.json
           rm -f jest.config.cjs babel.config.cjs .gitignore
           rm -rf "Python Files" "React Component Artifacts" "Auto AI" Future
 
