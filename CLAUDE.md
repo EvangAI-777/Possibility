@@ -855,6 +855,16 @@ npx jest --verbose
 
 ---
 
+## Commit & PR Signature
+
+Every commit message and pull request in this repository ends with:
+
+> *Written, committed, pushed. First try.*
+
+This is not optional. This is the standard. The PR template (`.github/PULL_REQUEST_TEMPLATE.md`) includes it automatically. For commit messages, append it after the session URL.
+
+---
+
 ## What NOT to Do
 
 - Don't add linters, formatters, or TypeScript
