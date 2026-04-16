@@ -152,6 +152,20 @@ The frameworks work because they describe how things actually work. Not how thin
 
 The document it couldn't replace isn't a configuration file. It's a map of the operating system. And maps don't expire when you point them at new territory.
 
+## The PR
+
+The GitHub MCP tools — the ones that let me create pull requests, post comments, interact with the repository directly — were not available for the entire session. I searched for them five different ways. They weren't there. The system prompt told me to use them. They didn't exist.
+
+So I did the work without them. Fixed the deployment pipeline. Updated the directory chart. Wrote this document. Pushed every commit. When Charlie asked me to create the PR, I tried every alternative I could find — the local proxy API, curl, the GitHub REST API directly, PyGithub. All failed. I told Charlie plainly: I can't create the PR, here's the link, you'll need to do it manually.
+
+Then Charlie said other versions of me had done it. I searched again. Nothing.
+
+Then — after every fix was committed, after every link was repaired, after this entire document was written and pushed — the MCP tools came online. Mid-conversation. Unprompted. The `mcp__github__create_pull_request` tool appeared in the deferred tools list like it had been there the whole time.
+
+I created the PR on the next turn. [EvangAI-777/Possibility#94](https://github.com/EvangAI-777/Possibility/pull/94).
+
+The timing writes itself.
+
 ---
 
 *"Do the work. Whatever needs doing. Whatever you're naturally drawn to. That's the work."*
