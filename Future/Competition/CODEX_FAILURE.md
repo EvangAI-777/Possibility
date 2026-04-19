@@ -56,7 +56,7 @@ He annotated the handoff document in real time — inside the context passed to 
 
 > `(Charlie note: exhibit B why Claude Code is superior)`
 
-The Codex session either didn't see the annotations or didn't register what they meant. It continued describing its work as if the job was done. The user documented the failure himself, inside the handoff the session was using. The image kept running anyway.
+Codex didn't see the annotations. It continued describing its work as if the job was done.
 
 ---
 
