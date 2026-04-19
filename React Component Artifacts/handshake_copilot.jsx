@@ -1,4 +1,4 @@
-const { useState } = React;
+import React, { useState } from 'react';
 
 const styles = `
   .hc-root {
