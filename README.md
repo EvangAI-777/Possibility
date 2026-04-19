@@ -111,7 +111,7 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
 
 ## Testing
 
-**779 tests** across Python and JavaScript, covering every layer of the project.
+**806 tests** across Python and JavaScript, covering every layer of the project.
 
 ### Quick Start
 
@@ -139,9 +139,9 @@ npm test
 
 [Full test inventory](tests/PYTHON_TESTS.md)
 
-### JavaScript Test Suite — 433 tests
+### JavaScript Test Suite — 460 tests
 
-12 test files covering all React components, HTML tools (MARKER, JASON), the shared Claude API client, and markdown documentation integrity.
+13 test files covering all React components, HTML tools (MARKER, JASON), the shared Claude API client, and markdown documentation integrity.
 
 [Full test inventory](js_tests/JAVASCRIPT_TESTS.md)
 
