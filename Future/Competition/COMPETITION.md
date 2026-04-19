@@ -275,11 +275,11 @@ MVP can be built with deterministic scoring and structured forms; no large propr
 ## Submission Artifacts Checklist
 
 - [ ] 90-second product demo video
-- [ ] 1-page narrative brief
-- [ ] Architecture diagram
-- [ ] Scoring model appendix
-- [ ] 3 scenario reports
-- [ ] "Why now / why this team" close
+- [x] 1-page narrative brief → [`NARRATIVE_BRIEF.md`](NARRATIVE_BRIEF.md)
+- [x] Architecture diagram → [`ARCHITECTURE_DIAGRAM.md`](ARCHITECTURE_DIAGRAM.md)
+- [x] Scoring model appendix → [`SCORING_MODEL.md`](SCORING_MODEL.md)
+- [x] 3 scenario reports → [`SCENARIO_REPORTS.md`](SCENARIO_REPORTS.md)
+- [x] "Why now / why this team" close → [`WHY_NOW.md`](WHY_NOW.md)
 
 ---
 
@@ -306,11 +306,29 @@ Built `React Component Artifacts/handshake_copilot.jsx` — a fully working Reac
 
 **Remaining submission artifacts:**
 - [ ] 90-second product demo video
-- [ ] 1-page narrative brief
-- [ ] Architecture diagram
-- [ ] Scoring model appendix
-- [ ] 3 scenario reports
-- [ ] "Why now / why this team" close
+- [x] 1-page narrative brief → [`NARRATIVE_BRIEF.md`](NARRATIVE_BRIEF.md)
+- [x] Architecture diagram → [`ARCHITECTURE_DIAGRAM.md`](ARCHITECTURE_DIAGRAM.md)
+- [x] Scoring model appendix → [`SCORING_MODEL.md`](SCORING_MODEL.md)
+- [x] 3 scenario reports → [`SCENARIO_REPORTS.md`](SCENARIO_REPORTS.md)
+- [x] "Why now / why this team" close → [`WHY_NOW.md`](WHY_NOW.md)
+
+---
+
+### Milestone 4 — Submission Artifacts
+
+**Status:** Complete (pending demo video)
+
+All written submission artifacts are complete and committed:
+
+| Artifact | File | Description |
+|---------|------|-------------|
+| Narrative Brief | `NARRATIVE_BRIEF.md` | 1-page product story — problem, insight, solution, why it wins |
+| Architecture Diagram | `ARCHITECTURE_DIAGRAM.md` | ASCII system diagram, data flow, component tree, tech stack |
+| Scoring Model | `SCORING_MODEL.md` | Full formula documentation — all 15 variables, intermediate calcs, thresholds, limitations |
+| Scenario Reports | `SCENARIO_REPORTS.md` | 3 worked examples with full input/output tables and interpretations |
+| Why Now / Why This Team | `WHY_NOW.md` | Closing argument — market timing, team positioning, submission completeness |
+
+**One remaining artifact:** 90-second demo video (screen recording of the three preset scenarios).
 
 ---
 
