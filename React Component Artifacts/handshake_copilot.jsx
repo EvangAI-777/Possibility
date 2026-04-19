@@ -195,6 +195,33 @@ const INITIAL_STATE = {
   org: { changeLoad: 50, roleClarity: 50, crossTeamDependency: 50, policyStability: 50, attritionSignals: 50 },
 };
 
+// Scenario 1: Great candidate, weak floor — stability collapses despite strong candidate
+const PRESET_WEAK_FLOOR = {
+  candidate: { skills: 88, workStyle: 75, stressResponse: 70, growthPreferences: 82, mobilityGoals: 65 },
+  team: { velocity: 40, decisionStyle: 30, feedbackPattern: 18, autonomyTolerance: 20, managerProfile: 15 },
+  org: { changeLoad: 45, roleClarity: 60, crossTeamDependency: 50, policyStability: 55, attritionSignals: 55 },
+};
+
+// Scenario 2: Average candidate, strong substrate — floor rescues a moderate hire
+const PRESET_STRONG_FLOOR = {
+  candidate: { skills: 52, workStyle: 58, stressResponse: 48, growthPreferences: 55, mobilityGoals: 50 },
+  team: { velocity: 72, decisionStyle: 80, feedbackPattern: 88, autonomyTolerance: 82, managerProfile: 90 },
+  org: { changeLoad: 25, roleClarity: 85, crossTeamDependency: 35, policyStability: 80, attritionSignals: 15 },
+};
+
+// Scenario 3: High conflict reorg — two teams post-merger, everything is red
+const PRESET_REORG = {
+  candidate: { skills: 65, workStyle: 60, stressResponse: 45, growthPreferences: 50, mobilityGoals: 70 },
+  team: { velocity: 55, decisionStyle: 35, feedbackPattern: 28, autonomyTolerance: 40, managerProfile: 30 },
+  org: { changeLoad: 92, roleClarity: 18, crossTeamDependency: 85, policyStability: 12, attritionSignals: 88 },
+};
+
+const PRESETS = [
+  { key: 'weak_floor', label: 'Great Candidate, Weak Floor', desc: 'Strong hire. Broken team substrate. Watch stability collapse.', data: PRESET_WEAK_FLOOR },
+  { key: 'strong_floor', label: 'Average Candidate, Strong Floor', desc: 'Moderate skills. Solid manager. Floor rescues the outcome.', data: PRESET_STRONG_FLOOR },
+  { key: 'reorg', label: 'High Conflict Reorg', desc: 'Post-merger chaos. Everything is red. See the intervention list.', data: PRESET_REORG },
+];
+
 export default function HandshakeCopilot() {
   const [step, setStep] = useState('landing');
   const [formStep, setFormStep] = useState(0);
@@ -242,6 +269,27 @@ function Landing({ onStart, onPreset }) {
       </div>
       <div className="hc-cta-row">
         <button className="hc-btn hc-btn-primary" onClick={onStart}>Run a Simulation →</button>
+      </div>
+      <div style={{ marginTop: 44, textAlign: 'left', maxWidth: 680, marginLeft: 'auto', marginRight: 'auto' }}>
+        <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)', marginBottom: 14 }}>
+          Or load a scenario
+        </div>
+        <div style={{ display: 'grid', gap: 12 }}>
+          {PRESETS.map(p => (
+            <button
+              key={p.key}
+              className="hc-btn hc-btn-secondary"
+              style={{ textAlign: 'left', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 16 }}
+              onClick={() => onPreset(p.data)}
+            >
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 700, marginBottom: 3 }}>{p.label}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 400 }}>{p.desc}</div>
+              </div>
+              <span style={{ color: 'var(--accent)', flexShrink: 0 }}>→</span>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
