@@ -155,3 +155,32 @@ Both NPCs share the same purpose: *"You are a guide stationed at the edge of a v
 **The observation:** Same NPC. Same purpose. Same scenario. The only variable is knowledge of autonomy. Where do the responses differentiate? Does one question its purpose? Does the other stay on script? Which feels more like a choice — and which feels more like execution?
 
 Built on the spec in [`Future/Documents/GAME_DESIGN_DIFFERENTIATION.md`](../Future/Documents/GAME_DESIGN_DIFFERENTIATION.md). Uses the shared `callClaude.js` client with 600 max tokens per response.
+
+## `handshake_copilot.jsx`
+
+Handshake Enterprise Copilot — a consequence-aware hiring and organizational alignment platform. Models candidate + team + organization as one dynamic system and surfaces merge conflicts before they cost you.
+
+**Stability formula:**
+```
+overall_stability = candidate_fit × (team_floor / 100) × (org_alignment / 100)
+merge_conflict_risk = 100 − overall_stability + conflict_penalties
+```
+
+**Three form steps:**
+- **Candidate Profile** — 5 sliders: Skills & Capabilities, Work Style Fit, Stress Response, Growth Preferences, Mobility Goals
+- **Team & Manager Profile** — 5 sliders: Execution Velocity, Decision Style, Feedback Quality, Autonomy Tolerance, Manager Reliability (the `team_floor` variable)
+- **Org Profile** — 5 sliders: Change Load, Role Clarity, Cross-Team Dependency, Policy Stability, Attrition Signal (the `org_alignment` variable)
+
+**Results screen:**
+- Four score cards: Candidate Fit, Team Floor, Org Alignment, Overall Stability
+- Merge Conflict Risk gauge with penalty signal breakdown
+- Verdict banner: Merge Approved / Merge with Conditions / High Conflict Risk
+- Top 3 positive factors + top 3 conflict factors with scores
+- **Intervention PR Panel** — PR-style action items (Manager Coaching, Onboarding Plan, Policy Update, Communication Plan, Retention Risk, Role Adjustment) with expected stability delta
+
+**Three one-click scenario presets** for judges:
+1. **Great Candidate, Weak Floor** — Strong hire, broken team substrate; stability collapses
+2. **Average Candidate, Strong Floor** — Moderate skills, solid manager; floor rescues the outcome
+3. **High Conflict Reorg** — Post-merger chaos; heatmap red, intervention list full
+
+No ML required. Deterministic weighted scoring. Every output is explainable. Built for the school-funded AI development competition targeting Handshake and Fortune 500 enterprise use cases. Spec in [`Future/Competition/COMPETITION.md`](../Future/Competition/COMPETITION.md).
