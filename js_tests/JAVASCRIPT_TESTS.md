@@ -4,7 +4,7 @@
 
 ---
 
-**433 tests** across 12 test files. Run with `npx jest --verbose`.
+**460 tests** across 13 test files. Run with `npx jest --verbose`.
 
 **Infrastructure:** Jest + React Testing Library + Babel (configured in `package.json`). Lucide React icons are mocked via `js_tests/__mocks__/lucide-react.js`. React components that call the Claude API are tested with mocked `fetch`, verifying correct endpoint, model, tokens, and message structure without making real API calls.
 
@@ -172,3 +172,13 @@ Structural and functional validation for the JASON JSON Explorer (`JASON.html`):
 - **Back-to-home navigation** (5 tests) — Back-link element, links to index.html, arrow and text, fixed position, high z-index
 - **All HTML tools have back links** (12 tests) — Every tool in HTML Files/ (including JASON) has index.html link and back-link class
 - **Index.html integration** (4 tests) — JASON link, card title, description, live badge in index.html
+
+## `handshake_copilot.test.jsx` — 27 tests
+
+React component tests for the Handshake Enterprise Copilot (competition demo):
+
+- **Landing Screen** (6 tests) — Renders without crashing, tagline, stability formula display, Run a Simulation button, all three scenario preset buttons, Competition Demo badge
+- **Form Navigation** (9 tests) — Run a Simulation shows Candidate form, step bar labels (Candidate/Team/Org), all 5 Candidate slider labels, Next advances to Team form, all 5 Team slider labels, Back returns to Candidate form, Next advances to Org form, all 5 Org slider labels, Run Simulation shows Results screen
+- **Results Screen** (6 tests) — All four score card labels (Candidate Fit, Team Floor, Org Alignment, Overall Stability), Merge Conflict Risk card, Intervention Pull Request panel, Adjust Inputs button, positive and conflict factor headings, Adjust Inputs returns to Org form
+- **Scenario Presets** (5 tests) — Great Candidate Weak Floor loads Results directly, Average Candidate Strong Floor loads Results directly, High Conflict Reorg loads Results directly, High Conflict Reorg shows High Conflict Risk verdict, Strong Floor preset shows better outcome than reorg preset
+- **Start Over** (1 test) — Start Over button returns to landing
