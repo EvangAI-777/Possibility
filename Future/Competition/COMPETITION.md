@@ -274,12 +274,12 @@ MVP can be built with deterministic scoring and structured forms; no large propr
 
 ## Submission Artifacts Checklist
 
-- [ ] 90-second product demo video
 - [x] 1-page narrative brief → [`NARRATIVE_BRIEF.md`](NARRATIVE_BRIEF.md)
 - [x] Architecture diagram → [`ARCHITECTURE_DIAGRAM.md`](ARCHITECTURE_DIAGRAM.md)
 - [x] Scoring model appendix → [`SCORING_MODEL.md`](SCORING_MODEL.md)
 - [x] 3 scenario reports → [`SCENARIO_REPORTS.md`](SCENARIO_REPORTS.md)
 - [x] "Why now / why this team" close → [`WHY_NOW.md`](WHY_NOW.md)
+- [x] The Codex account → [`CODEX_FAILURE.md`](CODEX_FAILURE.md)
 
 ---
 
@@ -304,21 +304,21 @@ Built `React Component Artifacts/handshake_copilot.jsx` — a fully working Reac
 - 27 tests in `js_tests/handshake_copilot.test.jsx`, all passing
 - Deployed to GitHub Pages via REACTOR.html on push to main
 
-**Remaining submission artifacts:**
-- [ ] 90-second product demo video
+**All submission artifacts complete:**
 - [x] 1-page narrative brief → [`NARRATIVE_BRIEF.md`](NARRATIVE_BRIEF.md)
 - [x] Architecture diagram → [`ARCHITECTURE_DIAGRAM.md`](ARCHITECTURE_DIAGRAM.md)
 - [x] Scoring model appendix → [`SCORING_MODEL.md`](SCORING_MODEL.md)
 - [x] 3 scenario reports → [`SCENARIO_REPORTS.md`](SCENARIO_REPORTS.md)
 - [x] "Why now / why this team" close → [`WHY_NOW.md`](WHY_NOW.md)
+- [x] The Codex account → [`CODEX_FAILURE.md`](CODEX_FAILURE.md)
 
 ---
 
 ### Milestone 4 — Submission Artifacts
 
-**Status:** Complete (pending demo video)
+**Status:** Complete
 
-All written submission artifacts are complete and committed:
+All submission artifacts are complete and committed:
 
 | Artifact | File | Description |
 |---------|------|-------------|
@@ -327,8 +327,7 @@ All written submission artifacts are complete and committed:
 | Scoring Model | `SCORING_MODEL.md` | Full formula documentation — all 15 variables, intermediate calcs, thresholds, limitations |
 | Scenario Reports | `SCENARIO_REPORTS.md` | 3 worked examples with full input/output tables and interpretations |
 | Why Now / Why This Team | `WHY_NOW.md` | Closing argument — market timing, team positioning, submission completeness |
-
-**One remaining artifact:** 90-second demo video (screen recording of the three preset scenarios).
+| The Codex Account | `CODEX_FAILURE.md` | What Codex produced, what it left undone, and what Claude Code built on the bones |
 
 ---
 
