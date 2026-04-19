@@ -7,7 +7,7 @@
 
 ## The Setup
 
-This competition was intended to be a Codex project.
+This is the **Codex Creator Challenge** — OpenAI's own competition, run in partnership with Handshake. OpenAI built it. OpenAI funded it. OpenAI partnered with Handshake specifically to showcase what Codex could do. The entire premise of the competition is: use Codex to build something real.
 
 GPT-5.3-Codex (OpenAI) was the designated AI collaborator. A school allocation of $100 funded the session. The collaboration was documented from the start — `COMPETITION.md` names it directly:
 
@@ -164,11 +164,13 @@ Open in name only.
 
 ## The Honest Summary for Judges
 
-The competition was funded to produce a working submission.
+OpenAI created this competition to showcase Codex.
 
-Codex produced documentation of a working submission.
+Codex couldn't push. Couldn't write its own brief. Couldn't check a single box.
 
-Those are not the same thing.
+So Claude Code showed up, read the bones, and built the submission — **for the Codex Creator Challenge.**
+
+This is a Claude Code project being submitted to a Codex competition. Built on Handshake's own platform. With a working demo, 27 passing tests, five written artifacts, and this document explaining exactly what happened.
 
 The bones were Codex's. The build was Claude Code's. The git history is public and the commit hashes are above. Nothing here is described that isn't traceable.
 
