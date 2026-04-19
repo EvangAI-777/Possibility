@@ -486,4 +486,201 @@ function computeScores(data) {
   return { candidateFit, teamFloor, orgAlignment, overallStability, mergeConflictRisk, conflictPenalties, positiveFactors, conflictFactors, confidence };
 }
 
-function Results() { return <div>results</div>; }
+const resultsStyles = `
+  .hc-results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .hc-results-grid { grid-template-columns: 1fr; } }
+  .hc-score-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .hc-score-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .hc-score-big {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hc-score-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .hc-gauge-bar {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0 4px;
+  }
+  .hc-gauge-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .hc-verdict {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .hc-verdict-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  .hc-verdict-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .hc-verdict-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .hc-factors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .hc-factors-grid { grid-template-columns: 1fr; } }
+  .hc-factors-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .hc-factors-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .hc-factor-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px;
+    font-size: 0.85rem;
+  }
+  .hc-factor-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+`;
+
+function scoreColor(val) {
+  if (val >= 65) return 'var(--green)';
+  if (val >= 35) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function riskColor(val) {
+  if (val >= 65) return 'var(--red)';
+  if (val >= 35) return 'var(--yellow)';
+  return 'var(--green)';
+}
+
+function Results({ data, onBack }) {
+  const s = computeScores(data);
+
+  const verdictMap = {
+    green: { icon: '✅', title: 'Merge Approved', desc: 'Strong alignment across candidate, team, and org. Proceed with standard onboarding.' },
+    yellow: { icon: '⚠️', title: 'Merge with Conditions', desc: 'Moderate stability. Address flagged conflict vectors before or during onboarding.' },
+    red: { icon: '🔴', title: 'High Conflict Risk', desc: 'Significant instability detected. Intervention required before this hire can succeed.' },
+  };
+  const verdictKey = s.overallStability >= 60 ? 'green' : s.overallStability >= 35 ? 'yellow' : 'red';
+  const verdict = verdictMap[verdictKey];
+
+  return (
+    <div>
+      <style>{resultsStyles}</style>
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 4 }}>Simulation Results</div>
+        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Confidence: <strong>{s.confidence}</strong></div>
+      </div>
+
+      <div className="hc-results-grid">
+        {[
+          { label: 'Candidate Fit', val: s.candidateFit, fn: scoreColor },
+          { label: 'Team Floor', val: s.teamFloor, fn: scoreColor },
+          { label: 'Org Alignment', val: s.orgAlignment, fn: scoreColor },
+          { label: 'Overall Stability', val: s.overallStability, fn: scoreColor },
+        ].map(({ label, val, fn }) => (
+          <div className="hc-score-card" key={label}>
+            <div className="hc-score-label">{label}</div>
+            <div className="hc-score-big" style={{ color: fn(val) }}>{val}</div>
+            <div className="hc-gauge-bar">
+              <div className="hc-gauge-fill" style={{ width: `${val}%`, background: fn(val) }} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="hc-score-card" style={{ marginBottom: 16 }}>
+        <div className="hc-score-label">Merge Conflict Risk</div>
+        <div className="hc-score-big" style={{ color: riskColor(s.mergeConflictRisk) }}>{s.mergeConflictRisk}</div>
+        <div className="hc-gauge-bar">
+          <div className="hc-gauge-fill" style={{ width: `${s.mergeConflictRisk}%`, background: riskColor(s.mergeConflictRisk) }} />
+        </div>
+        <div className="hc-score-sub" style={{ marginTop: 4 }}>
+          {s.conflictPenalties > 0 ? `+${s.conflictPenalties} penalty points from active risk signals` : 'No active penalty signals'}
+        </div>
+      </div>
+
+      <div className="hc-verdict" style={{ borderColor: s.overallStability >= 60 ? 'var(--green)' : s.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)' }}>
+        <div className="hc-verdict-icon">{verdict.icon}</div>
+        <div>
+          <div className="hc-verdict-title">{verdict.title}</div>
+          <div className="hc-verdict-desc">{verdict.desc}</div>
+        </div>
+      </div>
+
+      <div className="hc-factors-grid">
+        <div className="hc-factors-card">
+          <div className="hc-factors-title" style={{ color: 'var(--green)' }}>▲ Top Positive Factors</div>
+          {s.positiveFactors.length === 0 && <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>None detected</div>}
+          {s.positiveFactors.map(f => (
+            <div className="hc-factor-row" key={f.label}>
+              <div className="hc-factor-dot" style={{ background: 'var(--green)' }} />
+              <span>{f.label}</span>
+              <span style={{ marginLeft: 'auto', color: 'var(--green)', fontWeight: 700 }}>{f.value}</span>
+            </div>
+          ))}
+        </div>
+        <div className="hc-factors-card">
+          <div className="hc-factors-title" style={{ color: 'var(--red)' }}>▼ Top Conflict Factors</div>
+          {s.conflictFactors.length === 0 && <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>None detected</div>}
+          {s.conflictFactors.map(f => (
+            <div className="hc-factor-row" key={f.label}>
+              <div className="hc-factor-dot" style={{ background: 'var(--red)' }} />
+              <span>{f.label}</span>
+              <span style={{ marginLeft: 'auto', color: 'var(--red)', fontWeight: 700 }}>{f.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+        <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Adjust Inputs</button>
+      </div>
+    </div>
+  );
+}
