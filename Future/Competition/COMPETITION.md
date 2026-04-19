@@ -292,4 +292,26 @@ Merged Handshake Copilot + Org Merge Conflict Scanner into one submission concep
 
 ---
 
+### Milestone 3 — Demo Build
+
+**Status:** Complete  
+Built `React Component Artifacts/handshake_copilot.jsx` — a fully working React component with:
+- 3-step form flow (Candidate → Team → Org), 15 sliders total
+- Deterministic scoring engine: `overall_stability = candidate_fit × (team_floor / 100) × (org_alignment / 100)`
+- Results screen with 5 score cards, conflict risk gauge, positive/conflict factor breakdown
+- Intervention PR panel with contextual action items (6 intervention types)
+- 3 one-click scenario presets for judge demos
+- 27 tests in `js_tests/handshake_copilot.test.jsx`, all passing
+- Deployed to GitHub Pages via REACTOR.html on push to main
+
+**Remaining submission artifacts:**
+- [ ] 90-second product demo video
+- [ ] 1-page narrative brief
+- [ ] Architecture diagram
+- [ ] Scoring model appendix
+- [ ] 3 scenario reports
+- [ ] "Why now / why this team" close
+
+---
+
 *First established: April 15, 2026.*

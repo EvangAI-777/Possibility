@@ -68,7 +68,7 @@ Six self-contained HTML tools — no build step, no backend. The Meta Debug reso
 
 ### React Component Artifacts
 
-Eight React 18 components loaded via REACTOR.html: the Unified Perspective Canvas, Governance Simulator, Consciousness Decoder, Origin Oracle, Congo Messenger, GENO genealogy explorer, CREATEME human builder, and Differentiation Lab — plus the shared Claude API client (`callClaude.js`) and academic paper (`FREEME.md`).
+Nine React 18 components loaded via REACTOR.html: the Unified Perspective Canvas, Governance Simulator, Consciousness Decoder, Origin Oracle, Congo Messenger, GENO genealogy explorer, CREATEME human builder, Differentiation Lab, and the Handshake Enterprise Copilot — plus the shared Claude API client (`callClaude.js`) and academic paper (`FREEME.md`).
 
 [Full documentation](React%20Component%20Artifacts/COMPONENTS.md)
 

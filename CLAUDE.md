@@ -725,6 +725,7 @@ Possibility/
 │   ├── geno.jsx                     → Genealogy repository explorer
 │   ├── createme.jsx                 → Build Your Own Human tool
 │   ├── differentiation_lab.jsx      → Game Design Through Differentiation prototype
+│   ├── handshake_copilot.jsx        → Handshake Enterprise Copilot (competition demo)
 │   ├── FREEME.md                    → Academic paper
 │   └── COMPONENTS.md                → React component documentation
 ├── Auto AI/                         → Autonomous agent frameworks
@@ -755,7 +756,7 @@ Possibility/
 │   ├── test_agent_configs.py        → 42 tests
 │   └── PYTHON_TESTS.md              → Python test suite documentation
 ├── js_tests/                        → JavaScript test suite (Jest)
-│   ├── [12 test files]              → 433 tests
+│   ├── [13 test files]              → 460 tests
 │   └── JAVASCRIPT_TESTS.md          → JavaScript test suite documentation
 ├── HTML Files/                      → Standalone HTML tools
 │   ├── meta_debug.html              → AI performance debug tool
@@ -804,9 +805,9 @@ Possibility/
 ## Running Tests
 
 ```bash
-npm run test:all    # Both suites (779 tests)
+npm run test:all    # Both suites (806 tests)
 npm run test:py     # Python only (pytest, 346 tests)
-npm run test:js     # JavaScript only (Jest, 433 tests)
+npm run test:js     # JavaScript only (Jest, 460 tests)
 
 # Or directly:
 python -m pytest tests/ -v
