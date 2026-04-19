@@ -678,9 +678,172 @@ function Results({ data, onBack }) {
         </div>
       </div>
 
+      <InterventionPanel scores={s} data={data} />
+
       <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
         <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Adjust Inputs</button>
       </div>
+    </div>
+  );
+}
+
+const prStyles = `
+  .hc-pr-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .hc-pr-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .hc-pr-title {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .hc-pr-badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .hc-pr-item {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    background: var(--bg);
+  }
+  .hc-pr-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .hc-pr-item-type {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .hc-pr-item-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .hc-pr-item-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .hc-pr-delta {
+    font-size: 0.75rem;
+    margin-top: 6px;
+    color: var(--green);
+  }
+`;
+
+function buildInterventions(scores, data) {
+  const items = [];
+  if (scores.teamFloor < 50) {
+    items.push({
+      type: 'Manager Coaching',
+      title: 'Establish weekly structured 1:1 cadence',
+      desc: 'Manager reliability scored below threshold. Define explicit feedback loops and expectation-setting before Day 1.',
+      delta: '+8–12 team_floor',
+      priority: 'high',
+    });
+  }
+  if (data.team.feedbackPattern < 50) {
+    items.push({
+      type: 'Onboarding Plan',
+      title: 'Build 30/60/90-day explicit success criteria',
+      desc: 'Feedback quality is low. Written milestones give the candidate a feedback proxy until team culture improves.',
+      delta: '+5–8 team_floor',
+      priority: 'high',
+    });
+  }
+  if (scores.orgAlignment < 50) {
+    items.push({
+      type: 'Policy Update',
+      title: 'Clarify role scope and decision authority before hire',
+      desc: 'Org alignment is degraded by role ambiguity and/or policy instability. Resolve scope before the offer letter.',
+      delta: '+10–15 org_alignment',
+      priority: 'high',
+    });
+  }
+  if (data.org.changeLoad > 65) {
+    items.push({
+      type: 'Communication Plan',
+      title: 'Provide change roadmap transparency to new hire',
+      desc: 'High change load detected. Candidates who can see the map tolerate uncertainty 40% better than those navigating blind.',
+      delta: '+5 merge_conflict_risk reduction',
+      priority: 'medium',
+    });
+  }
+  if (data.org.attritionSignals > 65) {
+    items.push({
+      type: 'Retention Risk',
+      title: 'Conduct exit interview audit before backfill',
+      desc: 'Elevated attrition signals suggest a pattern, not a vacancy. Hiring into an unaddressed pattern repeats the outcome.',
+      delta: 'Prevents future churn cycle',
+      priority: 'high',
+    });
+  }
+  if (data.candidate.stressResponse < 40 && scores.teamFloor < 50) {
+    items.push({
+      type: 'Role Adjustment',
+      title: 'Consider branching this candidate to a more structured team',
+      desc: 'Candidate stress tolerance is low and team floor is weak. This combination has high failure probability.',
+      delta: 'Branch separately — avoid forced merge',
+      priority: 'high',
+    });
+  }
+  if (items.length === 0) {
+    items.push({
+      type: 'Standard Onboarding',
+      title: 'No critical interventions required',
+      desc: 'Stability scores are strong across all dimensions. Proceed with standard onboarding checklist.',
+      delta: 'Maintain conditions — no action needed',
+      priority: 'low',
+    });
+  }
+  return items;
+}
+
+function InterventionPanel({ scores, data }) {
+  const items = buildInterventions(scores, data);
+  const prLabel = scores.overallStability >= 60 ? 'Merge Approved' : scores.overallStability >= 35 ? 'Request Changes' : 'Branch Separately';
+  const prColor = scores.overallStability >= 60 ? 'var(--green)' : scores.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)';
+
+  return (
+    <div className="hc-pr-panel">
+      <style>{prStyles}</style>
+      <div className="hc-pr-header">
+        <div className="hc-pr-title">Intervention Pull Request</div>
+        <div className="hc-pr-badge" style={{ background: `${prColor}22`, color: prColor, border: `1px solid ${prColor}55` }}>{prLabel}</div>
+      </div>
+      {items.map((item, i) => (
+        <div className="hc-pr-item" key={i}>
+          <div className="hc-pr-item-header">
+            <span className="hc-pr-item-type">{item.type}</span>
+            {item.priority === 'high' && <span style={{ fontSize: '0.7rem', color: 'var(--red)' }}>● High Priority</span>}
+            {item.priority === 'medium' && <span style={{ fontSize: '0.7rem', color: 'var(--yellow)' }}>● Medium</span>}
+          </div>
+          <div className="hc-pr-item-title">{item.title}</div>
+          <div className="hc-pr-item-desc">{item.desc}</div>
+          <div className="hc-pr-delta">Expected delta: {item.delta}</div>
+        </div>
+      ))}
     </div>
   );
 }
