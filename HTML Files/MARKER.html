@@ -869,6 +869,8 @@
             el.classList.add('hidden');
           }
         });
+        const backLink = document.querySelector('.back-link');
+        if (backLink) backLink.style.display = (name === 'component-view') ? 'none' : '';
       }
 
       function setStep(stepId, state, detail) {

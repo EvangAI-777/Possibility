@@ -222,7 +222,7 @@ const PRESETS = [
   { key: 'reorg', label: 'High Conflict Reorg', desc: 'Post-merger chaos. Everything is red. See the intervention list.', data: PRESET_REORG },
 ];
 
-export default function HandshakeCopilot() {
+function HandshakeCopilot() {
   const [step, setStep] = useState('landing');
   const [formStep, setFormStep] = useState(0);
   const [data, setData] = useState(INITIAL_STATE);
@@ -895,3 +895,5 @@ function InterventionPanel({ scores, data }) {
     </div>
   );
 }
+
+export default HandshakeCopilot;
