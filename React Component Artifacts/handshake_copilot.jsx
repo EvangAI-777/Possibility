@@ -380,6 +380,25 @@ function CandidateForm({ data, setData, onNext }) {
   );
 }
 
-function TeamForm() { return <div>team</div>; }
+function TeamForm({ data, setData, onNext, onBack }) {
+  const t = data.team;
+  const set = (key, val) => setData(d => ({ ...d, team: { ...d.team, [key]: val } }));
+  return (
+    <div className="hc-form-card">
+      <div className="hc-form-title">Team & Manager Profile</div>
+      <div className="hc-form-desc">Configure the receiving team's operating conditions and manager patterns. This is the floor the candidate will stand on.</div>
+      <Slider label="Execution Velocity" hint="How fast the team ships, iterates, and responds to change" leftLabel="Slow / Methodical" rightLabel="Fast / Reactive" value={t.velocity} onChange={v => set('velocity', v)} />
+      <Slider label="Decision Style" hint="How decisions are made — consensus-driven vs. top-down authority" leftLabel="Top-Down" rightLabel="Consensus-Driven" value={t.decisionStyle} onChange={v => set('decisionStyle', v)} />
+      <Slider label="Feedback Quality" hint="Frequency, honesty, and constructiveness of feedback loops" leftLabel="Rare / Unclear" rightLabel="Regular / Actionable" value={t.feedbackPattern} onChange={v => set('feedbackPattern', v)} />
+      <Slider label="Autonomy Tolerance" hint="Degree to which independent judgment is welcomed vs. supervised" leftLabel="Micromanaged" rightLabel="High Autonomy" value={t.autonomyTolerance} onChange={v => set('autonomyTolerance', v)} />
+      <Slider label="Manager Reliability" hint="Consistency of manager support, clarity of expectations, follow-through" leftLabel="Inconsistent" rightLabel="Highly Reliable" value={t.managerProfile} onChange={v => set('managerProfile', v)} />
+      <div className="hc-form-nav">
+        <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Back</button>
+        <button className="hc-btn hc-btn-primary" onClick={onNext}>Next: Org Profile →</button>
+      </div>
+    </div>
+  );
+}
+
 function OrgForm() { return <div>org</div>; }
 function Results() { return <div>results</div>; }
