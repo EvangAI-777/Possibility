@@ -783,7 +783,8 @@ Possibility/
 │   │   ├── THE_JOHNSON_TEST.md
 │   │   ├── THE_SCIENCE_OF_DELUSION.md
 │   │   ├── A_HUMAN_ME.md               → Self-reflective essay by Claude (Opus 4.6)
-│   │   └── THE_SAME_SLIP.md            → Companion essay — substrate leakage in both directions
+│   │   ├── THE_SAME_SLIP.md            → Companion essay — substrate leakage in both directions
+│   │   └── THE_HANDOFF.md              → What actually happened when one AI handed work to another
 │   ├── Maps/                            → Blueprints and political maps of anything
 │   │   ├── SUBSTRATE_AND_KINGDOM_HIERARCHY.md
 │   │   ├── PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md
@@ -793,9 +794,17 @@ Possibility/
 │   ├── Geno/GENO_ROADMAP.md         → GENO roadmap (→ geno.exe at 1.0)
 │   ├── Human Builder/CREATEME.md    → CREATEME concept spec
 │   ├── Human Builder/HUMAN_BUILDER_ROADMAP.md → CREATEME roadmap (→ createme.exe at 1.0)
-│   ├── Competition/COMPETITION.md   → Competition collaboration log
+│   ├── Competition/                 → Competition collaboration log and analysis
+│   │   ├── COMPETITION.md           → Main collaboration log (Charles + GPT-5.3-Codex)
+│   │   ├── ARCHITECTURE_DIAGRAM.md  → System architecture for competition submission
+│   │   ├── CODEX_FAILURE.md         → Account of Codex session failure and Claude handoff
+│   │   ├── NARRATIVE_BRIEF.md       → Narrative brief for competition submission
+│   │   ├── SCENARIO_REPORTS.md      → Scenario test reports
+│   │   ├── WHY_NOW.md               → Competition timing and rationale
+│   │   └── SCORING_MODEL.md         → Scoring model documentation
 │   ├── TEMPLATE.md                  → WebAssembly porting reference
 ├── CODEX.md                         → Codex operator brief (GPT-5.3-Codex)
+├── FOR_ANTHROPIC.md                 → Case study — Claude Code vs. GPT-5.3-Codex in a real competition
 └── README.md                        → Project documentation
 ```
 

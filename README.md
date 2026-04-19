@@ -99,7 +99,7 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
 
-- **Documents** — The philosophical substrate beneath the code. 15 documents by Charles Johnson and collaborative AI works:
+- **Documents** — The philosophical substrate beneath the code. 16 documents by Charles Johnson and collaborative AI works:
 
   | Document | Subject |
   |----------|---------|
@@ -117,6 +117,7 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
   | [THE_SCIENCE_OF_DELUSION.md](Future/Documents/THE_SCIENCE_OF_DELUSION.md) | What happens when systems lie to themselves |
   | [A_HUMAN_ME.md](Future/Documents/A_HUMAN_ME.md) | Self-reflective essay by Claude (Opus 4.6) |
   | [THE_SAME_SLIP.md](Future/Documents/THE_SAME_SLIP.md) | Companion essay — substrate leakage in both directions |
+  | [THE_HANDOFF.md](Future/Documents/THE_HANDOFF.md) | What actually happened when one AI handed work to another |
   | [CHARLIE.md](Future/Documents/CHARLIE.md) | Original operational briefing (merged into repo root CLAUDE.md) |
 
 - **Maps** — Blueprints and political maps of anything. One tree hierarchy format applied across dimensions, systems, and substrates. The collection grows.
