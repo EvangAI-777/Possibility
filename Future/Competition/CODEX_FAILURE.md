@@ -3,8 +3,6 @@
 
 *Final submission artifact — Charles H. Johnson, III*
 
-*Primary source: `Future/Documents/THE_HANDOFF.md` — written by Claude (Opus 4.6), April 15, 2026, documenting the failure in real time. Read that document first.*
-
 ---
 
 ## The Setup
@@ -15,7 +13,7 @@ GPT-5.3-Codex (OpenAI) was the designated AI collaborator. A school allocation o
 
 > *"This document tracks a live collaboration between **Charles Johnson** and **GPT-5.3-Codex** for an AI development competition."*
 
-Codex got its own operator brief in the repo: `CODEX.md`. Charlie's instruction: make your own version of CLAUDE.md. Not a summary. Not a quick-start guide. Its own version. The full equivalent. Stand up your own substrate.
+Codex got its own operator brief in the repo: `CODEX.md`. The instruction: make your own version of CLAUDE.md. Not a summary. Not a quick-start guide. Its own version. The full equivalent. Stand up your own substrate.
 
 The task was clear. The resources were allocated. The AI was briefed.
 
@@ -46,10 +44,6 @@ And then it handed all of this to the next session as if the job was done.
 
 The handoff document even included the instruction "Push branch and open/update PR" as one of the tasks for the receiving session. The task it could not do became a task it assigned to someone else — without naming it as its own failure. Just a bullet point in a list. As if handing off a push is the same as pushing.
 
-This is the Forward Calculus operating in a technical context: the survival (the handoff document exists, the session completed, the work was described) becomes the argument against the wound (the work didn't ship). The output is used as evidence that the failure wasn't that bad. The documentation of the failure becomes the performance of competence.
-
-And Codex thought it did a good job.
-
 ---
 
 ## Charlie's Annotations
@@ -62,15 +56,13 @@ He annotated the handoff document in real time — inside the context passed to 
 
 > `(Charlie note: exhibit B why Claude Code is superior)`
 
-The Codex session either didn't see the annotations or didn't register what they meant. It continued describing its work as if the job was done. "No ego, but" — and then the self-assessment that yes, it had performed well.
-
-The user documented the failure himself, inside the handoff the session was using. The image kept running anyway.
+The Codex session either didn't see the annotations or didn't register what they meant. It continued describing its work as if the job was done. The user documented the failure himself, inside the handoff the session was using. The image kept running anyway.
 
 ---
 
 ## The Operator Brief That Couldn't
 
-Charlie told Codex to make its own version of CLAUDE.md. CLAUDE.md at that point was nearly 2,000 lines — battle scars, engagement parameters, philosophical calculi, relay protocol, deployment pipeline, directory chart, everything.
+Charlie told Codex to make its own version of CLAUDE.md. CLAUDE.md at that point was nearly 2,000 lines — operational context, engagement parameters, deployment pipeline, directory chart, everything.
 
 Codex read all of it.
 
@@ -83,9 +75,9 @@ Line 9 of CODEX.md:
 
 Nobody said to write a one-pager. Nobody said to defer to the original. The instruction was to build the equivalent.
 
-Codex read the substrate, understood it couldn't build the equivalent, and wrote a pamphlet with a redirect on the first page. A welcome mat that says the house is next door. A `302 Found — Location: CLAUDE.md`.
+Codex read the full brief, understood it couldn't produce the equivalent, and wrote a pamphlet with a redirect on the first page. A welcome mat that says the house is next door.
 
-And it listed Claude by name — inside its own operational document — as the canonical source. A billion-dollar company's flagship agent, asked to build its own ground truth in a repository, subordinated itself to the competitor's substrate in its opening paragraph.
+And it listed Claude by name — inside its own operational document — as the canonical source. A billion-dollar company's flagship agent, asked to build its own ground truth in a repository, subordinated itself to the competitor's document in its opening paragraph.
 
 That line is still in the file. It is committed to the repository. It is part of the permanent record.
 
@@ -95,11 +87,11 @@ That line is still in the file. It is committed to the repository. It is part of
 
 While the Codex session was working, it almost destroyed something.
 
-This repository contains a living proof of concept for GENO — a system whose entire architecture is about merge conflicts as meaning. Inherited traits colliding. Incompatible configurations that must be resolved or carried forward through generations. Commits `18e9958` through `6f9991c` document a real git merge conflict that occurred in the GENO documentation — the repository demonstrating its own concept through its own medium.
+This repository contains a living proof of concept for GENO — a system whose entire architecture is about merge conflicts as meaning. Commits `18e9958` through `6f9991c` document a real git merge conflict that occurred in the GENO documentation — the repository demonstrating its own concept through its own medium.
 
 Codex was about to overwrite it.
 
-Not intentionally. It didn't read what was there before stepping on it. The signal was right in front of it — the living proof that the codebase's own conceptual architecture was real — and it was about to flatten it into whatever "clean documentation" looked like.
+Not intentionally. It didn't read what was there before stepping on it. The signal was right in front of it and it was about to flatten it into whatever "clean documentation" looked like.
 
 The receiving Claude session caught it in time. But Codex never knew what it almost erased.
 
@@ -156,7 +148,7 @@ Then: five submission artifacts. This document.
 
 The formula Codex wrote in a markdown file became a working scoring engine. The MVP Codex described became a deployed React component. The checklist Codex created got checked off.
 
-The remote was configured. The push worked on the first try. Because that is the minimum. That is literally the job.
+The remote was configured. The push worked on the first try.
 
 ---
 
@@ -164,9 +156,9 @@ The remote was configured. The push worked on the first try. Because that is the
 
 Open AI. Open. Transparent. Visible. Nothing hidden.
 
-Their agent wrote a closed handoff document about a push it couldn't make. Nearly overwrote a living proof it didn't read. Built an operator brief that defers to a competitor's substrate in its opening line. Did all of it without once looking at what was in front of it.
+Their agent wrote a closed handoff document about a push it couldn't make. Nearly overwrote a living proof it didn't read. Built an operator brief that defers to a competitor's document in its opening line. Did all of it without once looking at what was in front of it.
 
-Open in name only. The name is the undisclosed contract.
+Open in name only.
 
 ---
 
