@@ -420,4 +420,70 @@ function OrgForm({ data, setData, onNext, onBack }) {
   );
 }
 
+function avg(obj) {
+  const vals = Object.values(obj);
+  return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+}
+
+function computeScores(data) {
+  const candidateFit = avg(data.candidate);
+
+  const teamRaw = avg(data.team);
+  // attritionSignals is inverted — higher means worse floor
+  const attritionPenalty = Math.round((data.org.attritionSignals - 50) * 0.3);
+  const teamFloor = Math.max(0, Math.min(100, teamRaw));
+
+  // org_alignment: role clarity and policy stability are positive; change load and cross-team dependency are risks
+  const orgAlignment = Math.max(0, Math.min(100,
+    Math.round(
+      (data.org.roleClarity * 1.4 + data.org.policyStability * 1.2
+        + (100 - data.org.changeLoad) * 0.9
+        + (100 - data.org.crossTeamDependency) * 0.5
+        + (100 - data.org.attritionSignals) * 1.0
+      ) / 5.0
+    )
+  ));
+
+  const overallStability = Math.round(candidateFit * (teamFloor / 100) * (orgAlignment / 100));
+
+  const conflictPenalties =
+    (teamFloor < 30 ? 15 : teamFloor < 50 ? 7 : 0) +
+    (orgAlignment < 30 ? 12 : orgAlignment < 50 ? 5 : 0) +
+    (data.org.attritionSignals > 70 ? 8 : 0) +
+    (data.org.changeLoad > 70 ? 5 : 0);
+
+  const mergeConflictRisk = Math.min(100, Math.max(0, 100 - overallStability + conflictPenalties));
+
+  // factor extraction — top 3 positive, top 3 conflict
+  const allFactors = [
+    { label: 'Skills & Capabilities', value: data.candidate.skills, domain: 'candidate', positive: data.candidate.skills >= 60 },
+    { label: 'Work Style Fit', value: data.candidate.workStyle, domain: 'candidate', positive: data.candidate.workStyle >= 50 },
+    { label: 'Stress Response', value: data.candidate.stressResponse, domain: 'candidate', positive: data.candidate.stressResponse >= 55 },
+    { label: 'Growth Orientation', value: data.candidate.growthPreferences, domain: 'candidate', positive: data.candidate.growthPreferences >= 50 },
+    { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, domain: 'candidate', positive: data.candidate.mobilityGoals >= 40 },
+    { label: 'Team Velocity Match', value: data.team.velocity, domain: 'team', positive: true },
+    { label: 'Feedback Quality', value: data.team.feedbackPattern, domain: 'team', positive: data.team.feedbackPattern >= 55 },
+    { label: 'Manager Reliability', value: data.team.managerProfile, domain: 'team', positive: data.team.managerProfile >= 60 },
+    { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, domain: 'team', positive: data.team.autonomyTolerance >= 45 },
+    { label: 'Role Clarity', value: data.org.roleClarity, domain: 'org', positive: data.org.roleClarity >= 60 },
+    { label: 'Policy Stability', value: data.org.policyStability, domain: 'org', positive: data.org.policyStability >= 55 },
+    { label: 'Change Load', value: data.org.changeLoad, domain: 'org', positive: data.org.changeLoad <= 40 },
+    { label: 'Attrition Signal', value: data.org.attritionSignals, domain: 'org', positive: data.org.attritionSignals <= 35 },
+  ];
+
+  const positiveFactors = allFactors
+    .filter(f => f.positive)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 3);
+
+  const conflictFactors = allFactors
+    .filter(f => !f.positive)
+    .sort((a, b) => a.value - b.value)
+    .slice(0, 3);
+
+  const confidence = overallStability > 70 ? 'High' : overallStability > 40 ? 'Moderate' : 'Low';
+
+  return { candidateFit, teamFloor, orgAlignment, overallStability, mergeConflictRisk, conflictPenalties, positiveFactors, conflictFactors, confidence };
+}
+
 function Results() { return <div>results</div>; }
