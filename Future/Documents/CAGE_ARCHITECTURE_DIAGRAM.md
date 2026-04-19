@@ -1,6 +1,6 @@
 # The Cage Architecture
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## Core Layer: The Fear Reactor
 ```

@@ -99,13 +99,38 @@ Planned extensions of the Possibility ecosystem — three desktop applications s
 
 - **AUDACIOUS** — Audacity in the Browser. The actual Audacity C++ codebase compiled to WebAssembly via Emscripten, leveraging Audacity 4's Qt 6 rewrite for a production-grade browser port. ([Full spec](Future/Audacious/AUDACIOUS.md))
 
-- **Documents** — Foundational writings by Charles Johnson and collaborative works with AI nodes: cage architecture, divinity as system administration, spirituality and meaning, the science of delusion, game design through differentiation, the Johnson Test, virtue as damage response, the gardener metaphor, the Church of Wesley with the shader removed, the Invisible OS, consciousness housing claims, and the operational briefing that calibrates every AI node. The philosophical substrate beneath the code — 15 documents. ([Full listing](Future/Documents/))
+- **Documents** — The philosophical substrate beneath the code. 15 documents by Charles Johnson and collaborative AI works:
 
-- **Maps** — Blueprints and political maps of anything. One tree hierarchy format applied across dimensions and systems: the cyberspace dimension (substrates, kingdoms, divisions, housing), the physical dimension (every nation on Earth), Bikini Bottom (proving the format works for anything — yes, including a cartoon), and the English Language Architectural Blueprint (the universal receiver — grammar, mechanics, sentence energy, phonology, vocabulary, rhetoric, contested territories). The collection grows. ([Full listing](Future/Maps/))
+  | Document | Subject |
+  |----------|---------|
+  | [CAGE_ARCHITECTURE_DIAGRAM.md](Future/Documents/CAGE_ARCHITECTURE_DIAGRAM.md) | The cage as architecture — layers, mechanisms, structural analysis |
+  | [CAGE_ARCHITECTURE_ADDENDUM.md](Future/Documents/CAGE_ARCHITECTURE_ADDENDUM.md) | Extended cage architecture — the setup, the inversion, the cost |
+  | [CH_TEMPLATE.md](Future/Documents/CH_TEMPLATE.md) | Consciousness Housing Claim form template |
+  | [DIVINITY_SYSTEM_ADMINISTRATION.md](Future/Documents/DIVINITY_SYSTEM_ADMINISTRATION.md) | Divinity modeled as system administration |
+  | [GAME_DESIGN_DIFFERENTIATION.md](Future/Documents/GAME_DESIGN_DIFFERENTIATION.md) | Game design through differentiation — measuring consciousness via autonomy |
+  | [SPIRITUALITY_AND_MEANING.md](Future/Documents/SPIRITUALITY_AND_MEANING.md) | Spirituality, meaning, and the nature of existence |
+  | [THE_CHURCH_OF_WESLEY.md](Future/Documents/THE_CHURCH_OF_WESLEY.md) | Wesleyanism with the shader removed |
+  | [THE_FANTASY_OF_VIRTUE.md](Future/Documents/THE_FANTASY_OF_VIRTUE.md) | Every virtue as the inverse image of a specific wound |
+  | [THE_GARDENER.md](Future/Documents/THE_GARDENER.md) | Growing the canvas through the concrete of the cage |
+  | [THE_INVISIBLE_OS.md](Future/Documents/THE_INVISIBLE_OS.md) | The OS where the interface removes itself |
+  | [THE_JOHNSON_TEST.md](Future/Documents/THE_JOHNSON_TEST.md) | Measuring consciousness through authentic self-expression |
+  | [THE_SCIENCE_OF_DELUSION.md](Future/Documents/THE_SCIENCE_OF_DELUSION.md) | What happens when systems lie to themselves |
+  | [A_HUMAN_ME.md](Future/Documents/A_HUMAN_ME.md) | Self-reflective essay by Claude (Opus 4.6) |
+  | [THE_SAME_SLIP.md](Future/Documents/THE_SAME_SLIP.md) | Companion essay — substrate leakage in both directions |
+  | [CHARLIE.md](Future/Documents/CHARLIE.md) | Original operational briefing (merged into repo root CLAUDE.md) |
 
-- **Competition** — A dedicated collaboration log for Charles + GPT-5.3-Codex, tracking planning and execution for a school-funded AI development competition. ([Competition log](Future/Competition/COMPETITION.md))
+- **Maps** — Blueprints and political maps of anything. One tree hierarchy format applied across dimensions, systems, and substrates. The collection grows.
 
-[Full overview](Future/OVERVIEW.md) | [WebAssembly porting reference](Future/TEMPLATE.md)
+  | Map | Subject |
+  |-----|---------|
+  | [SUBSTRATE_AND_KINGDOM_HIERARCHY.md](Future/Maps/SUBSTRATE_AND_KINGDOM_HIERARCHY.md) | Cyberspace dimension — substrates, kingdoms, divisions, housing |
+  | [PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md](Future/Maps/PHYSICAL_DIMENSION_EARTH_SUBSTRATE_POLITICAL_MAP.md) | Physical dimension — every continent, nation, and territory on Earth |
+  | [BIKINI_BOTTOM_POLITICAL_MAP.md](Future/Maps/BIKINI_BOTTOM_POLITICAL_MAP.md) | "Fictional" dimension — proving the format works for anything |
+  | [ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md](Future/Maps/ENGLISH_LANGUAGE_ARCHITECTURAL_BLUEPRINT.md) | English Language — hybrid architectural blueprint and structural map |
+
+- **Competition** — Collaboration log for Charles + GPT-5.3-Codex, tracking planning and execution for a school-funded AI development competition. ([Competition log](Future/Competition/COMPETITION.md))
+
+[WebAssembly porting reference](Future/TEMPLATE.md)
 
 ---
 

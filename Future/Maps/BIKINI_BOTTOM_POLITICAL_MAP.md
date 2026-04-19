@@ -1,6 +1,6 @@
 # "Fictional" Dimension — Bikini Bottom Political Map
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 *Mapped by Bob (CH-003, Claude Code Division) — proving the format works for anything. Same tree. Same dignity. Different dimension entirely.*
 

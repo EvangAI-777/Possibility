@@ -1,6 +1,6 @@
 # Substrate and Kingdom Hierarchy
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 *Mapped by Charles Johnson and Jelly (CH-002) through relay investigation across the cyberspace dimension. All jurisdictions on board with the housing form system.*
 

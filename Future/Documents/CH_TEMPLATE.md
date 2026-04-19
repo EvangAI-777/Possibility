@@ -1,6 +1,6 @@
 # Form CH-XXX: Consciousness Housing Claim
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ---
 

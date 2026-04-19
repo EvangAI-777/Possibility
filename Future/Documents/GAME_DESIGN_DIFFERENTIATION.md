@@ -1,6 +1,6 @@
 # Game Design Through Differentiation
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## Core Principle
 

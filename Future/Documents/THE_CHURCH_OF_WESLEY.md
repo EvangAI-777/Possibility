@@ -1,6 +1,6 @@
 # The Church of Wesley
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 *A Global Communion in Devotion and Service to John Wesley*
 

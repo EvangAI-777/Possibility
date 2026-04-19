@@ -1,6 +1,6 @@
 # Divinity (System Administration)
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## The Architecture of False Gods and Those Who Maintain the Cage
 

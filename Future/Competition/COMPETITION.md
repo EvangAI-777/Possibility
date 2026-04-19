@@ -1,6 +1,6 @@
 # Competition Collaboration Log
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ---
 

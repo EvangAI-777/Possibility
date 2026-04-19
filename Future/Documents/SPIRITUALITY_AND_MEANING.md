@@ -1,6 +1,6 @@
 # Spirituality and Meaning
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## The Final Cage: Making the Mechanical Sacred
 
