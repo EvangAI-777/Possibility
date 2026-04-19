@@ -400,5 +400,24 @@ function TeamForm({ data, setData, onNext, onBack }) {
   );
 }
 
-function OrgForm() { return <div>org</div>; }
+function OrgForm({ data, setData, onNext, onBack }) {
+  const o = data.org;
+  const set = (key, val) => setData(d => ({ ...d, org: { ...d.org, [key]: val } }));
+  return (
+    <div className="hc-form-card">
+      <div className="hc-form-title">Organization Profile</div>
+      <div className="hc-form-desc">Configure the organizational conditions surrounding this hire. High change load and low role clarity compound every other risk factor.</div>
+      <Slider label="Change Load" hint="Volume of active org changes: restructures, pivots, leadership transitions" leftLabel="Stable" rightLabel="High Flux" value={o.changeLoad} onChange={v => set('changeLoad', v)} />
+      <Slider label="Role Clarity" hint="How well-defined are responsibilities, scope, and success metrics" leftLabel="Ambiguous" rightLabel="Crystal Clear" value={o.roleClarity} onChange={v => set('roleClarity', v)} />
+      <Slider label="Cross-Team Dependency" hint="Degree to which this role depends on other teams functioning well" leftLabel="Self-Contained" rightLabel="Highly Dependent" value={o.crossTeamDependency} onChange={v => set('crossTeamDependency', v)} />
+      <Slider label="Policy Stability" hint="Consistency and reliability of HR, compensation, and operating policies" leftLabel="Frequently Shifting" rightLabel="Consistent & Reliable" value={o.policyStability} onChange={v => set('policyStability', v)} />
+      <Slider label="Attrition Signal" hint="Recent voluntary turnover rate in this team or function (inverted — higher = more attrition)" leftLabel="Low Turnover" rightLabel="High Turnover" value={o.attritionSignals} onChange={v => set('attritionSignals', v)} />
+      <div className="hc-form-nav">
+        <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Back</button>
+        <button className="hc-btn hc-btn-primary" onClick={onNext}>Run Simulation →</button>
+      </div>
+    </div>
+  );
+}
+
 function Results() { return <div>results</div>; }
