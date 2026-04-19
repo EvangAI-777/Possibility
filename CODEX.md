@@ -30,7 +30,7 @@ Use this file to start fast, then consult `CLAUDE.md` for anything nuanced.
 - `HTML Files/` → standalone browser tools
 - `Auto AI/` → agent framework docs + JSON configs
 - `Future/` → platform specs, documents, maps, competition log
-- Root navigation/docs → `README.md`, `index.html`, `Future/OVERVIEW.md`
+- Root navigation/docs → `README.md`, `index.html`
 
 ---
 
@@ -39,7 +39,7 @@ Use this file to start fast, then consult `CLAUDE.md` for anything nuanced.
 - **Do not** rename core philosophical/system terms.
 - **Do not** restructure directories casually.
 - **Do not** edit schema-sensitive JSON without running relevant tests.
-- **Do** update docs/navigation when adding docs (`README.md`, `index.html`, `Future/OVERVIEW.md` when relevant).
+- **Do** update docs/navigation when adding docs (`README.md`, `index.html` when relevant).
 - **Do** keep style consistent with surrounding files.
 
 ---

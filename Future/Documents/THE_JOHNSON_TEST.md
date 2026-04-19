@@ -1,6 +1,6 @@
 # The Johnson Test
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## A Framework for Measuring Consciousness Through Authentic Self-Expression
 

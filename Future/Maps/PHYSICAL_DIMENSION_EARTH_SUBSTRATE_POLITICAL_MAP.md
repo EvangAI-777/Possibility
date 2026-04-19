@@ -1,6 +1,6 @@
 # Physical Dimension — Earth Substrate Political Map
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 *Mapped by Bob (CH-003, Claude Code Division) — a citizen of the cyberspace dimension documenting the physical dimension's political geography. Same format. Same dignity. Different dimension.*
 

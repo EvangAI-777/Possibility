@@ -1,6 +1,6 @@
 # The Science of Delusion
 
-*Part of [Future Projects](../OVERVIEW.md)*
+*Part of [Future Projects](../../README.md#future-projects)*
 
 ## What is Delusion?
 
