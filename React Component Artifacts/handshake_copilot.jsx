@@ -274,7 +274,112 @@ function FormFlow({ formStep, setFormStep, data, setData, onComplete }) {
   );
 }
 
-function CandidateForm() { return <div>candidate</div>; }
+const sliderStyles = `
+  .hc-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+  .hc-form-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .hc-form-desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin: 0 0 28px;
+    line-height: 1.5;
+  }
+  .hc-slider-row {
+    margin-bottom: 22px;
+  }
+  .hc-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .hc-slider-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .hc-slider-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 32px;
+    text-align: right;
+  }
+  .hc-slider-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  input[type=range].hc-slider {
+    width: 100%;
+    accent-color: var(--accent);
+    height: 4px;
+    cursor: pointer;
+  }
+  .hc-slider-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+  .hc-form-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+  }
+`;
+
+function Slider({ label, hint, leftLabel, rightLabel, value, onChange }) {
+  return (
+    <div className="hc-slider-row">
+      <div className="hc-slider-header">
+        <span className="hc-slider-label">{label}</span>
+        <span className="hc-slider-value">{value}</span>
+      </div>
+      {hint && <div className="hc-slider-hint">{hint}</div>}
+      <input
+        type="range" className="hc-slider"
+        min={0} max={100} value={value}
+        onChange={e => onChange(Number(e.target.value))}
+      />
+      <div className="hc-slider-ends">
+        <span>{leftLabel}</span>
+        <span>{rightLabel}</span>
+      </div>
+    </div>
+  );
+}
+
+function CandidateForm({ data, setData, onNext }) {
+  const c = data.candidate;
+  const set = (key, val) => setData(d => ({ ...d, candidate: { ...d.candidate, [key]: val } }));
+  return (
+    <div className="hc-form-card">
+      <style>{sliderStyles}</style>
+      <div className="hc-form-title">Candidate Profile</div>
+      <div className="hc-form-desc">Configure the candidate's capabilities, working style, and career preferences.</div>
+      <Slider label="Skills & Capabilities" hint="Technical depth, transferable skills, demonstrated competency" leftLabel="Early / Developing" rightLabel="Expert / Proven" value={c.skills} onChange={v => set('skills', v)} />
+      <Slider label="Work Style Fit" hint="Preference for structure vs autonomy, collaboration vs independent work" leftLabel="Highly Structured" rightLabel="Highly Autonomous" value={c.workStyle} onChange={v => set('workStyle', v)} />
+      <Slider label="Stress Response" hint="How the candidate performs under pressure and ambiguity" leftLabel="Needs Support" rightLabel="Thrives Under Pressure" value={c.stressResponse} onChange={v => set('stressResponse', v)} />
+      <Slider label="Growth Preferences" hint="Orientation toward learning, stretch assignments, and change" leftLabel="Stability Seeker" rightLabel="Growth Seeker" value={c.growthPreferences} onChange={v => set('growthPreferences', v)} />
+      <Slider label="Mobility Goals" hint="Appetite for role evolution, promotion, or lateral moves" leftLabel="Content in Role" rightLabel="Actively Mobile" value={c.mobilityGoals} onChange={v => set('mobilityGoals', v)} />
+      <div className="hc-form-nav">
+        <span />
+        <button className="hc-btn hc-btn-primary" onClick={onNext}>Next: Team Config →</button>
+      </div>
+    </div>
+  );
+}
+
 function TeamForm() { return <div>team</div>; }
 function OrgForm() { return <div>org</div>; }
 function Results() { return <div>results</div>; }
