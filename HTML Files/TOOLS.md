@@ -142,6 +142,43 @@ Open in any browser. No backend. marked.js and highlight.js loaded from CDN.
 
 ---
 
+## `handshake_copilot.html`
+
+Handshake Enterprise Copilot — hiring decisions as version-control consequence modeling. Competition demo (v0.1).
+
+Open in any browser. No backend. React 18 + Babel Standalone loaded from CDN.
+
+**How it works:**
+1. Open the page — choose a preset scenario or click "Run a Simulation"
+2. Step through Candidate → Team → Org sliders (15 parameters across three domains)
+3. Click "Run Simulation" to see scored results
+4. Review the Intervention Pull Request with prioritized recommendations
+
+**Three preset scenarios (one-click):**
+- **Great Candidate, Weak Floor** — strong hire, broken team substrate. Watch stability collapse.
+- **Average Candidate, Strong Floor** — moderate skills, solid manager. Floor rescues the outcome.
+- **High Conflict Reorg** — post-merger chaos. Everything is red. See the full intervention list.
+
+**Scoring model:**
+- `overall_stability = candidate_fit × (team_floor / 100) × (org_alignment / 100)`
+- `merge_conflict_risk = 100 − overall_stability + conflict_penalties`
+- Conflict penalties triggered by: team floor < 50, org alignment < 50, high attrition (> 70), high change load (> 70)
+
+**Results output:**
+- Four score cards: Candidate Fit, Team Floor, Org Alignment, Overall Stability
+- Merge Conflict Risk gauge with penalty breakdown
+- Verdict banner: Merge Approved / Merge with Conditions / High Conflict Risk
+- Top 3 positive factors and top 3 conflict factors
+- Intervention Pull Request: typed, prioritized action items with expected deltas
+
+**Tech:**
+- Single HTML file, React 18 + Babel Standalone via CDN
+- All CSS inline via JS template literals (matches project color palette)
+- Mobile responsive (grid collapses at 600px)
+- No local dependencies, no API key required
+
+---
+
 ## `JASON.html`
 
 JASON — JSON Explorer. Upload any `.json` file and navigate its structure as a collapsible tree with search, path tracking, and syntax highlighting.
