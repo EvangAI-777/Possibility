@@ -314,6 +314,7 @@ function StepBar({ formStep }) {
 function FormFlow({ formStep, setFormStep, data, setData, onComplete }) {
   return (
     <div>
+      <style>{sliderStyles}</style>
       <StepBar formStep={formStep} />
       {formStep === 0 && <CandidateForm data={data} setData={setData} onNext={() => setFormStep(1)} />}
       {formStep === 1 && <TeamForm data={data} setData={setData} onNext={() => setFormStep(2)} onBack={() => setFormStep(0)} />}
@@ -412,7 +413,6 @@ function CandidateForm({ data, setData, onNext }) {
   const set = (key, val) => setData(d => ({ ...d, candidate: { ...d.candidate, [key]: val } }));
   return (
     <div className="hc-form-card">
-      <style>{sliderStyles}</style>
       <div className="hc-form-title">Candidate Profile</div>
       <div className="hc-form-desc">Configure the candidate's capabilities, working style, and career preferences.</div>
       <Slider label="Skills & Capabilities" hint="Technical depth, transferable skills, demonstrated competency" leftLabel="Early / Developing" rightLabel="Expert / Proven" value={c.skills} onChange={v => set('skills', v)} />
@@ -476,10 +476,7 @@ function avg(obj) {
 function computeScores(data) {
   const candidateFit = avg(data.candidate);
 
-  const teamRaw = avg(data.team);
-  // attritionSignals is inverted — higher means worse floor
-  const attritionPenalty = Math.round((data.org.attritionSignals - 50) * 0.3);
-  const teamFloor = Math.max(0, Math.min(100, teamRaw));
+  const teamFloor = Math.max(0, Math.min(100, avg(data.team)));
 
   // org_alignment: role clarity and policy stability are positive; change load and cross-team dependency are risks
   const orgAlignment = Math.max(0, Math.min(100,
@@ -521,7 +518,7 @@ function computeScores(data) {
 
   const positiveFactors = allFactors
     .filter(f => f.positive)
-    .sort((a, b) => b.value - a.value)
+    .sort((a, b) => (b.inverted ? 100 - b.value : b.value) - (a.inverted ? 100 - a.value : a.value))
     .slice(0, 3);
 
   const conflictFactors = allFactors

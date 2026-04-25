@@ -705,7 +705,7 @@
         { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40, inverted: true },
         { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35, inverted: true },
       ];
-      const positiveFactors = allFactors.filter(f => f.positive).sort((a, b) => b.value - a.value).slice(0, 3);
+      const positiveFactors = allFactors.filter(f => f.positive).sort((a, b) => (b.inverted ? 100 - b.value : b.value) - (a.inverted ? 100 - a.value : a.value)).slice(0, 3);
       const conflictFactors = allFactors.filter(f => !f.positive)
         .sort((a, b) => (b.inverted ? b.value : 100 - b.value) - (a.inverted ? a.value : 100 - a.value))
         .slice(0, 3);
