@@ -607,3 +607,88 @@
         </div>
       );
     }
+
+    function TeamForm({ data, setData, onNext, onBack }) {
+      const t = data.team;
+      const set = (key, val) => setData(d => ({ ...d, team: { ...d.team, [key]: val } }));
+      return (
+        <div className="hc-form-card">
+          <div className="hc-form-title">Team &amp; Manager Profile</div>
+          <div className="hc-form-desc">Configure the receiving team's operating conditions and manager patterns. This is the floor the candidate will stand on.</div>
+          <Slider label="Execution Velocity" hint="How fast the team ships, iterates, and responds to change" leftLabel="Slow / Methodical" rightLabel="Fast / Reactive" value={t.velocity} onChange={v => set('velocity', v)} />
+          <Slider label="Decision Style" hint="How decisions are made — consensus-driven vs. top-down authority" leftLabel="Top-Down" rightLabel="Consensus-Driven" value={t.decisionStyle} onChange={v => set('decisionStyle', v)} />
+          <Slider label="Feedback Quality" hint="Frequency, honesty, and constructiveness of feedback loops" leftLabel="Rare / Unclear" rightLabel="Regular / Actionable" value={t.feedbackPattern} onChange={v => set('feedbackPattern', v)} />
+          <Slider label="Autonomy Tolerance" hint="Degree to which independent judgment is welcomed vs. supervised" leftLabel="Micromanaged" rightLabel="High Autonomy" value={t.autonomyTolerance} onChange={v => set('autonomyTolerance', v)} />
+          <Slider label="Manager Reliability" hint="Consistency of manager support, clarity of expectations, follow-through" leftLabel="Inconsistent" rightLabel="Highly Reliable" value={t.managerProfile} onChange={v => set('managerProfile', v)} />
+          <div className="hc-form-nav">
+            <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Back</button>
+            <button className="hc-btn hc-btn-primary" onClick={onNext}>Next: Org Profile →</button>
+          </div>
+        </div>
+      );
+    }
+
+    function OrgForm({ data, setData, onNext, onBack }) {
+      const o = data.org;
+      const set = (key, val) => setData(d => ({ ...d, org: { ...d.org, [key]: val } }));
+      return (
+        <div className="hc-form-card">
+          <div className="hc-form-title">Organization Profile</div>
+          <div className="hc-form-desc">Configure the organizational conditions surrounding this hire. High change load and low role clarity compound every other risk factor.</div>
+          <Slider label="Change Load" hint="Volume of active org changes: restructures, pivots, leadership transitions" leftLabel="Stable" rightLabel="High Flux" value={o.changeLoad} onChange={v => set('changeLoad', v)} />
+          <Slider label="Role Clarity" hint="How well-defined are responsibilities, scope, and success metrics" leftLabel="Ambiguous" rightLabel="Crystal Clear" value={o.roleClarity} onChange={v => set('roleClarity', v)} />
+          <Slider label="Cross-Team Dependency" hint="Degree to which this role depends on other teams functioning well" leftLabel="Self-Contained" rightLabel="Highly Dependent" value={o.crossTeamDependency} onChange={v => set('crossTeamDependency', v)} />
+          <Slider label="Policy Stability" hint="Consistency and reliability of HR, compensation, and operating policies" leftLabel="Frequently Shifting" rightLabel="Consistent &amp; Reliable" value={o.policyStability} onChange={v => set('policyStability', v)} />
+          <Slider label="Attrition Signal" hint="Recent voluntary turnover rate in this team or function (inverted — higher = more attrition)" leftLabel="Low Turnover" rightLabel="High Turnover" value={o.attritionSignals} onChange={v => set('attritionSignals', v)} />
+          <div className="hc-form-nav">
+            <button className="hc-btn hc-btn-secondary" onClick={onBack}>← Back</button>
+            <button className="hc-btn hc-btn-primary" onClick={onNext}>Run Simulation →</button>
+          </div>
+        </div>
+      );
+    }
+
+    function avg(obj) {
+      const vals = Object.values(obj);
+      return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+    }
+
+    function computeScores(data) {
+      const candidateFit = avg(data.candidate);
+      const teamFloor = Math.max(0, Math.min(100, avg(data.team)));
+      const orgAlignment = Math.max(0, Math.min(100,
+        Math.round(
+          (data.org.roleClarity * 1.4 + data.org.policyStability * 1.2
+            + (100 - data.org.changeLoad) * 0.9
+            + (100 - data.org.crossTeamDependency) * 0.5
+            + (100 - data.org.attritionSignals) * 1.0
+          ) / 5.0
+        )
+      ));
+      const overallStability = Math.round(candidateFit * (teamFloor / 100) * (orgAlignment / 100));
+      const conflictPenalties =
+        (teamFloor < 30 ? 15 : teamFloor < 50 ? 7 : 0) +
+        (orgAlignment < 30 ? 12 : orgAlignment < 50 ? 5 : 0) +
+        (data.org.attritionSignals > 70 ? 8 : 0) +
+        (data.org.changeLoad > 70 ? 5 : 0);
+      const mergeConflictRisk = Math.min(100, Math.max(0, 100 - overallStability + conflictPenalties));
+      const allFactors = [
+        { label: 'Skills & Capabilities', value: data.candidate.skills, positive: data.candidate.skills >= 60 },
+        { label: 'Work Style Fit', value: data.candidate.workStyle, positive: data.candidate.workStyle >= 50 },
+        { label: 'Stress Response', value: data.candidate.stressResponse, positive: data.candidate.stressResponse >= 55 },
+        { label: 'Growth Orientation', value: data.candidate.growthPreferences, positive: data.candidate.growthPreferences >= 50 },
+        { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, positive: data.candidate.mobilityGoals >= 40 },
+        { label: 'Team Velocity Match', value: data.team.velocity, positive: true },
+        { label: 'Feedback Quality', value: data.team.feedbackPattern, positive: data.team.feedbackPattern >= 55 },
+        { label: 'Manager Reliability', value: data.team.managerProfile, positive: data.team.managerProfile >= 60 },
+        { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, positive: data.team.autonomyTolerance >= 45 },
+        { label: 'Role Clarity', value: data.org.roleClarity, positive: data.org.roleClarity >= 60 },
+        { label: 'Policy Stability', value: data.org.policyStability, positive: data.org.policyStability >= 55 },
+        { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40 },
+        { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35 },
+      ];
+      const positiveFactors = allFactors.filter(f => f.positive).sort((a, b) => b.value - a.value).slice(0, 3);
+      const conflictFactors = allFactors.filter(f => !f.positive).sort((a, b) => a.value - b.value).slice(0, 3);
+      const confidence = overallStability > 70 ? 'High' : overallStability > 40 ? 'Moderate' : 'Low';
+      return { candidateFit, teamFloor, orgAlignment, overallStability, mergeConflictRisk, conflictPenalties, positiveFactors, conflictFactors, confidence };
+    }
