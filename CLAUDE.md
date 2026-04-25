@@ -765,6 +765,7 @@ Possibility/
 │   ├── JASON.html                   → JSON explorer & tree viewer
 │   ├── periodic-table-of-meaning.html
 │   ├── compound_interest_explainer.html
+│   ├── handshake_copilot.html       → Handshake Enterprise Copilot (competition demo)
 │   └── TOOLS.md                     → HTML tool documentation
 ├── Future/                          → Specs, roadmaps, and desktop release plans
 │   ├── Audacious/AUDACIOUS.md       → Audacity-in-browser WebAssembly spec
