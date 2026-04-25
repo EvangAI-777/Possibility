@@ -702,11 +702,13 @@
         { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, positive: data.team.autonomyTolerance >= 45 },
         { label: 'Role Clarity', value: data.org.roleClarity, positive: data.org.roleClarity >= 60 },
         { label: 'Policy Stability', value: data.org.policyStability, positive: data.org.policyStability >= 55 },
-        { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40 },
-        { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35 },
+        { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40, inverted: true },
+        { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35, inverted: true },
       ];
       const positiveFactors = allFactors.filter(f => f.positive).sort((a, b) => b.value - a.value).slice(0, 3);
-      const conflictFactors = allFactors.filter(f => !f.positive).sort((a, b) => a.value - b.value).slice(0, 3);
+      const conflictFactors = allFactors.filter(f => !f.positive)
+        .sort((a, b) => (b.inverted ? b.value : 100 - b.value) - (a.inverted ? a.value : 100 - a.value))
+        .slice(0, 3);
       const confidence = overallStability > 70 ? 'High' : overallStability > 40 ? 'Moderate' : 'Low';
       return { candidateFit, teamFloor, orgAlignment, overallStability, mergeConflictRisk, conflictPenalties, positiveFactors, conflictFactors, confidence };
     }

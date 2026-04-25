@@ -515,8 +515,8 @@ function computeScores(data) {
     { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, domain: 'team', positive: data.team.autonomyTolerance >= 45 },
     { label: 'Role Clarity', value: data.org.roleClarity, domain: 'org', positive: data.org.roleClarity >= 60 },
     { label: 'Policy Stability', value: data.org.policyStability, domain: 'org', positive: data.org.policyStability >= 55 },
-    { label: 'Change Load', value: data.org.changeLoad, domain: 'org', positive: data.org.changeLoad <= 40 },
-    { label: 'Attrition Signal', value: data.org.attritionSignals, domain: 'org', positive: data.org.attritionSignals <= 35 },
+    { label: 'Change Load', value: data.org.changeLoad, domain: 'org', positive: data.org.changeLoad <= 40, inverted: true },
+    { label: 'Attrition Signal', value: data.org.attritionSignals, domain: 'org', positive: data.org.attritionSignals <= 35, inverted: true },
   ];
 
   const positiveFactors = allFactors
@@ -526,7 +526,7 @@ function computeScores(data) {
 
   const conflictFactors = allFactors
     .filter(f => !f.positive)
-    .sort((a, b) => a.value - b.value)
+    .sort((a, b) => (b.inverted ? b.value : 100 - b.value) - (a.inverted ? a.value : 100 - a.value))
     .slice(0, 3);
 
   const confidence = overallStability > 70 ? 'High' : overallStability > 40 ? 'Moderate' : 'Low';

@@ -360,7 +360,9 @@ Four deployment paths were evaluated:
 - [x] Works in private/incognito browser
 - [ ] "What to click in 60 seconds" — provide in submission message
 
-**Bug fix (Codex review):** After the initial GitHub Pages deployment, GPT-5.3-Codex reviewed the diff and flagged a P2 styling bug: `sliderStyles` was injected only inside `CandidateForm`, so when that component unmounts on Next, the `<style>` node is removed — leaving `TeamForm` and `OrgForm` without their `.hc-form-card` and `.hc-slider*` CSS. Fix: move `<style>{sliderStyles}</style>` to `FormFlow` (persistent across all three steps). Implemented by Claude Code.
+**Bug fix — P1 (Codex review):** GPT-5.3-Codex flagged a correctness bug in `computeScores`: `conflictFactors` was sorted by raw value ascending, but Change Load and Attrition Signal are "high-is-bad" metrics — a value of 92 sorts to the bottom and gets omitted from "Top Conflict Factors," producing misleading diagnostics and wrong intervention focus. Fix: added `inverted: true` to those two factors and replaced the sort with a severity-normalized comparator — `(b.inverted ? b.value : 100 - b.value) - (a.inverted ? a.value : 100 - a.value)` — so all conflict factors rank by actual risk severity. Applied to both `handshake_copilot.html` and `handshake_copilot.jsx`. Implemented by Claude Code.
+
+**Bug fix — P2 (Codex review):** After the initial GitHub Pages deployment, GPT-5.3-Codex reviewed the diff and flagged a P2 styling bug: `sliderStyles` was injected only inside `CandidateForm`, so when that component unmounts on Next, the `<style>` node is removed — leaving `TeamForm` and `OrgForm` without their `.hc-form-card` and `.hc-slider*` CSS. Fix: move `<style>{sliderStyles}</style>` to `FormFlow` (persistent across all three steps). Implemented by Claude Code.
 
 **Suggested submission format for judges:**
 
