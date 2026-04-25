@@ -337,6 +337,8 @@ All submission artifacts are complete and committed:
 
 The competition demo is live as a standalone, judge-accessible page via the existing GitHub Pages pipeline — no Vercel account, no separate deployment.
 
+**Origin:** This milestone began with a hosting deliverable document produced by GPT-5.3-Codex, which laid out four deployment options with tradeoffs. Charlie evaluated it carefully and chose Option C (GitHub Pages), then implemented it using Claude Code.
+
 **Option chosen:** GitHub Pages (Option C from the original hosting analysis)
 
 Four deployment paths were evaluated:
