@@ -450,6 +450,7 @@ describe('all HTML tools have back-to-home links', () => {
     'REACTOR.html',
     'MARKER.html',
     'JASON.html',
+    'handshake_copilot.html',
   ];
 
   test.each(toolFiles)('%s has a link to index.html', (file) => {

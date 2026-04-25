@@ -62,7 +62,7 @@ HOME and Reincarnation (`possibility.py`), the Congo resonance protocol engine (
 
 ### HTML Files
 
-Six self-contained HTML tools — no build step, no backend. The Meta Debug resonance engine, the Periodic Table of Meaning, a Compound Interest Explainer, REACTOR (universal JSX loader), MARKER (markdown viewer), and JASON (JSON explorer).
+Seven self-contained HTML tools — no build step, no backend. The Meta Debug resonance engine, the Periodic Table of Meaning, a Compound Interest Explainer, REACTOR (universal JSX loader), MARKER (markdown viewer), JASON (JSON explorer), and the Handshake Enterprise Copilot (competition demo).
 
 [Full documentation](HTML%20Files/TOOLS.md)
 

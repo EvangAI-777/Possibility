@@ -331,4 +331,40 @@ All submission artifacts are complete and committed:
 
 ---
 
+### Milestone 5 — Live Deployment (GitHub Pages)
+
+**Status:** Complete
+
+The competition demo is live as a standalone, judge-accessible page via the existing GitHub Pages pipeline — no Vercel account, no separate deployment.
+
+**Option chosen:** GitHub Pages (Option C from the original hosting analysis)
+
+Four deployment paths were evaluated:
+
+| Option | Platform | Verdict |
+|--------|----------|---------|
+| A | Vercel | Recommended default — fastest setup, cleanest URL |
+| B | Netlify | Same as Vercel, use if preferred |
+| **C** | **GitHub Pages** | **Chosen — already used, no extra accounts needed** |
+| D | StackBlitz/CodeSandbox | Good for quick proof-of-concept, less production-like |
+
+**What was built:** `HTML Files/handshake_copilot.html` — a self-contained, 881-line HTML file embedding the full `handshake_copilot.jsx` component via React 18 + Babel CDN. No build step, no backend, no environment variables required. Deployed automatically on push to main via `.github/workflows/deploy-pages.yml`.
+
+**Judge-ready checklist:**
+
+- [x] One-click preset scenarios on landing page (3 scenarios)
+- [x] Mobile + desktop responsive layout (grid collapses at 600px)
+- [x] No local environment variables required for core demo
+- [x] Works in private/incognito browser
+- [ ] "What to click in 60 seconds" — provide in submission message
+
+**Suggested submission format for judges:**
+
+1. **Live URL** — GitHub Pages URL for `HTML Files/handshake_copilot.html`
+2. **30–60 second click path** — Candidate → Team → Org → Results (or load a preset directly)
+3. **Repo URL** — optional technical appendix
+4. **One-liner:** "Handshake Enterprise Copilot predicts candidate-team-org stability and surfaces merge-conflict risk before hiring costs hit reality."
+
+---
+
 *First established: April 15, 2026.*
