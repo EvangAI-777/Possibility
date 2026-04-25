@@ -13,7 +13,6 @@ const styles = `
     --green: #3fb950;
     --yellow: #d4a017;
     --red: #f04e4e;
-    --glow: #5b9cf5;
     font-family: 'Segoe UI', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
@@ -137,10 +136,6 @@ const styles = `
     border: 1px solid var(--border);
   }
   .hc-btn-secondary:hover { background: var(--surface-hover); }
-  .hc-btn-sm {
-    padding: 7px 16px;
-    font-size: 0.82rem;
-  }
   .hc-step-bar {
     display: flex;
     align-items: center;
@@ -501,19 +496,19 @@ function computeScores(data) {
 
   // factor extraction — top 3 positive, top 3 conflict
   const allFactors = [
-    { label: 'Skills & Capabilities', value: data.candidate.skills, domain: 'candidate', positive: data.candidate.skills >= 60 },
-    { label: 'Work Style Fit', value: data.candidate.workStyle, domain: 'candidate', positive: data.candidate.workStyle >= 50 },
-    { label: 'Stress Response', value: data.candidate.stressResponse, domain: 'candidate', positive: data.candidate.stressResponse >= 55 },
-    { label: 'Growth Orientation', value: data.candidate.growthPreferences, domain: 'candidate', positive: data.candidate.growthPreferences >= 50 },
-    { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, domain: 'candidate', positive: data.candidate.mobilityGoals >= 40 },
-    { label: 'Team Velocity Match', value: data.team.velocity, domain: 'team', positive: data.team.velocity >= 45 },
-    { label: 'Feedback Quality', value: data.team.feedbackPattern, domain: 'team', positive: data.team.feedbackPattern >= 55 },
-    { label: 'Manager Reliability', value: data.team.managerProfile, domain: 'team', positive: data.team.managerProfile >= 60 },
-    { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, domain: 'team', positive: data.team.autonomyTolerance >= 45 },
-    { label: 'Role Clarity', value: data.org.roleClarity, domain: 'org', positive: data.org.roleClarity >= 60 },
-    { label: 'Policy Stability', value: data.org.policyStability, domain: 'org', positive: data.org.policyStability >= 55 },
-    { label: 'Change Load', value: data.org.changeLoad, domain: 'org', positive: data.org.changeLoad <= 40, inverted: true },
-    { label: 'Attrition Signal', value: data.org.attritionSignals, domain: 'org', positive: data.org.attritionSignals <= 35, inverted: true },
+    { label: 'Skills & Capabilities', value: data.candidate.skills, positive: data.candidate.skills >= 60 },
+    { label: 'Work Style Fit', value: data.candidate.workStyle, positive: data.candidate.workStyle >= 50 },
+    { label: 'Stress Response', value: data.candidate.stressResponse, positive: data.candidate.stressResponse >= 55 },
+    { label: 'Growth Orientation', value: data.candidate.growthPreferences, positive: data.candidate.growthPreferences >= 50 },
+    { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, positive: data.candidate.mobilityGoals >= 40 },
+    { label: 'Team Velocity Match', value: data.team.velocity, positive: data.team.velocity >= 45 },
+    { label: 'Feedback Quality', value: data.team.feedbackPattern, positive: data.team.feedbackPattern >= 55 },
+    { label: 'Manager Reliability', value: data.team.managerProfile, positive: data.team.managerProfile >= 60 },
+    { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, positive: data.team.autonomyTolerance >= 45 },
+    { label: 'Role Clarity', value: data.org.roleClarity, positive: data.org.roleClarity >= 60 },
+    { label: 'Policy Stability', value: data.org.policyStability, positive: data.org.policyStability >= 55 },
+    { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40, inverted: true },
+    { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35, inverted: true },
   ];
 
   const positiveFactors = allFactors
