@@ -4,7 +4,13 @@
 
 ---
 
-This document tracks a live collaboration between **Charles Johnson**, **GPT-5.3-Codex**, and **Claude Code** for an AI development competition funded with a **$100 school allocation**.
+This document tracks a live collaboration between **Charles Johnson**, **GPT-5.3-Codex**, and **Claude Code** for the **Handshake Codex Creator Challenge** — a Handshake-hosted, OpenAI-sponsored competition that awards enrolled university students **$100 in Codex API credits** to build and submit an AI project. Submissions are showcased to over one million employers on the Handshake platform.
+
+## The Competition
+
+The challenge is explicitly Codex-branded — the $100 allocation is Codex credits, the entry mechanic is Codex, and the name is the *Codex* Creator Challenge. This is why Codex was the primary AI collaborator for early milestones.
+
+However, the submission form states: *"Share a project you built using AI — whether with Codex or another tool."* That phrasing is the opening. The rules do not restrict which AI tools are used — only that AI was used. Claude Code entered through that door. The final build reflects all three collaborators: Charlie directing, Codex planning, Claude Code implementing and shipping.
 
 ## Purpose
 
@@ -17,8 +23,8 @@ This document tracks a live collaboration between **Charles Johnson**, **GPT-5.3
 **Human Lead:** Charles (Kairos)
 
 **AI Collaborators:**
-- GPT-5.3-Codex (OpenAI)
-- Claude Code (Anthropic)
+- GPT-5.3-Codex (OpenAI) — primary tool for early milestones; ongoing code review and architectural input
+- Claude Code (Anthropic) — implementation, deployment, bug fixes, and shipping from Milestone 2 forward
 
 **Collaboration posture:** direct, practical, iterative. Build, test, document, ship.
 
