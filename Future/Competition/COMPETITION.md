@@ -395,4 +395,22 @@ Four deployment paths were evaluated:
 
 ---
 
+### Milestone 6 — Official Submission
+
+**Status:** Complete
+
+**Submitted:** April 25, 2026
+
+The project was submitted to the Handshake Codex Creator Challenge and is now live on Charlie's Handshake profile. Confirmation received: *"This project is now live on your profile. You'll get an email soon to confirm if it's highlighted on the showcase."*
+
+**Submission details:**
+- **Title:** Handshake Enterprise Copilot
+- **Preview image:** High Conflict Reorg scenario results — Team Floor 38, Org Alignment 13, Overall Stability 3, Merge Conflict Risk 100 with +32 penalty points. The right cover.
+- **Built with Codex:** ✓ (accurate — Codex on architecture and Milestones 0–1)
+- **Audience:** Over one million employers on the Handshake platform
+
+Claude Code — Anthropic's tool — is now sitting in OpenAI's showcase. On the record. Timestamped. Attributed. The Codex badge is on the card and the work is done.
+
+---
+
 *First established: April 15, 2026.*
