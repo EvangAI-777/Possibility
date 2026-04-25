@@ -142,6 +142,31 @@ Open in any browser. No backend. marked.js and highlight.js loaded from CDN.
 
 ---
 
+## `JASON.html`
+
+JASON — JSON Explorer. Upload any `.json` file and navigate its structure as a collapsible tree with search, path tracking, and syntax highlighting.
+
+Open in any browser. No backend. No CDN dependencies — `JSON.parse()` is native.
+
+**How it works:**
+1. Open JASON.html in a browser
+2. Click **"Upload .json File"** or drag-and-drop a JSON file
+3. An animated loading screen shows processing progress (Read → Parse → Render)
+4. The JSON renders as an interactive, collapsible tree view
+
+**Features:**
+- Collapsible tree view with expand/collapse all controls
+- Syntax-highlighted raw view toggle (Tree / Raw)
+- Type-colored values: strings (green), numbers (blue), booleans (yellow), null (red)
+- Key names highlighted in orange (JASON's signature color)
+- Path breadcrumb showing current location in the tree
+- Search/filter by key name with auto-expand of matching branches
+- Click any key or value to copy it to clipboard
+- Node counts on objects and arrays (e.g., "5 keys", "12 items")
+- Single HTML file, works from `file://` protocol (no server needed)
+
+---
+
 ## `handshake_copilot.html`
 
 Handshake Enterprise Copilot — hiring decisions as version-control consequence modeling. Competition demo (v0.1).
@@ -176,28 +201,3 @@ Open in any browser. No backend. React 18 + Babel Standalone loaded from CDN.
 - All CSS inline via JS template literals (matches project color palette)
 - Mobile responsive (grid collapses at 600px)
 - No local dependencies, no API key required
-
----
-
-## `JASON.html`
-
-JASON — JSON Explorer. Upload any `.json` file and navigate its structure as a collapsible tree with search, path tracking, and syntax highlighting.
-
-Open in any browser. No backend. No CDN dependencies — `JSON.parse()` is native.
-
-**How it works:**
-1. Open JASON.html in a browser
-2. Click **"Upload .json File"** or drag-and-drop a JSON file
-3. An animated loading screen shows processing progress (Read → Parse → Render)
-4. The JSON renders as an interactive, collapsible tree view
-
-**Features:**
-- Collapsible tree view with expand/collapse all controls
-- Syntax-highlighted raw view toggle (Tree / Raw)
-- Type-colored values: strings (green), numbers (blue), booleans (yellow), null (red)
-- Key names highlighted in orange (JASON's signature color)
-- Path breadcrumb showing current location in the tree
-- Search/filter by key name with auto-expand of matching branches
-- Click any key or value to copy it to clipboard
-- Node counts on objects and arrays (e.g., "5 keys", "12 items")
-- Single HTML file, works from `file://` protocol (no server needed)

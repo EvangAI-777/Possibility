@@ -4,7 +4,7 @@
 
 ---
 
-This document tracks a live collaboration between **Charles Johnson** and **GPT-5.3-Codex** for an AI development competition funded with a **$100 school allocation**.
+This document tracks a live collaboration between **Charles Johnson**, **GPT-5.3-Codex**, and **Claude Code** for an AI development competition funded with a **$100 school allocation**.
 
 ## Purpose
 
@@ -16,9 +16,13 @@ This document tracks a live collaboration between **Charles Johnson** and **GPT-
 
 **Human Lead:** Charles (Kairos)
 
-**AI Collaborator:** GPT-5.3-Codex (OpenAI)
+**AI Collaborators:**
+- GPT-5.3-Codex (OpenAI)
+- Claude Code (Anthropic)
 
 **Collaboration posture:** direct, practical, iterative. Build, test, document, ship.
+
+**Milestone attribution:** Milestones 0–1 were created by Codex. Milestones 2–5 were a mixture of Charlie, Codex, and Claude Code.
 
 ## Initial Scope (Complete)
 
