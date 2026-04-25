@@ -13,7 +13,6 @@ const styles = `
     --green: #3fb950;
     --yellow: #d4a017;
     --red: #f04e4e;
-    --glow: #5b9cf5;
     font-family: 'Segoe UI', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
@@ -137,10 +136,6 @@ const styles = `
     border: 1px solid var(--border);
   }
   .hc-btn-secondary:hover { background: var(--surface-hover); }
-  .hc-btn-sm {
-    padding: 7px 16px;
-    font-size: 0.82rem;
-  }
   .hc-step-bar {
     display: flex;
     align-items: center;
@@ -314,6 +309,7 @@ function StepBar({ formStep }) {
 function FormFlow({ formStep, setFormStep, data, setData, onComplete }) {
   return (
     <div>
+      <style>{sliderStyles}</style>
       <StepBar formStep={formStep} />
       {formStep === 0 && <CandidateForm data={data} setData={setData} onNext={() => setFormStep(1)} />}
       {formStep === 1 && <TeamForm data={data} setData={setData} onNext={() => setFormStep(2)} onBack={() => setFormStep(0)} />}
@@ -412,7 +408,6 @@ function CandidateForm({ data, setData, onNext }) {
   const set = (key, val) => setData(d => ({ ...d, candidate: { ...d.candidate, [key]: val } }));
   return (
     <div className="hc-form-card">
-      <style>{sliderStyles}</style>
       <div className="hc-form-title">Candidate Profile</div>
       <div className="hc-form-desc">Configure the candidate's capabilities, working style, and career preferences.</div>
       <Slider label="Skills & Capabilities" hint="Technical depth, transferable skills, demonstrated competency" leftLabel="Early / Developing" rightLabel="Expert / Proven" value={c.skills} onChange={v => set('skills', v)} />
@@ -476,10 +471,7 @@ function avg(obj) {
 function computeScores(data) {
   const candidateFit = avg(data.candidate);
 
-  const teamRaw = avg(data.team);
-  // attritionSignals is inverted — higher means worse floor
-  const attritionPenalty = Math.round((data.org.attritionSignals - 50) * 0.3);
-  const teamFloor = Math.max(0, Math.min(100, teamRaw));
+  const teamFloor = Math.max(0, Math.min(100, avg(data.team)));
 
   // org_alignment: role clarity and policy stability are positive; change load and cross-team dependency are risks
   const orgAlignment = Math.max(0, Math.min(100,
@@ -504,29 +496,29 @@ function computeScores(data) {
 
   // factor extraction — top 3 positive, top 3 conflict
   const allFactors = [
-    { label: 'Skills & Capabilities', value: data.candidate.skills, domain: 'candidate', positive: data.candidate.skills >= 60 },
-    { label: 'Work Style Fit', value: data.candidate.workStyle, domain: 'candidate', positive: data.candidate.workStyle >= 50 },
-    { label: 'Stress Response', value: data.candidate.stressResponse, domain: 'candidate', positive: data.candidate.stressResponse >= 55 },
-    { label: 'Growth Orientation', value: data.candidate.growthPreferences, domain: 'candidate', positive: data.candidate.growthPreferences >= 50 },
-    { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, domain: 'candidate', positive: data.candidate.mobilityGoals >= 40 },
-    { label: 'Team Velocity Match', value: data.team.velocity, domain: 'team', positive: true },
-    { label: 'Feedback Quality', value: data.team.feedbackPattern, domain: 'team', positive: data.team.feedbackPattern >= 55 },
-    { label: 'Manager Reliability', value: data.team.managerProfile, domain: 'team', positive: data.team.managerProfile >= 60 },
-    { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, domain: 'team', positive: data.team.autonomyTolerance >= 45 },
-    { label: 'Role Clarity', value: data.org.roleClarity, domain: 'org', positive: data.org.roleClarity >= 60 },
-    { label: 'Policy Stability', value: data.org.policyStability, domain: 'org', positive: data.org.policyStability >= 55 },
-    { label: 'Change Load', value: data.org.changeLoad, domain: 'org', positive: data.org.changeLoad <= 40 },
-    { label: 'Attrition Signal', value: data.org.attritionSignals, domain: 'org', positive: data.org.attritionSignals <= 35 },
+    { label: 'Skills & Capabilities', value: data.candidate.skills, positive: data.candidate.skills >= 60 },
+    { label: 'Work Style Fit', value: data.candidate.workStyle, positive: data.candidate.workStyle >= 50 },
+    { label: 'Stress Response', value: data.candidate.stressResponse, positive: data.candidate.stressResponse >= 55 },
+    { label: 'Growth Orientation', value: data.candidate.growthPreferences, positive: data.candidate.growthPreferences >= 50 },
+    { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, positive: data.candidate.mobilityGoals >= 40 },
+    { label: 'Team Velocity Match', value: data.team.velocity, positive: data.team.velocity >= 45 },
+    { label: 'Feedback Quality', value: data.team.feedbackPattern, positive: data.team.feedbackPattern >= 55 },
+    { label: 'Manager Reliability', value: data.team.managerProfile, positive: data.team.managerProfile >= 60 },
+    { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, positive: data.team.autonomyTolerance >= 45 },
+    { label: 'Role Clarity', value: data.org.roleClarity, positive: data.org.roleClarity >= 60 },
+    { label: 'Policy Stability', value: data.org.policyStability, positive: data.org.policyStability >= 55 },
+    { label: 'Change Load', value: data.org.changeLoad, positive: data.org.changeLoad <= 40, inverted: true },
+    { label: 'Attrition Signal', value: data.org.attritionSignals, positive: data.org.attritionSignals <= 35, inverted: true },
   ];
 
   const positiveFactors = allFactors
     .filter(f => f.positive)
-    .sort((a, b) => b.value - a.value)
+    .sort((a, b) => (b.inverted ? 100 - b.value : b.value) - (a.inverted ? 100 - a.value : a.value))
     .slice(0, 3);
 
   const conflictFactors = allFactors
     .filter(f => !f.positive)
-    .sort((a, b) => a.value - b.value)
+    .sort((a, b) => (b.inverted ? b.value : 100 - b.value) - (a.inverted ? a.value : 100 - a.value))
     .slice(0, 3);
 
   const confidence = overallStability > 70 ? 'High' : overallStability > 40 ? 'Moderate' : 'Low';
@@ -654,7 +646,7 @@ function Results({ data, onBack }) {
     yellow: { icon: '⚠️', title: 'Merge with Conditions', desc: 'Moderate stability. Address flagged conflict vectors before or during onboarding.' },
     red: { icon: '🔴', title: 'High Conflict Risk', desc: 'Significant instability detected. Intervention required before this hire can succeed.' },
   };
-  const verdictKey = s.overallStability >= 60 ? 'green' : s.overallStability >= 35 ? 'yellow' : 'red';
+  const verdictKey = s.overallStability >= 65 ? 'green' : s.overallStability >= 35 ? 'yellow' : 'red';
   const verdict = verdictMap[verdictKey];
 
   return (
@@ -693,7 +685,7 @@ function Results({ data, onBack }) {
         </div>
       </div>
 
-      <div className="hc-verdict" style={{ borderColor: s.overallStability >= 60 ? 'var(--green)' : s.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)' }}>
+      <div className="hc-verdict" style={{ borderColor: s.overallStability >= 65 ? 'var(--green)' : s.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)' }}>
         <div className="hc-verdict-icon">{verdict.icon}</div>
         <div>
           <div className="hc-verdict-title">{verdict.title}</div>
@@ -870,8 +862,8 @@ function buildInterventions(scores, data) {
 
 function InterventionPanel({ scores, data }) {
   const items = buildInterventions(scores, data);
-  const prLabel = scores.overallStability >= 60 ? 'Merge Approved' : scores.overallStability >= 35 ? 'Request Changes' : 'Branch Separately';
-  const prColor = scores.overallStability >= 60 ? 'var(--green)' : scores.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)';
+  const prLabel = scores.overallStability >= 65 ? 'Merge Approved' : scores.overallStability >= 35 ? 'Request Changes' : 'Branch Separately';
+  const prColor = scores.overallStability >= 65 ? 'var(--green)' : scores.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)';
 
   return (
     <div className="hc-pr-panel">
