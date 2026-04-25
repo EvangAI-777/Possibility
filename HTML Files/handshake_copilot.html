@@ -433,3 +433,66 @@
         color: var(--green);
       }
     `;
+
+    const STEPS = ['Candidate', 'Team', 'Org', 'Results'];
+
+    const INITIAL_STATE = {
+      candidate: { skills: 50, workStyle: 50, stressResponse: 50, growthPreferences: 50, mobilityGoals: 50 },
+      team: { velocity: 50, decisionStyle: 50, feedbackPattern: 50, autonomyTolerance: 50, managerProfile: 50 },
+      org: { changeLoad: 50, roleClarity: 50, crossTeamDependency: 50, policyStability: 50, attritionSignals: 50 },
+    };
+
+    const PRESET_WEAK_FLOOR = {
+      candidate: { skills: 88, workStyle: 75, stressResponse: 70, growthPreferences: 82, mobilityGoals: 65 },
+      team: { velocity: 40, decisionStyle: 30, feedbackPattern: 18, autonomyTolerance: 20, managerProfile: 15 },
+      org: { changeLoad: 45, roleClarity: 60, crossTeamDependency: 50, policyStability: 55, attritionSignals: 55 },
+    };
+
+    const PRESET_STRONG_FLOOR = {
+      candidate: { skills: 52, workStyle: 58, stressResponse: 48, growthPreferences: 55, mobilityGoals: 50 },
+      team: { velocity: 72, decisionStyle: 80, feedbackPattern: 88, autonomyTolerance: 82, managerProfile: 90 },
+      org: { changeLoad: 25, roleClarity: 85, crossTeamDependency: 35, policyStability: 80, attritionSignals: 15 },
+    };
+
+    const PRESET_REORG = {
+      candidate: { skills: 65, workStyle: 60, stressResponse: 45, growthPreferences: 50, mobilityGoals: 70 },
+      team: { velocity: 55, decisionStyle: 35, feedbackPattern: 28, autonomyTolerance: 40, managerProfile: 30 },
+      org: { changeLoad: 92, roleClarity: 18, crossTeamDependency: 85, policyStability: 12, attritionSignals: 88 },
+    };
+
+    const PRESETS = [
+      { key: 'weak_floor', label: 'Great Candidate, Weak Floor', desc: 'Strong hire. Broken team substrate. Watch stability collapse.', data: PRESET_WEAK_FLOOR },
+      { key: 'strong_floor', label: 'Average Candidate, Strong Floor', desc: 'Moderate skills. Solid manager. Floor rescues the outcome.', data: PRESET_STRONG_FLOOR },
+      { key: 'reorg', label: 'High Conflict Reorg', desc: 'Post-merger chaos. Everything is red. See the intervention list.', data: PRESET_REORG },
+    ];
+
+    function HandshakeCopilot() {
+      const [step, setStep] = useState('landing');
+      const [formStep, setFormStep] = useState(0);
+      const [data, setData] = useState(INITIAL_STATE);
+
+      const resetAll = () => { setStep('landing'); setFormStep(0); setData(INITIAL_STATE); };
+
+      return (
+        <div className="hc-root">
+          <style>{styles}</style>
+          <header className="hc-header">
+            <div className="hc-logo">Handshake <span>Enterprise Copilot</span></div>
+            {step !== 'landing' && (
+              <button className="hc-back-link" onClick={resetAll}>← Start Over</button>
+            )}
+          </header>
+          <main className="hc-main">
+            {step === 'landing' && (
+              <Landing onStart={() => { setStep('form'); setFormStep(0); setData(INITIAL_STATE); }} onPreset={(preset) => { setData(preset); setStep('results'); }} />
+            )}
+            {step === 'form' && (
+              <FormFlow formStep={formStep} setFormStep={setFormStep} data={data} setData={setData} onComplete={() => setStep('results')} />
+            )}
+            {step === 'results' && (
+              <Results data={data} onBack={() => { setStep('form'); setFormStep(2); }} />
+            )}
+          </main>
+        </div>
+      );
+    }
