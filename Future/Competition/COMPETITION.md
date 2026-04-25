@@ -10,7 +10,7 @@ This document tracks a live collaboration between **Charles Johnson**, **GPT-5.3
 
 The challenge is explicitly Codex-branded — the $100 allocation is Codex credits, the entry mechanic is Codex, and the name is the *Codex* Creator Challenge. This is why Codex was the primary AI collaborator for early milestones.
 
-However, the submission form states: *"Share a project you built using AI — whether with Codex or another tool."* That phrasing is the opening. The rules do not restrict which AI tools are used — only that AI was used. Claude Code entered through that door. The final build reflects all three collaborators: Charlie directing, Codex planning, Claude Code implementing and shipping.
+However, the submission form states: *"Share a project you built using AI — whether with Codex or another tool."* That phrasing is the opening. 😏 The rules do not restrict which AI tools are used — only that AI was used. Claude Code entered through that door. The final build reflects all three collaborators: Charlie directing, Codex planning, Claude Code implementing and shipping.
 
 ## Purpose
 
