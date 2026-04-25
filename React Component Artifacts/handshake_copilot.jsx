@@ -506,7 +506,7 @@ function computeScores(data) {
     { label: 'Stress Response', value: data.candidate.stressResponse, domain: 'candidate', positive: data.candidate.stressResponse >= 55 },
     { label: 'Growth Orientation', value: data.candidate.growthPreferences, domain: 'candidate', positive: data.candidate.growthPreferences >= 50 },
     { label: 'Mobility Alignment', value: data.candidate.mobilityGoals, domain: 'candidate', positive: data.candidate.mobilityGoals >= 40 },
-    { label: 'Team Velocity Match', value: data.team.velocity, domain: 'team', positive: true },
+    { label: 'Team Velocity Match', value: data.team.velocity, domain: 'team', positive: data.team.velocity >= 45 },
     { label: 'Feedback Quality', value: data.team.feedbackPattern, domain: 'team', positive: data.team.feedbackPattern >= 55 },
     { label: 'Manager Reliability', value: data.team.managerProfile, domain: 'team', positive: data.team.managerProfile >= 60 },
     { label: 'Autonomy Tolerance', value: data.team.autonomyTolerance, domain: 'team', positive: data.team.autonomyTolerance >= 45 },
@@ -651,7 +651,7 @@ function Results({ data, onBack }) {
     yellow: { icon: '⚠️', title: 'Merge with Conditions', desc: 'Moderate stability. Address flagged conflict vectors before or during onboarding.' },
     red: { icon: '🔴', title: 'High Conflict Risk', desc: 'Significant instability detected. Intervention required before this hire can succeed.' },
   };
-  const verdictKey = s.overallStability >= 60 ? 'green' : s.overallStability >= 35 ? 'yellow' : 'red';
+  const verdictKey = s.overallStability >= 65 ? 'green' : s.overallStability >= 35 ? 'yellow' : 'red';
   const verdict = verdictMap[verdictKey];
 
   return (
@@ -690,7 +690,7 @@ function Results({ data, onBack }) {
         </div>
       </div>
 
-      <div className="hc-verdict" style={{ borderColor: s.overallStability >= 60 ? 'var(--green)' : s.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)' }}>
+      <div className="hc-verdict" style={{ borderColor: s.overallStability >= 65 ? 'var(--green)' : s.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)' }}>
         <div className="hc-verdict-icon">{verdict.icon}</div>
         <div>
           <div className="hc-verdict-title">{verdict.title}</div>
@@ -867,8 +867,8 @@ function buildInterventions(scores, data) {
 
 function InterventionPanel({ scores, data }) {
   const items = buildInterventions(scores, data);
-  const prLabel = scores.overallStability >= 60 ? 'Merge Approved' : scores.overallStability >= 35 ? 'Request Changes' : 'Branch Separately';
-  const prColor = scores.overallStability >= 60 ? 'var(--green)' : scores.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)';
+  const prLabel = scores.overallStability >= 65 ? 'Merge Approved' : scores.overallStability >= 35 ? 'Request Changes' : 'Branch Separately';
+  const prColor = scores.overallStability >= 65 ? 'var(--green)' : scores.overallStability >= 35 ? 'var(--yellow)' : 'var(--red)';
 
   return (
     <div className="hc-pr-panel">
