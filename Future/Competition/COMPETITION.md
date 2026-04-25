@@ -360,6 +360,8 @@ Four deployment paths were evaluated:
 - [x] Works in private/incognito browser
 - [ ] "What to click in 60 seconds" — provide in submission message
 
+**Bug fix (Codex review):** After the initial GitHub Pages deployment, GPT-5.3-Codex reviewed the diff and flagged a P2 styling bug: `sliderStyles` was injected only inside `CandidateForm`, so when that component unmounts on Next, the `<style>` node is removed — leaving `TeamForm` and `OrgForm` without their `.hc-form-card` and `.hc-slider*` CSS. Fix: move `<style>{sliderStyles}</style>` to `FormFlow` (persistent across all three steps). Implemented by Claude Code.
+
 **Suggested submission format for judges:**
 
 1. **Live URL** — GitHub Pages URL for `HTML Files/handshake_copilot.html`
